@@ -29,7 +29,7 @@
     </parent>
 
     <groupId>org.onap.policy.distribution</groupId>
-    <artifactId>distribution</artifactId>
+    <artifactId>policy-distribution</artifactId>
     <version>2.0.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
