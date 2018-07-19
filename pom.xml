@@ -37,6 +37,9 @@
     <description>Code that implements our integration with SDC service distribution API.</description>
 
     <modules>
+        <module>main</module>
+        <module>reception</module>
+        <module>forwarding</module>
     </modules>
 
     <distributionManagement>
