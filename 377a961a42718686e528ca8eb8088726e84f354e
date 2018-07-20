@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da7095c5_c8e33732",
+        "filename": "forwarding/forwarding-pap/forwarding-pap-standalone/reception-decoding-pdpx/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-07-20T09:38:06Z",
+      "side": 1,
+      "message": "Is this reception-decoding module supposed to be here in the forwarding module?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 52
+      },
+      "revId": "377a961a42718686e528ca8eb8088726e84f354e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da7095c5_e8c39b88",
+        "filename": "reception/reception-decoding/reception-decoding-pdpd/reception-decoding-pdpx/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-07-20T09:38:06Z",
+      "side": 1,
+      "message": "Is this pdpx module supposed to be here in the pdpd module?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 52
+      },
+      "revId": "377a961a42718686e528ca8eb8088726e84f354e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
