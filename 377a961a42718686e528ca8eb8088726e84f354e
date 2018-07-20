@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "da7095c5_e8715b78",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-07-20T09:53:35Z",
+      "side": 1,
+      "message": "From a policy framework point of view, and the purpose this component fulfils for the framework, is policy-distribution an accurate name? From an overall policy framework point of view, the purpose of this component is to receive policies into the policy framework, whereas the name policy-distribution perhaps implies its purpose is to distribute out from, or within the policy framework",
+      "range": {
+        "startLine": 36,
+        "startChar": 5,
+        "endLine": 36,
+        "endChar": 35
+      },
+      "revId": "377a961a42718686e528ca8eb8088726e84f354e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da7095c5_e8c39b88",
         "filename": "reception/reception-decoding/reception-decoding-pdpd/reception-decoding-pdpx/pom.xml",
         "patchSetId": 2
