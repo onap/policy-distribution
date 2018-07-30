@@ -26,14 +26,8 @@
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.onap.policy.distribution.forwarding</groupId>
     <artifactId>forwarding</artifactId>
-    <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
     <description>The module of Policy Distribution that forwards policies to other components.</description>
-
-    <modules>
-        <module>forwarding-pap</module>
-    </modules>
 </project>
