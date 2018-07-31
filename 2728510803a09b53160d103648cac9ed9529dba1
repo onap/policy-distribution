@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a6a9dd7_31f3400c",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionCommandLineArguments.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-31T12:48:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a6a9dd7_e6f7508b",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 40
+      },
+      "revId": "2728510803a09b53160d103648cac9ed9529dba1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a6a9dd7_f1ae28e7",
         "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionCommandLineArguments.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-31T12:26:45Z",
       "side": 1,
       "message": "You are losing the information in the original exception here making it difficult to see what the error was",
+      "range": {
+        "startLine": 95,
+        "startChar": 11,
+        "endLine": 95,
+        "endChar": 106
+      },
+      "revId": "2728510803a09b53160d103648cac9ed9529dba1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a6a9dd7_51f834e5",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionCommandLineArguments.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-07-31T12:48:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a6a9dd7_f1ae28e7",
       "range": {
         "startLine": 95,
         "startChar": 11,
