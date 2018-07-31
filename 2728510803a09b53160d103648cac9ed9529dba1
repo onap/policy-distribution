@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a6a9dd7_e6f7508b",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionCommandLineArguments.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-07-31T10:39:47Z",
+      "side": 1,
+      "message": "Remove if not needed",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 40
+      },
+      "revId": "2728510803a09b53160d103648cac9ed9529dba1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
