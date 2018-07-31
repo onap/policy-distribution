@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a6a9dd7_318340ce",
+        "filename": "plugins/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-07-31T14:17:29Z",
+      "side": 1,
+      "message": "Spelling?",
+      "range": {
+        "startLine": 32,
+        "startChar": 74,
+        "endLine": 32,
+        "endChar": 81
+      },
+      "revId": "0546ad19395c5a1f0f2938096944b4e69e6b942a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
