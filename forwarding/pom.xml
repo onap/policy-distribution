@@ -30,4 +30,12 @@
 
     <name>${project.artifactId}</name>
     <description>The module of Policy Distribution that forwards policies to other components.</description>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.onap.policy.distribution</groupId>
+            <artifactId>distribution-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

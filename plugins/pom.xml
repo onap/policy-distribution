@@ -29,6 +29,11 @@
     <artifactId>plugins</artifactId>
     
     <name>${project.artifactId}</name>
-    <description>The module of Policy Distribution that holds plugins for custom policy reception and forwarding.</description>
+    <description>The module of Policy Distribution that holds plugins for icustom policy reception and forwarding.</description>
     <packaging>pom</packaging>
+    
+    <modules>
+        <module>forwarding-plugins</module>
+        <module>reception-plugins</module>
+    </modules>
 </project>
