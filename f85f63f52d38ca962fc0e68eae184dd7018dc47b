@@ -22,6 +22,30 @@
       "revId": "f85f63f52d38ca962fc0e68eae184dd7018dc47b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_9f657647",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PdpxPolicy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-08-02T14:34:59Z",
+      "side": 1,
+      "message": "Yeah - some of these model types are going to be needed for the api work. We were contemplating that yesterday.",
+      "parentUuid": "1a76adc5_bf763205",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "f85f63f52d38ca962fc0e68eae184dd7018dc47b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
