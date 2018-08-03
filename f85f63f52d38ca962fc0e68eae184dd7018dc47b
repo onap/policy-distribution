@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a76adc5_0bdda870",
+        "filename": "model/src/main/java/org/onap/policy/distribution/model/Csar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-03T09:11:03Z",
+      "side": 1,
+      "message": "this class is too simple to represent the CSAR. \nthe CSAR will be automatically downloaded to the configurable place by concatate the setting of policy and the artifact name shown in Iartifact interface of SDC.",
+      "revId": "f85f63f52d38ca962fc0e68eae184dd7018dc47b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_0bc4c890",
+        "filename": "model/src/main/java/org/onap/policy/distribution/model/Tosca.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-03T09:11:03Z",
+      "side": 1,
+      "message": "this class is too simple to represent the TOSCA.  \nit should at least include below:\n    Metadata serviceMetadata;\n    private Service catalogService;\n    ISdcCsarHelper sdcCsarHelper; this may be put into decoder part.\n    List\u003cNodeTemplate\u003e allottedList;\n    List\u003cNodeTemplate\u003e networkTypes;\n    List\u003cNodeTemplate\u003e vfTypes;\n\nand use ToscaResource as a wrapper, and btw, the Tosca file name/path should be a standard format: policy side setting as prefix+ Iartifact from sdc . Don\u0027t need a class to record each file",
+      "revId": "f85f63f52d38ca962fc0e68eae184dd7018dc47b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_bf763205",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PdpxPolicy.java",
         "patchSetId": 2
