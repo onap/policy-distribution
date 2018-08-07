@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_87a51f06",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/ConfigurationParametersL00.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-07T20:37:43Z",
+      "side": 1,
+      "message": "@Ram, I guess these parameters will be nested in the overall parameters being read in from the Json configuration file for the full distributor. You will pass them to the code Libo is writing.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 67
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_71cbe172",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfiguration.java",
         "patchSetId": 2
@@ -87,6 +110,75 @@
         "startChar": 13,
         "endLine": 33,
         "endChar": 30
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_47af07e4",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-07T20:37:43Z",
+      "side": 1,
+      "message": "You will need this class to map the parameters coming into you from the main configuration. Can you have a chat with Ram because he is working on the configuration part right now.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 58
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_27b68b3e",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-07T20:37:43Z",
+      "side": 1,
+      "message": "generally speaking it is not a good idea to have a static variable for something that you might need more than one of. For example, if we had more than one subscription to SDC for more than one feature, then we would be in trouble because with a static variable you would be able to have one and only one instance of this class.\n\nIt is better practice to pass the configuration file to the class in the constructor, then you can have as many instances as you like.\n\nIn any case, you don\u0027t need the configuration file becasue Ram\u0027s code will be passing the parameters to you.\n\nFor your unit test, just instantiate an instance of the parameter group and pass it to this class for testing.",
+      "range": {
+        "startLine": 44,
+        "startChar": 1,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_67ac83ee",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-07T20:37:43Z",
+      "side": 1,
+      "message": "I think it is correct to pass in the parameter group that maps to the IConfiguration class like this. I\u0027m not sure about the certLocation though.",
+      "range": {
+        "startLine": 59,
+        "startChar": 1,
+        "endLine": 60,
+        "endChar": 2
       },
       "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
@@ -174,6 +266,24 @@
       "writtenOn": "2018-08-07T13:12:16Z",
       "side": 1,
       "message": "This is a JSON? We use properties files. Is this required by the SDC SDK?",
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_c7823752",
+        "filename": "plugins/reception-plugins/src/test/resources/handling-sdc.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-07T20:37:43Z",
+      "side": 1,
+      "message": "We had planned to use the common parameter handling for parameters rather than properties. \n\nAll the parameters for everything including SDC client, forwarding by REST to the PAP, and the subscription info etc will be in the configuration file read by the distributor at startup. We are proposing to use JSON format for this overall configuration file but YAML is another option. Ram has a review coming.\n\n@Ram maybe you could circulate the proposed strucuture of the config file?\n\nBecause we have the parameters in the parameter service, we could even have the parameters modified over an admin REST interface in the future.",
+      "parentUuid": "1a76adc5_91ab1d89",
       "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
