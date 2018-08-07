@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_91dd5d45",
+        "filename": "plugins/reception-plugins/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-08-07T13:12:16Z",
+      "side": 1,
+      "message": "We are inheriting from policy/parent - the version is set there.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 1
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_31eec9ed",
+        "filename": "plugins/reception-plugins/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-08-07T13:12:16Z",
+      "side": 1,
+      "message": "Not sure about adding this dependency. What are the CLM risks? Where is it required?",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 7
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_51cee584",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/ConfigurationParametersL00.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-08-07T13:12:16Z",
+      "side": 1,
+      "message": "Please rename this to a more appropriate name.\nPSSDConfigurationParametersGroup\n\nThe initials I am using for Policy SDC Service Distribution: PSSD",
+      "range": {
+        "startLine": 33,
+        "startChar": 40,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_71cbe172",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-08-07T13:12:16Z",
+      "side": 1,
+      "message": "Again, this class name is strange. Not sure what the H is for.\n\nI\u0027d like to see it called this:\nPSSDConfiguration\n\ninitials Policy SDC Service Distribution.",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 30
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_31c5695b",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-08-07T13:12:16Z",
+      "side": 1,
+      "message": "Remove unused imports",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 58
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d1a195aa",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-08-07T13:12:16Z",
+      "side": 1,
+      "message": "rename",
+      "range": {
+        "startLine": 43,
+        "startChar": 13,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f1a611c1",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-08-07T13:12:16Z",
+      "side": 1,
+      "message": "No system.out - use logging",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 45
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_91ab1d89",
+        "filename": "plugins/reception-plugins/src/test/resources/handling-sdc.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-08-07T13:12:16Z",
+      "side": 1,
+      "message": "This is a JSON? We use properties files. Is this required by the SDC SDK?",
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
