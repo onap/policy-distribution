@@ -1,30 +1,30 @@
-{  
-    "name":"SDCDistributionGroup",
-    "receptionHandlerParameters":{  
-        "SDCReceptionHandler":{  
+{
+    "name":" ",
+    "receptionHandlerParameters":{
+        "SDCReceptionHandler":{
             "receptionHandlerType":"SDC",
             "receptionHandlerClassName":"org.onap.policy.distribution.reception.handling.sdc.SdcReceptionHandler",
-            "pluginHandlerParameters":{  
-                "policyDecoders":{  
-                    "TOSCADecoder":{  
+            "pluginHandlerParameters":{
+                "policyDecoders":{
+                    "TOSCADecoder":{
                         "decoderType":"TOSCA",
                         "decoderClassName":"org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderToscaPdpx"
                     },
-                    "APEXDecoder":{  
+                    "APEXDecoder":{
                         "decoderType":"APEX",
                         "decoderClassName":"org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderApexPdpa"
                     },
-                    "DROOLSDecoder":{  
+                    "DROOLSDecoder":{
                         "decoderType":"DROOLS",
                         "decoderClassName":"org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderDroolsPdpd"
                     }
                 },
-                "policyForwarders":{  
-                    "PAPEngineForwarder":{  
+                "policyForwarders":{
+                    "PAPEngineForwarder":{
                         "forwarderType":"PAPEngine",
                         "forwarderClassName":"org.onap.policy.distribution.forwarding.pap.engine.XacmlPapServletPolicyForwarder"
                     },
-                    "PAPStandaloneForwarder":{  
+                    "PAPStandaloneForwarder":{
                         "forwarderType":"PAPStandalone",
                         "forwarderClassName":"org.onap.policy.distribution.forwarding.pap.engine.PapStandalonePolicyForwarder"
                     }
