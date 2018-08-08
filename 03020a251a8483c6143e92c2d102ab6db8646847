@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_93879d0f",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-08T15:45:32Z",
+      "side": 1,
+      "message": "I think you should validate other mandatory parameters as well. So that it gets validated at the start of distribution framework itself.",
+      "range": {
+        "startLine": 130,
+        "startChar": 33,
+        "endLine": 130,
+        "endChar": 41
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
