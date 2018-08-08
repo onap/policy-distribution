@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_b8187685",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/ConfigurationParametersL00.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-08T14:53:46Z",
+      "side": 1,
+      "message": "Yes Liam, these parameters will be nested in the overall parameters. Also, had a discussion with Libo about the same.",
+      "parentUuid": "1a76adc5_a75ffb71",
+      "range": {
+        "startLine": 33,
+        "startChar": 40,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_71cbe172",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfiguration.java",
         "patchSetId": 2
@@ -559,6 +583,24 @@
       "writtenOn": "2018-08-08T00:42:18Z",
       "side": 1,
       "message": "yes. that\u0027s why i use JSON and leverage Gson/parameterGroup from common parameters to deal with the configuration file",
+      "parentUuid": "1a76adc5_c7823752",
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3313295e",
+        "filename": "plugins/reception-plugins/src/test/resources/handling-sdc.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-08T14:53:46Z",
+      "side": 1,
+      "message": "@Liam - yeah I am creating the draft review for everyone to look at the common configuration file that we propose to use for all parameters.",
       "parentUuid": "1a76adc5_c7823752",
       "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
