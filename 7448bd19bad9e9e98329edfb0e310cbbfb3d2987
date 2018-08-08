@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_27744bfc",
+        "filename": "plugins/reception-plugins/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-08T00:42:18Z",
+      "side": 1,
+      "message": "got it.",
+      "parentUuid": "1a76adc5_91dd5d45",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 1
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_31eec9ed",
         "filename": "plugins/reception-plugins/pom.xml",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-07T13:12:16Z",
       "side": 1,
       "message": "Not sure about adding this dependency. What are the CLM risks? Where is it required?",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 7
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_875aff81",
+        "filename": "plugins/reception-plugins/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-08T00:42:18Z",
+      "side": 1,
+      "message": "it is caused by the very beginning idea to encrypt the user/passwd. but for this first patch, i\u0027ll remove them and add if necessnary",
+      "parentUuid": "1a76adc5_31eec9ed",
       "range": {
         "startLine": 55,
         "startChar": 8,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_a75ffb71",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/ConfigurationParametersL00.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-08T00:42:18Z",
+      "side": 1,
+      "message": "that\u0027s what i need to standardize the class name, etc. :\nthanks for the suggestion.",
+      "parentUuid": "1a76adc5_51cee584",
+      "range": {
+        "startLine": 33,
+        "startChar": 40,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_71cbe172",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfiguration.java",
         "patchSetId": 2
@@ -140,6 +212,54 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_4754e753",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-08T00:42:18Z",
+      "side": 1,
+      "message": "yes. i\u0027ll rename it.",
+      "parentUuid": "1a76adc5_71cbe172",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 30
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_6751e361",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-08T00:42:18Z",
+      "side": 1,
+      "message": "sure, i\u0027ll talk with him.",
+      "parentUuid": "1a76adc5_47af07e4",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 58
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_27b68b3e",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfiguration.java",
         "patchSetId": 2
@@ -151,6 +271,30 @@
       "writtenOn": "2018-08-07T20:37:43Z",
       "side": 1,
       "message": "generally speaking it is not a good idea to have a static variable for something that you might need more than one of. For example, if we had more than one subscription to SDC for more than one feature, then we would be in trouble because with a static variable you would be able to have one and only one instance of this class.\n\nIt is better practice to pass the configuration file to the class in the constructor, then you can have as many instances as you like.\n\nIn any case, you don\u0027t need the configuration file becasue Ram\u0027s code will be passing the parameters to you.\n\nFor your unit test, just instantiate an instance of the parameter group and pass it to this class for testing.",
+      "range": {
+        "startLine": 44,
+        "startChar": 1,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e7cc1338",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-08T00:42:18Z",
+      "side": 1,
+      "message": "agree. thanks, Liam for the details explanation, yes, it should work based on your idea. i\u0027ll do the change after talk with Ram. i though policy only register as one SDC client at the beginning. \nthe above logic is referred to AAI code, it is simpler to make it workable as a simple SDC client.",
+      "parentUuid": "1a76adc5_27b68b3e",
       "range": {
         "startLine": 44,
         "startChar": 1,
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_67d803f0",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-08T00:42:18Z",
+      "side": 1,
+      "message": "also referred from AAI :(\nit is used for keystone user/password certification.\ni just put it as a placeholder for further support if necessary. \ni\u0027ll remove it to avoid confusion.",
+      "parentUuid": "1a76adc5_67ac83ee",
+      "range": {
+        "startLine": 59,
+        "startChar": 1,
+        "endLine": 60,
+        "endChar": 2
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_31c5695b",
         "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfigurationTest.java",
         "patchSetId": 2
@@ -197,6 +365,30 @@
       "writtenOn": "2018-08-07T13:12:16Z",
       "side": 1,
       "message": "Remove unused imports",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 58
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e7f3b371",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-08T00:42:18Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "1a76adc5_31c5695b",
       "range": {
         "startLine": 35,
         "startChar": 0,
@@ -232,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_87e8bf7d",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-08T00:42:18Z",
+      "side": 1,
+      "message": "ok, rename according to the source code class name",
+      "parentUuid": "1a76adc5_d1a195aa",
+      "range": {
+        "startLine": 43,
+        "startChar": 13,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_f1a611c1",
         "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfigurationTest.java",
         "patchSetId": 2
@@ -243,6 +459,30 @@
       "writtenOn": "2018-08-07T13:12:16Z",
       "side": 1,
       "message": "No system.out - use logging",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 45
+      },
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_4702a73f",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/HsdcConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-08T00:42:18Z",
+      "side": 1,
+      "message": "since plan to add the  patch step by step, is it fine to submit the logging func after this initial structure code merge?",
+      "parentUuid": "1a76adc5_f1a611c1",
       "range": {
         "startLine": 52,
         "startChar": 8,
@@ -284,6 +524,42 @@
       "side": 1,
       "message": "We had planned to use the common parameter handling for parameters rather than properties. \n\nAll the parameters for everything including SDC client, forwarding by REST to the PAP, and the subscription info etc will be in the configuration file read by the distributor at startup. We are proposing to use JSON format for this overall configuration file but YAML is another option. Ram has a review coming.\n\n@Ram maybe you could circulate the proposed strucuture of the config file?\n\nBecause we have the parameters in the parameter service, we could even have the parameters modified over an admin REST interface in the future.",
       "parentUuid": "1a76adc5_91ab1d89",
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_07fcaf3d",
+        "filename": "plugins/reception-plugins/src/test/resources/handling-sdc.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-08T00:42:18Z",
+      "side": 1,
+      "message": "it is a JSON.\nper Liam\u0027s talk, plan to use JSON, which is related complicated one, instead of a simple properties file.:",
+      "parentUuid": "1a76adc5_91ab1d89",
+      "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_c79557e5",
+        "filename": "plugins/reception-plugins/src/test/resources/handling-sdc.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-08T00:42:18Z",
+      "side": 1,
+      "message": "yes. that\u0027s why i use JSON and leverage Gson/parameterGroup from common parameters to deal with the configuration file",
+      "parentUuid": "1a76adc5_c7823752",
       "revId": "7448bd19bad9e9e98329edfb0e310cbbfb3d2987",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
