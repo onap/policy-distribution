@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a76adc5_173db88f",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-08T19:13:08Z",
+      "side": 1,
+      "message": "Should these not be longs?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 34
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_9748e82e",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-08T19:13:08Z",
+      "side": 1,
+      "message": "Should this be a boolean?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 44
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_375554c6",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-08T19:13:08Z",
+      "side": 1,
+      "message": "should this be a boolean?",
+      "range": {
+        "startLine": 56,
+        "startChar": 19,
+        "endLine": 56,
+        "endChar": 38
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_976f8892",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-08T19:13:08Z",
+      "side": 1,
+      "message": "Could you set your IDE (Eclipse, intellij etc) to wrap lines at 120 characters, that\u0027s the ONAP line length limit. Any longer than that and Sonar will moan.",
+      "range": {
+        "startLine": 120,
+        "startChar": 14,
+        "endLine": 120,
+        "endChar": 15
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_93879d0f",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
         "patchSetId": 3
@@ -13,6 +105,30 @@
       "writtenOn": "2018-08-08T15:45:32Z",
       "side": 1,
       "message": "I think you should validate other mandatory parameters as well. So that it gets validated at the start of distribution framework itself.",
+      "range": {
+        "startLine": 130,
+        "startChar": 33,
+        "endLine": 130,
+        "endChar": 41
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7772ec7d",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-08T19:13:08Z",
+      "side": 1,
+      "message": "Yes, I guess most of them are mandatory. It\u0027s also a good idea to define constants for the default values (if any) for the variables and set the variable to those values at their definition time. For example if we decide that 30 seconds is a good default for polling timeout, define a constant for it:\n\n// Default polling interval in milliseconds\nprivate static final long DEFAULT_POLLING_INTERVAL \u003d 30000;\n\nThen later:\n\nprivate long pollingInterval \u003d DEFAULT_POLLING_INTERVAL;\n\nAlso, if those values are longs, it might be a good idea to check in the validation for zero and negative values.",
+      "parentUuid": "1a76adc5_93879d0f",
       "range": {
         "startLine": 130,
         "startChar": 33,
