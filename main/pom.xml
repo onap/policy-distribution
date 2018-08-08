@@ -33,6 +33,16 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.onap.policy.distribution</groupId>
+            <artifactId>reception-plugins</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.distribution</groupId>
+            <artifactId>forwarding-plugins</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.onap.policy.common</groupId>
             <artifactId>utils</artifactId>
             <version>1.3.0-SNAPSHOT</version>

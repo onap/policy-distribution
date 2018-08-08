@@ -1,0 +1,19 @@
+{
+    "name":"SDCDistributionGroup",
+    "receptionHandlerParameters":{
+        "SDCReceptionHandler":{
+            "receptionHandlerType":"SDC",
+            "receptionHandlerClassName":"org.onap.policy.distribution.reception.handling.sdc.SdcReceptionHandler",
+            "pluginHandlerParameters":{
+                "policyDecoders":{
+                },
+                "policyForwarders":{
+                    "PAPEngineForwarder":{
+                        "forwarderType":"PAPEngine",
+                        "forwarderClassName":"org.onap.policy.distribution.forwarding.pap.engine.XacmlPapServletPolicyForwarder"
+                    }
+                }
+            }
+        }
+    }
+}
