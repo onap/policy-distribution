@@ -22,6 +22,30 @@
       "revId": "2fa6577b514d870823dbd2df57ead9689914a9ec",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_cb41d90c",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/ReceptionHandlerParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-09T13:01:38Z",
+      "side": 1,
+      "message": "It won\u0027t overwrite Pam. The validation result of nested groups/maps are accumulated separately inside the main GroupValidationResult.",
+      "parentUuid": "1a76adc5_abac9dee",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 9
+      },
+      "revId": "2fa6577b514d870823dbd2df57ead9689914a9ec",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
