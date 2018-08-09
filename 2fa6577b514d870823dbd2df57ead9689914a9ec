@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_71e4343b",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/DistributionParameterGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-09T20:57:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_4b2069f7",
+      "range": {
+        "startLine": 92,
+        "startChar": 32,
+        "endLine": 92,
+        "endChar": 34
+      },
+      "revId": "2fa6577b514d870823dbd2df57ead9689914a9ec",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_6b1d25bd",
         "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/PluginHandlerParameters.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_11d14057",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/PluginHandlerParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-09T20:57:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_6b1d25bd",
+      "range": {
+        "startLine": 84,
+        "startChar": 32,
+        "endLine": 84,
+        "endChar": 34
+      },
+      "revId": "2fa6577b514d870823dbd2df57ead9689914a9ec",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_0b7a71f1",
         "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/PluginHandlerParameters.java",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2018-08-09T14:12:06Z",
       "side": 1,
       "message": ";-)",
+      "range": {
+        "startLine": 93,
+        "startChar": 32,
+        "endLine": 93,
+        "endChar": 34
+      },
+      "revId": "2fa6577b514d870823dbd2df57ead9689914a9ec",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_31d6bc50",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/PluginHandlerParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-09T20:57:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_0b7a71f1",
       "range": {
         "startLine": 93,
         "startChar": 32,
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_d1cae8a0",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/PolicyForwarderParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-09T20:57:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_0b4b5188",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 84
+      },
+      "revId": "2fa6577b514d870823dbd2df57ead9689914a9ec",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_4b770903",
         "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/ReceptionHandlerParameters.java",
         "patchSetId": 3
@@ -153,6 +249,30 @@
       "side": 1,
       "message": "Agree, I will add the validation.",
       "parentUuid": "1a76adc5_4b770903",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 37
+      },
+      "revId": "2fa6577b514d870823dbd2df57ead9689914a9ec",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f1cfe4ae",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/ReceptionHandlerParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-09T20:57:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_cb447976",
       "range": {
         "startLine": 93,
         "startChar": 12,
