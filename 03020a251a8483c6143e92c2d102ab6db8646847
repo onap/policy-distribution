@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_bd570302",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-09T06:01:35Z",
+      "side": 1,
+      "message": "they are all String, and to be translated in the PSSDConfiguration class.",
+      "parentUuid": "1a76adc5_173db88f",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 34
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_9748e82e",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-08T19:13:08Z",
       "side": 1,
       "message": "Should this be a boolean?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 44
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_dd5c3f28",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-09T06:01:35Z",
+      "side": 1,
+      "message": "same as above. I put the translation logic in the PSSDConfiguration class.",
+      "parentUuid": "1a76adc5_9748e82e",
       "range": {
         "startLine": 55,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_7d416b38",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-09T06:01:35Z",
+      "side": 1,
+      "message": "same as above.",
+      "parentUuid": "1a76adc5_375554c6",
+      "range": {
+        "startLine": 56,
+        "startChar": 19,
+        "endLine": 56,
+        "endChar": 38
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_976f8892",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2018-08-08T19:13:08Z",
       "side": 1,
       "message": "Could you set your IDE (Eclipse, intellij etc) to wrap lines at 120 characters, that\u0027s the ONAP line length limit. Any longer than that and Sonar will moan.",
+      "range": {
+        "startLine": 120,
+        "startChar": 14,
+        "endLine": 120,
+        "endChar": 15
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3d4bf35a",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-09T06:01:35Z",
+      "side": 1,
+      "message": "i\u0027ll double check. i use cmd \u0027 mvn clean install \u0027 which also will report.",
+      "parentUuid": "1a76adc5_976f8892",
       "range": {
         "startLine": 120,
         "startChar": 14,
@@ -129,6 +225,30 @@
       "side": 1,
       "message": "Yes, I guess most of them are mandatory. It\u0027s also a good idea to define constants for the default values (if any) for the variables and set the variable to those values at their definition time. For example if we decide that 30 seconds is a good default for polling timeout, define a constant for it:\n\n// Default polling interval in milliseconds\nprivate static final long DEFAULT_POLLING_INTERVAL \u003d 30000;\n\nThen later:\n\nprivate long pollingInterval \u003d DEFAULT_POLLING_INTERVAL;\n\nAlso, if those values are longs, it might be a good idea to check in the validation for zero and negative values.",
       "parentUuid": "1a76adc5_93879d0f",
+      "range": {
+        "startLine": 130,
+        "startChar": 33,
+        "endLine": 130,
+        "endChar": 41
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7d688bba",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-09T06:01:35Z",
+      "side": 1,
+      "message": "yes, all of them are mandatory. i\u0027ll improve this function. but if there is no input for specified field,  we set it as default or just report error which needs discussion. based on SO\u0027s implementation, it just set a default value instead of reporting error. \nand there are many fields, what\u0027s the default value of these value which also needs to decide:).\n\nbtw, I only use String format in the configuration, make it easy to set the configuration and the translation logic are all put into the specified PSSDConfiguration class.",
+      "parentUuid": "1a76adc5_7772ec7d",
       "range": {
         "startLine": 130,
         "startChar": 33,
