@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_5d17cfed",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/ReceptionHandlerParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-09T07:05:02Z",
+      "side": 1,
+      "message": "do we need leverage this function? besides this class, PluginHandlerParameters and PolicyDecoderParameters etc also return null.\nsuppose there is any class like monitor will levergae such function to do the triage and debug info.",
+      "revId": "665b4fd207ddd8775452d6e54aa350000921f658",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
