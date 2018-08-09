@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_607ea4b0",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-09T11:59:04Z",
+      "side": 1,
+      "message": "I think you should use the same data type here as you intend to have in PSSDConfiguration class. So that the validation of this class itself identify the error and prompt the user to correct the configuration parameters in provided JSON.",
+      "parentUuid": "1a76adc5_bd570302",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 34
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_9748e82e",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
         "patchSetId": 3
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "same as above. I put the translation logic in the PSSDConfiguration class.",
       "parentUuid": "1a76adc5_9748e82e",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 44
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_602c64ac",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-09T11:59:04Z",
+      "side": 1,
+      "message": "same comment as above",
+      "parentUuid": "1a76adc5_dd5c3f28",
       "range": {
         "startLine": 55,
         "startChar": 0,
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_0019f087",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-09T11:59:04Z",
+      "side": 1,
+      "message": "same comment as above",
+      "parentUuid": "1a76adc5_7d416b38",
+      "range": {
+        "startLine": 56,
+        "startChar": 19,
+        "endLine": 56,
+        "endChar": 38
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_976f8892",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
         "patchSetId": 3
@@ -178,6 +250,30 @@
       "side": 1,
       "message": "i\u0027ll double check. i use cmd \u0027 mvn clean install \u0027 which also will report.",
       "parentUuid": "1a76adc5_976f8892",
+      "range": {
+        "startLine": 120,
+        "startChar": 14,
+        "endLine": 120,
+        "endChar": 15
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a05b5c53",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-09T11:59:04Z",
+      "side": 1,
+      "message": "\"mvn clean install\" will not fail due to checkstyle problems. It is not enforced in the policy components yet.",
+      "parentUuid": "1a76adc5_3d4bf35a",
       "range": {
         "startLine": 120,
         "startChar": 14,
@@ -249,6 +345,30 @@
       "side": 1,
       "message": "yes, all of them are mandatory. i\u0027ll improve this function. but if there is no input for specified field,  we set it as default or just report error which needs discussion. based on SO\u0027s implementation, it just set a default value instead of reporting error. \nand there are many fields, what\u0027s the default value of these value which also needs to decide:).\n\nbtw, I only use String format in the configuration, make it easy to set the configuration and the translation logic are all put into the specified PSSDConfiguration class.",
       "parentUuid": "1a76adc5_7772ec7d",
+      "range": {
+        "startLine": 130,
+        "startChar": 33,
+        "endLine": 130,
+        "endChar": 41
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a0227cb7",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-09T11:59:04Z",
+      "side": 1,
+      "message": "Again the same comment, we should validate the parameters here and either report error or set to default but should not allow it to go ahead and fail. \nFor reference, you can have a look at ParameterGroups in my review.",
+      "parentUuid": "1a76adc5_7d688bba",
       "range": {
         "startLine": 130,
         "startChar": 33,
