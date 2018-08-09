@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_abac9dee",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/ReceptionHandlerParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-08-09T12:40:37Z",
+      "side": 1,
+      "message": "Will this overwrite the previous result? Or does ValidationResult accumulate these? I will go check, just curious if you know.",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 102,
+        "endChar": 9
+      },
+      "revId": "2fa6577b514d870823dbd2df57ead9689914a9ec",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
