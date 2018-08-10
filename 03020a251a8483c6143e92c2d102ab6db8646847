@@ -286,6 +286,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_4c34ffdd",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-10T02:43:28Z",
+      "side": 1,
+      "message": "i\u0027ve set it locally",
+      "parentUuid": "1a76adc5_a05b5c53",
+      "range": {
+        "startLine": 120,
+        "startChar": 14,
+        "endLine": 120,
+        "endChar": 15
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_93879d0f",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
         "patchSetId": 3
@@ -369,6 +393,30 @@
       "side": 1,
       "message": "Again the same comment, we should validate the parameters here and either report error or set to default but should not allow it to go ahead and fail. \nFor reference, you can have a look at ParameterGroups in my review.",
       "parentUuid": "1a76adc5_7d688bba",
+      "range": {
+        "startLine": 130,
+        "startChar": 33,
+        "endLine": 130,
+        "endChar": 41
+      },
+      "revId": "03020a251a8483c6143e92c2d102ab6db8646847",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_0c4e0770",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-10T02:43:28Z",
+      "side": 1,
+      "message": "thanks, after checking this class, this function has been updated.",
+      "parentUuid": "1a76adc5_a0227cb7",
       "range": {
         "startLine": 130,
         "startChar": 33,
