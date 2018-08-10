@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_a00fd7e0",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-10T13:21:44Z",
+      "side": 1,
+      "message": "Sorry to be fussy about this but I think it\u0027s better to provide an individual message for each parameter. For example, if the configuration is incorrect and say both asdc address and user is not set, then this check will only output one error message.\n\nThe whole idea of the validation is that the user gets all the invalid messages on one go and doesn\u0027t have to go fixing the first one only to get an error on the next parameter.\n\nAlso I would define an isNullOrBlank() private method to check the string fields.\n\nif (isNullOrBlank(asdcAddress() {\n   validationResult.setResult(\"PSSDConfiguration\", ValidationStatus.INVALID, \n               \"the field \\\"asdcAddress\\\" must be a non-blank string\");\n}\n\nand so on.",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 9
+      },
+      "revId": "40667f7ebd1d23b67cdc9377f9c84535d60f7b5a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
