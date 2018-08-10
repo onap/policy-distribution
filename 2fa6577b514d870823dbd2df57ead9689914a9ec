@@ -329,6 +329,29 @@
       "revId": "2fa6577b514d870823dbd2df57ead9689914a9ec",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e0370faf",
+        "filename": "main/src/test/resources/parameters/DistributionConfigParameters.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-10T13:08:02Z",
+      "side": 1,
+      "message": "Of course the tests won\u0027t pass anymore because these ones don\u0027t exist.",
+      "range": {
+        "startLine": 12,
+        "startChar": 1,
+        "endLine": 19,
+        "endChar": 121
+      },
+      "revId": "2fa6577b514d870823dbd2df57ead9689914a9ec",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
