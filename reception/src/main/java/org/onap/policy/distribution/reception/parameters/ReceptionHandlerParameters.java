@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.main.parameters;
+package org.onap.policy.distribution.reception.parameters;
 
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
@@ -30,6 +30,7 @@ import org.onap.policy.common.parameters.ValidationStatus;
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
 public class ReceptionHandlerParameters implements ParameterGroup {
+    private String name;
     private String receptionHandlerType;
     private String receptionHandlerClassName;
     private PluginHandlerParameters pluginHandlerParameters;
@@ -77,7 +78,7 @@ public class ReceptionHandlerParameters implements ParameterGroup {
 
     @Override
     public String getName() {
-        return null;
+        return name + "_" + receptionHandlerType;
     }
 
     /**
@@ -112,5 +113,12 @@ public class ReceptionHandlerParameters implements ParameterGroup {
             validationResult.setResult("receptionHandlerClassName", ValidationStatus.INVALID,
                     "reception handler class not found in classpath");
         }
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(final String name) {
+        this.name = name;
     }
 }

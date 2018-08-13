@@ -30,7 +30,7 @@
 
     <name>${project.artifactId}</name>
     <description>The module of Policy Distribution that handles reception of policies from other systems.</description>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.onap.policy.distribution</groupId>
@@ -41,6 +41,11 @@
             <groupId>org.onap.policy.distribution</groupId>
             <artifactId>forwarding</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.policy.common</groupId>
+            <artifactId>common-parameters</artifactId>
+            <version>1.3.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

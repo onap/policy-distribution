@@ -26,6 +26,7 @@ import java.util.Map.Entry;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
 /**
  * Class to hold all parameters needed for Distribution component.

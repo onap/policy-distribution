@@ -121,7 +121,7 @@ public class TestDistributionParameterHandler {
         minArguments.parse(minArgumentString);
 
         final DistributionParameterGroup parGroup = new DistributionParameterHandler().getParameters(minArguments);
-        assertEquals("SDCDistributionGroup", parGroup.getName());
+        assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, parGroup.getName());
     }
 
     @Test
@@ -132,13 +132,17 @@ public class TestDistributionParameterHandler {
         arguments.parse(distributionConfigParameters);
 
         final DistributionParameterGroup parGroup = new DistributionParameterHandler().getParameters(arguments);
-        assertEquals("SDCDistributionGroup", parGroup.getName());
-        assertEquals("SDC",
-                parGroup.getReceptionHandlerParameters().get("SDCReceptionHandler").getReceptionHandlerType());
-        assertEquals("TOSCA", parGroup.getReceptionHandlerParameters().get("SDCReceptionHandler")
-                .getPluginHandlerParameters().getPolicyDecoders().get("TOSCADecoder").getDecoderType());
-        assertEquals("PAPEngine", parGroup.getReceptionHandlerParameters().get("SDCReceptionHandler")
-                .getPluginHandlerParameters().getPolicyForwarders().get("PAPEngineForwarder").getForwarderType());
+        assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, parGroup.getName());
+        assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, parGroup.getReceptionHandlerParameters()
+                .get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerType());
+        assertEquals(CommonTestData.DECODER_TYPE,
+                parGroup.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
+                        .getPluginHandlerParameters().getPolicyDecoders().get(CommonTestData.TOSCA_DECODER_KEY)
+                        .getDecoderType());
+        assertEquals(CommonTestData.FORWARDER_TYPE,
+                parGroup.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
+                        .getPluginHandlerParameters().getPolicyForwarders().get(CommonTestData.PAP_ENGINE_FORWARDER_KEY)
+                        .getForwarderType());
     }
 
     @Test
