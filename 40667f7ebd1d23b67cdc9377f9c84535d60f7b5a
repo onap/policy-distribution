@@ -46,6 +46,30 @@
       "revId": "40667f7ebd1d23b67cdc9377f9c84535d60f7b5a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_192082f6",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-13T02:10:18Z",
+      "side": 1,
+      "message": "agree. once the method has been defined, i\u0027ll update this to leverage it.\nthanks, Liam for the elaboration. it does make sense to make readable and self-explanation.",
+      "parentUuid": "1a76adc5_a00fd7e0",
+      "range": {
+        "startLine": 137,
+        "startChar": 8,
+        "endLine": 145,
+        "endChar": 9
+      },
+      "revId": "40667f7ebd1d23b67cdc9377f9c84535d60f7b5a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
