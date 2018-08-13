@@ -23,6 +23,11 @@ package org.onap.policy.distribution.main.parameters;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
+import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
+import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
+import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
+
 /**
  * Class to hold/create all parameters for test cases.
  *
@@ -30,15 +35,19 @@ import java.util.Map;
  */
 public class CommonTestData {
 
-    public static final String decoderType = "TOSCA";
-    public static final String decoderClassName =
+    public static final String DISTRIBUTION_GROUP_NAME = "SDCDistributionGroup";
+    public static final String DECODER_TYPE = "TOSCA";
+    public static final String DECODER_CLASS_NAME =
             "org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderToscaPdpx";
-    public static final String forwarderType = "PAPEngine";
-    public static final String forwarderClassName =
+    public static final String FORWARDER_TYPE = "PAPEngine";
+    public static final String FORWARDER_CLASS_NAME =
             "org.onap.policy.distribution.forwarding.pap.engine.XacmlPapServletPolicyForwarder";
-    public static final String receptionHandlerType = "SDCReceptionHandler";
-    public static final String receptionHandlerClassName =
+    public static final String RECEPTION_HANDLER_TYPE = "SDC";
+    public static final String RECEPTION_HANDLER_CLASS_NAME =
             "org.onap.policy.distribution.reception.handling.sdc.SdcReceptionHandler";
+    public static final String SDC_RECEPTION_HANDLER_KEY = "SDCReceptionHandler";
+    public static final String PAP_ENGINE_FORWARDER_KEY = "PAPEngineForwarder";
+    public static final String TOSCA_DECODER_KEY = "TOSCADecoder";
 
     /**
      * Returns an instance of ReceptionHandlerParameters for test cases.
@@ -52,13 +61,10 @@ public class CommonTestData {
         if (!isEmpty) {
             final Map<String, PolicyDecoderParameters> policyDecoders = getPolicyDecoders(isEmpty);
             final Map<String, PolicyForwarderParameters> policyForwarders = getPolicyForwarders(isEmpty);
-            final String receptionHandlerType = "SDC";
-            final String receptionHandlerClassName =
-                    "org.onap.policy.distribution.reception.handling.sdc.SdcReceptionHandler";
             final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
             final ReceptionHandlerParameters rhParameters =
-                    new ReceptionHandlerParameters(receptionHandlerType, receptionHandlerClassName, pHParameters);
-            receptionHandlerParameters.put("SDCReceptionHandler", rhParameters);
+                    new ReceptionHandlerParameters(RECEPTION_HANDLER_TYPE, RECEPTION_HANDLER_CLASS_NAME, pHParameters);
+            receptionHandlerParameters.put(SDC_RECEPTION_HANDLER_KEY, rhParameters);
         }
         return receptionHandlerParameters;
     }
@@ -87,12 +93,9 @@ public class CommonTestData {
         final Map<String, PolicyForwarderParameters> policyForwarders =
                 new HashMap<String, PolicyForwarderParameters>();
         if (!isEmpty) {
-            final String forwarderType = "PAPEngine";
-            final String forwarderClassName =
-                    "org.onap.policy.distribution.forwarding.pap.engine.XacmlPapServletPolicyForwarder";
             final PolicyForwarderParameters pFParameters =
-                    new PolicyForwarderParameters(forwarderType, forwarderClassName);
-            policyForwarders.put("PAPEngineForwarder", pFParameters);
+                    new PolicyForwarderParameters(FORWARDER_TYPE, FORWARDER_CLASS_NAME);
+            policyForwarders.put(PAP_ENGINE_FORWARDER_KEY, pFParameters);
         }
         return policyForwarders;
     }
@@ -106,8 +109,8 @@ public class CommonTestData {
     public Map<String, PolicyDecoderParameters> getPolicyDecoders(final boolean isEmpty) {
         final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<String, PolicyDecoderParameters>();
         if (!isEmpty) {
-            final PolicyDecoderParameters pDParameters = new PolicyDecoderParameters(decoderType, decoderClassName);
-            policyDecoders.put("TOSCADecoder", pDParameters);
+            final PolicyDecoderParameters pDParameters = new PolicyDecoderParameters(DECODER_TYPE, DECODER_CLASS_NAME);
+            policyDecoders.put(TOSCA_DECODER_KEY, pDParameters);
         }
         return policyDecoders;
     }

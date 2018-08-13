@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -22,11 +22,11 @@ package org.onap.policy.distribution.main.startstop;
 
 import java.util.Arrays;
 
+import org.onap.policy.common.logging.flexlogger.FlexLogger;
+import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.DistributionParameterGroup;
 import org.onap.policy.distribution.main.parameters.DistributionParameterHandler;
-import org.slf4j.ext.XLogger;
-import org.slf4j.ext.XLoggerFactory;
 
 /**
  * This class initiates ONAP Policy Framework policy distribution.
@@ -34,7 +34,7 @@ import org.slf4j.ext.XLoggerFactory;
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class Main {
-    private static final XLogger LOGGER = XLoggerFactory.getXLogger(Main.class);
+    private static final Logger LOGGER = FlexLogger.getLogger(Main.class);
 
     // The policy distribution Activator that activates the policy distribution service
     private DistributionActivator activator;
@@ -48,8 +48,8 @@ public class Main {
      * @param args the command line arguments
      */
     public Main(final String[] args) {
-        String argumentString = Arrays.toString(args);
-        LOGGER.info("Starting policy distribution service with arguments {} . . .", argumentString);
+        final String argumentString = Arrays.toString(args);
+        LOGGER.info("Starting policy distribution service with arguments - " + argumentString);
 
         // Check the arguments
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
@@ -84,13 +84,13 @@ public class Main {
             activator.initialize();
         } catch (final PolicyDistributionException e) {
             LOGGER.error("start of policy distribution service failed, used parameters are " + Arrays.toString(args),
-                            e);
+                    e);
             return;
         }
 
         // Add a shutdown hook to shut everything down in an orderly manner
         Runtime.getRuntime().addShutdownHook(new PolicyDistributionShutdownHookClass());
-        LOGGER.exit("Started policy distribution service");
+        LOGGER.info("Started policy distribution service");
     }
 
     /**
@@ -108,6 +108,10 @@ public class Main {
      * @throws PolicyDistributionException on shutdown errors
      */
     public void shutdown() throws PolicyDistributionException {
+        // clear the parameterGroup variable
+        parameterGroup = null;
+
+        // clear the distribution activator
         if (activator != null) {
             activator.terminate();
         }

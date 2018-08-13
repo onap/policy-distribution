@@ -1,0 +1,2 @@
+2018-08-15 15:07:37,154|||main||||INFO||||||| EELF0005I Searching path "${user.home};etc;../etc" for log configuration file "logback-test.xml"
+2018-08-15 15:07:37,154|||main||||INFO||||||| EELF0001I Loading default logging configuration from system resource file "com/att/eelf/logback.xml"

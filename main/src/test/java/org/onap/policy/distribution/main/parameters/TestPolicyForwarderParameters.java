@@ -26,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 
 /**
  * Class to perform unit test of PolicyForwarderParameters.
@@ -37,20 +38,20 @@ public class TestPolicyForwarderParameters {
     @Test
     public void testPolicyForwarderParameters() {
         final PolicyForwarderParameters pFParameters =
-                new PolicyForwarderParameters(CommonTestData.forwarderType, CommonTestData.forwarderClassName);
+                new PolicyForwarderParameters(CommonTestData.FORWARDER_TYPE, CommonTestData.FORWARDER_CLASS_NAME);
         final GroupValidationResult validationResult = pFParameters.validate();
-        assertEquals(CommonTestData.forwarderType, pFParameters.getForwarderType());
-        assertEquals(CommonTestData.forwarderClassName, pFParameters.getForwarderClassName());
+        assertEquals(CommonTestData.FORWARDER_TYPE, pFParameters.getForwarderType());
+        assertEquals(CommonTestData.FORWARDER_CLASS_NAME, pFParameters.getForwarderClassName());
         assertTrue(validationResult.isValid());
     }
 
     @Test
     public void testPolicyForwarderParameters_InvalidForwarderType() {
         final PolicyForwarderParameters pFParameters =
-                new PolicyForwarderParameters("", CommonTestData.forwarderClassName);
+                new PolicyForwarderParameters("", CommonTestData.FORWARDER_CLASS_NAME);
         final GroupValidationResult validationResult = pFParameters.validate();
         assertEquals("", pFParameters.getForwarderType());
-        assertEquals(CommonTestData.forwarderClassName, pFParameters.getForwarderClassName());
+        assertEquals(CommonTestData.FORWARDER_CLASS_NAME, pFParameters.getForwarderClassName());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult().contains(
                 "field \"forwarderType\" type \"java.lang.String\" value \"\" INVALID, must be a non-blank string"));
@@ -58,9 +59,9 @@ public class TestPolicyForwarderParameters {
 
     @Test
     public void testPolicyForwarderParameters_InvalidForwarderClassName() {
-        final PolicyForwarderParameters pFParameters = new PolicyForwarderParameters(CommonTestData.forwarderType, "");
+        final PolicyForwarderParameters pFParameters = new PolicyForwarderParameters(CommonTestData.FORWARDER_TYPE, "");
         final GroupValidationResult validationResult = pFParameters.validate();
-        assertEquals(CommonTestData.forwarderType, pFParameters.getForwarderType());
+        assertEquals(CommonTestData.FORWARDER_TYPE, pFParameters.getForwarderType());
         assertEquals("", pFParameters.getForwarderClassName());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult()
@@ -85,10 +86,10 @@ public class TestPolicyForwarderParameters {
     @Test
     public void testPolicyForwarderParameters_NullForwarderType() {
         final PolicyForwarderParameters pFParameters =
-                new PolicyForwarderParameters(null, CommonTestData.forwarderClassName);
+                new PolicyForwarderParameters(null, CommonTestData.FORWARDER_CLASS_NAME);
         final GroupValidationResult validationResult = pFParameters.validate();
         assertEquals(null, pFParameters.getForwarderType());
-        assertEquals(CommonTestData.forwarderClassName, pFParameters.getForwarderClassName());
+        assertEquals(CommonTestData.FORWARDER_CLASS_NAME, pFParameters.getForwarderClassName());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult()
                 .contains("field \"forwarderType\" type \"java.lang.String\" value \"null\" INVALID, "
@@ -98,9 +99,9 @@ public class TestPolicyForwarderParameters {
     @Test
     public void testPolicyForwarderParameters_NullForwarderClassName() {
         final PolicyForwarderParameters pFParameters =
-                new PolicyForwarderParameters(CommonTestData.forwarderType, null);
+                new PolicyForwarderParameters(CommonTestData.FORWARDER_TYPE, null);
         final GroupValidationResult validationResult = pFParameters.validate();
-        assertEquals(CommonTestData.forwarderType, pFParameters.getForwarderType());
+        assertEquals(CommonTestData.FORWARDER_TYPE, pFParameters.getForwarderType());
         assertEquals(null, pFParameters.getForwarderClassName());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult()
@@ -110,11 +111,11 @@ public class TestPolicyForwarderParameters {
 
     @Test
     public void testPolicyForwarderParameters_InvalidForwarderClass() {
-        final PolicyForwarderParameters pFParameters = new PolicyForwarderParameters(CommonTestData.forwarderType,
-                CommonTestData.forwarderClassName + "Invalid");
+        final PolicyForwarderParameters pFParameters = new PolicyForwarderParameters(CommonTestData.FORWARDER_TYPE,
+                CommonTestData.FORWARDER_CLASS_NAME + "Invalid");
         final GroupValidationResult validationResult = pFParameters.validate();
-        assertEquals(CommonTestData.forwarderType, pFParameters.getForwarderType());
-        assertEquals(CommonTestData.forwarderClassName + "Invalid", pFParameters.getForwarderClassName());
+        assertEquals(CommonTestData.FORWARDER_TYPE, pFParameters.getForwarderType());
+        assertEquals(CommonTestData.FORWARDER_CLASS_NAME + "Invalid", pFParameters.getForwarderClassName());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult().contains("policy forwarder class not found in classpath"));
     }

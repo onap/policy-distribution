@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.main.parameters;
+package org.onap.policy.distribution.reception.parameters;
 
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
