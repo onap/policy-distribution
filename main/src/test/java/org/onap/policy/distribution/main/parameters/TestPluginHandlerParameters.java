@@ -28,6 +28,9 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
+import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
+import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
 
 /**
  * Class to perform unit test of PluginHandlerParameters.
@@ -43,9 +46,10 @@ public class TestPluginHandlerParameters {
         final Map<String, PolicyForwarderParameters> policyForwarders = commonTestData.getPolicyForwarders(false);
         final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
         final GroupValidationResult validationResult = pHParameters.validate();
-        assertEquals(policyDecoders.get("TOSCADecoder"), pHParameters.getPolicyDecoders().get("TOSCADecoder"));
-        assertEquals(policyForwarders.get("PAPEngineForwarder"),
-                pHParameters.getPolicyForwarders().get("PAPEngineForwarder"));
+        assertEquals(policyDecoders.get(CommonTestData.TOSCA_DECODER_KEY),
+                pHParameters.getPolicyDecoders().get(CommonTestData.TOSCA_DECODER_KEY));
+        assertEquals(policyForwarders.get(CommonTestData.PAP_ENGINE_FORWARDER_KEY),
+                pHParameters.getPolicyForwarders().get(CommonTestData.PAP_ENGINE_FORWARDER_KEY));
         assertTrue(validationResult.isValid());
     }
 

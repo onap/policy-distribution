@@ -29,6 +29,7 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
 /**
  * Class to perform unit test of DistributionParameterGroup.
@@ -40,23 +41,24 @@ public class TestDistributionParameterGroup {
 
     @Test
     public void testDistributionParameterGroup() {
-        final String name = "SDCDistributionGroup";
         final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
                 commonTestData.getReceptionHandlerParameters(false);
 
         final DistributionParameterGroup distributionParameters =
-                new DistributionParameterGroup(name, receptionHandlerParameters);
+                new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, receptionHandlerParameters);
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertTrue(validationResult.isValid());
-        assertEquals(name, distributionParameters.getName());
-        assertEquals(receptionHandlerParameters.get("SDCReceptionHandler").getReceptionHandlerType(),
-                distributionParameters.getReceptionHandlerParameters().get("SDCReceptionHandler")
+        assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, distributionParameters.getName());
+        assertEquals(receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerType(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
                         .getReceptionHandlerType());
-        assertEquals(receptionHandlerParameters.get("SDCReceptionHandler").getReceptionHandlerClassName(),
-                distributionParameters.getReceptionHandlerParameters().get("SDCReceptionHandler")
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerClassName(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
                         .getReceptionHandlerClassName());
-        assertEquals(receptionHandlerParameters.get("SDCReceptionHandler").getPluginHandlerParameters(),
-                distributionParameters.getReceptionHandlerParameters().get("SDCReceptionHandler")
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getPluginHandlerParameters(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
                         .getPluginHandlerParameters());
     }
 
@@ -70,14 +72,16 @@ public class TestDistributionParameterGroup {
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
         assertEquals(null, distributionParameters.getName());
-        assertEquals(receptionHandlerParameters.get("SDCReceptionHandler").getReceptionHandlerType(),
-                distributionParameters.getReceptionHandlerParameters().get("SDCReceptionHandler")
+        assertEquals(receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerType(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
                         .getReceptionHandlerType());
-        assertEquals(receptionHandlerParameters.get("SDCReceptionHandler").getReceptionHandlerClassName(),
-                distributionParameters.getReceptionHandlerParameters().get("SDCReceptionHandler")
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerClassName(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
                         .getReceptionHandlerClassName());
-        assertEquals(receptionHandlerParameters.get("SDCReceptionHandler").getPluginHandlerParameters(),
-                distributionParameters.getReceptionHandlerParameters().get("SDCReceptionHandler")
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getPluginHandlerParameters(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
                         .getPluginHandlerParameters());
         assertTrue(validationResult.getResult().contains(
                 "field \"name\" type \"java.lang.String\" value \"null\" INVALID, " + "must be a non-blank string"));
@@ -93,14 +97,16 @@ public class TestDistributionParameterGroup {
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
         assertEquals("", distributionParameters.getName());
-        assertEquals(receptionHandlerParameters.get("SDCReceptionHandler").getReceptionHandlerType(),
-                distributionParameters.getReceptionHandlerParameters().get("SDCReceptionHandler")
+        assertEquals(receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerType(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
                         .getReceptionHandlerType());
-        assertEquals(receptionHandlerParameters.get("SDCReceptionHandler").getReceptionHandlerClassName(),
-                distributionParameters.getReceptionHandlerParameters().get("SDCReceptionHandler")
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerClassName(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
                         .getReceptionHandlerClassName());
-        assertEquals(receptionHandlerParameters.get("SDCReceptionHandler").getPluginHandlerParameters(),
-                distributionParameters.getReceptionHandlerParameters().get("SDCReceptionHandler")
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getPluginHandlerParameters(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
                         .getPluginHandlerParameters());
         assertTrue(validationResult.getResult().contains(
                 "field \"name\" type \"java.lang.String\" value \"\" INVALID, " + "must be a non-blank string"));
@@ -108,9 +114,9 @@ public class TestDistributionParameterGroup {
 
     @Test
     public void testDistributionParameterGroup_NullReceptionHandlerParameters() {
-        final String name = "SDCDistributionGroup";
         try {
-            final DistributionParameterGroup distributionParameters = new DistributionParameterGroup(name, null);
+            final DistributionParameterGroup distributionParameters =
+                    new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, null);
             distributionParameters.validate();
             fail("test should throw an exception here");
         } catch (final Exception e) {
@@ -121,12 +127,11 @@ public class TestDistributionParameterGroup {
 
     @Test
     public void testDistributionParameterGroup_EmptyReceptionHandlerParameters() {
-        final String name = "SDCDistributionGroup";
         final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
                 commonTestData.getReceptionHandlerParameters(true);
         try {
             final DistributionParameterGroup distributionParameters =
-                    new DistributionParameterGroup(name, receptionHandlerParameters);
+                    new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, receptionHandlerParameters);
             distributionParameters.validate();
             fail("test should throw an exception here");
         } catch (final Exception e) {

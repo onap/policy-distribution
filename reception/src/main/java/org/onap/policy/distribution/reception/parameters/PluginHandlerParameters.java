@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.main.parameters;
+package org.onap.policy.distribution.reception.parameters;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -26,6 +26,7 @@ import java.util.Map.Entry;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 
 /**
  * Class to hold all the plugin handler parameters.
@@ -34,6 +35,9 @@ import org.onap.policy.common.parameters.ValidationStatus;
  */
 public class PluginHandlerParameters implements ParameterGroup {
 
+    private static final String PLUGIN_HANDLER = "_PluginHandler";
+
+    private String name;
     private Map<String, PolicyDecoderParameters> policyDecoders;
     private Map<String, PolicyForwarderParameters> policyForwarders;
 
@@ -69,7 +73,7 @@ public class PluginHandlerParameters implements ParameterGroup {
 
     @Override
     public String getName() {
-        return null;
+        return name + PLUGIN_HANDLER;
     }
 
     /**
@@ -98,5 +102,12 @@ public class PluginHandlerParameters implements ParameterGroup {
             }
         }
         return validationResult;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(final String name) {
+        this.name = name;
     }
 }
