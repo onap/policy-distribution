@@ -27,6 +27,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
+import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
 /**
  * Class to perform unit test of ReceptionHandlerParameters.
@@ -40,10 +42,10 @@ public class TestReceptionHandlerParameters {
     public void testReceptionHandlerParameters() {
         final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
         final ReceptionHandlerParameters rHParameters = new ReceptionHandlerParameters(
-                CommonTestData.receptionHandlerType, CommonTestData.receptionHandlerClassName, pHParameters);
+                CommonTestData.RECEPTION_HANDLER_TYPE, CommonTestData.RECEPTION_HANDLER_CLASS_NAME, pHParameters);
         final GroupValidationResult validationResult = rHParameters.validate();
-        assertEquals(CommonTestData.receptionHandlerType, rHParameters.getReceptionHandlerType());
-        assertEquals(CommonTestData.receptionHandlerClassName, rHParameters.getReceptionHandlerClassName());
+        assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, rHParameters.getReceptionHandlerType());
+        assertEquals(CommonTestData.RECEPTION_HANDLER_CLASS_NAME, rHParameters.getReceptionHandlerClassName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertTrue(validationResult.isValid());
     }
@@ -52,10 +54,10 @@ public class TestReceptionHandlerParameters {
     public void testReceptionHandlerParameters_NullReceptionHandlerType() {
         final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
         final ReceptionHandlerParameters rHParameters =
-                new ReceptionHandlerParameters(null, CommonTestData.receptionHandlerClassName, pHParameters);
+                new ReceptionHandlerParameters(null, CommonTestData.RECEPTION_HANDLER_CLASS_NAME, pHParameters);
         final GroupValidationResult validationResult = rHParameters.validate();
         assertEquals(null, rHParameters.getReceptionHandlerType());
-        assertEquals(CommonTestData.receptionHandlerClassName, rHParameters.getReceptionHandlerClassName());
+        assertEquals(CommonTestData.RECEPTION_HANDLER_CLASS_NAME, rHParameters.getReceptionHandlerClassName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult()
@@ -67,9 +69,9 @@ public class TestReceptionHandlerParameters {
     public void testReceptionHandlerParameters_NullReceptionHandlerClassName() {
         final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
         final ReceptionHandlerParameters rHParameters =
-                new ReceptionHandlerParameters(CommonTestData.receptionHandlerType, null, pHParameters);
+                new ReceptionHandlerParameters(CommonTestData.RECEPTION_HANDLER_TYPE, null, pHParameters);
         final GroupValidationResult validationResult = rHParameters.validate();
-        assertEquals(CommonTestData.receptionHandlerType, rHParameters.getReceptionHandlerType());
+        assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, rHParameters.getReceptionHandlerType());
         assertEquals(null, rHParameters.getReceptionHandlerClassName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertFalse(validationResult.isValid());
@@ -83,10 +85,10 @@ public class TestReceptionHandlerParameters {
         final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
 
         final ReceptionHandlerParameters rHParameters =
-                new ReceptionHandlerParameters("", CommonTestData.receptionHandlerClassName, pHParameters);
+                new ReceptionHandlerParameters("", CommonTestData.RECEPTION_HANDLER_CLASS_NAME, pHParameters);
         final GroupValidationResult validationResult = rHParameters.validate();
         assertEquals("", rHParameters.getReceptionHandlerType());
-        assertEquals(CommonTestData.receptionHandlerClassName, rHParameters.getReceptionHandlerClassName());
+        assertEquals(CommonTestData.RECEPTION_HANDLER_CLASS_NAME, rHParameters.getReceptionHandlerClassName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult()
@@ -98,9 +100,9 @@ public class TestReceptionHandlerParameters {
     public void testReceptionHandlerParameters_EmptyReceptionHandlerClassName() {
         final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
         final ReceptionHandlerParameters rHParameters =
-                new ReceptionHandlerParameters(CommonTestData.receptionHandlerType, "", pHParameters);
+                new ReceptionHandlerParameters(CommonTestData.RECEPTION_HANDLER_TYPE, "", pHParameters);
         final GroupValidationResult validationResult = rHParameters.validate();
-        assertEquals(CommonTestData.receptionHandlerType, rHParameters.getReceptionHandlerType());
+        assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, rHParameters.getReceptionHandlerType());
         assertEquals("", rHParameters.getReceptionHandlerClassName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertFalse(validationResult.isValid());
@@ -114,7 +116,7 @@ public class TestReceptionHandlerParameters {
         try {
             final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(true);
             final ReceptionHandlerParameters rHParameters = new ReceptionHandlerParameters(
-                    CommonTestData.receptionHandlerType, CommonTestData.receptionHandlerClassName, pHParameters);
+                    CommonTestData.RECEPTION_HANDLER_TYPE, CommonTestData.RECEPTION_HANDLER_CLASS_NAME, pHParameters);
             rHParameters.validate();
             fail("test should throw an exception here");
         } catch (final Exception e) {
@@ -126,11 +128,11 @@ public class TestReceptionHandlerParameters {
     public void testReceptionHandlerParameters_InvalidReceptionHandlerClass() {
         final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
         final ReceptionHandlerParameters rHParameters =
-                new ReceptionHandlerParameters(CommonTestData.receptionHandlerType,
-                        CommonTestData.receptionHandlerClassName + "Invalid", pHParameters);
+                new ReceptionHandlerParameters(CommonTestData.RECEPTION_HANDLER_TYPE,
+                        CommonTestData.RECEPTION_HANDLER_CLASS_NAME + "Invalid", pHParameters);
         final GroupValidationResult validationResult = rHParameters.validate();
-        assertEquals(CommonTestData.receptionHandlerType, rHParameters.getReceptionHandlerType());
-        assertEquals(CommonTestData.receptionHandlerClassName + "Invalid", rHParameters.getReceptionHandlerClassName());
+        assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, rHParameters.getReceptionHandlerType());
+        assertEquals(CommonTestData.RECEPTION_HANDLER_CLASS_NAME + "Invalid", rHParameters.getReceptionHandlerClassName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult().contains("reception handler class not found in classpath"));
