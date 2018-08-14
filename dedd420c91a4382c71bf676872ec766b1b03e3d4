@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_af1d7bbf",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/DistributionParameterHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-14T07:04:59Z",
+      "side": 1,
+      "message": "there is another logging class/jar in Policy project, \n        \u003cgroupId\u003eorg.onap.policy.common\u003c/groupId\u003e\n        \u003cartifactId\u003eONAP-Logging\u003c/artifactId\u003e\nand import it by \nimport org.onap.policy.common.logging.flexlogger.FlexLogger;\nimport org.onap.policy.common.logging.flexlogger.Logger;\n\nwhich one should we use? we\u0027d better keep it alignment.",
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_32ab10da",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-14T07:04:59Z",
+      "side": 1,
+      "message": "is there any dependency between params and params.getPluginHandlerParameters()? like the sequence to register/unregister which one first.",
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
