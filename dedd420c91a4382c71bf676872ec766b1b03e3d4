@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_7db9592d",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/DistributionParameterHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-14T10:07:40Z",
+      "side": 1,
+      "message": "I followed the same which was being used in the distribution component. And I think we should continue to use slf4j logging throughout the component. \n@Pam/Liam - Is that ok?",
+      "parentUuid": "1a76adc5_af1d7bbf",
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_32ab10da",
         "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
         "patchSetId": 1
@@ -47,6 +65,42 @@
       "writtenOn": "2018-08-14T08:30:59Z",
       "side": 1,
       "message": "one more thing, from the public static void register(final ParameterGroup parameterGroup) of ParameterService, it will use the parameterGroup.getName() as a key, throw an exception once the key has already existed for register and similar logic for deregister. \nso this function will throw exception since the Name is same \ndistributionParameterGroup.getName(). \n\nand do you think the name \"unregister\" is better than \"deregister\"? :)",
+      "parentUuid": "1a76adc5_32ab10da",
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5dd6dd50",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-14T10:07:40Z",
+      "side": 1,
+      "message": "The getName() method is overridden in ReceptionHandlerParameters \u0026 PluginHandlerParameters to create a unique name using the main distribution group name and return the same. Hence, the Parameter Service will never complain about duplicates.\n\nRegarding method name, again I followed the same as in the Parameter Service.:)",
+      "parentUuid": "1a76adc5_b2e2c09d",
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7d907995",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-14T10:07:40Z",
+      "side": 1,
+      "message": "No, there is no dependency. Parameter Service takes a group and registers it in a map using its name as key \u0026 the group object as value. It has no logic to know about nested objects/maps.\nAnd whenever you provide it a name of the group it will use it as a key to find the relevant object from map and return the same.\nSo basically, \"params\" will register one group in Parameter Service and \"params.getPluginHandlerParameters()\" will register another group.",
       "parentUuid": "1a76adc5_32ab10da",
       "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
