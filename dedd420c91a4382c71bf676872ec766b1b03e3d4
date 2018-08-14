@@ -33,6 +33,24 @@
       "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b2e2c09d",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-14T08:30:59Z",
+      "side": 1,
+      "message": "one more thing, from the public static void register(final ParameterGroup parameterGroup) of ParameterService, it will use the parameterGroup.getName() as a key, throw an exception once the key has already existed for register and similar logic for deregister. \nso this function will throw exception since the Name is same \ndistributionParameterGroup.getName(). \n\nand do you think the name \"unregister\" is better than \"deregister\"? :)",
+      "parentUuid": "1a76adc5_32ab10da",
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
