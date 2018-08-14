@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_7de5d9a6",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/DistributionParameterHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-08-14T12:25:04Z",
+      "side": 1,
+      "message": "We should use the ONAP-Logging that is in policy/common. Then we are consistent around the repo\u0027s.\n\nWe need to conform to Logging 1.2 specification - although I don\u0027t think we have resources to do so for all the repos. I think Amdocs will help us, but not sure and its getting late in the release process.",
+      "parentUuid": "1a76adc5_ddf66dd7",
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_bd20514a",
         "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
         "patchSetId": 1
