@@ -37,6 +37,47 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_ddf66dd7",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/DistributionParameterHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-14T11:09:36Z",
+      "side": 1,
+      "message": "Good question!\n\nI have used XLogger because I like its entry/exit methods. The ONAP guidelines are OK with slf4j:\nhttps://wiki.onap.org/display/DW/ONAP+Application+Logging+Guidelines+v1.1#ONAPApplicationLoggingGuidelinesv1.1-SLF4J\n\nHowever, we should  be guided by @Pam here. It is a small job to change to a standard logging approach now, much more difficult later on.",
+      "parentUuid": "1a76adc5_7db9592d",
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_bd20514a",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-14T11:09:36Z",
+      "side": 1,
+      "message": "I guess later we may have to put in some hooks in this method to take down the subscriptions to policy sources such as SDC.",
+      "range": {
+        "startLine": 82,
+        "startChar": 16,
+        "endLine": 82,
+        "endChar": 25
+      },
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_32ab10da",
         "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
         "patchSetId": 1
@@ -102,6 +143,93 @@
       "side": 1,
       "message": "No, there is no dependency. Parameter Service takes a group and registers it in a map using its name as key \u0026 the group object as value. It has no logic to know about nested objects/maps.\nAnd whenever you provide it a name of the group it will use it as a key to find the relevant object from map and return the same.\nSo basically, \"params\" will register one group in Parameter Service and \"params.getPluginHandlerParameters()\" will register another group.",
       "parentUuid": "1a76adc5_32ab10da",
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5d325da8",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-14T11:09:36Z",
+      "side": 1,
+      "message": "The parameter service is a flat map. Therefore, if you want to register a sub-group of parameters in the parameter service it\u0027s name MUST be unique.\n\nThis is for convenience. Take a hierarchy where G0-\u003eG1.0-\u003eG2.0\n  -\u003eG1.1-\u003eG2.1\n        -\u003eG2.2\n\nYou can always get to G2.0, G2.3 etc by reading G0 from the parameter service and navigating down the hierarchy to the group you want.\n\n\nHowever, it is much more convenient to just go and get G2.2 directly in your class, if you already know the name of the parameter group you need you can get it directly from the parameter service.",
+      "parentUuid": "1a76adc5_7d907995",
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7df159cc",
+        "filename": "reception/src/main/java/org/onap/policy/distribution/reception/handling/AbstractReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-14T11:09:36Z",
+      "side": 1,
+      "message": "Nice! Its beginning to come together!",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 5
+      },
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_1de38508",
+        "filename": "reception/src/main/java/org/onap/policy/distribution/reception/handling/PluginHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-14T11:09:36Z",
+      "side": 1,
+      "message": "Is it possible to initialize extra policy decoders or policy forwarders, say for example we implement a REST or CLI interface in the future to allow us to add, remove, or amend the properties of a decoder or forwarder on the fly without taking down and bringing back up the JVM?\n\nYou may need a map rather than a collection to hold the forwarders and decoders in order to do the CRUD in a nice way and refer to them by name?",
+      "range": {
+        "startLine": 41,
+        "startChar": 13,
+        "endLine": 41,
+        "endChar": 26
+      },
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_dde42d0f",
+        "filename": "reception/src/main/java/org/onap/policy/distribution/reception/handling/ReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-14T11:09:36Z",
+      "side": 1,
+      "message": "There\u0027s a common interface for starting and stopping things in common capabilities called Startable, could we use that instead of this interface even if there are some methods that might not be needed here?",
+      "range": {
+        "startLine": 29,
+        "startChar": 17,
+        "endLine": 29,
+        "endChar": 33
+      },
       "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
