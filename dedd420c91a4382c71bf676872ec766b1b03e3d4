@@ -267,6 +267,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_0bed7ac3",
+        "filename": "reception/src/main/java/org/onap/policy/distribution/reception/handling/PluginHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-15T13:55:06Z",
+      "side": 1,
+      "message": "I just wanted Ram\u0027s opinion on this.",
+      "parentUuid": "1a76adc5_1de38508",
+      "range": {
+        "startLine": 41,
+        "startChar": 13,
+        "endLine": 41,
+        "endChar": 26
+      },
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_dde42d0f",
         "filename": "reception/src/main/java/org/onap/policy/distribution/reception/handling/ReceptionHandler.java",
         "patchSetId": 1
@@ -278,6 +302,30 @@
       "writtenOn": "2018-08-14T11:09:36Z",
       "side": 1,
       "message": "There\u0027s a common interface for starting and stopping things in common capabilities called Startable, could we use that instead of this interface even if there are some methods that might not be needed here?",
+      "range": {
+        "startLine": 29,
+        "startChar": 17,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_8bd8aa1e",
+        "filename": "reception/src/main/java/org/onap/policy/distribution/reception/handling/ReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-15T13:55:06Z",
+      "side": 1,
+      "message": "And also on this.",
+      "parentUuid": "1a76adc5_dde42d0f",
       "range": {
         "startLine": 29,
         "startChar": 17,
