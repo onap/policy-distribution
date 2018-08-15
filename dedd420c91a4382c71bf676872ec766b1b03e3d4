@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_ddf50d84",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-15T14:20:02Z",
+      "side": 1,
+      "message": "I think that may be done by the respective ReceptionHandler instances using the method \"void destroy()\" in the ReceptionHandler interface.",
+      "parentUuid": "1a76adc5_bd20514a",
+      "range": {
+        "startLine": 82,
+        "startChar": 16,
+        "endLine": 82,
+        "endChar": 25
+      },
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_32ab10da",
         "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
         "patchSetId": 1
@@ -291,6 +315,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_eb9fde01",
+        "filename": "reception/src/main/java/org/onap/policy/distribution/reception/handling/PluginHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-15T14:20:02Z",
+      "side": 1,
+      "message": "I think it will be possible to add/modify/remove the decoder/forwarder at run time using REST or CLI.\nFor example - one approach will be to build a new collection/map of decoders/forwarders along side and then swap the old one to new one in PluginHandler.\n\nRegarding using map, I feel yes it will better to have map with key as name. But the current interfaces are designed to go with collection.\nAlso, in case of collection there is only instance of decoder/forwarder but in case of map we can keep the class itself and instantiate it before use every time. I will discuss more with you about it and then we can decide.",
+      "parentUuid": "1a76adc5_0bed7ac3",
+      "range": {
+        "startLine": 41,
+        "startChar": 13,
+        "endLine": 41,
+        "endChar": 26
+      },
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_dde42d0f",
         "filename": "reception/src/main/java/org/onap/policy/distribution/reception/handling/ReceptionHandler.java",
         "patchSetId": 1
@@ -326,6 +374,30 @@
       "side": 1,
       "message": "And also on this.",
       "parentUuid": "1a76adc5_dde42d0f",
+      "range": {
+        "startLine": 29,
+        "startChar": 17,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_8ba74a4f",
+        "filename": "reception/src/main/java/org/onap/policy/distribution/reception/handling/ReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-15T14:20:02Z",
+      "side": 1,
+      "message": "I think we can use the Startable interface. \nMay be just the start(), shutdown() methods for now. And the stop() method in future when we plan to change the collection/map of decoders/forwarders on fly in future.",
+      "parentUuid": "1a76adc5_8bd8aa1e",
       "range": {
         "startLine": 29,
         "startChar": 17,
