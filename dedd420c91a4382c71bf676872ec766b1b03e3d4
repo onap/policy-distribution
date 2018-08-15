@@ -185,6 +185,42 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_b5ddc572",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-15T02:21:41Z",
+      "side": 1,
+      "message": "got it.",
+      "parentUuid": "1a76adc5_5d325da8",
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_15f919e9",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-15T02:21:41Z",
+      "side": 1,
+      "message": "got it. after check the details implementation, yes, there is no duplicate.",
+      "parentUuid": "1a76adc5_5dd6dd50",
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_7df159cc",
         "filename": "reception/src/main/java/org/onap/policy/distribution/reception/handling/AbstractReceptionHandler.java",
         "patchSetId": 1
