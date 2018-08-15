@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_463da98e",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/DistributionParameterHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-15T15:39:41Z",
+      "side": 1,
+      "message": "Done. Changed the logging to use ONAP-Logging from policy/common.",
+      "parentUuid": "1a76adc5_7de5d9a6",
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_bd20514a",
         "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
         "patchSetId": 1
@@ -422,6 +440,30 @@
       "side": 1,
       "message": "I am working on it. Will submit the review soon.",
       "parentUuid": "1a76adc5_8ba74a4f",
+      "range": {
+        "startLine": 29,
+        "startChar": 17,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "dedd420c91a4382c71bf676872ec766b1b03e3d4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_062c9146",
+        "filename": "reception/src/main/java/org/onap/policy/distribution/reception/handling/ReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-15T15:39:41Z",
+      "side": 1,
+      "message": "I am taking my words back, we cannot use Startable here. \nReason - The initialize() method needs the parameter group name to  initialize the handlers, decoders \u0026 forwarders. But the start() methods in Startable has no parameters. Also, we intend to throw custom exceptions back to the activator which cannot be done using Startable.",
+      "parentUuid": "1a76adc5_2600ad00",
       "range": {
         "startLine": 29,
         "startChar": 17,
