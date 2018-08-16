@@ -46,6 +46,30 @@
       "revId": "612196451afe9b16b8914858dd58f3bb0dae8579",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_c41c4c7a",
+        "filename": "forwarding/src/main/java/org/onap/policy/distribution/forwarding/parameters/PolicyForwarderParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-16T21:48:53Z",
+      "side": 1,
+      "message": "Of course.\n\nMaybe dial abck the severity to \"trace\"",
+      "parentUuid": "1a76adc5_842414b0",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 79
+      },
+      "revId": "612196451afe9b16b8914858dd58f3bb0dae8579",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
