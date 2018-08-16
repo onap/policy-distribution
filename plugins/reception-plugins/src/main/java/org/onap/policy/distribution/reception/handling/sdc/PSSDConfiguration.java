@@ -5,25 +5,23 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
 package org.onap.policy.distribution.reception.handling.sdc;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
+
 import org.onap.sdc.api.consumer.IConfiguration;
 
 /**
@@ -35,14 +33,14 @@ public class PSSDConfiguration implements IConfiguration {
     // Configuration file structure
 
     // Configuration file properties
-    private PSSDConfigurationParametersGroup configParameters=null;
+    private PSSDConfigurationParametersGroup configParameters = null;
 
     /**
      * Original constructor
      *
      * @param configParameters properties needed to be configured for the model loader
      */
-    public PSSDConfiguration(PSSDConfigurationParametersGroup configParameters) {
+    public PSSDConfiguration(final PSSDConfigurationParametersGroup configParameters) {
         this.configParameters = configParameters;
 
     }

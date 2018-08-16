@@ -105,7 +105,9 @@ public class PluginHandlerParameters implements ParameterGroup {
     }
 
     /**
-     * @param name the name to set
+     * Set the name of this group.
+     *
+     * @param name the name to set.
      */
     public void setName(final String name) {
         this.name = name;

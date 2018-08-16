@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
+import org.onap.policy.common.logging.flexlogger.FlexLogger;
+import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
@@ -40,6 +42,8 @@ import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters
  */
 public class PluginHandler {
 
+    private static final Logger LOGGER = FlexLogger.getLogger(PluginHandler.class);
+
     private Collection<PolicyDecoder<PolicyInput, Policy>> policyDecoders;
     private Collection<PolicyForwarder> policyForwarders;
 
@@ -47,8 +51,8 @@ public class PluginHandler {
      * Create an instance to instantiate plugins based on the given parameter group.
      *
      * @param parameterGroupName the name of the parameter group
-     * @throws PolicyDecodingException
-     * @throws PolicyForwardingException
+     * @throws PolicyDecodingException exception if it occurs
+     * @throws PolicyForwardingException exception if it occurs
      */
     public PluginHandler(final String parameterGroupName) throws PolicyDecodingException, PolicyForwardingException {
         final PluginHandlerParameters params = (PluginHandlerParameters) ParameterService.get(parameterGroupName);
@@ -77,41 +81,44 @@ public class PluginHandler {
     /**
      * Initialize policy decoders.
      *
-     * @param policyDecoderParameters
-     * @throws PolicyDecodingException
+     * @param policyDecoderParameters exception if it occurs
+     * @throws PolicyDecodingException exception if it occurs
      */
     @SuppressWarnings("unchecked")
     private void initializePolicyDecoders(final Map<String, PolicyDecoderParameters> policyDecoderParameters)
             throws PolicyDecodingException {
-        policyDecoders = new ArrayList<PolicyDecoder<PolicyInput, Policy>>();
-        for (final PolicyDecoderParameters pDParameters : policyDecoderParameters.values()) {
+        policyDecoders = new ArrayList<>();
+        for (final PolicyDecoderParameters decoderParameters : policyDecoderParameters.values()) {
             try {
                 final Class<PolicyDecoder<PolicyInput, Policy>> policyDecoderClass =
-                        (Class<PolicyDecoder<PolicyInput, Policy>>) Class.forName(pDParameters.getDecoderClassName());
+                        (Class<PolicyDecoder<PolicyInput, Policy>>) Class
+                                .forName(decoderParameters.getDecoderClassName());
                 final PolicyDecoder<PolicyInput, Policy> decoder = policyDecoderClass.newInstance();
                 policyDecoders.add(decoder);
             } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException exp) {
-                throw new PolicyDecodingException(exp.getMessage());
+                LOGGER.error("exception occured while initializing decoders", exp);
+                throw new PolicyDecodingException(exp.getMessage(), exp.getCause());
             }
         }
     }
 
     /**
-     * Initialize policy forwarders
+     * Initialize policy forwarders.
      *
-     * @param policyForwarderParameters
-     * @throws PolicyForwardingException
+     * @param policyForwarderParameters exception if it occurs
+     * @throws PolicyForwardingException exception if it occurs
      */
     @SuppressWarnings("unchecked")
     private void initializePolicyForwarders(final Map<String, PolicyForwarderParameters> policyForwarderParameters)
             throws PolicyForwardingException {
-        policyForwarders = new ArrayList<PolicyForwarder>();
-        for (final PolicyForwarderParameters pFParameters : policyForwarderParameters.values()) {
+        policyForwarders = new ArrayList<>();
+        for (final PolicyForwarderParameters forwarderParameters : policyForwarderParameters.values()) {
             try {
                 final Class<PolicyForwarder> policyForwarderClass =
-                        (Class<PolicyForwarder>) Class.forName(pFParameters.getForwarderClassName());
+                        (Class<PolicyForwarder>) Class.forName(forwarderParameters.getForwarderClassName());
                 policyForwarders.add(policyForwarderClass.newInstance());
             } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException exp) {
+                LOGGER.error("exception occured while initializing forwarders", exp);
                 throw new PolicyForwardingException(exp.getMessage(), exp.getCause());
             }
         }

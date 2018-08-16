@@ -20,6 +20,8 @@
 
 package org.onap.policy.distribution.forwarding.parameters;
 
+import org.onap.policy.common.logging.flexlogger.FlexLogger;
+import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
@@ -30,6 +32,9 @@ import org.onap.policy.common.parameters.ValidationStatus;
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
 public class PolicyForwarderParameters implements ParameterGroup {
+
+    private static final Logger LOGGER = FlexLogger.getLogger(PolicyForwarderParameters.class);
+
     private String forwarderType;
     private String forwarderClassName;
 
@@ -89,7 +94,8 @@ public class PolicyForwarderParameters implements ParameterGroup {
     private void validatePolicyForwarderClass(final GroupValidationResult validationResult) {
         try {
             Class.forName(forwarderClassName);
-        } catch (final ClassNotFoundException e) {
+        } catch (final ClassNotFoundException exp) {
+            LOGGER.error("policy forwarder class not found in classpath", exp);
             validationResult.setResult("forwarderClassName", ValidationStatus.INVALID,
                     "policy forwarder class not found in classpath");
         }

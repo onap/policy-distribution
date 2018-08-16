@@ -20,6 +20,8 @@
 
 package org.onap.policy.distribution.reception.parameters;
 
+import org.onap.policy.common.logging.flexlogger.FlexLogger;
+import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
@@ -30,6 +32,9 @@ import org.onap.policy.common.parameters.ValidationStatus;
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
 public class PolicyDecoderParameters implements ParameterGroup {
+
+    private static final Logger LOGGER = FlexLogger.getLogger(PolicyDecoderParameters.class);
+
     private String decoderType;
     private String decoderClassName;
 
@@ -89,7 +94,8 @@ public class PolicyDecoderParameters implements ParameterGroup {
     private void validatePolicyDecoderClass(final GroupValidationResult validationResult) {
         try {
             Class.forName(decoderClassName);
-        } catch (final ClassNotFoundException e) {
+        } catch (final ClassNotFoundException exp) {
+            LOGGER.error("policy decoder class not found in classpath", exp);
             validationResult.setResult("decoderClassName", ValidationStatus.INVALID,
                     "policy decoder class not found in classpath");
         }

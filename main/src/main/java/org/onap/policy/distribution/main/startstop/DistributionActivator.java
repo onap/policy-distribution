@@ -20,6 +20,9 @@
 
 package org.onap.policy.distribution.main.startstop;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
@@ -40,6 +43,9 @@ public class DistributionActivator {
 
     // The parameters of this policy distribution activator
     private final DistributionParameterGroup distributionParameterGroup;
+
+    // The map of reception handlers initialized by this distribution activator
+    private final Map<String, AbstractReceptionHandler> receptionHandlersMap = new HashMap<>();
 
     /**
      * Instantiate the activator for policy distribution as a complete service.
@@ -66,6 +72,7 @@ public class DistributionActivator {
                         (Class<AbstractReceptionHandler>) Class.forName(rHParameters.getReceptionHandlerClassName());
                 final AbstractReceptionHandler receptionHandler = receptionHandlerClass.newInstance();
                 receptionHandler.initialize(rHParameters.getName());
+                receptionHandlersMap.put(rHParameters.getName(), receptionHandler);
             } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException
                     | PolicyDecodingException | PolicyForwardingException exp) {
                 throw new PolicyDistributionException(exp.getMessage(), exp);
@@ -80,8 +87,16 @@ public class DistributionActivator {
      * @throws PolicyDistributionException on termination errors
      */
     public void terminate() throws PolicyDistributionException {
-        // Shut down all handlers
-        deregisterToParameterService(distributionParameterGroup);
+        try {
+            for (final AbstractReceptionHandler handler : receptionHandlersMap.values()) {
+                handler.destroy();
+            }
+            receptionHandlersMap.clear();
+            deregisterToParameterService(distributionParameterGroup);
+        } catch (final Exception exp) {
+            LOGGER.error("Policy distribution service termination failed", exp);
+            throw new PolicyDistributionException(exp.getMessage(), exp);
+        }
     }
 
     /**

@@ -34,10 +34,10 @@ import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
-/***
+/**
  * Base implementation of {@link ReceptionHandler}. All reception handlers should extend this base class by implementing
  * the {@link #initializeReception(String)} method to perform the specific initialization required to receive inputs and
- * by invoking {@link #inputReceived(PolicyInput)} when the reception handler receives input
+ * by invoking {@link #inputReceived(PolicyInput)} when the reception handler receives input.
  */
 public abstract class AbstractReceptionHandler implements ReceptionHandler {
 
@@ -55,7 +55,7 @@ public abstract class AbstractReceptionHandler implements ReceptionHandler {
 
     /**
      * Sub classes must implement this method to perform the specific initialization required to receive inputs, for
-     * example setting up subscriptions
+     * example setting up subscriptions.
      *
      * @param parameterGroupName the parameter group name
      */

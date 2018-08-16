@@ -20,26 +20,33 @@
 
 package org.onap.policy.distribution.reception.handling;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
-import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
+import org.onap.policy.distribution.model.Policy;
 
 /**
- * Handles input into Policy Distribution which may be decoded into a Policy.
+ * Class to create a dummy forwarder for test cases in AbstractReceptionHandlerTest.
+ *
+ * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public interface ReceptionHandler {
+public class DummyPolicyForwarder implements PolicyForwarder {
+    private int numberOfPoliciesReceived = 0;
+    private Collection<Policy> policiesReceived = new ArrayList<>();
 
-    /**
-     * Initialize the reception handler with the given parameters.
-     *
-     * @param parameterGroupName the name of the parameter group containing the configuration for the reception handler
-     * @throws PolicyDecodingException exception if it occurs
-     * @throws PolicyForwardingException exception if it occurs
-     */
-    void initialize(String parameterGroupName) throws PolicyDecodingException, PolicyForwardingException;
+    @Override
+    public void forward(final Collection<Policy> policies) throws PolicyForwardingException {
+        numberOfPoliciesReceived += policies.size();
+        policiesReceived.addAll(policies);
+    }
 
-    /**
-     * Destroy the reception handler, removing any subscriptions and releasing all resources.
-     */
-    void destroy();
+    public int getNumberOfPoliciesReceived() {
+        return numberOfPoliciesReceived;
+    }
 
+    public boolean receivedPolicy(final Policy policy) {
+        return policiesReceived.contains(policy);
+    }
 }

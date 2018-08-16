@@ -9,3 +9,5 @@ target
 .metadata/
 /bin/
 .log
+logs
+debug-logs

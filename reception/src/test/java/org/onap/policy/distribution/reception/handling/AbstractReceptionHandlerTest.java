@@ -27,19 +27,38 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.junit.Test;
+import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
+import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 import org.onap.policy.distribution.model.Policy;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
+import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
+import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
 
+/**
+ * Class to perform unit test of AbstractReceptionHandler.
+ *
+ * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
+ */
 public class AbstractReceptionHandlerTest {
 
-    // These tests won't work any more because we use Parameter Service for starting the plugins.
-    // Will rewrite them while implementing AbstractReceptionHandler.inputRecieved() method.
-    // @Test
+    private static final String DISTRIBUTION_GROUP = "DummyDistributionGroup";
+    private static final String DECODER_TYPE = "DummyDecoder";
+    private static final String DECODER_CLASS_NAME = "org.onap.policy.distribution.reception.handling.DummyDecoder";
+    private static final String DECODER_KEY = "DummyDecoderKey";
+    private static final String FORWARDER_KEY = "DummyForwarderKey";
+    private static final String FORWARDER_TYPE = "DummyForwarder";
+    private static final String FORWARDER_CLASS_NAME =
+            "org.onap.policy.distribution.reception.handling.DummyPolicyForwarder";
+
+    @Test
     public void testInputReceived() throws PolicyDecodingException, NoSuchFieldException, SecurityException,
             IllegalArgumentException, IllegalAccessException, PolicyForwardingException {
         final AbstractReceptionHandler handler = new DummyReceptionHandler();
@@ -75,7 +94,7 @@ public class AbstractReceptionHandlerTest {
         assertTrue(policyForwarder2.receivedPolicy(generatedPolicy2));
     }
 
-    // @Test(expected = PolicyDecodingException.class)
+    @Test(expected = PolicyDecodingException.class)
     public void testInputReceivedNoSupportingDecoder() throws PolicyDecodingException, NoSuchFieldException,
             SecurityException, IllegalArgumentException, IllegalAccessException, PolicyForwardingException {
         final AbstractReceptionHandler handler = new DummyReceptionHandler();
@@ -87,7 +106,7 @@ public class AbstractReceptionHandlerTest {
         handler.inputReceived(new DummyPolicyInput());
     }
 
-    // @Test(expected = PolicyDecodingException.class)
+    @Test(expected = PolicyDecodingException.class)
     public void testInputReceivedNoDecoder() throws PolicyDecodingException, NoSuchFieldException, SecurityException,
             IllegalArgumentException, IllegalAccessException, PolicyForwardingException {
         final AbstractReceptionHandler handler = new DummyReceptionHandler();
@@ -98,72 +117,23 @@ public class AbstractReceptionHandlerTest {
         handler.inputReceived(new DummyPolicyInput());
     }
 
-    class DummyReceptionHandler extends AbstractReceptionHandler {
-        @Override
-        protected void initializeReception(final String parameterGroupName) {}
-
-        @Override
-        public void destroy() {}
-    }
-
     class DummyPolicyInput implements PolicyInput {
     }
+
     class DummyPolicy1 implements Policy {
     }
+
     class DummyPolicy2 implements Policy {
     }
 
-    public class DummyDecoder implements PolicyDecoder<PolicyInput, Policy> {
-
-        private boolean canHandleValue;
-        private Collection<Policy> policesToReturn;
-
-        public DummyDecoder(final boolean canHandleValue, final Collection<Policy> policesToReturn) {
-            this.canHandleValue = canHandleValue;
-            this.policesToReturn = policesToReturn;
-        }
-
-        @Override
-        public boolean canHandle(final PolicyInput policyInput) {
-            return canHandleValue;
-        }
-
-        @Override
-        public Collection<Policy> decode(final PolicyInput input) throws PolicyDecodingException {
-            return policesToReturn;
-        }
-    }
-
-    public class DummyPolicyForwarder implements PolicyForwarder {
-        private int numberOfPoliciesReceived = 0;
-        private Collection<Policy> policiesReceived = new ArrayList<>();
-
-        @Override
-        public void forward(final Collection<Policy> policies) throws PolicyForwardingException {
-            numberOfPoliciesReceived += policies.size();
-            policiesReceived.addAll(policies);
-        }
-
-        public int getNumberOfPoliciesReceived() {
-            return numberOfPoliciesReceived;
-        }
-
-        public boolean receivedPolicy(final Policy policy) {
-            return policiesReceived.contains(policy);
-        }
-    }
-
-    /**
-     * Only needed until code is added for instantiating plugins from paramater file
-     *
-     * @throws PolicyForwardingException
-     * @throws PolicyDecodingException
-     */
     private void setUpPlugins(final AbstractReceptionHandler receptionHandler,
             final Collection<PolicyDecoder<PolicyInput, Policy>> decoders, final Collection<PolicyForwarder> forwarders)
             throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException,
             PolicyDecodingException, PolicyForwardingException {
-        final PluginHandler pluginHandler = new PluginHandler("");
+        final PluginHandlerParameters pluginParameters = getPluginHandlerParameters();
+        pluginParameters.setName(DISTRIBUTION_GROUP);
+        ParameterService.register(pluginParameters);
+        final PluginHandler pluginHandler = new PluginHandler(pluginParameters.getName());
 
         final Field decodersField = pluginHandler.getClass().getDeclaredField("policyDecoders");
         decodersField.setAccessible(true);
@@ -176,6 +146,31 @@ public class AbstractReceptionHandlerTest {
         final Field pluginHandlerField = AbstractReceptionHandler.class.getDeclaredField("pluginHandler");
         pluginHandlerField.setAccessible(true);
         pluginHandlerField.set(receptionHandler, pluginHandler);
+        ParameterService.deregister(pluginParameters.getName());
+    }
+
+    private Map<String, PolicyDecoderParameters> getPolicyDecoders() {
+        final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<String, PolicyDecoderParameters>();
+        final PolicyDecoderParameters pDParameters = new PolicyDecoderParameters(DECODER_TYPE, DECODER_CLASS_NAME);
+        policyDecoders.put(DECODER_KEY, pDParameters);
+        return policyDecoders;
+    }
+
+    private Map<String, PolicyForwarderParameters> getPolicyForwarders() {
+        final Map<String, PolicyForwarderParameters> policyForwarders =
+                new HashMap<String, PolicyForwarderParameters>();
+        final PolicyForwarderParameters pFParameters =
+                new PolicyForwarderParameters(FORWARDER_TYPE, FORWARDER_CLASS_NAME);
+        policyForwarders.put(FORWARDER_KEY, pFParameters);
+        return policyForwarders;
+    }
+
+    private PluginHandlerParameters getPluginHandlerParameters() {
+        final Map<String, PolicyDecoderParameters> policyDecoders = getPolicyDecoders();
+        final Map<String, PolicyForwarderParameters> policyForwarders = getPolicyForwarders();
+        final PluginHandlerParameters pluginHandlerParameters =
+                new PluginHandlerParameters(policyDecoders, policyForwarders);
+        return pluginHandlerParameters;
     }
 
 }

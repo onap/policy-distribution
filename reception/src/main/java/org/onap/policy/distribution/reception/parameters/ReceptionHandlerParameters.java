@@ -20,6 +20,8 @@
 
 package org.onap.policy.distribution.reception.parameters;
 
+import org.onap.policy.common.logging.flexlogger.FlexLogger;
+import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
@@ -30,6 +32,9 @@ import org.onap.policy.common.parameters.ValidationStatus;
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
 public class ReceptionHandlerParameters implements ParameterGroup {
+
+    private static final Logger LOGGER = FlexLogger.getLogger(ReceptionHandlerParameters.class);
+
     private String name;
     private String receptionHandlerType;
     private String receptionHandlerClassName;
@@ -109,13 +114,16 @@ public class ReceptionHandlerParameters implements ParameterGroup {
     private void validateReceptionHandlerClass(final GroupValidationResult validationResult) {
         try {
             Class.forName(receptionHandlerClassName);
-        } catch (final ClassNotFoundException e) {
+        } catch (final ClassNotFoundException exp) {
+            LOGGER.error("reception handler class not found in classpath", exp);
             validationResult.setResult("receptionHandlerClassName", ValidationStatus.INVALID,
                     "reception handler class not found in classpath");
         }
     }
 
     /**
+     * Set the name of this group.
+     *
      * @param name the name to set
      */
     public void setName(final String name) {
