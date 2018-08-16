@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_a1efc286",
+        "filename": "forwarding/src/main/java/org/onap/policy/distribution/forwarding/parameters/PolicyForwarderParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-16T17:25:06Z",
+      "side": 1,
+      "message": "I know this is debatable, but a class not found error is probably a configuration error and not a system error. The validation result will have the result of this \"error\", I\u0027m not sure if it should be logged.",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 79
+      },
+      "revId": "612196451afe9b16b8914858dd58f3bb0dae8579",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
