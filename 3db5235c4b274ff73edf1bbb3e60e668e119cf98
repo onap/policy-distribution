@@ -1,0 +1,832 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_8aa3bb4e",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/CommonTestData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "Please add method comments.",
+      "range": {
+        "startLine": 77,
+        "startChar": 11,
+        "endLine": 77,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_ea934ff8",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/CommonTestData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "Please leave a link blank to avoid check style errors.",
+      "range": {
+        "startLine": 105,
+        "startChar": 5,
+        "endLine": 106,
+        "endChar": 7
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_4aacc335",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestReceptionHandlerParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "I think you should add few test cases for different scenarios of PSSDConfigurationParameterGroup.\nAlso, please add assertions for PSSDConfigurationParameterGroup in the existing test cases.",
+      "range": {
+        "startLine": 39,
+        "startChar": 13,
+        "endLine": 39,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b52db848",
+        "filename": "main/src/test/resources/parameters/DistributionConfigParameters.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "I think this should be generated uniquely within PSSDConfigurationParameterGroup.",
+      "range": {
+        "startLine": 8,
+        "startChar": 16,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_75272065",
+        "filename": "main/src/test/resources/parameters/DistributionConfigParameters_EmptyPolicyDecoder.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 8,
+        "startChar": 16,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_952afc2a",
+        "filename": "main/src/test/resources/parameters/DistributionConfigParameters_EmptyPolicyForwarder.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 8,
+        "startChar": 16,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_551c6413",
+        "filename": "main/src/test/resources/parameters/DistributionConfigParameters_InvalidName.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 8,
+        "startChar": 16,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f51a5016",
+        "filename": "main/src/test/resources/parameters/DistributionConfigParameters_InvalidPolicyDecoderClass.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 8,
+        "startChar": 15,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_1516ecf1",
+        "filename": "main/src/test/resources/parameters/DistributionConfigParameters_InvalidPolicyDecoderType.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 8,
+        "startChar": 15,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d5d71422",
+        "filename": "main/src/test/resources/parameters/DistributionConfigParameters_InvalidPolicyForwarderClass.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 8,
+        "startChar": 16,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_75de4041",
+        "filename": "main/src/test/resources/parameters/DistributionConfigParameters_InvalidPolicyForwarderType.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 8,
+        "startChar": 16,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_95e19c00",
+        "filename": "main/src/test/resources/parameters/DistributionConfigParameters_InvalidReceptionHandlerClass.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 8,
+        "startChar": 15,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_55e30405",
+        "filename": "main/src/test/resources/parameters/DistributionConfigParameters_InvalidReceptionHandlerType.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 8,
+        "startChar": 16,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_15ed8cef",
+        "filename": "main/src/test/resources/parameters/DistributionConfigParameters_NoPolicyDecoder.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 8,
+        "startChar": 16,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b5bb78e4",
+        "filename": "main/src/test/resources/parameters/DistributionConfigParameters_NoPolicyForwarder.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 8,
+        "startChar": 15,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d5be34d4",
+        "filename": "main/src/test/resources/parameters/MinimumParameters.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 8,
+        "startChar": 16,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_55ca246f",
+        "filename": "plugins/reception-plugins/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "I don\u0027t think this is needed. It will automatically come through \"reception\" module.",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 21
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b5a298ac",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/exceptions/ArtifactInstallerException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "please remove tabs.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 1
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5578e42a",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/exceptions/ArtifactInstallerException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 7
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_95867c12",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/exceptions/ArtifactInstallerException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 7
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_95af5c94",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/exceptions/PSSDControllerException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 1
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b5893828",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/exceptions/PSSDControllerException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "Please add complete method comment to avoid checkstyle errors.",
+      "range": {
+        "startLine": 34,
+        "startChar": 1,
+        "endLine": 36,
+        "endChar": 7
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d58cf437",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/exceptions/PSSDControllerException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 7
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f5581058",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/exceptions/PSSDDownloadException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "Do we actually need \"ArtifactInstallerException\" \u0026 \"PSSDDownloadException\" both?",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 34
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d593944d",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/exceptions/PSSDDownloadException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 1
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_759ac064",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/exceptions/PSSDDownloadException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 34,
+        "startChar": 1,
+        "endLine": 36,
+        "endChar": 7
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_35a448a5",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/exceptions/PSSDDownloadException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 7
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_1554ac1f",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/exceptions/PSSDParametersException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "Do we need this?",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 36
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_753c00e3",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/exceptions/PSSDParametersException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "please remove tabs.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 1
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_953f5cd6",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/exceptions/PSSDParametersException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 7
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_352688cf",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/exceptions/PSSDParametersException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 7
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_55c6a44a",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/PSSDConfigurationTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "pls remove.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 8
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_355f6843",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/exceptions/TestExceptions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "As per me its always better to have separate test classes for each main class that you want to test. What do you say?",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 27
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b5de1810",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/exceptions/TestExceptions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "pls remove",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 8
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_95ebdcaf",
+        "filename": "reception/src/main/java/org/onap/policy/distribution/reception/parameters/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "is this needed?",
+      "range": {
+        "startLine": 62,
+        "startChar": 11,
+        "endLine": 62,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d54e3496",
+        "filename": "reception/src/main/java/org/onap/policy/distribution/reception/parameters/PSSDConfigurationParametersGroup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-17T11:30:06Z",
+      "side": 1,
+      "message": "I think this will not work as it generates new UUID every time. \nSo if you register this group in Parameter Service then you get one UUID. And when you try  fetching from Parameter Service by calling getName() method then the UUID will be different. That will lead to error.\n\nFor an instance of PSSDConfigurationParametersGroup, getName() should always return the same unique name.",
+      "range": {
+        "startLine": 156,
+        "startChar": 28,
+        "endLine": 156,
+        "endChar": 56
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
