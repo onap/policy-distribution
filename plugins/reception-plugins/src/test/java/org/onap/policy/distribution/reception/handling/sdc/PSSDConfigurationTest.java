@@ -33,6 +33,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import org.junit.Test;
 import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.distribution.reception.parameters.PSSDConfigurationParametersGroup;
 
 /*-
  * Tests for PSSDConfiguration class
@@ -53,7 +54,6 @@ public class PSSDConfigurationTest {
         }
         final GroupValidationResult validationResult = configParameters.validate();
         assertTrue(validationResult.isValid());
-        assertEquals("parameterConfig1", configParameters.getName());
         
         PSSDConfiguration config = new PSSDConfiguration(configParameters);
         assertEquals(20, config.getPollingInterval());
@@ -73,7 +73,6 @@ public class PSSDConfigurationTest {
         }
         final GroupValidationResult validationResult = configParameters.validate();
         assertFalse(validationResult.isValid());
-        assertEquals("parameterConfig1", configParameters.getName());
         
     }
 }

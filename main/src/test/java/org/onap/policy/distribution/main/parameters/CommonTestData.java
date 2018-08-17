@@ -20,10 +20,13 @@
 
 package org.onap.policy.distribution.main.parameters;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
+import org.onap.policy.distribution.reception.parameters.PSSDConfigurationParametersGroup;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
@@ -61,14 +64,45 @@ public class CommonTestData {
         if (!isEmpty) {
             final Map<String, PolicyDecoderParameters> policyDecoders = getPolicyDecoders(isEmpty);
             final Map<String, PolicyForwarderParameters> policyForwarders = getPolicyForwarders(isEmpty);
+            final PSSDConfigurationParametersGroup pssdConfiguration = getPSSDConfigurationParametersGroup(isEmpty);;
             final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
             final ReceptionHandlerParameters rhParameters =
-                    new ReceptionHandlerParameters(RECEPTION_HANDLER_TYPE, RECEPTION_HANDLER_CLASS_NAME, pHParameters);
+                    new ReceptionHandlerParameters(RECEPTION_HANDLER_TYPE, RECEPTION_HANDLER_CLASS_NAME,
+                        pssdConfiguration, pHParameters);
             receptionHandlerParameters.put(SDC_RECEPTION_HANDLER_KEY, rhParameters);
         }
         return receptionHandlerParameters;
     }
 
+    public PSSDConfigurationParametersGroup getPSSDConfigurationParametersGroup(final boolean isEmpty) {
+        final PSSDConfigurationParametersGroup pssdConfiguration;
+        if (!isEmpty) {
+            final String asdcAddress = "localhost";
+            final List<String> messageBusAddress = new ArrayList<>();
+            messageBusAddress.add("localhost");
+            final String user =  "policy";
+            final String password = "policy";
+            final int pollingInterval = 20;
+            final int pollingTimeout = 30;
+            final String consumerId = "policy-id";
+            final List<String> artifactTypes = new ArrayList<>();
+            artifactTypes.add("TOSCA_CSAR");
+            final String consumerGroup = "policy-group";
+            final String environmentName = "TEST";
+            final String keystorePath = "null";
+            final String keystorePassword = "null";
+            final boolean activeserverTlsAuth = false;
+            final boolean isFilterinEmptyResources = true;
+            final Boolean isUseHttpsWithDmaap = false;
+            pssdConfiguration = new PSSDConfigurationParametersGroup(asdcAddress, messageBusAddress, user, password,
+                                    pollingInterval, pollingTimeout, consumerId, artifactTypes, consumerGroup,
+                                    environmentName, keystorePath, keystorePassword, activeserverTlsAuth,
+                                    isFilterinEmptyResources, isUseHttpsWithDmaap);
+        } else {
+            pssdConfiguration = new PSSDConfigurationParametersGroup();
+        }
+        return pssdConfiguration;
+    }
     /**
      * Returns an instance of PluginHandlerParameters for test cases.
      *
