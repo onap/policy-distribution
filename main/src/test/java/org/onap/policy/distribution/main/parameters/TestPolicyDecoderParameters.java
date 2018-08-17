@@ -84,7 +84,8 @@ public class TestPolicyDecoderParameters {
 
     @Test
     public void testPolicyDecoderParameters_NullDecoderType() {
-        final PolicyDecoderParameters pDParameters = new PolicyDecoderParameters(null, CommonTestData.DECODER_CLASS_NAME);
+        final PolicyDecoderParameters pDParameters = 
+                new PolicyDecoderParameters(null, CommonTestData.DECODER_CLASS_NAME);
         final GroupValidationResult validationResult = pDParameters.validate();
         assertEquals(null, pDParameters.getDecoderType());
         assertEquals(CommonTestData.DECODER_CLASS_NAME, pDParameters.getDecoderClassName());

@@ -17,10 +17,13 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+package org.onap.policy.distribution.reception.parameters;
 
-package org.onap.policy.distribution.reception.handling.sdc;
-
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
@@ -50,6 +53,37 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
     private boolean activeserverTlsAuth;
     private boolean isFilterinEmptyResources;
     private Boolean isUseHttpsWithDmaap;
+
+    /**
+     * Constructor for instantiating PSSDConfigurationParametersGroup.
+     *
+     */
+
+    public PSSDConfigurationParametersGroup() {}
+
+    public PSSDConfigurationParametersGroup(final String asdcAddress, final List<String> messageBusAddress, 
+                                            final String user, final String password, final int pollingInterval,
+                                            final int pollingTimeout, final String consumerId,
+                                            final List<String> artifactTypes, final String consumerGroup,
+                                            final String environmentName, final String keystorePath, 
+                                            final String keystorePassword, final boolean activeserverTlsAuth,
+                                            final boolean isFilterinEmptyResources, final Boolean isUseHttpsWithDmaap){
+        this.asdcAddress = asdcAddress;
+        this.messageBusAddress = messageBusAddress;
+        this.user = user;
+        this.password = password;
+        this.pollingInterval = pollingInterval;
+        this.pollingTimeout = pollingTimeout;
+        this.consumerId = consumerId;
+        this.artifactTypes = artifactTypes;
+        this.consumerGroup = consumerGroup;
+        this.environmentName = environmentName;
+        this.keystorePath = keystorePath;
+        this.keystorePassword = keystorePassword;
+        this.activeserverTlsAuth = activeserverTlsAuth;
+        this.isFilterinEmptyResources = isFilterinEmptyResources;
+        this.isUseHttpsWithDmaap = isUseHttpsWithDmaap;
+    }
 
     public String getAsdcAddress() {
         return asdcAddress;
@@ -119,7 +153,7 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
 
     @Override
     public String getName() {
-        return name;
+        return name + "_" + UUID.randomUUID().toString();
     }
 
     @Override

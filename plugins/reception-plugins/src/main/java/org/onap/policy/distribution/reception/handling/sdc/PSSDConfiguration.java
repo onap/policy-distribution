@@ -23,6 +23,7 @@ package org.onap.policy.distribution.reception.handling.sdc;
 import java.util.List;
 
 import org.onap.sdc.api.consumer.IConfiguration;
+import org.onap.policy.distribution.reception.parameters.PSSDConfigurationParametersGroup;
 
 /**
  * Properties for the handling Sdc
