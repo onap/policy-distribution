@@ -1,7 +1,7 @@
 {
     "name":"SDCDistributionGroup",
     "restServerParameters":{
-        "host":"0.0.0.0",
+        "host":"",
         "port":6969,
         "userName":"healthcheck",
         "password":"zb!XztG34"
@@ -9,7 +9,7 @@
     "receptionHandlerParameters":{
         "SDCReceptionHandler":{
             "receptionHandlerType":"SDC",
-            "receptionHandlerClassName":"org.onap.policy.distribution.reception.handling.sdc.InvalidSdcReceptionHandler",
+            "receptionHandlerClassName":"org.onap.policy.distribution.reception.handling.sdc.SdcReceptionHandler",
             "pssdConfiguration":{
                 "asdcAddress": "localhost",
                 "messageBusAddress": [

@@ -35,6 +35,7 @@ import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParamet
  */
 public class DistributionParameterGroup implements ParameterGroup {
     private String name;
+    private RestServerParameters restServerParameters;
     private Map<String, ReceptionHandlerParameters> receptionHandlerParameters;
 
     /**
@@ -42,9 +43,10 @@ public class DistributionParameterGroup implements ParameterGroup {
      *
      * @param name the parameter group name
      */
-    public DistributionParameterGroup(final String name,
+    public DistributionParameterGroup(final String name, final RestServerParameters restServerParameters,
             final Map<String, ReceptionHandlerParameters> receptionHandlerParameters) {
         this.name = name;
+        this.restServerParameters = restServerParameters;
         this.receptionHandlerParameters = receptionHandlerParameters;
     }
 
@@ -68,6 +70,15 @@ public class DistributionParameterGroup implements ParameterGroup {
     }
 
     /**
+     * Return the restServerParameters of this parameter group instance.
+     *
+     * @return the restServerParameters
+     */
+    public RestServerParameters getRestServerParameters() {
+        return restServerParameters;
+    }
+
+    /**
      * Validate the parameter group.
      *
      * @return the result of the validation
@@ -75,11 +86,16 @@ public class DistributionParameterGroup implements ParameterGroup {
     @Override
     public GroupValidationResult validate() {
         final GroupValidationResult validationResult = new GroupValidationResult(this);
-        if (name == null || name.trim().length() == 0) {
+        if (!ParameterValidationUtils.validateStringParameter(name)) {
             validationResult.setResult("name", ValidationStatus.INVALID, "must be a non-blank string");
-        } else {
-            validateReceptionHandlers(validationResult);
         }
+        if (restServerParameters == null) {
+            validationResult.setResult("restServerParameters", ValidationStatus.INVALID,
+                    "must have restServerParameters to configure distribution rest server");
+        } else {
+            validationResult.setResult("restServerParameters", restServerParameters.validate());
+        }
+        validateReceptionHandlers(validationResult);
         return validationResult;
     }
 

@@ -41,13 +41,20 @@ public class TestDistributionParameterGroup {
 
     @Test
     public void testDistributionParameterGroup() {
+        final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(false);
         final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
                 commonTestData.getReceptionHandlerParameters(false);
 
-        final DistributionParameterGroup distributionParameters =
-                new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, receptionHandlerParameters);
+        final DistributionParameterGroup distributionParameters = new DistributionParameterGroup(
+                CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, receptionHandlerParameters);
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertTrue(validationResult.isValid());
+        assertEquals(restServerParameters.getHost(), distributionParameters.getRestServerParameters().getHost());
+        assertEquals(restServerParameters.getPort(), distributionParameters.getRestServerParameters().getPort());
+        assertEquals(restServerParameters.getUserName(),
+                distributionParameters.getRestServerParameters().getUserName());
+        assertEquals(restServerParameters.getPassword(),
+                distributionParameters.getRestServerParameters().getPassword());
         assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, distributionParameters.getName());
         assertEquals(receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerType(),
                 distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
@@ -64,11 +71,12 @@ public class TestDistributionParameterGroup {
 
     @Test
     public void testDistributionParameterGroup_NullName() {
+        final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(false);
         final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
                 commonTestData.getReceptionHandlerParameters(false);
 
         final DistributionParameterGroup distributionParameters =
-                new DistributionParameterGroup(null, receptionHandlerParameters);
+                new DistributionParameterGroup(null, restServerParameters, receptionHandlerParameters);
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
         assertEquals(null, distributionParameters.getName());
@@ -89,11 +97,12 @@ public class TestDistributionParameterGroup {
 
     @Test
     public void testDistributionParameterGroup_EmptyName() {
+        final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(false);
         final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
                 commonTestData.getReceptionHandlerParameters(false);
 
         final DistributionParameterGroup distributionParameters =
-                new DistributionParameterGroup("", receptionHandlerParameters);
+                new DistributionParameterGroup("", restServerParameters, receptionHandlerParameters);
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
         assertEquals("", distributionParameters.getName());
@@ -114,9 +123,10 @@ public class TestDistributionParameterGroup {
 
     @Test
     public void testDistributionParameterGroup_NullReceptionHandlerParameters() {
+        final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(false);
         try {
             final DistributionParameterGroup distributionParameters =
-                    new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, null);
+                    new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, null);
             distributionParameters.validate();
             fail("test should throw an exception here");
         } catch (final Exception e) {
@@ -127,16 +137,32 @@ public class TestDistributionParameterGroup {
 
     @Test
     public void testDistributionParameterGroup_EmptyReceptionHandlerParameters() {
+        final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(false);
         final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
                 commonTestData.getReceptionHandlerParameters(true);
         try {
-            final DistributionParameterGroup distributionParameters =
-                    new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, receptionHandlerParameters);
+            final DistributionParameterGroup distributionParameters = new DistributionParameterGroup(
+                    CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, receptionHandlerParameters);
             distributionParameters.validate();
             fail("test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().contains("parameter not a regular parameter: receptionHandlerParameters"));
         }
 
+    }
+
+    @Test
+    public void testDistributionParameterGroup_EmptyRestServerParameters() {
+        final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(true);
+        final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
+                commonTestData.getReceptionHandlerParameters(false);
+
+        final DistributionParameterGroup distributionParameters = new DistributionParameterGroup(
+                CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, receptionHandlerParameters);
+        final GroupValidationResult validationResult = distributionParameters.validate();
+        assertFalse(validationResult.isValid());
+        assertTrue(validationResult.getResult()
+                .contains("\"org.onap.policy.distribution.main.parameters.RestServerParameters\" INVALID, "
+                        + "parameter group has status INVALID"));
     }
 }

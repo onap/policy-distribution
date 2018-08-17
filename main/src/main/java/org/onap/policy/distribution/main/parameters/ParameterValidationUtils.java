@@ -5,21 +5,51 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
 
+package org.onap.policy.distribution.main.parameters;
+
 /**
- * Provides ONAP policy distribution as a complete service together with all its reception and forwarding support.
- * A main method to allow ONAP policy distribution execution from the command line is also provided.
+ * Class to hold methods for common parameter validations.
+ *
+ * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-package org.onap.policy.distribution.main.startstop;
+public class ParameterValidationUtils {
+
+    /**
+     * Validates the given string input.
+     *
+     * @param inputString the string to validate
+     * @return the boolean validation result
+     */
+    public static boolean validateStringParameter(final String inputString) {
+        if (inputString == null || inputString.trim().length() == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Validates the given integer input.
+     *
+     * @param input the integer to validate
+     * @return the boolean validation result
+     */
+    public static boolean validateIntParameter(final int input) {
+        if (input <= 0) {
+            return false;
+        }
+        return true;
+    }
+}
