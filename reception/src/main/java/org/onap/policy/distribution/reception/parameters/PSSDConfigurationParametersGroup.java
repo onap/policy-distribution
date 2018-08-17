@@ -17,10 +17,13 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+package org.onap.policy.distribution.reception.parameters;
 
-package org.onap.policy.distribution.reception.handling.sdc;
-
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
@@ -31,6 +34,7 @@ import org.onap.policy.common.parameters.ValidationStatus;
  * format, which strictly adheres to the interface:IConfiguration, defined by SDC SDK.
  */
 public class PSSDConfigurationParametersGroup implements ParameterGroup {
+
     // Policy SDC Service Distribution specified field.
     private String name;
 
@@ -50,6 +54,34 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
     private boolean activeserverTlsAuth;
     private boolean isFilterinEmptyResources;
     private Boolean isUseHttpsWithDmaap;
+
+    /**
+     * Constructor for instantiating PSSDConfigurationParametersGroup.
+     *
+     */
+    public PSSDConfigurationParametersGroup(final String asdcAddress, final List<String> messageBusAddress, 
+                                            final String user, final String password, final int pollingInterval,
+                                            final int pollingTimeout, final String consumerId,
+                                            final List<String> artifactTypes, final String consumerGroup,
+                                            final String environmentName, final String keystorePath, 
+                                            final String keystorePassword, final boolean activeserverTlsAuth,
+                                            final boolean isFilterinEmptyResources, final Boolean isUseHttpsWithDmaap){
+        this.asdcAddress = asdcAddress;
+        this.messageBusAddress = messageBusAddress;
+        this.user = user;
+        this.password = password;
+        this.pollingInterval = pollingInterval;
+        this.pollingTimeout = pollingTimeout;
+        this.consumerId = consumerId;
+        this.artifactTypes = artifactTypes;
+        this.consumerGroup = consumerGroup;
+        this.environmentName = environmentName;
+        this.keystorePath = keystorePath;
+        this.keystorePassword = keystorePassword;
+        this.activeserverTlsAuth = activeserverTlsAuth;
+        this.isFilterinEmptyResources = isFilterinEmptyResources;
+        this.isUseHttpsWithDmaap = isUseHttpsWithDmaap;
+    }
 
     public String getAsdcAddress() {
         return asdcAddress;
@@ -119,16 +151,12 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
 
     @Override
     public String getName() {
-        return name;
+        return name ;
     }
 
     @Override
     public GroupValidationResult validate() {
         final GroupValidationResult validationResult = new GroupValidationResult(this);
-
-        if (name == null || name.trim().length() == 0) {
-            validationResult.setResult("name", ValidationStatus.INVALID, "name must be a non-blank string");
-        }
 
         if (asdcAddress == null || asdcAddress.trim().length() == 0) {
             validationResult.setResult("asdcAddress", ValidationStatus.INVALID,
@@ -195,5 +223,13 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
         return validationResult;
     }
 
+    /**
+     * Set the name of this group.
+     *
+     * @param name the name to set.
+     */
+    public void setName(final String name) {
+        this.name = name + "_" + UUID.randomUUID().toString();
+    }
 }
 

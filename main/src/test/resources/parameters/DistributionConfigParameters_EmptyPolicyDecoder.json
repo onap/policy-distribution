@@ -4,6 +4,30 @@
         "SDCReceptionHandler":{
             "receptionHandlerType":"SDC",
             "receptionHandlerClassName":"org.onap.policy.distribution.reception.handling.sdc.SdcReceptionHandler",
+            "pssdConfiguration":{
+                "asdcAddress": "localhost",
+                "messageBusAddress": [
+                    "a.com",
+                    "b.com",
+                    "c.com"
+                 ],
+                "user": "tbdsdc-1480",
+                "password": "tbdsdc-1480",
+                "pollingInterval":20,
+                "pollingTimeout":30,
+                "consumerId": "policy-id",
+                "artifactTypes": [
+                    "TOSCA_CSAR",
+                    "HEAT"
+                ],
+                "consumerGroup": "policy-group",
+                "environmentName": "environmentName",
+                "keystorePath": "null",
+                "keystorePassword": "null",
+                "activeserverTlsAuth": false,
+                "isFilterinEmptyResources": true,
+                "isUseHttpsWithDmaap": false
+            },
             "pluginHandlerParameters":{
                 "policyDecoders":{
                 },

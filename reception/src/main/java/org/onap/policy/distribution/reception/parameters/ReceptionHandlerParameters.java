@@ -38,6 +38,7 @@ public class ReceptionHandlerParameters implements ParameterGroup {
     private String name;
     private String receptionHandlerType;
     private String receptionHandlerClassName;
+    private PSSDConfigurationParametersGroup pssdConfiguration;
     private PluginHandlerParameters pluginHandlerParameters;
 
     /**
@@ -47,10 +48,12 @@ public class ReceptionHandlerParameters implements ParameterGroup {
      * @param receptionHandlerClassName the reception handler class name
      * @param pluginHandlerParameters the plugin handler parameters
      */
-    public ReceptionHandlerParameters(final String receptionHandlerType, final String receptionHandlerClassName,
-            final PluginHandlerParameters pluginHandlerParameters) {
+    public ReceptionHandlerParameters(final String receptionHandlerType, final String receptionHandlerClassName, 
+                                      final PSSDConfigurationParametersGroup pssdConfiguration, 
+                                      final PluginHandlerParameters pluginHandlerParameters) {
         this.receptionHandlerType = receptionHandlerType;
         this.receptionHandlerClassName = receptionHandlerClassName;
+        this.pssdConfiguration = pssdConfiguration;
         this.pluginHandlerParameters = pluginHandlerParameters;
     }
 
@@ -70,6 +73,15 @@ public class ReceptionHandlerParameters implements ParameterGroup {
      */
     public String getReceptionHandlerClassName() {
         return receptionHandlerClassName;
+    }
+
+    /**
+     * Return the PSSDConfigurationParametersGroup of this ReceptionHandlerParameters instance.
+     *
+     * @return the PSSDConfigurationParametersGroup
+     */
+    public PSSDConfigurationParametersGroup getPSSDConfigurationParametersGroup() {
+        return pssdConfiguration;
     }
 
     /**
