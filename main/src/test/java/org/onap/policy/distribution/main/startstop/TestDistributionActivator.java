@@ -60,6 +60,6 @@ public class TestDistributionActivator {
                 activator.getParameterGroup().getReceptionHandlerParameters()
                         .get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getPluginHandlerParameters()
                         .getPolicyForwarders().get(CommonTestData.PAP_ENGINE_FORWARDER_KEY).getForwarderType());
-        activator.deregisterToParameterService(parGroup);
+        activator.terminate();
     }
 }
