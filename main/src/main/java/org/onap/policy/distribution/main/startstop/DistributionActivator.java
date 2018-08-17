@@ -118,8 +118,10 @@ public class DistributionActivator {
         for (final ReceptionHandlerParameters params : distributionParameterGroup.getReceptionHandlerParameters()
                 .values()) {
             params.setName(distributionParameterGroup.getName());
+            params.getPSSDConfigurationParametersGroup().setName(distributionParameterGroup.getName());
             params.getPluginHandlerParameters().setName(distributionParameterGroup.getName());
             ParameterService.register(params);
+            ParameterService.register(params.getPSSDConfigurationParametersGroup());
             ParameterService.register(params.getPluginHandlerParameters());
         }
     }
@@ -136,6 +138,7 @@ public class DistributionActivator {
             params.setName(distributionParameterGroup.getName());
             params.getPluginHandlerParameters().setName(distributionParameterGroup.getName());
             ParameterService.deregister((params.getName()));
+            ParameterService.deregister((params.getPSSDConfigurationParametersGroup().getName()));
             ParameterService.deregister((params.getPluginHandlerParameters().getName()));
         }
     }

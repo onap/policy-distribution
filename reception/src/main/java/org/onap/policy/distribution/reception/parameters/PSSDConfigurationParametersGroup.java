@@ -17,10 +17,13 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+package org.onap.policy.distribution.reception.parameters;
 
-package org.onap.policy.distribution.reception.handling.sdc;
-
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
@@ -31,6 +34,7 @@ import org.onap.policy.common.parameters.ValidationStatus;
  * format, which strictly adheres to the interface:IConfiguration, defined by SDC SDK.
  */
 public class PSSDConfigurationParametersGroup implements ParameterGroup {
+
     // Policy SDC Service Distribution specified field.
     private String name;
 
@@ -51,6 +55,92 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
     private boolean isFilterinEmptyResources;
     private Boolean isUseHttpsWithDmaap;
 
+    /**
+     *Inner static class is to used as a Builder
+     *
+     */
+    public static class PSSDConfigurationBuilder {
+        private String asdcAddress;
+        private List<String> messageBusAddress;
+        private String user;
+        private String password;
+        private int pollingInterval;
+        private int pollingTimeout;
+        private String consumerId;
+        private List<String> artifactTypes;
+        private String consumerGroup;
+        private String environmentName;
+        private String keystorePath;
+        private String keystorePassword;
+        private boolean activeserverTlsAuth;
+        private boolean isFilterinEmptyResources;
+        private Boolean isUseHttpsWithDmaap;
+
+        public PSSDConfigurationBuilder setAsdcAddress(String val)
+            { asdcAddress = val;      return this; }
+        public PSSDConfigurationBuilder setMessageBusAddress(List<String> val)
+            { messageBusAddress = val;           return this; }
+        public PSSDConfigurationBuilder setUser(String val)
+            { user = val;  return this; }
+        public PSSDConfigurationBuilder setPassword(String val)
+            { password = val;        return this; }
+        public PSSDConfigurationBuilder setPollingInterval(int val)
+            { pollingInterval = val;        return this; }
+        public PSSDConfigurationBuilder setPollingTimeout(int val)
+            { pollingTimeout = val;        return this; }
+        public PSSDConfigurationBuilder setConsumerId(String val)
+            { consumerId = val;        return this; }
+        public PSSDConfigurationBuilder setArtifactTypes(List<String>  val)
+            { artifactTypes = val;        return this; }
+        public PSSDConfigurationBuilder setConsumerGroup(String val)
+            { consumerGroup = val;        return this; }
+        public PSSDConfigurationBuilder setEnvironmentName(String val)
+            { environmentName = val;        return this; }
+        public PSSDConfigurationBuilder setKeystorePath(String val)
+            { keystorePath = val;        return this; }
+        public PSSDConfigurationBuilder setKeystorePassword(String val)
+            { keystorePassword = val;        return this; }
+        public PSSDConfigurationBuilder setActiveserverTlsAuth(boolean val)
+            { activeserverTlsAuth = val;        return this; }
+        public PSSDConfigurationBuilder setIsFilterinEmptyResources(boolean val)
+            { isFilterinEmptyResources = val;        return this; }
+        public PSSDConfigurationBuilder setIsUseHttpsWithDmaap(Boolean val)
+            { isUseHttpsWithDmaap = val;        return this; }
+
+        
+        /**
+         * it is to create a new PSSDConfigurationParametersGroup instance.
+         */
+        public PSSDConfigurationParametersGroup build() {
+            return new PSSDConfigurationParametersGroup(this);
+        }
+    }
+
+    /**
+     * The constructor for instantiating PSSDConfigurationParametersGroup it is a private
+     * so that it could ONLY be instantiated by PSSDConfigurationBuilder
+     *
+     * @param builder stores all the values used by PSSDConfigurationParametersGroup
+     */
+    private PSSDConfigurationParametersGroup(PSSDConfigurationBuilder builder) {
+        asdcAddress  = builder.asdcAddress;
+        messageBusAddress     = builder.messageBusAddress;
+        user     = builder.user;
+        password          = builder.password;
+        pollingInterval       = builder.pollingInterval;
+        pollingTimeout = builder.pollingTimeout;
+        consumerId = builder.consumerId;
+        artifactTypes = builder.artifactTypes;
+        consumerGroup = builder.consumerGroup;
+        environmentName = builder.environmentName;
+        keystorePath = builder.keystorePath;
+        keystorePassword = builder.keystorePassword;
+        activeserverTlsAuth = builder.activeserverTlsAuth;
+        isFilterinEmptyResources = builder.isFilterinEmptyResources;
+        isUseHttpsWithDmaap  = builder.isUseHttpsWithDmaap;
+        
+    }
+    
     public String getAsdcAddress() {
         return asdcAddress;
     }
@@ -119,16 +209,12 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
 
     @Override
     public String getName() {
-        return name;
+        return name ;
     }
 
     @Override
     public GroupValidationResult validate() {
         final GroupValidationResult validationResult = new GroupValidationResult(this);
-
-        if (name == null || name.trim().length() == 0) {
-            validationResult.setResult("name", ValidationStatus.INVALID, "name must be a non-blank string");
-        }
 
         if (asdcAddress == null || asdcAddress.trim().length() == 0) {
             validationResult.setResult("asdcAddress", ValidationStatus.INVALID,
@@ -195,5 +281,13 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
         return validationResult;
     }
 
+    /**
+     * Set the name of this group.
+     *
+     * @param name the name to set.
+     */
+    public void setName(final String name) {
+        this.name = name + "_" + UUID.randomUUID().toString();
+    }
 }
 
