@@ -25,6 +25,7 @@ import java.util.Arrays;
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.distribution.main.PolicyDistributionException;
+import org.onap.policy.distribution.main.healthcheck.HealthCheckMonitor;
 import org.onap.policy.distribution.main.parameters.DistributionParameterGroup;
 import org.onap.policy.distribution.main.parameters.DistributionParameterHandler;
 
@@ -50,6 +51,9 @@ public class Main {
     public Main(final String[] args) {
         final String argumentString = Arrays.toString(args);
         LOGGER.info("Starting policy distribution service with arguments - " + argumentString);
+
+        // Start the health check monitor
+        HealthCheckMonitor.healthCheckMonitor.start();
 
         // Check the arguments
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();

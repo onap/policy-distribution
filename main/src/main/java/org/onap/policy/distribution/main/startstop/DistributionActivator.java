@@ -47,6 +47,8 @@ public class DistributionActivator {
     // The map of reception handlers initialized by this distribution activator
     private final Map<String, AbstractReceptionHandler> receptionHandlersMap = new HashMap<>();
 
+    private static boolean alive = false;
+
     /**
      * Instantiate the activator for policy distribution as a complete service.
      *
@@ -65,14 +67,15 @@ public class DistributionActivator {
     public void initialize() throws PolicyDistributionException {
         LOGGER.debug("Policy distribution starting as a service . . .");
         registerToParameterService(distributionParameterGroup);
-        for (final ReceptionHandlerParameters rHParameters : distributionParameterGroup.getReceptionHandlerParameters()
-                .values()) {
+        for (final ReceptionHandlerParameters receptionHandlerParameters : distributionParameterGroup
+                .getReceptionHandlerParameters().values()) {
             try {
-                final Class<AbstractReceptionHandler> receptionHandlerClass =
-                        (Class<AbstractReceptionHandler>) Class.forName(rHParameters.getReceptionHandlerClassName());
+                final Class<AbstractReceptionHandler> receptionHandlerClass = (Class<AbstractReceptionHandler>) Class
+                        .forName(receptionHandlerParameters.getReceptionHandlerClassName());
                 final AbstractReceptionHandler receptionHandler = receptionHandlerClass.newInstance();
-                receptionHandler.initialize(rHParameters.getName());
-                receptionHandlersMap.put(rHParameters.getName(), receptionHandler);
+                receptionHandler.initialize(receptionHandlerParameters.getName());
+                receptionHandlersMap.put(receptionHandlerParameters.getName(), receptionHandler);
+                alive = true;
             } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException
                     | PolicyDecodingException | PolicyForwardingException exp) {
                 throw new PolicyDistributionException(exp.getMessage(), exp);
@@ -93,6 +96,7 @@ public class DistributionActivator {
             }
             receptionHandlersMap.clear();
             deregisterToParameterService(distributionParameterGroup);
+            alive = false;
         } catch (final Exception exp) {
             LOGGER.error("Policy distribution service termination failed", exp);
             throw new PolicyDistributionException(exp.getMessage(), exp);
@@ -111,7 +115,7 @@ public class DistributionActivator {
     /**
      * Method to register the parameters to Common Parameter Service.
      *
-     * @param distributionParameterGroup
+     * @param distributionParameterGroup the distribution parameter group
      */
     public void registerToParameterService(final DistributionParameterGroup distributionParameterGroup) {
         ParameterService.register(distributionParameterGroup);
@@ -127,7 +131,7 @@ public class DistributionActivator {
     /**
      * Method to deregister the parameters from Common Parameter Service.
      *
-     * @param distributionParameterGroup
+     * @param distributionParameterGroup the distribution parameter group
      */
     public void deregisterToParameterService(final DistributionParameterGroup distributionParameterGroup) {
         ParameterService.deregister(distributionParameterGroup.getName());
@@ -138,5 +142,14 @@ public class DistributionActivator {
             ParameterService.deregister((params.getName()));
             ParameterService.deregister((params.getPluginHandlerParameters().getName()));
         }
+    }
+
+    /**
+     * Returns the alive status of distribution service.
+     *
+     * @return the alive
+     */
+    public static boolean isAlive() {
+        return alive;
     }
 }
