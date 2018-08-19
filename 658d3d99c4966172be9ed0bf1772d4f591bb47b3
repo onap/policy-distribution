@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_1a45b4b2",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/healthcheck/HealthCheckMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-19T16:35:20Z",
+      "side": 1,
+      "message": "Does this need to be a singleton? Why not just a regular object?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 83
+      },
+      "revId": "658d3d99c4966172be9ed0bf1772d4f591bb47b3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3a40b0a4",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/healthcheck/HealthCheckMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-19T16:35:20Z",
+      "side": 1,
+      "message": "Are we using Java properties here? Should these not be in our parameters as a parameter group, otherwise we have two different ways of configuring app.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 13
+      },
+      "revId": "658d3d99c4966172be9ed0bf1772d4f591bb47b3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_fa49d8d0",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-19T16:35:20Z",
+      "side": 1,
+      "message": "Will we only ever have one distribution server running? Having a static health check monitor means even if we wanted more than one activator/distributor in the future, we couldn\u0027t because the health check is static.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 54
+      },
+      "revId": "658d3d99c4966172be9ed0bf1772d4f591bb47b3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_ba1360b7",
+        "filename": "main/src/main/resources/healthcheck.properties",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-19T16:35:20Z",
+      "side": 1,
+      "message": "Should  this not be a parameter group?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 51
+      },
+      "revId": "658d3d99c4966172be9ed0bf1772d4f591bb47b3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
