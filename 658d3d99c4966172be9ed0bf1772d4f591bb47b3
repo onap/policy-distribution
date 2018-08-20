@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_b8a3684e",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/healthcheck/HealthCheckMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-20T12:02:09Z",
+      "side": 1,
+      "message": "As per my understanding, Singleton because \n1) We need a HealthCheckMonitor running per DistributionActivator. And one DistributionActivator will start one instance of full distribution service.\n2) The HealthCheckMonitor is started/stopped by the DistributionActivator \u0026 used by HealthCheckService for serving REST calls over HTTP Get.\n3) HealthCheckMonitor starts/stops the Jetty server for the REST Endpoint. And making it singleton ensures that only one instance of server is started/stopped per DistributionActivator.",
+      "parentUuid": "1a76adc5_1a45b4b2",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 83
+      },
+      "revId": "658d3d99c4966172be9ed0bf1772d4f591bb47b3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_3a40b0a4",
         "filename": "main/src/main/java/org/onap/policy/distribution/main/healthcheck/HealthCheckMonitor.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-19T16:35:20Z",
       "side": 1,
       "message": "Are we using Java properties here? Should these not be in our parameters as a parameter group, otherwise we have two different ways of configuring app.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 13
+      },
+      "revId": "658d3d99c4966172be9ed0bf1772d4f591bb47b3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_73abb3d6",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/healthcheck/HealthCheckMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-20T12:02:09Z",
+      "side": 1,
+      "message": "Replied in the other comment in healthcheck.properties file.",
+      "parentUuid": "1a76adc5_3a40b0a4",
       "range": {
         "startLine": 73,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_733653e9",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-20T12:02:09Z",
+      "side": 1,
+      "message": "I am ok in changing this to non-static, but request you please have a look at my understanding of it.\n\nAs per my understanding, there will be one instance of DistributionActivator per full distribution service. Which will start the HealthCheckMonitor and the entire distribution framework. We already have a factory of ReceptionHandler, with which we can have multiple reception handlers for subscribing to multiple distributors (like SDC). \nHence, one instance of DistributionActivator can start the service  which can then subscribe to multiple distributors. \nSo do we still need multiple instances of DistributionActivator in one instance of full distribution service?",
+      "parentUuid": "1a76adc5_fa49d8d0",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 54
+      },
+      "revId": "658d3d99c4966172be9ed0bf1772d4f591bb47b3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_ba1360b7",
         "filename": "main/src/main/resources/healthcheck.properties",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2018-08-19T16:35:20Z",
       "side": 1,
       "message": "Should  this not be a parameter group?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 51
+      },
+      "revId": "658d3d99c4966172be9ed0bf1772d4f591bb47b3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b3a94be1",
+        "filename": "main/src/main/resources/healthcheck.properties",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-20T12:02:09Z",
+      "side": 1,
+      "message": "I can move this to parameter groups. But few things to note are:\n1) In that case it will be part of the single JSON configuration file provided at startup to main class. Then user has to define the parameter values.\n2) I am intending to use the policy-common-endpoints way of starting the rest server. And that requires a java Properties object with the properties defined for configuring the server. So I will have to still create a Properties object to use this way.",
+      "parentUuid": "1a76adc5_ba1360b7",
       "range": {
         "startLine": 1,
         "startChar": 0,
