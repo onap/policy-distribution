@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_d3d40722",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-20T12:25:17Z",
+      "side": 1,
+      "message": "Yes, I agree we will probably never have more than one distribution activator. However I\u0027m not a big fan of singletons and static variables (I know we use it for the parameter service but that is a static type of thing). Also not having it as a singleton makes testing easier.\n\nWold it be a lot of work to change the health check monitor to be non static and just instantiate one instance of it in the activator?",
+      "parentUuid": "1a76adc5_733653e9",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 54
+      },
+      "revId": "658d3d99c4966172be9ed0bf1772d4f591bb47b3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_ba1360b7",
         "filename": "main/src/main/resources/healthcheck.properties",
         "patchSetId": 3
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "I can move this to parameter groups. But few things to note are:\n1) In that case it will be part of the single JSON configuration file provided at startup to main class. Then user has to define the parameter values.\n2) I am intending to use the policy-common-endpoints way of starting the rest server. And that requires a java Properties object with the properties defined for configuring the server. So I will have to still create a Properties object to use this way.",
       "parentUuid": "1a76adc5_ba1360b7",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 51
+      },
+      "revId": "658d3d99c4966172be9ed0bf1772d4f591bb47b3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5321d74b",
+        "filename": "main/src/main/resources/healthcheck.properties",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-20T12:25:17Z",
+      "side": 1,
+      "message": "Yes. You will have to create a Properties object to pass to the policy-common-endpoints but you will already have validated all the parameters so you know the values are correct.",
+      "parentUuid": "1a76adc5_b3a94be1",
       "range": {
         "startLine": 1,
         "startChar": 0,
