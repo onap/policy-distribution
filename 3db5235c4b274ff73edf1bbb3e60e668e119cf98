@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_5dcd665c",
+        "filename": "main/src/test/resources/parameters/DistributionConfigParameters.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-20T06:17:00Z",
+      "side": 1,
+      "message": "hello, Ram,\n         after go through the parameterGroup implementation, and debug, i find there would be some misunderstanding. the name field is needed which is also shown as in the common-parameters\u0027 design and validation code.\n         we may need a talk, and i\u0027ll show you the code.",
+      "parentUuid": "1a76adc5_10303ae7",
+      "range": {
+        "startLine": 8,
+        "startChar": 16,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "3db5235c4b274ff73edf1bbb3e60e668e119cf98",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_75272065",
         "filename": "main/src/test/resources/parameters/DistributionConfigParameters_EmptyPolicyDecoder.json",
         "patchSetId": 2
