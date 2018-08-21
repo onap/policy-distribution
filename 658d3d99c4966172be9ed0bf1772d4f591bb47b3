@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_c753dc37",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-21T17:57:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_d3b727d7",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 54
+      },
+      "revId": "658d3d99c4966172be9ed0bf1772d4f591bb47b3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_ba1360b7",
         "filename": "main/src/main/resources/healthcheck.properties",
         "patchSetId": 3
@@ -274,6 +298,30 @@
       "side": 1,
       "message": "Ok, I will change it to parameter group and submit a patch soon.",
       "parentUuid": "1a76adc5_5321d74b",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 51
+      },
+      "revId": "658d3d99c4966172be9ed0bf1772d4f591bb47b3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_8735e4f8",
+        "filename": "main/src/main/resources/healthcheck.properties",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-21T17:57:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_93b1afe3",
       "range": {
         "startLine": 1,
         "startChar": 0,
