@@ -16,6 +16,24 @@
       "revId": "42678876266f38e7796333836846383b390303e1",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e2c4c693",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/rest/HealthCheckReport.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-08-21T19:00:31Z",
+      "side": 1,
+      "message": "Sure, we can move it to policy/common.\nI will create a review in policy/common repo tomorrow.",
+      "parentUuid": "1a76adc5_c218aa77",
+      "revId": "42678876266f38e7796333836846383b390303e1",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
