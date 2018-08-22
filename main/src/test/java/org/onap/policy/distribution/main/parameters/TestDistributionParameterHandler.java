@@ -357,4 +357,72 @@ public class TestDistributionParameterHandler {
             assertTrue(e.getMessage().contains("policy forwarder class not found in classpath"));
         }
     }
+
+    @Test
+    public void testDistributionParameterGroup_InvalidRestServerHost() throws PolicyDistributionException {
+        final String[] distributionConfigParameters =
+                { "-c", "parameters/DistributionConfigParameters_InvalidRestServerHost.json" };
+
+        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
+        arguments.parse(distributionConfigParameters);
+
+        try {
+            new DistributionParameterHandler().getParameters(arguments);
+            fail("test should throw an exception here");
+        } catch (final Exception e) {
+            assertTrue(e.getMessage().contains(
+                    "must be a non-blank string containing hostname/ipaddress of the distribution rest server"));
+        }
+    }
+
+    @Test
+    public void testDistributionParameterGroup_InvalidRestServerPort() throws PolicyDistributionException {
+        final String[] distributionConfigParameters =
+                { "-c", "parameters/DistributionConfigParameters_InvalidRestServerPort.json" };
+
+        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
+        arguments.parse(distributionConfigParameters);
+
+        try {
+            new DistributionParameterHandler().getParameters(arguments);
+            fail("test should throw an exception here");
+        } catch (final Exception e) {
+            assertTrue(e.getMessage()
+                    .contains("must be a positive integer containing port of the distribution rest server"));
+        }
+    }
+
+    @Test
+    public void testDistributionParameterGroup_InvalidRestServerUser() throws PolicyDistributionException {
+        final String[] distributionConfigParameters =
+                { "-c", "parameters/DistributionConfigParameters_InvalidRestServerUser.json" };
+
+        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
+        arguments.parse(distributionConfigParameters);
+
+        try {
+            new DistributionParameterHandler().getParameters(arguments);
+            fail("test should throw an exception here");
+        } catch (final Exception e) {
+            assertTrue(e.getMessage().contains(
+                    "must be a non-blank string containing userName for distribution rest server credentials"));
+        }
+    }
+
+    @Test
+    public void testDistributionParameterGroup_InvalidRestServerPassword() throws PolicyDistributionException {
+        final String[] distributionConfigParameters =
+                { "-c", "parameters/DistributionConfigParameters_InvalidRestServerPassword.json" };
+
+        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
+        arguments.parse(distributionConfigParameters);
+
+        try {
+            new DistributionParameterHandler().getParameters(arguments);
+            fail("test should throw an exception here");
+        } catch (final Exception e) {
+            assertTrue(e.getMessage().contains(
+                    "must be a non-blank string containing password for distribution rest server credentials"));
+        }
+    }
 }

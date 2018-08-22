@@ -38,6 +38,10 @@ import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParamet
  */
 public class CommonTestData {
 
+    private static final String REST_SERVER_PASSWORD = "zb!XztG34";
+    private static final String REST_SERVER_USER = "healthcheck";
+    private static final int REST_SERVER_PORT = 6969;
+    private static final String REST_SERVER_HOST = "0.0.0.0";
     public static final String DISTRIBUTION_GROUP_NAME = "SDCDistributionGroup";
     public static final String DECODER_TYPE = "TOSCA";
     public static final String DECODER_CLASS_NAME =
@@ -56,6 +60,23 @@ public class CommonTestData {
      * Returns an instance of ReceptionHandlerParameters for test cases.
      *
      * @param isEmpty boolean value to represent that object created should be empty or not
+     * @return the restServerParameters object
+     */
+    public RestServerParameters getRestServerParameters(final boolean isEmpty) {
+        final RestServerParameters restServerParameters;
+        if (!isEmpty) {
+            restServerParameters = new RestServerParameters(REST_SERVER_HOST, REST_SERVER_PORT, REST_SERVER_USER,
+                    REST_SERVER_PASSWORD);
+        } else {
+            restServerParameters = new RestServerParameters(null, 0, null, null);
+        }
+        return restServerParameters;
+    }
+
+    /**
+     * Returns an instance of ReceptionHandlerParameters for test cases.
+     *
+     * @param isEmpty boolean value to represent that object created should be empty or not
      * @return the receptionHandlerParameters object
      */
     public Map<String, ReceptionHandlerParameters> getReceptionHandlerParameters(final boolean isEmpty) {
@@ -66,9 +87,8 @@ public class CommonTestData {
             final Map<String, PolicyForwarderParameters> policyForwarders = getPolicyForwarders(isEmpty);
             final PSSDConfigurationParametersGroup pssdConfiguration = getPSSDConfigurationParametersGroup(isEmpty);;
             final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
-            final ReceptionHandlerParameters rhParameters =
-                    new ReceptionHandlerParameters(RECEPTION_HANDLER_TYPE, RECEPTION_HANDLER_CLASS_NAME,
-                        pssdConfiguration, pHParameters);
+            final ReceptionHandlerParameters rhParameters = new ReceptionHandlerParameters(RECEPTION_HANDLER_TYPE,
+                    RECEPTION_HANDLER_CLASS_NAME, pssdConfiguration, pHParameters);
             receptionHandlerParameters.put(SDC_RECEPTION_HANDLER_KEY, rhParameters);
         }
         return receptionHandlerParameters;
@@ -88,12 +108,11 @@ public class CommonTestData {
             final List<String> artifactTypes = new ArrayList<>();
             artifactTypes.add("TOSCA_CSAR");
             pssdConfiguration = new PSSDConfigurationParametersGroup.PSSDConfigurationBuilder()
-                                    .setAsdcAddress("localhost").setMessageBusAddress(messageBusAddress)
-                                    .setUser("policy").setPassword("policy").setPollingInterval(20)
-                                    .setPollingTimeout(30).setConsumerId("policy-id").setArtifactTypes(artifactTypes)
-                                    .setConsumerGroup("policy-group").setEnvironmentName("TEST").setKeystorePath("")
-                                    .setKeystorePassword("").setActiveserverTlsAuth(false)
-                                    .setIsFilterinEmptyResources(true).setIsUseHttpsWithDmaap(false).build();
+                    .setAsdcAddress("localhost").setMessageBusAddress(messageBusAddress).setUser("policy")
+                    .setPassword("policy").setPollingInterval(20).setPollingTimeout(30).setConsumerId("policy-id")
+                    .setArtifactTypes(artifactTypes).setConsumerGroup("policy-group").setEnvironmentName("TEST")
+                    .setKeystorePath("").setKeystorePassword("").setActiveserverTlsAuth(false)
+                    .setIsFilterinEmptyResources(true).setIsUseHttpsWithDmaap(false).build();
         } else {
             pssdConfiguration = new PSSDConfigurationParametersGroup.PSSDConfigurationBuilder().build();
         }
