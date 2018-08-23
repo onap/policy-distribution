@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2016-2018 Ericsson. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,26 +18,33 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.forwarding;
+package org.onap.policy.distribution.reception.decoding;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class PolicyDecodingExceptionTest {
+/**
+ * Class to perform unit test of PluginInitializationException.
+ *
+ * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
+ */
+public class PolicyInitializationExceptionTest {
 
     @Test
-    public void testPolicyDecodingExceptionString() {
-        final PolicyForwardingException policyDecodingException = new PolicyForwardingException("error message");
-        assertEquals("error message", policyDecodingException.getMessage());
+    public void testPolicyInitializationExceptionString() {
+        final PluginInitializationException policyInitializationException =
+                new PluginInitializationException("error message");
+        assertEquals("error message", policyInitializationException.getMessage());
     }
 
     @Test
-    public void testPolicyDecodingExceptionStringThrowable() {
+    public void testPolicyInitializationExceptionStringThrowable() {
         final Exception cause = new IllegalArgumentException();
-        final PolicyForwardingException policyDecodingException = new PolicyForwardingException("error message", cause);
-        assertEquals("error message", policyDecodingException.getMessage());
-        assertEquals(cause, policyDecodingException.getCause());
+        final PluginInitializationException policyInitializationException =
+                new PluginInitializationException("error message", cause);
+        assertEquals("error message", policyInitializationException.getMessage());
+        assertEquals(cause, policyInitializationException.getCause());
     }
 
 }

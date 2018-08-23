@@ -33,10 +33,10 @@ import java.util.Map;
 import org.junit.Test;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
-import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 import org.onap.policy.distribution.model.Policy;
 import org.onap.policy.distribution.model.PolicyInput;
+import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
@@ -60,7 +60,7 @@ public class AbstractReceptionHandlerTest {
 
     @Test
     public void testInputReceived() throws PolicyDecodingException, NoSuchFieldException, SecurityException,
-            IllegalArgumentException, IllegalAccessException, PolicyForwardingException {
+            IllegalArgumentException, IllegalAccessException, PluginInitializationException {
         final AbstractReceptionHandler handler = new DummyReceptionHandler();
 
         final Policy generatedPolicy1 = new DummyPolicy1();
@@ -96,7 +96,7 @@ public class AbstractReceptionHandlerTest {
 
     @Test(expected = PolicyDecodingException.class)
     public void testInputReceivedNoSupportingDecoder() throws PolicyDecodingException, NoSuchFieldException,
-            SecurityException, IllegalArgumentException, IllegalAccessException, PolicyForwardingException {
+            SecurityException, IllegalArgumentException, IllegalAccessException, PluginInitializationException {
         final AbstractReceptionHandler handler = new DummyReceptionHandler();
 
         final PolicyDecoder<PolicyInput, Policy> policyDecoder = new DummyDecoder(false, Collections.emptyList());
@@ -108,7 +108,7 @@ public class AbstractReceptionHandlerTest {
 
     @Test(expected = PolicyDecodingException.class)
     public void testInputReceivedNoDecoder() throws PolicyDecodingException, NoSuchFieldException, SecurityException,
-            IllegalArgumentException, IllegalAccessException, PolicyForwardingException {
+            IllegalArgumentException, IllegalAccessException, PluginInitializationException {
         final AbstractReceptionHandler handler = new DummyReceptionHandler();
 
         final DummyPolicyForwarder policyForwarder = new DummyPolicyForwarder();
@@ -129,7 +129,7 @@ public class AbstractReceptionHandlerTest {
     private void setUpPlugins(final AbstractReceptionHandler receptionHandler,
             final Collection<PolicyDecoder<PolicyInput, Policy>> decoders, final Collection<PolicyForwarder> forwarders)
             throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException,
-            PolicyDecodingException, PolicyForwardingException {
+            PluginInitializationException {
         final PluginHandlerParameters pluginParameters = getPluginHandlerParameters();
         pluginParameters.setName(DISTRIBUTION_GROUP);
         ParameterService.register(pluginParameters);

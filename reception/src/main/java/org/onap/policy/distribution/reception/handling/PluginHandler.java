@@ -28,12 +28,11 @@ import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
-import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 import org.onap.policy.distribution.model.Policy;
 import org.onap.policy.distribution.model.PolicyInput;
+import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
-import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
 
@@ -51,10 +50,9 @@ public class PluginHandler {
      * Create an instance to instantiate plugins based on the given parameter group.
      *
      * @param parameterGroupName the name of the parameter group
-     * @throws PolicyDecodingException exception if it occurs
-     * @throws PolicyForwardingException exception if it occurs
+     * @throws PluginInitializationException exception if it occurs
      */
-    public PluginHandler(final String parameterGroupName) throws PolicyDecodingException, PolicyForwardingException {
+    public PluginHandler(final String parameterGroupName) throws PluginInitializationException {
         final PluginHandlerParameters params = (PluginHandlerParameters) ParameterService.get(parameterGroupName);
         initializePolicyDecoders(params.getPolicyDecoders());
         initializePolicyForwarders(params.getPolicyForwarders());
@@ -82,11 +80,11 @@ public class PluginHandler {
      * Initialize policy decoders.
      *
      * @param policyDecoderParameters exception if it occurs
-     * @throws PolicyDecodingException exception if it occurs
+     * @throws PluginInitializationException exception if it occurs
      */
     @SuppressWarnings("unchecked")
     private void initializePolicyDecoders(final Map<String, PolicyDecoderParameters> policyDecoderParameters)
-            throws PolicyDecodingException {
+            throws PluginInitializationException {
         policyDecoders = new ArrayList<>();
         for (final PolicyDecoderParameters decoderParameters : policyDecoderParameters.values()) {
             try {
@@ -97,7 +95,7 @@ public class PluginHandler {
                 policyDecoders.add(decoder);
             } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException exp) {
                 LOGGER.error("exception occured while initializing decoders", exp);
-                throw new PolicyDecodingException(exp.getMessage(), exp.getCause());
+                throw new PluginInitializationException(exp.getMessage(), exp.getCause());
             }
         }
     }
@@ -106,11 +104,11 @@ public class PluginHandler {
      * Initialize policy forwarders.
      *
      * @param policyForwarderParameters exception if it occurs
-     * @throws PolicyForwardingException exception if it occurs
+     * @throws PluginInitializationException exception if it occurs
      */
     @SuppressWarnings("unchecked")
     private void initializePolicyForwarders(final Map<String, PolicyForwarderParameters> policyForwarderParameters)
-            throws PolicyForwardingException {
+            throws PluginInitializationException {
         policyForwarders = new ArrayList<>();
         for (final PolicyForwarderParameters forwarderParameters : policyForwarderParameters.values()) {
             try {
@@ -119,7 +117,7 @@ public class PluginHandler {
                 policyForwarders.add(policyForwarderClass.newInstance());
             } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException exp) {
                 LOGGER.error("exception occured while initializing forwarders", exp);
-                throw new PolicyForwardingException(exp.getMessage(), exp.getCause());
+                throw new PluginInitializationException(exp.getMessage(), exp.getCause());
             }
         }
     }

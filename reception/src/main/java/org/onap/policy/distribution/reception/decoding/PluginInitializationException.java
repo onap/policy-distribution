@@ -20,34 +20,32 @@
 
 package org.onap.policy.distribution.reception.decoding;
 
-import java.util.Collection;
-
-import org.onap.policy.distribution.model.Policy;
-import org.onap.policy.distribution.model.PolicyInput;
-
 /**
- * Decodes polices from a given input.
+ * This exception will be called if an error occurs while initializing distribution plugins.
  *
- * @param <T> the type of policy that will be created
- * @param <S> the type of input to be decoded
+ * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public interface PolicyDecoder<S extends PolicyInput, T extends Policy> {
+public class PluginInitializationException extends Exception {
+
+    private static final long serialVersionUID = 3809376274411309160L;
 
     /**
-     * Can the decoder handle input of the specified type.
+     * Construct an instance with the given message.
      *
-     * @param policyInput the type
-     * @return <code>true</code> if the decoder can handle the specified type
+     * @param message the error message
      */
-    boolean canHandle(PolicyInput policyInput);
+    public PluginInitializationException(final String message) {
+        super(message);
+    }
 
     /**
-     * Decode policies from the given input.
+     * Construct an instance with the given message and cause.
      *
-     * @param input the input
-     * @return the generated policies
-     * @throws PolicyDecodingException if an error occurs during decoding
+     * @param message the error message
+     * @param cause the cause
      */
-    Collection<T> decode(S input) throws PolicyDecodingException;
+    public PluginInitializationException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
 
 }
