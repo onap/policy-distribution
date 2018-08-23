@@ -17,11 +17,9 @@
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
+
 package org.onap.policy.distribution.reception.parameters;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -76,38 +74,81 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
         private boolean isFilterinEmptyResources;
         private Boolean isUseHttpsWithDmaap;
 
-        public PSSDConfigurationBuilder setAsdcAddress(String val)
-            { asdcAddress = val;      return this; }
-        public PSSDConfigurationBuilder setMessageBusAddress(List<String> val)
-            { messageBusAddress = val;           return this; }
-        public PSSDConfigurationBuilder setUser(String val)
-            { user = val;  return this; }
-        public PSSDConfigurationBuilder setPassword(String val)
-            { password = val;        return this; }
-        public PSSDConfigurationBuilder setPollingInterval(int val)
-            { pollingInterval = val;        return this; }
-        public PSSDConfigurationBuilder setPollingTimeout(int val)
-            { pollingTimeout = val;        return this; }
-        public PSSDConfigurationBuilder setConsumerId(String val)
-            { consumerId = val;        return this; }
-        public PSSDConfigurationBuilder setArtifactTypes(List<String>  val)
-            { artifactTypes = val;        return this; }
-        public PSSDConfigurationBuilder setConsumerGroup(String val)
-            { consumerGroup = val;        return this; }
-        public PSSDConfigurationBuilder setEnvironmentName(String val)
-            { environmentName = val;        return this; }
-        public PSSDConfigurationBuilder setKeystorePath(String val)
-            { keystorePath = val;        return this; }
-        public PSSDConfigurationBuilder setKeystorePassword(String val)
-            { keystorePassword = val;        return this; }
-        public PSSDConfigurationBuilder setActiveserverTlsAuth(boolean val)
-            { activeserverTlsAuth = val;        return this; }
-        public PSSDConfigurationBuilder setIsFilterinEmptyResources(boolean val)
-            { isFilterinEmptyResources = val;        return this; }
-        public PSSDConfigurationBuilder setIsUseHttpsWithDmaap(Boolean val)
-            { isUseHttpsWithDmaap = val;        return this; }
+        public PSSDConfigurationBuilder setAsdcAddress(String val) { 
+            asdcAddress = val;      
+            return this; 
+        }
 
-        
+        public PSSDConfigurationBuilder setMessageBusAddress(List<String> val) { 
+            messageBusAddress = val;           
+            return this; 
+        }
+
+        public PSSDConfigurationBuilder setUser(String val) { 
+            user = val;  
+            return this; 
+        }
+
+        public PSSDConfigurationBuilder setPassword(String val) { 
+            password = val;        
+            return this; 
+        }
+
+        public PSSDConfigurationBuilder setPollingInterval(int val) { 
+            pollingInterval = val;        
+            return this; 
+        }
+
+        public PSSDConfigurationBuilder setPollingTimeout(int val) { 
+            pollingTimeout = val;        
+            return this; 
+        }
+
+        public PSSDConfigurationBuilder setConsumerId(String val) { 
+            consumerId = val;        
+            return this; 
+        }
+
+        public PSSDConfigurationBuilder setArtifactTypes(List<String>  val) { 
+            artifactTypes = val;        
+            return this; 
+        }
+
+        public PSSDConfigurationBuilder setConsumerGroup(String val) { 
+            consumerGroup = val;        
+            return this; 
+        }
+
+        public PSSDConfigurationBuilder setEnvironmentName(String val) { 
+            environmentName = val;        
+            return this; 
+        }
+
+        public PSSDConfigurationBuilder setKeystorePath(String val) { 
+            keystorePath = val;        
+            return this; 
+        }
+
+        public PSSDConfigurationBuilder setKeystorePassword(String val) { 
+            keystorePassword = val;        
+            return this; 
+        }
+
+        public PSSDConfigurationBuilder setActiveserverTlsAuth(boolean val) { 
+            activeserverTlsAuth = val;        
+            return this; 
+        }
+
+        public PSSDConfigurationBuilder setIsFilterinEmptyResources(boolean val) { 
+            isFilterinEmptyResources = val;        
+            return this; 
+        }
+
+        public PSSDConfigurationBuilder setIsUseHttpsWithDmaap(Boolean val) { 
+            isUseHttpsWithDmaap = val;        
+            return this; 
+        }
+
         /**
          * it is to create a new PSSDConfigurationParametersGroup instance.
          */
@@ -200,22 +241,82 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
     public Boolean isUseHttpsWithDmaap() {
         return isUseHttpsWithDmaap;
     }
-
+    
+    /**
+     * Return a string representation of the object
+     *
+     * @return textually represents this object
+     */
     @Override
     public String toString() {
         return "name =" + name + ",TestParameters:[asdcAddress = " + asdcAddress + ", messageBusAddress = "
                 + messageBusAddress + ", user = " + user + "]";
     }
 
+    /**
+     * Return the name of this parameter group instance
+     *
+     * @return name the parameter group name
+     */
     @Override
     public String getName() {
         return name ;
     }
 
+    /** 
+     * Validate all the int Elements 
+     *
+     */
+    private void validateIntElement(final GroupValidationResult validationResult) {
+        if (pollingInterval <= 0) {
+            validationResult.setResult("pollingInterval", ValidationStatus.INVALID,
+                    "pollingInterval must be a positive integer");
+        }
+
+        if (pollingTimeout <= 0) {
+            validationResult.setResult("pollingTimeout", ValidationStatus.INVALID,
+                    "pollingTimeout must be a positive integer");
+        }
+    }
+
+    /** 
+     * Validate all the String List Elements 
+     *
+     */
+    private void validateStringListElement(final GroupValidationResult validationResult) {
+        if (messageBusAddress == null) {
+            validationResult.setResult("messageBusAddress", ValidationStatus.INVALID,
+                    "messageBusAddress must be a list of non-blank string");
+        } else {
+            for (final String temp : messageBusAddress) {
+                if (temp.trim().length() == 0) {
+                    validationResult.setResult("messageBusAddress", ValidationStatus.INVALID,
+                            "the string of messageBusAddress must be a non-blank string");
+                }
+            }
+        }
+
+        if (artifactTypes == null) {
+            validationResult.setResult("artifactTypes", ValidationStatus.INVALID,
+                    "artifactTypes must be a list of non-blank string");
+        } else {
+            for (final String temp : artifactTypes) {
+                if (temp.trim().length() == 0) {
+                    validationResult.setResult("artifactTypes", ValidationStatus.INVALID,
+                            "the string of artifactTypes must be a non-blank string");
+                }
+            }
+        }
+    }
+
+    /**
+     * Validate the parameter group
+     * @return the result of the validation
+     */
     @Override
     public GroupValidationResult validate() {
         final GroupValidationResult validationResult = new GroupValidationResult(this);
-
+        
         if (asdcAddress == null || asdcAddress.trim().length() == 0) {
             validationResult.setResult("asdcAddress", ValidationStatus.INVALID,
                     "asdcAddress must be a non-blank string");
@@ -244,40 +345,8 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
                     "keystorePassword must be a non-blank string");
         }
 
-        if (messageBusAddress == null) {
-            validationResult.setResult("messageBusAddress", ValidationStatus.INVALID,
-                    "messageBusAddress must be a list of non-blank string");
-        } else {
-            for (final String temp : messageBusAddress) {
-                if (temp.trim().length() == 0) {
-                    validationResult.setResult("messageBusAddress", ValidationStatus.INVALID,
-                            "the string of messageBusAddress must be a non-blank string");
-                }
-            }
-        }
-
-        if (artifactTypes == null) {
-            validationResult.setResult("artifactTypes", ValidationStatus.INVALID,
-                    "artifactTypes must be a list of non-blank string");
-        } else {
-            for (final String temp : artifactTypes) {
-                if (temp.trim().length() == 0) {
-                    validationResult.setResult("artifactTypes", ValidationStatus.INVALID,
-                            "the string of artifactTypes must be a non-blank string");
-                }
-            }
-        }
-
-        if (pollingInterval <= 0) {
-            validationResult.setResult("pollingInterval", ValidationStatus.INVALID,
-                    "pollingInterval must be a positive integer");
-        }
-
-        if (pollingTimeout <= 0) {
-            validationResult.setResult("pollingTimeout", ValidationStatus.INVALID,
-                    "pollingTimeout must be a positive integer");
-        }
-
+        validateIntElement(validationResult);
+        validateStringListElement(validationResult);
         return validationResult;
     }
 
