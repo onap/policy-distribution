@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2018 Intel. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,30 +18,37 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.main;
+package org.onap.policy.distribution.reception.handling.sdc.exceptions;
+
 
 /**
- * This exception will be called if an error occurs in policy distribution service.
+ * Exception of the Pssd controller.
  */
-public class PolicyDistributionException extends Exception {
+public class PssdParametersException extends Exception {
+
+    /**
+     * serialization id.
+     */
     private static final long serialVersionUID = -8507246953751956974L;
 
     /**
-     * Instantiates a new policy distribution exception with a message.
+     * Constructor for creating PssdParametersException using message.
      *
-     * @param message the message
+     * @param message The message to dump
      */
-    public PolicyDistributionException(final String message) {
-        super(message);
+    public PssdParametersException (final String message) {
+        super (message);
+       
     }
-
+    
     /**
-     * Instantiates a new policy distribution exception with a message and a caused by exception.
+     * Constructor for creating PssdParametersException using message and exception.
      *
-     * @param message the message
-     * @param exp the exception that caused this exception to be thrown
+     * @param message The message to dump
+     * @param e the exception that caused this exception to be thrown
      */
-    public PolicyDistributionException(final String message, final Exception exp) {
-        super(message, exp);
+    public PssdParametersException (final String message, final Exception e) {
+        super (message, e);
+       
     }
 }

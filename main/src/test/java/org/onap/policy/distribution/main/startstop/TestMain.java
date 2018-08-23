@@ -36,7 +36,8 @@ public class TestMain {
 
     @Test
     public void testMain() throws PolicyDistributionException {
-        final String[] distributionConfigParameters = { "-c", "parameters/DistributionConfigParameters.json" };
+        final String[] distributionConfigParameters =
+        { "-c", "parameters/DistributionConfigParameters.json" };
         final Main main = new Main(distributionConfigParameters);
         assertTrue(main.getParameters().isValid());
         assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, main.getParameters().getName());
@@ -45,28 +46,31 @@ public class TestMain {
 
     @Test
     public void testMain_NoArguments() {
-        final String[] distributionConfigParameters = {};
+        final String[] distributionConfigParameters =
+        {};
         final Main main = new Main(distributionConfigParameters);
         assertTrue(main.getParameters() == null);
     }
 
     @Test
     public void testMain_InvalidArguments() {
-        final String[] distributionConfigParameters = { "parameters/DistributionConfigParameters.json" };
+        final String[] distributionConfigParameters =
+        { "parameters/DistributionConfigParameters.json" };
         final Main main = new Main(distributionConfigParameters);
         assertTrue(main.getParameters() == null);
     }
 
     @Test
     public void testMain_Help() {
-        final String[] distributionConfigParameters = { "-h" };
+        final String[] distributionConfigParameters =
+        { "-h" };
         Main.main(distributionConfigParameters);
     }
 
     @Test
     public void testMain_InvalidParameters() {
         final String[] distributionConfigParameters =
-                { "-c", "parameters/DistributionConfigParameters_InvalidName.json" };
+        { "-c", "parameters/DistributionConfigParameters_InvalidName.json" };
         final Main main = new Main(distributionConfigParameters);
         assertTrue(main.getParameters() == null);
     }

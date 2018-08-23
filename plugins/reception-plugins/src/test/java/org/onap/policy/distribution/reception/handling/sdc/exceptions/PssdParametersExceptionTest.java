@@ -26,11 +26,11 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-public class PSSDControllerExceptionTest {
+public class PssdParametersExceptionTest {
 
     @Test
     public void test() {
-        assertNotNull(new PSSDControllerException("Message"));
-        assertNotNull(new PSSDControllerException("Message", new IOException()));
+        assertNotNull(new PssdParametersException("Message"));
+        assertNotNull(new PssdParametersException("Message", new IOException()));
     }
 }

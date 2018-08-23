@@ -22,9 +22,9 @@ package org.onap.policy.distribution.reception.handling.sdc.exceptions;
 
 
 /**
- * Exception during download from PSSD.
+ * Exception of the Pssd controller.
  */
-public class PSSDDownloadException extends Exception {
+public class PssdControllerException extends Exception {
 
     /**
      * serialization id.
@@ -32,22 +32,22 @@ public class PSSDDownloadException extends Exception {
     private static final long serialVersionUID = -8507246953751956974L;
 
     /**
-     * Constructor for creating PSSDDownloadException using message.
+     * Constructor for creating PssdControllerException using message.
      *
      * @param message The message to dump
      */
-    public PSSDDownloadException (final String message) {
+    public PssdControllerException (final String message) {
         super (message);
        
     }
     
     /**
-     * Constructor for creating PSSDDownloadException using message and exception.
+     * Constructor for creating PssdControllerException using message and exception.
      *
      * @param message The message to dump
      * @param e the exception that caused this exception to be thrown
      */
-    public PSSDDownloadException (final String message, final Exception e) {
+    public PssdControllerException (final String message, final Exception e) {
         super (message, e);
        
     }

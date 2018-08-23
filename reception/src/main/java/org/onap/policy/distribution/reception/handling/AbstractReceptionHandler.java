@@ -30,6 +30,7 @@ import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.distribution.model.Policy;
 import org.onap.policy.distribution.model.PolicyInput;
+import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
@@ -45,8 +46,11 @@ public abstract class AbstractReceptionHandler implements ReceptionHandler {
 
     private PluginHandler pluginHandler;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void initialize(final String parameterGroupName) throws PolicyDecodingException, PolicyForwardingException {
+    public void initialize(final String parameterGroupName) throws PluginInitializationException {
         final ReceptionHandlerParameters receptionHandlerParameters =
                 (ReceptionHandlerParameters) ParameterService.get(parameterGroupName);
         pluginHandler = new PluginHandler(receptionHandlerParameters.getPluginHandlerParameters().getName());
