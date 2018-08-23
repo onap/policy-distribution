@@ -26,11 +26,10 @@ import java.util.Map;
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
-import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.DistributionParameterGroup;
 import org.onap.policy.distribution.main.rest.DistributionRestServer;
-import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
+import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
@@ -79,9 +78,9 @@ public class DistributionActivator {
                 final AbstractReceptionHandler receptionHandler = receptionHandlerClass.newInstance();
                 receptionHandler.initialize(receptionHandlerParameters.getName());
                 receptionHandlersMap.put(receptionHandlerParameters.getName(), receptionHandler);
-                alive = true;
+                DistributionActivator.setAlive(true);
             } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException
-                    | PolicyDecodingException | PolicyForwardingException exp) {
+                    | PluginInitializationException exp) {
                 throw new PolicyDistributionException(exp.getMessage(), exp);
             }
         }
@@ -114,7 +113,7 @@ public class DistributionActivator {
             }
             receptionHandlersMap.clear();
             deregisterToParameterService(distributionParameterGroup);
-            alive = false;
+            DistributionActivator.setAlive(true);
 
             // Stop the distribution rest server
             restServer.stop();
@@ -173,5 +172,14 @@ public class DistributionActivator {
      */
     public static boolean isAlive() {
         return alive;
+    }
+
+    /**
+     * Change the alive status of distribution service.
+     *
+     * @param status the status
+     */
+    public static void setAlive(final boolean status) {
+        alive = status;
     }
 }

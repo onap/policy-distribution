@@ -40,8 +40,8 @@ public class TestDistributionActivator {
     public void testDistributionActivator() throws PolicyDistributionException {
         final String[] distributionConfigParameters = { "-c", "parameters/DistributionConfigParameters.json" };
 
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
+        final DistributionCommandLineArguments arguments =
+                new DistributionCommandLineArguments(distributionConfigParameters);
 
         final DistributionParameterGroup parGroup = new DistributionParameterHandler().getParameters(arguments);
 

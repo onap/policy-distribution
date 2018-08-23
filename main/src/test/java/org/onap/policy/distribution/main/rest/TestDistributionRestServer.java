@@ -23,6 +23,11 @@ package org.onap.policy.distribution.main.rest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.jayway.awaitility.Awaitility;
+
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -97,11 +102,19 @@ public class TestDistributionRestServer {
             response = invocationBuilder.get(HealthCheckReport.class);
         } catch (final Exception exp) {
             // may be the server is not started yet. Wait for couple of seconds and retry.
-            Thread.sleep(2000);
+            Awaitility.await().atMost((5000), TimeUnit.MILLISECONDS)
+                    .untilTrue(new TestDistributionRestServer().isServerReady(invocationBuilder));
             response = invocationBuilder.get(HealthCheckReport.class);
         }
-
         return response;
+    }
+
+    /**
+     * @param invocationBuilder
+     * @return
+     */
+    private AtomicBoolean isServerReady(final Invocation.Builder invocationBuilder) {
+        return new AtomicBoolean(invocationBuilder.get(HealthCheckReport.class).getCode() == 200);
     }
 
     private void validateReport(final String name, final String url, final boolean healthy, final int code,
