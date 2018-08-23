@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2018 Intel. All rights reserved.
+ *  Copyright (C) 2018 Ericsson. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,37 +18,34 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.reception.handling.sdc.exceptions;
-
+package org.onap.policy.distribution.reception.decoding;
 
 /**
- * Exception of the PSSD controller.
+ * This exception will be called if an error occurs while initializing distribution plugins.
+ *
+ * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class PSSDParametersException extends Exception {
+public class PluginInitializationException extends Exception {
+
+    private static final long serialVersionUID = 3809376274411309160L;
 
     /**
-     * serialization id.
+     * Construct an instance with the given message.
+     *
+     * @param message the error message
      */
-    private static final long serialVersionUID = -8507246953751956974L;
+    public PluginInitializationException(final String message) {
+        super(message);
+    }
 
     /**
-     * Constructor for creating PSSDParametersException using message.
+     * Construct an instance with the given message and cause.
      *
-     * @param message The message to dump
+     * @param message the error message
+     * @param cause the cause
      */
-    public PSSDParametersException (final String message) {
-        super (message);
-       
+    public PluginInitializationException(final String message, final Throwable cause) {
+        super(message, cause);
     }
-    
-    /**
-     * Constructor for creating PSSDParametersException using message and exception.
-     *
-     * @param message The message to dump
-     * @param e the exception that caused this exception to be thrown
-     */
-    public PSSDParametersException (final String message, final Exception e) {
-        super (message, e);
-       
-    }
+
 }

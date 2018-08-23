@@ -24,7 +24,7 @@ package org.onap.policy.distribution.reception.handling.sdc.exceptions;
 /**
  * Exception during download from PSSD.
  */
-public class PSSDDownloadException extends Exception {
+public class PssdDownloadException extends Exception {
 
     /**
      * serialization id.
@@ -36,7 +36,7 @@ public class PSSDDownloadException extends Exception {
      *
      * @param message The message to dump
      */
-    public PSSDDownloadException (final String message) {
+    public PssdDownloadException (final String message) {
         super (message);
        
     }
@@ -47,7 +47,7 @@ public class PSSDDownloadException extends Exception {
      * @param message The message to dump
      * @param e the exception that caused this exception to be thrown
      */
-    public PSSDDownloadException (final String message, final Exception e) {
+    public PssdDownloadException (final String message, final Exception e) {
         super (message, e);
        
     }
