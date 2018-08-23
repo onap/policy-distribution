@@ -67,14 +67,16 @@ public class PolicyDecoderParameters implements ParameterGroup {
         return decoderClassName;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName() {
         return null;
     }
 
     /**
-     * Validate the policy decoder parameters.
-     *
+     * {@inheritDoc}
      */
     @Override
     public GroupValidationResult validate() {
@@ -95,7 +97,7 @@ public class PolicyDecoderParameters implements ParameterGroup {
         try {
             Class.forName(decoderClassName);
         } catch (final ClassNotFoundException exp) {
-            LOGGER.error("policy decoder class not found in classpath", exp);
+            LOGGER.trace("policy decoder class not found in classpath", exp);
             validationResult.setResult("decoderClassName", ValidationStatus.INVALID,
                     "policy decoder class not found in classpath");
         }

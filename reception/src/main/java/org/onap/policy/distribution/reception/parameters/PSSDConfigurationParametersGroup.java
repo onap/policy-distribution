@@ -26,6 +26,7 @@ import java.util.UUID;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.common.utils.validation.ParameterValidationUtils;
 
 /**
  * This class handles reading, parsing and validating of the Policy SDC Service Distribution parameters from Json
@@ -54,7 +55,7 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
     private Boolean isUseHttpsWithDmaap;
 
     /**
-     *Inner static class is to used as a Builder
+     * Inner static class is to used as a Builder.
      *
      */
     public static class PSSDConfigurationBuilder {
@@ -74,83 +75,83 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
         private boolean isFilterinEmptyResources;
         private Boolean isUseHttpsWithDmaap;
 
-        public PSSDConfigurationBuilder setAsdcAddress(String val) { 
-            asdcAddress = val;      
-            return this; 
+        public PSSDConfigurationBuilder setAsdcAddress(final String val) {
+            asdcAddress = val;
+            return this;
         }
 
-        public PSSDConfigurationBuilder setMessageBusAddress(List<String> val) { 
-            messageBusAddress = val;           
-            return this; 
+        public PSSDConfigurationBuilder setMessageBusAddress(final List<String> val) {
+            messageBusAddress = val;
+            return this;
         }
 
-        public PSSDConfigurationBuilder setUser(String val) { 
-            user = val;  
-            return this; 
+        public PSSDConfigurationBuilder setUser(final String val) {
+            user = val;
+            return this;
         }
 
-        public PSSDConfigurationBuilder setPassword(String val) { 
-            password = val;        
-            return this; 
+        public PSSDConfigurationBuilder setPassword(final String val) {
+            password = val;
+            return this;
         }
 
-        public PSSDConfigurationBuilder setPollingInterval(int val) { 
-            pollingInterval = val;        
-            return this; 
+        public PSSDConfigurationBuilder setPollingInterval(final int val) {
+            pollingInterval = val;
+            return this;
         }
 
-        public PSSDConfigurationBuilder setPollingTimeout(int val) { 
-            pollingTimeout = val;        
-            return this; 
+        public PSSDConfigurationBuilder setPollingTimeout(final int val) {
+            pollingTimeout = val;
+            return this;
         }
 
-        public PSSDConfigurationBuilder setConsumerId(String val) { 
-            consumerId = val;        
-            return this; 
+        public PSSDConfigurationBuilder setConsumerId(final String val) {
+            consumerId = val;
+            return this;
         }
 
-        public PSSDConfigurationBuilder setArtifactTypes(List<String>  val) { 
-            artifactTypes = val;        
-            return this; 
+        public PSSDConfigurationBuilder setArtifactTypes(final List<String> val) {
+            artifactTypes = val;
+            return this;
         }
 
-        public PSSDConfigurationBuilder setConsumerGroup(String val) { 
-            consumerGroup = val;        
-            return this; 
+        public PSSDConfigurationBuilder setConsumerGroup(final String val) {
+            consumerGroup = val;
+            return this;
         }
 
-        public PSSDConfigurationBuilder setEnvironmentName(String val) { 
-            environmentName = val;        
-            return this; 
+        public PSSDConfigurationBuilder setEnvironmentName(final String val) {
+            environmentName = val;
+            return this;
         }
 
-        public PSSDConfigurationBuilder setKeystorePath(String val) { 
-            keystorePath = val;        
-            return this; 
+        public PSSDConfigurationBuilder setKeystorePath(final String val) {
+            keystorePath = val;
+            return this;
         }
 
-        public PSSDConfigurationBuilder setKeystorePassword(String val) { 
-            keystorePassword = val;        
-            return this; 
+        public PSSDConfigurationBuilder setKeystorePassword(final String val) {
+            keystorePassword = val;
+            return this;
         }
 
-        public PSSDConfigurationBuilder setActiveserverTlsAuth(boolean val) { 
-            activeserverTlsAuth = val;        
-            return this; 
+        public PSSDConfigurationBuilder setActiveserverTlsAuth(final boolean val) {
+            activeserverTlsAuth = val;
+            return this;
         }
 
-        public PSSDConfigurationBuilder setIsFilterinEmptyResources(boolean val) { 
-            isFilterinEmptyResources = val;        
-            return this; 
+        public PSSDConfigurationBuilder setIsFilterinEmptyResources(final boolean val) {
+            isFilterinEmptyResources = val;
+            return this;
         }
 
-        public PSSDConfigurationBuilder setIsUseHttpsWithDmaap(Boolean val) { 
-            isUseHttpsWithDmaap = val;        
-            return this; 
+        public PSSDConfigurationBuilder setIsUseHttpsWithDmaap(final Boolean val) {
+            isUseHttpsWithDmaap = val;
+            return this;
         }
 
         /**
-         * it is to create a new PSSDConfigurationParametersGroup instance.
+         * Creates a new PSSDConfigurationParametersGroup instance.
          */
         public PSSDConfigurationParametersGroup build() {
             return new PSSDConfigurationParametersGroup(this);
@@ -158,17 +159,17 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
     }
 
     /**
-     * The constructor for instantiating PSSDConfigurationParametersGroup it is a private
-     * so that it could ONLY be instantiated by PSSDConfigurationBuilder
+     * The constructor for instantiating PSSDConfigurationParametersGroup. It is kept private so that it could only be
+     * called by PSSDConfigurationBuilder.
      *
      * @param builder stores all the values used by PSSDConfigurationParametersGroup
      */
-    private PSSDConfigurationParametersGroup(PSSDConfigurationBuilder builder) {
-        asdcAddress  = builder.asdcAddress;
-        messageBusAddress     = builder.messageBusAddress;
-        user     = builder.user;
-        password          = builder.password;
-        pollingInterval       = builder.pollingInterval;
+    private PSSDConfigurationParametersGroup(final PSSDConfigurationBuilder builder) {
+        asdcAddress = builder.asdcAddress;
+        messageBusAddress = builder.messageBusAddress;
+        user = builder.user;
+        password = builder.password;
+        pollingInterval = builder.pollingInterval;
         pollingTimeout = builder.pollingTimeout;
         consumerId = builder.consumerId;
         artifactTypes = builder.artifactTypes;
@@ -178,10 +179,10 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
         keystorePassword = builder.keystorePassword;
         activeserverTlsAuth = builder.activeserverTlsAuth;
         isFilterinEmptyResources = builder.isFilterinEmptyResources;
-        isUseHttpsWithDmaap  = builder.isUseHttpsWithDmaap;
-        
+        isUseHttpsWithDmaap = builder.isUseHttpsWithDmaap;
+
     }
-    
+
     public String getAsdcAddress() {
         return asdcAddress;
     }
@@ -241,11 +242,9 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
     public Boolean isUseHttpsWithDmaap() {
         return isUseHttpsWithDmaap;
     }
-    
+
     /**
-     * Return a string representation of the object
-     *
-     * @return textually represents this object
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
@@ -254,100 +253,11 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
     }
 
     /**
-     * Return the name of this parameter group instance
-     *
-     * @return name the parameter group name
+     * {@inheritDoc}
      */
     @Override
     public String getName() {
-        return name ;
-    }
-
-    /** 
-     * Validate all the int Elements 
-     *
-     */
-    private void validateIntElement(final GroupValidationResult validationResult) {
-        if (pollingInterval <= 0) {
-            validationResult.setResult("pollingInterval", ValidationStatus.INVALID,
-                    "pollingInterval must be a positive integer");
-        }
-
-        if (pollingTimeout <= 0) {
-            validationResult.setResult("pollingTimeout", ValidationStatus.INVALID,
-                    "pollingTimeout must be a positive integer");
-        }
-    }
-
-    /** 
-     * Validate all the String List Elements 
-     *
-     */
-    private void validateStringListElement(final GroupValidationResult validationResult) {
-        if (messageBusAddress == null) {
-            validationResult.setResult("messageBusAddress", ValidationStatus.INVALID,
-                    "messageBusAddress must be a list of non-blank string");
-        } else {
-            for (final String temp : messageBusAddress) {
-                if (temp.trim().length() == 0) {
-                    validationResult.setResult("messageBusAddress", ValidationStatus.INVALID,
-                            "the string of messageBusAddress must be a non-blank string");
-                }
-            }
-        }
-
-        if (artifactTypes == null) {
-            validationResult.setResult("artifactTypes", ValidationStatus.INVALID,
-                    "artifactTypes must be a list of non-blank string");
-        } else {
-            for (final String temp : artifactTypes) {
-                if (temp.trim().length() == 0) {
-                    validationResult.setResult("artifactTypes", ValidationStatus.INVALID,
-                            "the string of artifactTypes must be a non-blank string");
-                }
-            }
-        }
-    }
-
-    /**
-     * Validate the parameter group
-     * @return the result of the validation
-     */
-    @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult validationResult = new GroupValidationResult(this);
-        
-        if (asdcAddress == null || asdcAddress.trim().length() == 0) {
-            validationResult.setResult("asdcAddress", ValidationStatus.INVALID,
-                    "asdcAddress must be a non-blank string");
-        }
-
-        if (user == null || user.trim().length() == 0) {
-            validationResult.setResult("user", ValidationStatus.INVALID, "user must be a non-blank string");
-        }
-
-        if (consumerId == null || consumerId.trim().length() == 0) {
-            validationResult.setResult("consumerId", ValidationStatus.INVALID, "consumerId must be a non-blank string");
-        }
-
-        if (consumerGroup == null || consumerGroup.trim().length() == 0) {
-            validationResult.setResult("consumerGroup", ValidationStatus.INVALID,
-                    "consumerGroup must be a non-blank string");
-        }
-
-        if (keystorePath == null || keystorePath.trim().length() == 0) {
-            validationResult.setResult("keystorePath", ValidationStatus.INVALID,
-                    "keystorePath must be a non-blank string");
-        }
-
-        if (keystorePassword == null || keystorePassword.trim().length() == 0) {
-            validationResult.setResult("keystorePassword", ValidationStatus.INVALID,
-                    "keystorePassword must be a non-blank string");
-        }
-
-        validateIntElement(validationResult);
-        validateStringListElement(validationResult);
-        return validationResult;
+        return name;
     }
 
     /**
@@ -357,6 +267,77 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
      */
     public void setName(final String name) {
         this.name = name + "_" + UUID.randomUUID().toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GroupValidationResult validate() {
+        final GroupValidationResult validationResult = new GroupValidationResult(this);
+        validateStringElement(validationResult, asdcAddress, "asdcAddress");
+        validateStringElement(validationResult, user, "user");
+        validateStringElement(validationResult, consumerId, "consumerId");
+        validateStringElement(validationResult, consumerGroup, "consumerGroup");
+        validateStringElement(validationResult, keystorePath, "keystorePath");
+        validateStringElement(validationResult, keystorePassword, "keystorePassword");
+        validateIntElement(validationResult, pollingInterval, "pollingInterval");
+        validateIntElement(validationResult, pollingTimeout, "pollingTimeout");
+        validateStringListElement(validationResult, messageBusAddress, "messageBusAddress");
+        validateStringListElement(validationResult, artifactTypes, "artifactTypes");
+        return validationResult;
+    }
+
+    /**
+     * Validate the integer Element.
+     *
+     * @param validationResult the result object
+     * @param element the element to validate
+     * @param elementName the element name for error message
+     */
+    private void validateIntElement(final GroupValidationResult validationResult, final int element,
+            final String elementName) {
+        if (!ParameterValidationUtils.validateIntParameter(element)) {
+            validationResult.setResult(elementName, ValidationStatus.INVALID,
+                    elementName + " must be a positive integer");
+        }
+    }
+
+    /**
+     * Validate the String List Element.
+     *
+     * @param validationResult the result object
+     * @param element the element to validate
+     * @param elementName the element name for error message
+     */
+    private void validateStringListElement(final GroupValidationResult validationResult, final List<String> element,
+            final String elementName) {
+        if (element == null) {
+            validationResult.setResult(elementName, ValidationStatus.INVALID,
+                    elementName + " must be a list of non-blank string");
+        } else {
+            for (final String temp : element) {
+                if (!ParameterValidationUtils.validateStringParameter(temp)) {
+                    validationResult.setResult(elementName, ValidationStatus.INVALID,
+                            "the string of " + elementName + "must be a non-blank string");
+                }
+            }
+        }
+    }
+
+    /**
+     * Validate the string element.
+     *
+     * @param validationResult the result object
+     * @param element the element to validate
+     * @param elementName the element name for error message
+     */
+    private void validateStringElement(final GroupValidationResult validationResult, final String element,
+            final String elementName) {
+        if (!ParameterValidationUtils.validateStringParameter(asdcAddress)) {
+            validationResult.setResult(elementName, ValidationStatus.INVALID,
+                    elementName + " must be a non-blank string");
+        }
     }
 }
 

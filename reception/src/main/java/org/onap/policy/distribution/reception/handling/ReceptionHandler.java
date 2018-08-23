@@ -20,8 +20,7 @@
 
 package org.onap.policy.distribution.reception.handling;
 
-import org.onap.policy.distribution.forwarding.PolicyForwardingException;
-import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
+import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 
 /**
  * Handles input into Policy Distribution which may be decoded into a Policy.
@@ -32,10 +31,9 @@ public interface ReceptionHandler {
      * Initialize the reception handler with the given parameters.
      *
      * @param parameterGroupName the name of the parameter group containing the configuration for the reception handler
-     * @throws PolicyDecodingException exception if it occurs
-     * @throws PolicyForwardingException exception if it occurs
+     * @throws PluginInitializationException exception if it occurs
      */
-    void initialize(String parameterGroupName) throws PolicyDecodingException, PolicyForwardingException;
+    void initialize(String parameterGroupName) throws PluginInitializationException;
 
     /**
      * Destroy the reception handler, removing any subscriptions and releasing all resources.
