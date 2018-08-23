@@ -18,30 +18,34 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.main;
+package org.onap.policy.distribution.reception.decoding;
 
 /**
- * This exception will be called if an error occurs in policy distribution service.
+ * This exception will be called if an error occurs while initializing distribution plugins.
+ *
+ * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class PolicyDistributionException extends Exception {
-    private static final long serialVersionUID = -8507246953751956974L;
+public class PluginInitializationException extends Exception {
+
+    private static final long serialVersionUID = 3809376274411309160L;
 
     /**
-     * Instantiates a new policy distribution exception with a message.
+     * Construct an instance with the given message.
      *
-     * @param message the message
+     * @param message the error message
      */
-    public PolicyDistributionException(final String message) {
+    public PluginInitializationException(final String message) {
         super(message);
     }
 
     /**
-     * Instantiates a new policy distribution exception with a message and a caused by exception.
+     * Construct an instance with the given message and cause.
      *
-     * @param message the message
-     * @param exp the exception that caused this exception to be thrown
+     * @param message the error message
+     * @param cause the cause
      */
-    public PolicyDistributionException(final String message, final Exception exp) {
-        super(message, exp);
+    public PluginInitializationException(final String message, final Throwable cause) {
+        super(message, cause);
     }
+
 }

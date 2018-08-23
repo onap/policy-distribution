@@ -67,14 +67,16 @@ public class PolicyForwarderParameters implements ParameterGroup {
         return forwarderClassName;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName() {
         return null;
     }
 
     /**
-     * Validate the policy forwarder parameters.
-     *
+     * {@inheritDoc}
      */
     @Override
     public GroupValidationResult validate() {
@@ -95,7 +97,7 @@ public class PolicyForwarderParameters implements ParameterGroup {
         try {
             Class.forName(forwarderClassName);
         } catch (final ClassNotFoundException exp) {
-            LOGGER.error("policy forwarder class not found in classpath", exp);
+            LOGGER.trace("policy forwarder class not found in classpath", exp);
             validationResult.setResult("forwarderClassName", ValidationStatus.INVALID,
                     "policy forwarder class not found in classpath");
         }

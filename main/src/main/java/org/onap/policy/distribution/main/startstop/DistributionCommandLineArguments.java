@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -117,7 +117,8 @@ public class DistributionCommandLineArguments {
         final String[] remainingArgs = commandLine.getArgs();
 
         if (remainingArgs.length > 0 && commandLine.hasOption('c') || remainingArgs.length > 0) {
-            throw new PolicyDistributionException("too many command line arguments specified : " + Arrays.toString(args));
+            throw new PolicyDistributionException(
+                    "too many command line arguments specified : " + Arrays.toString(args));
         }
 
         if (remainingArgs.length == 1) {
@@ -150,7 +151,7 @@ public class DistributionCommandLineArguments {
 
     /**
      * Print version information for policy distribution.
-     * 
+     *
      * @return the version string
      */
     public String version() {
@@ -166,10 +167,10 @@ public class DistributionCommandLineArguments {
     public String help(final String mainClassName) {
         final HelpFormatter helpFormatter = new HelpFormatter();
         final StringWriter stringWriter = new StringWriter();
-        final PrintWriter stringPW = new PrintWriter(stringWriter);
+        final PrintWriter printWriter = new PrintWriter(stringWriter);
 
-        helpFormatter.printHelp(stringPW, HELP_LINE_LENGTH, mainClassName + " [options...]", "options", options, 0, 0,
-                "");
+        helpFormatter.printHelp(printWriter, HELP_LINE_LENGTH, mainClassName + " [options...]", "options", options, 0,
+                0, "");
 
         return stringWriter.toString();
     }
@@ -224,17 +225,18 @@ public class DistributionCommandLineArguments {
         }
 
         // The file name refers to a resource on the local file system
-        final URL fileURL = ResourceUtils.getUrl4Resource(fileName);
-        if (fileURL == null) {
+        final URL fileUrl = ResourceUtils.getUrl4Resource(fileName);
+        if (fileUrl == null) {
             throw new PolicyDistributionException(fileTag + FILE_MESSAGE_PREAMBLE + fileName + "\" does not exist");
         }
 
-        final File theFile = new File(fileURL.getPath());
+        final File theFile = new File(fileUrl.getPath());
         if (!theFile.exists()) {
             throw new PolicyDistributionException(fileTag + FILE_MESSAGE_PREAMBLE + fileName + "\" does not exist");
         }
         if (!theFile.isFile()) {
-            throw new PolicyDistributionException(fileTag + FILE_MESSAGE_PREAMBLE + fileName + "\" is not a normal file");
+            throw new PolicyDistributionException(
+                    fileTag + FILE_MESSAGE_PREAMBLE + fileName + "\" is not a normal file");
         }
         if (!theFile.canRead()) {
             throw new PolicyDistributionException(fileTag + FILE_MESSAGE_PREAMBLE + fileName + "\" is ureadable");

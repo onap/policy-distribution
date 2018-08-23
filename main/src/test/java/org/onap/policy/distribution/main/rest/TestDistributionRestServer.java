@@ -33,6 +33,8 @@ import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.Test;
 import org.onap.policy.common.endpoints.report.HealthCheckReport;
+import org.onap.policy.common.logging.flexlogger.FlexLogger;
+import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.CommonTestData;
 import org.onap.policy.distribution.main.parameters.RestServerParameters;
@@ -45,6 +47,7 @@ import org.onap.policy.distribution.main.startstop.Main;
  */
 public class TestDistributionRestServer {
 
+    private static final Logger LOGGER = FlexLogger.getLogger(TestDistributionRestServer.class);
     private static final String NOT_ALIVE = "not alive";
     private static final String ALIVE = "alive";
     private static final String SELF = "self";
@@ -83,7 +86,7 @@ public class TestDistributionRestServer {
     }
 
     private HealthCheckReport performHealthCheck() throws InterruptedException {
-        HealthCheckReport response;
+        HealthCheckReport response = null;
         final ClientConfig clientConfig = new ClientConfig();
 
         final HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("healthcheck", "zb!XztG34");
@@ -93,14 +96,13 @@ public class TestDistributionRestServer {
         final WebTarget webTarget = client.target("http://localhost:6969/healthcheck");
 
         final Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        try {
-            response = invocationBuilder.get(HealthCheckReport.class);
-        } catch (final Exception exp) {
-            // may be the server is not started yet. Wait for couple of seconds and retry.
-            Thread.sleep(2000);
-            response = invocationBuilder.get(HealthCheckReport.class);
+        while (response == null) {
+            try {
+                response = invocationBuilder.get(HealthCheckReport.class);
+            } catch (final Exception exp) {
+                LOGGER.info("the server is not started yet. We will retry again");
+            }
         }
-
         return response;
     }
 
