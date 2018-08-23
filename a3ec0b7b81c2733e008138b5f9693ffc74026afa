@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_e8f49b88",
+        "filename": "reception/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-08-23T14:12:44Z",
+      "side": 1,
+      "message": "We don\u0027t have to fix this now, but maybe use a property for this since we use it a lot.",
+      "range": {
+        "startLine": 58,
+        "startChar": 21,
+        "endLine": 58,
+        "endChar": 35
+      },
+      "revId": "a3ec0b7b81c2733e008138b5f9693ffc74026afa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
