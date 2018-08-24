@@ -62,6 +62,30 @@
       "revId": "ee65de3fbdcde2e7c84600907f2590e8eb504c16",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d97def1d",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PssdController.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-24T00:26:55Z",
+      "side": 1,
+      "message": "thanks, i\u0027ll do the modification.",
+      "parentUuid": "1a76adc5_65a676c3",
+      "range": {
+        "startLine": 206,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 50
+      },
+      "revId": "ee65de3fbdcde2e7c84600907f2590e8eb504c16",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
