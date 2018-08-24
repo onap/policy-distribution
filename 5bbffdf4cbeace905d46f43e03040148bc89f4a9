@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_9959b75c",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionActivator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-24T02:38:08Z",
+      "side": 1,
+      "message": "change the PSSD to Pssd also?\nin the vim, i use below two cmds to replace:\nset noic\n%s/PSSD/Pssd/g",
+      "range": {
+        "startLine": 145,
+        "startChar": 19,
+        "endLine": 145,
+        "endChar": 54
+      },
+      "revId": "5bbffdf4cbeace905d46f43e03040148bc89f4a9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f95a2b4f",
+        "filename": "reception/src/main/java/org/onap/policy/distribution/reception/parameters/ReceptionHandlerParameters.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-08-24T02:38:08Z",
+      "side": 1,
+      "message": "just a missing\nchange getPSSDConfigurationParametersGroup to\ngetPssdConfigurationParametersGroup.",
+      "revId": "5bbffdf4cbeace905d46f43e03040148bc89f4a9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
