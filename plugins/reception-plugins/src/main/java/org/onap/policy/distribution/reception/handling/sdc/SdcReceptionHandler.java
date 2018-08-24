@@ -20,17 +20,40 @@
 
 package org.onap.policy.distribution.reception.handling.sdc;
 
+import java.io.IOException;
+
+import org.onap.policy.common.logging.flexlogger.FlexLogger;
+import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
+import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
+import org.onap.policy.distribution.reception.handling.sdc.exceptions.PssdControllerException;
+import org.onap.policy.distribution.reception.handling.sdc.exceptions.PssdParametersException;
 
 /**
  * Handles reception of inputs from ONAP Service Design and Creation (SDC) from which policies may
  * be decoded.
  */
 public class SdcReceptionHandler extends AbstractReceptionHandler {
+    private static final Logger LOGGER = FlexLogger.getLogger(SdcReceptionHandler.class);
+    private PssdController pssdController;
 
     @Override
     protected void initializeReception(String parameterGroupName) {
         // Set up subscription to SDC
+        final ReceptionHandlerParameters receptionHandlerParameters =
+                (ReceptionHandlerParameters) ParameterService.get(parameterGroupName);
+        if(pssdController == null){
+            pssdController = new PssdController(receptionHandlerParameters.getName());
+        }
+        // Set up subscription to SDC
+        try{
+            pssdController.initPssd(receptionHandlerParameters.getPssdConfigurationParametersGroup());
+        } catch (PssdParametersException | PssdControllerException | IOException e){
+            LOGGER.error(e.getMessage(), e);
+            return;
+        }
+        LOGGER.debug("init Pssd successfully");
     }
 
     // Add functionality for receiving SDC distibutions and invoking AbstractReceptionHandler
@@ -39,6 +62,16 @@ public class SdcReceptionHandler extends AbstractReceptionHandler {
     @Override
     public void destroy() {
         // Tear down subscription etc
+        if(pssdController !=null){
+            try{
+                pssdController.closePssd();
+            } catch (PssdControllerException e){
+                LOGGER.warn("fail to tear down, try it later", e);
+                return;
+            }
+            LOGGER.debug("destroy Pssd successfully");
+            pssdController = null; 
+        }
     }
 
 }

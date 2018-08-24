@@ -31,7 +31,7 @@ import org.onap.policy.common.parameters.ValidationStatus;
  * This class handles reading, parsing and validating of the Policy SDC Service Distribution parameters from Json
  * format, which strictly adheres to the interface:IConfiguration, defined by SDC SDK.
  */
-public class PSSDConfigurationParametersGroup implements ParameterGroup {
+public class PssdConfigurationParametersGroup implements ParameterGroup {
 
     // Policy SDC Service Distribution specified field.
     private String name;
@@ -57,7 +57,7 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
      *Inner static class is to used as a Builder
      *
      */
-    public static class PSSDConfigurationBuilder {
+    public static class PssdConfigurationBuilder {
         private String asdcAddress;
         private List<String> messageBusAddress;
         private String user;
@@ -74,96 +74,96 @@ public class PSSDConfigurationParametersGroup implements ParameterGroup {
         private boolean isFilterinEmptyResources;
         private Boolean isUseHttpsWithDmaap;
 
-        public PSSDConfigurationBuilder setAsdcAddress(String val) { 
+        public PssdConfigurationBuilder setAsdcAddress(String val) { 
             asdcAddress = val;      
             return this; 
         }
 
-        public PSSDConfigurationBuilder setMessageBusAddress(List<String> val) { 
+        public PssdConfigurationBuilder setMessageBusAddress(List<String> val) { 
             messageBusAddress = val;           
             return this; 
         }
 
-        public PSSDConfigurationBuilder setUser(String val) { 
+        public PssdConfigurationBuilder setUser(String val) { 
             user = val;  
             return this; 
         }
 
-        public PSSDConfigurationBuilder setPassword(String val) { 
+        public PssdConfigurationBuilder setPassword(String val) { 
             password = val;        
             return this; 
         }
 
-        public PSSDConfigurationBuilder setPollingInterval(int val) { 
+        public PssdConfigurationBuilder setPollingInterval(int val) { 
             pollingInterval = val;        
             return this; 
         }
 
-        public PSSDConfigurationBuilder setPollingTimeout(int val) { 
+        public PssdConfigurationBuilder setPollingTimeout(int val) { 
             pollingTimeout = val;        
             return this; 
         }
 
-        public PSSDConfigurationBuilder setConsumerId(String val) { 
+        public PssdConfigurationBuilder setConsumerId(String val) { 
             consumerId = val;        
             return this; 
         }
 
-        public PSSDConfigurationBuilder setArtifactTypes(List<String>  val) { 
+        public PssdConfigurationBuilder setArtifactTypes(List<String>  val) { 
             artifactTypes = val;        
             return this; 
         }
 
-        public PSSDConfigurationBuilder setConsumerGroup(String val) { 
+        public PssdConfigurationBuilder setConsumerGroup(String val) { 
             consumerGroup = val;        
             return this; 
         }
 
-        public PSSDConfigurationBuilder setEnvironmentName(String val) { 
+        public PssdConfigurationBuilder setEnvironmentName(String val) { 
             environmentName = val;        
             return this; 
         }
 
-        public PSSDConfigurationBuilder setKeystorePath(String val) { 
+        public PssdConfigurationBuilder setKeystorePath(String val) { 
             keystorePath = val;        
             return this; 
         }
 
-        public PSSDConfigurationBuilder setKeystorePassword(String val) { 
+        public PssdConfigurationBuilder setKeystorePassword(String val) { 
             keystorePassword = val;        
             return this; 
         }
 
-        public PSSDConfigurationBuilder setActiveserverTlsAuth(boolean val) { 
+        public PssdConfigurationBuilder setActiveserverTlsAuth(boolean val) { 
             activeserverTlsAuth = val;        
             return this; 
         }
 
-        public PSSDConfigurationBuilder setIsFilterinEmptyResources(boolean val) { 
+        public PssdConfigurationBuilder setIsFilterinEmptyResources(boolean val) { 
             isFilterinEmptyResources = val;        
             return this; 
         }
 
-        public PSSDConfigurationBuilder setIsUseHttpsWithDmaap(Boolean val) { 
+        public PssdConfigurationBuilder setIsUseHttpsWithDmaap(Boolean val) { 
             isUseHttpsWithDmaap = val;        
             return this; 
         }
 
         /**
-         * it is to create a new PSSDConfigurationParametersGroup instance.
+         * it is to create a new PssdConfigurationParametersGroup instance.
          */
-        public PSSDConfigurationParametersGroup build() {
-            return new PSSDConfigurationParametersGroup(this);
+        public PssdConfigurationParametersGroup build() {
+            return new PssdConfigurationParametersGroup(this);
         }
     }
 
     /**
-     * The constructor for instantiating PSSDConfigurationParametersGroup it is a private
-     * so that it could ONLY be instantiated by PSSDConfigurationBuilder
+     * The constructor for instantiating PssdConfigurationParametersGroup it is a private
+     * so that it could ONLY be instantiated by PssdConfigurationBuilder
      *
-     * @param builder stores all the values used by PSSDConfigurationParametersGroup
+     * @param builder stores all the values used by PssdConfigurationParametersGroup
      */
-    private PSSDConfigurationParametersGroup(PSSDConfigurationBuilder builder) {
+    private PssdConfigurationParametersGroup(PssdConfigurationBuilder builder) {
         asdcAddress  = builder.asdcAddress;
         messageBusAddress     = builder.messageBusAddress;
         user     = builder.user;

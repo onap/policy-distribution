@@ -23,25 +23,25 @@ package org.onap.policy.distribution.reception.handling.sdc;
 import java.util.List;
 
 import org.onap.sdc.api.consumer.IConfiguration;
-import org.onap.policy.distribution.reception.parameters.PSSDConfigurationParametersGroup;
+import org.onap.policy.distribution.reception.parameters.PssdConfigurationParametersGroup;
 
 /**
  * Properties for the handling Sdc
  *
  */
-public class PSSDConfiguration implements IConfiguration {
+public class PssdConfiguration implements IConfiguration {
 
     // Configuration file structure
 
     // Configuration file properties
-    private PSSDConfigurationParametersGroup configParameters = null;
+    private PssdConfigurationParametersGroup configParameters = null;
 
     /**
      * Original constructor
      *
      * @param configParameters properties needed to be configured for the model loader
      */
-    public PSSDConfiguration(final PSSDConfigurationParametersGroup configParameters) {
+    public PssdConfiguration(final PssdConfigurationParametersGroup configParameters) {
         this.configParameters = configParameters;
 
     }

@@ -33,40 +33,40 @@ import java.io.FileReader;
 import java.io.IOException;
 import org.junit.Test;
 import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.distribution.reception.parameters.PSSDConfigurationParametersGroup;
+import org.onap.policy.distribution.reception.parameters.PssdConfigurationParametersGroup;
 
 /*-
- * Tests for PSSDConfiguration class
+ * Tests for PssdConfiguration class
  *
  */
-public class PSSDConfigurationTest {
+public class PssdConfigurationTest {
     
     @Test
-    public void testPSSDConfigurationParametersGroup() throws IOException {
-        PSSDConfigurationParametersGroup configParameters = null;
+    public void testPssdConfigurationParametersGroup() throws IOException {
+        PssdConfigurationParametersGroup configParameters = null;
         try {
             final Gson gson = new GsonBuilder().create();
             configParameters = 
                 gson.fromJson(new FileReader("src/test/resources/handling-sdc.json"), 
-                        PSSDConfigurationParametersGroup.class);
+                        PssdConfigurationParametersGroup.class);
         } catch (final Exception e) {
             fail("test should not thrown an exception here: " + e.getMessage());
         }
         final GroupValidationResult validationResult = configParameters.validate();
         assertTrue(validationResult.isValid());
-        PSSDConfiguration config = new PSSDConfiguration(configParameters);
+        PssdConfiguration config = new PssdConfiguration(configParameters);
         assertEquals(20, config.getPollingInterval());
         assertEquals(30,config.getPollingTimeout());
     }
 
     @Test
-    public void testInvalidPSSDConfigurationParametersGroup() throws IOException {
-        PSSDConfigurationParametersGroup configParameters = null;
+    public void testInvalidPssdConfigurationParametersGroup() throws IOException {
+        PssdConfigurationParametersGroup configParameters = null;
         try {
             final Gson gson = new GsonBuilder().create();
             configParameters = 
                 gson.fromJson(new FileReader("src/test/resources/handling-sdcInvalid.json"), 
-                        PSSDConfigurationParametersGroup.class);
+                        PssdConfigurationParametersGroup.class);
         } catch (final Exception e) {
             fail("test should not thrown an exception here: " + e.getMessage());
         }

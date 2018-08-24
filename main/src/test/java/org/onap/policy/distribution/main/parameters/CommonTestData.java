@@ -26,9 +26,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
-import org.onap.policy.distribution.reception.parameters.PSSDConfigurationParametersGroup;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
+import org.onap.policy.distribution.reception.parameters.PssdConfigurationParametersGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
 /**
@@ -85,7 +85,7 @@ public class CommonTestData {
         if (!isEmpty) {
             final Map<String, PolicyDecoderParameters> policyDecoders = getPolicyDecoders(isEmpty);
             final Map<String, PolicyForwarderParameters> policyForwarders = getPolicyForwarders(isEmpty);
-            final PSSDConfigurationParametersGroup pssdConfiguration = getPSSDConfigurationParametersGroup(isEmpty);;
+            final PssdConfigurationParametersGroup pssdConfiguration = getPssdConfigurationParametersGroup(isEmpty);;
             final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
             final ReceptionHandlerParameters rhParameters = new ReceptionHandlerParameters(RECEPTION_HANDLER_TYPE,
                     RECEPTION_HANDLER_CLASS_NAME, pssdConfiguration, pHParameters);
@@ -95,26 +95,26 @@ public class CommonTestData {
     }
 
     /**
-     * Returns an instance of PSSDConfigurationParametersGroup for test cases.
+     * Returns an instance of PssdConfigurationParametersGroup for test cases.
      *
      * @param isEmpty boolean value to represent that object created should be empty or not
-     * @return the PSSDConfigurationParametersGroup object
+     * @return the PssdConfigurationParametersGroup object
      */
-    public PSSDConfigurationParametersGroup getPSSDConfigurationParametersGroup(final boolean isEmpty) {
-        final PSSDConfigurationParametersGroup pssdConfiguration;
+    public PssdConfigurationParametersGroup getPssdConfigurationParametersGroup(final boolean isEmpty) {
+        final PssdConfigurationParametersGroup pssdConfiguration;
         if (!isEmpty) {
             final List<String> messageBusAddress = new ArrayList<>();
             messageBusAddress.add("localhost");
             final List<String> artifactTypes = new ArrayList<>();
             artifactTypes.add("TOSCA_CSAR");
-            pssdConfiguration = new PSSDConfigurationParametersGroup.PSSDConfigurationBuilder()
+            pssdConfiguration = new PssdConfigurationParametersGroup.PssdConfigurationBuilder()
                     .setAsdcAddress("localhost").setMessageBusAddress(messageBusAddress).setUser("policy")
                     .setPassword("policy").setPollingInterval(20).setPollingTimeout(30).setConsumerId("policy-id")
                     .setArtifactTypes(artifactTypes).setConsumerGroup("policy-group").setEnvironmentName("TEST")
                     .setKeystorePath("").setKeystorePassword("").setActiveserverTlsAuth(false)
                     .setIsFilterinEmptyResources(true).setIsUseHttpsWithDmaap(false).build();
         } else {
-            pssdConfiguration = new PSSDConfigurationParametersGroup.PSSDConfigurationBuilder().build();
+            pssdConfiguration = new PssdConfigurationParametersGroup.PssdConfigurationBuilder().build();
         }
         return pssdConfiguration;
     }
