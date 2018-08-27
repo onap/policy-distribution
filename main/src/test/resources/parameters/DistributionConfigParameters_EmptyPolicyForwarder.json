@@ -45,5 +45,18 @@
                 }
             }
         }
+    },
+    "policyForwarderConfigurationParameters":{
+        "dummyConfiguration":{
+            "parameterClassName":"org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup",
+            "parameters":{
+                "useHttps": false,
+                "hostname": "192.168.99.100",
+                "port": 8081,
+                "userName": "user",
+                "password": "pw123",
+                "isManaged": true
+            }
+        }
     }
 }

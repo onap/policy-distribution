@@ -22,7 +22,6 @@ package org.onap.policy.distribution.main.testclasses;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.distribution.model.Policy;
@@ -49,4 +48,7 @@ public class DummyPolicyForwarder implements PolicyForwarder {
     public boolean receivedPolicy(final Policy policy) {
         return policiesReceived.contains(policy);
     }
+
+    @Override
+    public void configure(String parameterGroupName) {}
 }

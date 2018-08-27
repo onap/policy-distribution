@@ -18,21 +18,20 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.forwarding.pap.engine;
+package org.onap.policy.distribution.forwarding.xacml.pdp.testclasses;
 
-import java.util.Collection;
-
-import org.onap.policy.distribution.forwarding.PolicyForwarder;
-import org.onap.policy.distribution.model.Policy;
+import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
 
 /**
- * Forwards policies to the XACML PAP Servlet.
+ * Class to create a dummy reception handler for test cases.
+ *
+ * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class XacmlPapServletPolicyForwarder implements PolicyForwarder {
+public class DummyReceptionHandler extends AbstractReceptionHandler {
 
     @Override
-    public void forward(final Collection<Policy> policies) {
-        // Send policies to PAP using common/policy-endpoints
-    }
+    public void initializeReception(final String parameterGroupName) {}
 
+    @Override
+    public void destroy() {}
 }
