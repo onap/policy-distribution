@@ -7,9 +7,9 @@
         "password":"zb!XztG34"
     },
     "receptionHandlerParameters":{
-        "SDCReceptionHandler":{
-            "receptionHandlerType":"SDC",
-            "receptionHandlerClassName":"org.onap.policy.distribution.reception.handling.sdc.SdcReceptionHandler",
+        "DummyReceptionHandler":{
+            "receptionHandlerType":"DummyReceptionHandler",
+            "receptionHandlerClassName":"org.onap.policy.distribution.main.testclasses.DummyReceptionHandler",
             "pssdConfiguration":{
                 "asdcAddress": "localhost",
                 "messageBusAddress": [
@@ -36,9 +36,9 @@
             },
             "pluginHandlerParameters":{
                 "policyDecoders":{
-                    "TOSCADecoder":{
-                        "decoderType":"TOSCA",
-                        "decoderClassName":"org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderToscaPdpx"
+                    "DummyDecoder":{
+                        "decoderType":"DummyDecoder",
+                        "decoderClassName":"org.onap.policy.distribution.main.testclasses.DummyDecoder"
                     }
                 }
             }

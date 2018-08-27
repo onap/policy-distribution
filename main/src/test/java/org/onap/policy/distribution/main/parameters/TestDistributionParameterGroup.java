@@ -56,16 +56,18 @@ public class TestDistributionParameterGroup {
         assertEquals(restServerParameters.getPassword(),
                 distributionParameters.getRestServerParameters().getPassword());
         assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, distributionParameters.getName());
-        assertEquals(receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerType(),
-                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getReceptionHandlerType(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
                         .getReceptionHandlerType());
         assertEquals(
-                receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerClassName(),
-                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+                        .getReceptionHandlerClassName(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
                         .getReceptionHandlerClassName());
         assertEquals(
-                receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getPluginHandlerParameters(),
-                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getPluginHandlerParameters(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
                         .getPluginHandlerParameters());
     }
 
@@ -80,16 +82,18 @@ public class TestDistributionParameterGroup {
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
         assertEquals(null, distributionParameters.getName());
-        assertEquals(receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerType(),
-                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getReceptionHandlerType(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
                         .getReceptionHandlerType());
         assertEquals(
-                receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerClassName(),
-                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+                        .getReceptionHandlerClassName(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
                         .getReceptionHandlerClassName());
         assertEquals(
-                receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getPluginHandlerParameters(),
-                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getPluginHandlerParameters(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
                         .getPluginHandlerParameters());
         assertTrue(validationResult.getResult().contains(
                 "field \"name\" type \"java.lang.String\" value \"null\" INVALID, " + "must be a non-blank string"));
@@ -106,16 +110,18 @@ public class TestDistributionParameterGroup {
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
         assertEquals("", distributionParameters.getName());
-        assertEquals(receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerType(),
-                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getReceptionHandlerType(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
                         .getReceptionHandlerType());
         assertEquals(
-                receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerClassName(),
-                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+                        .getReceptionHandlerClassName(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
                         .getReceptionHandlerClassName());
         assertEquals(
-                receptionHandlerParameters.get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getPluginHandlerParameters(),
-                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getPluginHandlerParameters(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
                         .getPluginHandlerParameters());
         assertTrue(validationResult.getResult().contains(
                 "field \"name\" type \"java.lang.String\" value \"\" INVALID, " + "must be a non-blank string"));

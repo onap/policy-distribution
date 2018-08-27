@@ -38,7 +38,8 @@ public class TestDistributionActivator {
 
     @Test
     public void testDistributionActivator() throws PolicyDistributionException {
-        final String[] distributionConfigParameters = { "-c", "parameters/DistributionConfigParameters.json" };
+        final String[] distributionConfigParameters =
+        { "-c", "parameters/DistributionConfigParameters.json" };
 
         final DistributionCommandLineArguments arguments =
                 new DistributionCommandLineArguments(distributionConfigParameters);
@@ -51,15 +52,15 @@ public class TestDistributionActivator {
         assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, activator.getParameterGroup().getName());
         assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE,
                 activator.getParameterGroup().getReceptionHandlerParameters()
-                        .get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerType());
+                        .get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getReceptionHandlerType());
         assertEquals(CommonTestData.DECODER_TYPE,
                 activator.getParameterGroup().getReceptionHandlerParameters()
-                        .get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getPluginHandlerParameters().getPolicyDecoders()
-                        .get(CommonTestData.TOSCA_DECODER_KEY).getDecoderType());
+                        .get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getPluginHandlerParameters()
+                        .getPolicyDecoders().get(CommonTestData.DUMMY_DECODER_KEY).getDecoderType());
         assertEquals(CommonTestData.FORWARDER_TYPE,
                 activator.getParameterGroup().getReceptionHandlerParameters()
-                        .get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getPluginHandlerParameters()
-                        .getPolicyForwarders().get(CommonTestData.PAP_ENGINE_FORWARDER_KEY).getForwarderType());
+                        .get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getPluginHandlerParameters()
+                        .getPolicyForwarders().get(CommonTestData.DUMMY_ENGINE_FORWARDER_KEY).getForwarderType());
         activator.terminate();
     }
 }

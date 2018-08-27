@@ -46,10 +46,10 @@ public class TestPluginHandlerParameters {
         final Map<String, PolicyForwarderParameters> policyForwarders = commonTestData.getPolicyForwarders(false);
         final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
         final GroupValidationResult validationResult = pHParameters.validate();
-        assertEquals(policyDecoders.get(CommonTestData.TOSCA_DECODER_KEY),
-                pHParameters.getPolicyDecoders().get(CommonTestData.TOSCA_DECODER_KEY));
-        assertEquals(policyForwarders.get(CommonTestData.PAP_ENGINE_FORWARDER_KEY),
-                pHParameters.getPolicyForwarders().get(CommonTestData.PAP_ENGINE_FORWARDER_KEY));
+        assertEquals(policyDecoders.get(CommonTestData.DUMMY_DECODER_KEY),
+                pHParameters.getPolicyDecoders().get(CommonTestData.DUMMY_DECODER_KEY));
+        assertEquals(policyForwarders.get(CommonTestData.DUMMY_ENGINE_FORWARDER_KEY),
+                pHParameters.getPolicyForwarders().get(CommonTestData.DUMMY_ENGINE_FORWARDER_KEY));
         assertTrue(validationResult.isValid());
     }
 

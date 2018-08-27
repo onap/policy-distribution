@@ -34,12 +34,7 @@
     <dependencies>
         <dependency>
             <groupId>org.onap.policy.distribution</groupId>
-            <artifactId>reception-plugins</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.distribution</groupId>
-            <artifactId>forwarding-plugins</artifactId>
+            <artifactId>reception</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

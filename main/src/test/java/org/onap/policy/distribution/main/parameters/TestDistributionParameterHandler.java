@@ -24,6 +24,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import org.junit.Test;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.startstop.DistributionCommandLineArguments;
@@ -139,17 +143,18 @@ public class TestDistributionParameterHandler {
         arguments.parse(distributionConfigParameters);
 
         final DistributionParameterGroup parGroup = new DistributionParameterHandler().getParameters(arguments);
+        assertTrue(arguments.checkSetConfigurationFilePath());
         assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, parGroup.getName());
         assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, parGroup.getReceptionHandlerParameters()
-                .get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerType());
+                .get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getReceptionHandlerType());
         assertEquals(CommonTestData.DECODER_TYPE,
-                parGroup.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
-                        .getPluginHandlerParameters().getPolicyDecoders().get(CommonTestData.TOSCA_DECODER_KEY)
+                parGroup.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+                        .getPluginHandlerParameters().getPolicyDecoders().get(CommonTestData.DUMMY_DECODER_KEY)
                         .getDecoderType());
         assertEquals(CommonTestData.FORWARDER_TYPE,
-                parGroup.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
-                        .getPluginHandlerParameters().getPolicyForwarders().get(CommonTestData.PAP_ENGINE_FORWARDER_KEY)
-                        .getForwarderType());
+                parGroup.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+                        .getPluginHandlerParameters().getPolicyForwarders()
+                        .get(CommonTestData.DUMMY_ENGINE_FORWARDER_KEY).getForwarderType());
     }
 
     @Test
@@ -166,58 +171,6 @@ public class TestDistributionParameterHandler {
         } catch (final Exception e) {
             assertTrue(e.getMessage().contains(
                     "field \"name\" type \"java.lang.String\" value \" \" INVALID, must be a non-blank string"));
-        }
-    }
-
-    @Test
-    public void testDistributionParameterGroup_InvalidReceptionHandlerType() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidReceptionHandlerType.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
-
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage()
-                    .contains("field \"receptionHandlerType\" type \"java.lang.String\" value \" \" INVALID, "
-                            + "must be a non-blank string"));
-        }
-    }
-
-    @Test
-    public void testDistributionParameterGroup_InvalidPolicyDecoderType() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidPolicyDecoderType.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
-
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains(
-                    "field \"decoderType\" type \"java.lang.String\" value \" \" INVALID, must be a non-blank string"));
-        }
-    }
-
-    @Test
-    public void testDistributionParameterGroup_InvalidPolicyForwarderType() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidPolicyForwarderType.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
-
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("field \"forwarderType\" type \"java.lang.String\" value \" \" INVALID, "
-                    + "must be a non-blank string"));
         }
     }
 
@@ -281,6 +234,7 @@ public class TestDistributionParameterHandler {
             new DistributionParameterHandler().getParameters(arguments);
             fail("test should throw an exception here");
         } catch (final Exception e) {
+            System.out.println(e.getMessage());
             assertTrue(e.getMessage().contains("map parameter \"policyForwarders\" is null"));
         }
     }
@@ -318,9 +272,10 @@ public class TestDistributionParameterHandler {
     }
 
     @Test
-    public void testDistributionParameterGroup_InvalidReceptionHandlerClass() throws PolicyDistributionException {
+    public void testDistributionParameterGroup_InvalidReceptionHandlerParameters()
+            throws PolicyDistributionException, IOException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidReceptionHandlerClass.json" };
+        { "-c", "parameters/DistributionConfigParameters_InvalidReceptionHandlerParameters.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -329,14 +284,18 @@ public class TestDistributionParameterHandler {
             new DistributionParameterHandler().getParameters(arguments);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("reception handler class not found in classpath"));
+            final String expectedResult = new String(Files.readAllBytes(
+                    Paths.get("src/test/resources/expectedValidationResults/InvalidReceptionHandlerParameters.txt")))
+                            .replaceAll("\\s+", "");
+            assertEquals(expectedResult, e.getMessage().replaceAll("\\s+", ""));
         }
     }
 
     @Test
-    public void testDistributionParameterGroup_InvalidPolicyDecoderClass() throws PolicyDistributionException {
+    public void testDistributionParameterGroup_InvalidDecoderAndForwarderParameters()
+            throws PolicyDistributionException, IOException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidPolicyDecoderClass.json" };
+        { "-c", "parameters/DistributionConfigParameters_InvalidDecoderAndForwarderParameters.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -345,14 +304,18 @@ public class TestDistributionParameterHandler {
             new DistributionParameterHandler().getParameters(arguments);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("policy decoder class not found in classpath"));
+            final String expectedResult = new String(Files.readAllBytes(
+                    Paths.get("src/test/resources/expectedValidationResults/InvalidDecoderAndForwarderParameters.txt")))
+                            .replaceAll("\\s+", "");
+            assertEquals(expectedResult, e.getMessage().replaceAll("\\s+", ""));
         }
     }
 
     @Test
-    public void testDistributionParameterGroup_InvalidPolicyForwarderClass() throws PolicyDistributionException {
+    public void testDistributionParameterGroup_InvalidRestServerParameters()
+            throws PolicyDistributionException, IOException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidPolicyForwarderClass.json" };
+        { "-c", "parameters/DistributionConfigParameters_InvalidRestServerParameters.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -361,75 +324,40 @@ public class TestDistributionParameterHandler {
             new DistributionParameterHandler().getParameters(arguments);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("policy forwarder class not found in classpath"));
+            final String expectedResult = new String(Files.readAllBytes(
+                    Paths.get("src/test/resources/expectedValidationResults/InvalidRestServerParameters.txt")))
+                            .replaceAll("\\s+", "");
+            assertEquals(expectedResult, e.getMessage().replaceAll("\\s+", ""));
         }
     }
 
     @Test
-    public void testDistributionParameterGroup_InvalidRestServerHost() throws PolicyDistributionException {
+    public void testDistributionVersion() throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidRestServerHost.json" };
-
+        { "-v" };
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
-
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains(
-                    "must be a non-blank string containing hostname/ipaddress of the distribution rest server"));
-        }
+        final String version = arguments.parse(distributionConfigParameters);
+        assertTrue(version.startsWith("ONAP Policy Framework Distribution Service"));
     }
 
     @Test
-    public void testDistributionParameterGroup_InvalidRestServerPort() throws PolicyDistributionException {
+    public void testDistributionHelp() throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidRestServerPort.json" };
-
+        { "-h" };
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
-
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage()
-                    .contains("must be a positive integer containing port of the distribution rest server"));
-        }
+        final String help = arguments.parse(distributionConfigParameters);
+        assertTrue(help.startsWith("usage:"));
     }
 
     @Test
-    public void testDistributionParameterGroup_InvalidRestServerUser() throws PolicyDistributionException {
+    public void testDistributionInvalidOption() throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidRestServerUser.json" };
-
+        { "-d" };
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
-
         try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains(
-                    "must be a non-blank string containing userName for distribution rest server credentials"));
-        }
-    }
-
-    @Test
-    public void testDistributionParameterGroup_InvalidRestServerPassword() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidRestServerPassword.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
-
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains(
-                    "must be a non-blank string containing password for distribution rest server credentials"));
+            arguments.parse(distributionConfigParameters);
+        } catch (final Exception exp) {
+            assertTrue(exp.getMessage().startsWith("invalid command line arguments specified"));
         }
     }
 }

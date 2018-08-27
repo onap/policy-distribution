@@ -43,18 +43,17 @@ public class CommonTestData {
     private static final int REST_SERVER_PORT = 6969;
     private static final String REST_SERVER_HOST = "0.0.0.0";
     public static final String DISTRIBUTION_GROUP_NAME = "SDCDistributionGroup";
-    public static final String DECODER_TYPE = "TOSCA";
-    public static final String DECODER_CLASS_NAME =
-            "org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderToscaPdpx";
-    public static final String FORWARDER_TYPE = "PAPEngine";
+    public static final String DECODER_TYPE = "DummyDecoder";
+    public static final String DECODER_CLASS_NAME = "org.onap.policy.distribution.main.testclasses.DummyDecoder";
+    public static final String FORWARDER_TYPE = "DummyForwarder";
     public static final String FORWARDER_CLASS_NAME =
-            "org.onap.policy.distribution.forwarding.pap.engine.XacmlPapServletPolicyForwarder";
-    public static final String RECEPTION_HANDLER_TYPE = "SDC";
+            "org.onap.policy.distribution.main.testclasses.DummyPolicyForwarder";
+    public static final String RECEPTION_HANDLER_TYPE = "DummyReceptionHandler";
     public static final String RECEPTION_HANDLER_CLASS_NAME =
-            "org.onap.policy.distribution.reception.handling.sdc.SdcReceptionHandler";
-    public static final String SDC_RECEPTION_HANDLER_KEY = "SDCReceptionHandler";
-    public static final String PAP_ENGINE_FORWARDER_KEY = "PAPEngineForwarder";
-    public static final String TOSCA_DECODER_KEY = "TOSCADecoder";
+            "org.onap.policy.distribution.main.testclasses.DummyReceptionHandler";
+    public static final String DUMMY_RECEPTION_HANDLER_KEY = "DummyReceptionHandler";
+    public static final String DUMMY_ENGINE_FORWARDER_KEY = "DummyForwarder";
+    public static final String DUMMY_DECODER_KEY = "DummyDecoder";
 
     /**
      * Returns an instance of ReceptionHandlerParameters for test cases.
@@ -89,7 +88,7 @@ public class CommonTestData {
             final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
             final ReceptionHandlerParameters rhParameters = new ReceptionHandlerParameters(RECEPTION_HANDLER_TYPE,
                     RECEPTION_HANDLER_CLASS_NAME, pssdConfiguration, pHParameters);
-            receptionHandlerParameters.put(SDC_RECEPTION_HANDLER_KEY, rhParameters);
+            receptionHandlerParameters.put(DUMMY_RECEPTION_HANDLER_KEY, rhParameters);
         }
         return receptionHandlerParameters;
     }
@@ -145,7 +144,7 @@ public class CommonTestData {
         if (!isEmpty) {
             final PolicyForwarderParameters pFParameters =
                     new PolicyForwarderParameters(FORWARDER_TYPE, FORWARDER_CLASS_NAME);
-            policyForwarders.put(PAP_ENGINE_FORWARDER_KEY, pFParameters);
+            policyForwarders.put(DUMMY_ENGINE_FORWARDER_KEY, pFParameters);
         }
         return policyForwarders;
     }
@@ -160,7 +159,7 @@ public class CommonTestData {
         final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<String, PolicyDecoderParameters>();
         if (!isEmpty) {
             final PolicyDecoderParameters pDParameters = new PolicyDecoderParameters(DECODER_TYPE, DECODER_CLASS_NAME);
-            policyDecoders.put(TOSCA_DECODER_KEY, pDParameters);
+            policyDecoders.put(DUMMY_DECODER_KEY, pDParameters);
         }
         return policyDecoders;
     }
