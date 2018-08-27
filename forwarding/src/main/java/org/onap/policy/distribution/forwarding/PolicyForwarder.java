@@ -25,8 +25,23 @@ import org.onap.policy.distribution.model.Policy;
 
 /**
  * Forwards polices.
+ * <p>
+ * To create a policy forwarder a class implementing this interface must be created, along with a
+ * concrete sub class of PolicyForwarderConfigurationParameterGroup to handle configuration
+ * parameters for the policy forwarder.
  */
 public interface PolicyForwarder {
+
+    /**
+     * Configure the policy forwarder.
+     * <p>
+     * This method will be invoked immediately after instantiation in order for the policy forwarder
+     * to configure itself.
+     * 
+     * @param parameterGroupName the name of the parameter group which contains the configuration
+     *        for the policy forwarder
+     */
+    void configure(String parameterGroupName);
 
     /**
      * Forward the given policies.

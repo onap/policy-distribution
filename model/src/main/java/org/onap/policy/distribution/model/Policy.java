@@ -25,6 +25,18 @@ package org.onap.policy.distribution.model;
  */
 public interface Policy {
 
-    // Add methods for PolicyForwarder to use when composing REST call to PAP
+    /**
+     * Get the name of the policy.
+     * 
+     * @return the name of the policy
+     */
+    String getPolicyName();
+
+    /**
+     * Get the type of the policy.
+     * 
+     * @return the type of the policy
+     */
+    String getPolicyType();
 
 }

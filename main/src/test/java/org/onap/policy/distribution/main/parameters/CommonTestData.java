@@ -24,8 +24,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
+import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup;
+import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup.DummyPolicyForwarderParameterGroupBuilder;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
 import org.onap.policy.distribution.reception.parameters.PssdConfigurationParametersGroup;
@@ -48,6 +49,8 @@ public class CommonTestData {
     public static final String FORWARDER_TYPE = "DummyForwarder";
     public static final String FORWARDER_CLASS_NAME =
             "org.onap.policy.distribution.main.testclasses.DummyPolicyForwarder";
+    public static final String FORWARDER_CONFIGURATION_PARAMETERS = "dummyConfiguration";
+    public static final String FORWARDER_HOST = "192.168.99.100";
     public static final String RECEPTION_HANDLER_TYPE = "DummyReceptionHandler";
     public static final String RECEPTION_HANDLER_CLASS_NAME =
             "org.onap.policy.distribution.main.testclasses.DummyReceptionHandler";
@@ -142,8 +145,8 @@ public class CommonTestData {
         final Map<String, PolicyForwarderParameters> policyForwarders =
                 new HashMap<String, PolicyForwarderParameters>();
         if (!isEmpty) {
-            final PolicyForwarderParameters pFParameters =
-                    new PolicyForwarderParameters(FORWARDER_TYPE, FORWARDER_CLASS_NAME);
+            final PolicyForwarderParameters pFParameters = new PolicyForwarderParameters(FORWARDER_TYPE,
+                    FORWARDER_CLASS_NAME, FORWARDER_CONFIGURATION_PARAMETERS);
             policyForwarders.put(DUMMY_ENGINE_FORWARDER_KEY, pFParameters);
         }
         return policyForwarders;
@@ -162,5 +165,25 @@ public class CommonTestData {
             policyDecoders.put(DUMMY_DECODER_KEY, pDParameters);
         }
         return policyDecoders;
+    }
+
+    /**
+     * Returns PolicyForwarderConfigurationParameterGroups for test cases.
+     *
+     * @param isEmpty boolean value to represent that object created should be empty or not
+     * @return the PolicyForwarderConfigurationParameterGroups
+     */
+    public Map<String, PolicyForwarderConfigurationParameterGroup> getPolicyForwarderConfigurationParameters(
+            final boolean isEmpty) {
+        final Map<String, PolicyForwarderConfigurationParameterGroup> policyForwarderConfigurationParameters =
+                new HashMap<String, PolicyForwarderConfigurationParameterGroup>();
+        if (!isEmpty) {
+            DummyPolicyForwarderParameterGroup dummyPolicyForwarderParameterGroup =
+                    new DummyPolicyForwarderParameterGroupBuilder().setUseHttps(true).setHostname(FORWARDER_HOST)
+                            .setPort(1234).setUserName("myUser").setPassword("myPassword").setIsManaged(true).build();
+            policyForwarderConfigurationParameters.put(FORWARDER_CONFIGURATION_PARAMETERS,
+                    dummyPolicyForwarderParameterGroup);
+        }
+        return policyForwarderConfigurationParameters;
     }
 }

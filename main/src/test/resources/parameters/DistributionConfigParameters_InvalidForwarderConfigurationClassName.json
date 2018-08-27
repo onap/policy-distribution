@@ -39,40 +39,21 @@
                     "DummyDecoder":{
                         "decoderType":"DummyDecoder",
                         "decoderClassName":"org.onap.policy.distribution.main.testclasses.DummyDecoder"
-                    },
-                    "APEXDecoder":{
-                        "decoderType":"",
-                        "decoderClassName":"org.onap.policy.distribution.main.testclasses.PolicyDecoderApexPdpa"
-                    },
-                    "DROOLSDecoder":{
-                        "decoderType":"DROOLS",
-                        "decoderClassName":""
                     }
                 },
                 "policyForwarders":{
                     "DummyForwarder":{
                         "forwarderType":"DummyForwarder",
                         "forwarderClassName":"org.onap.policy.distribution.main.testclasses.DummyPolicyForwarder",
-                        "forwarderConfigurationName": "dummyConfiguration"
-                    },
-                    "PAPStandaloneForwarder":{
-                        "forwarderType":"",
-                        "forwarderClassName":"org.onap.policy.distribution.main.testclasses.PapStandalonePolicyForwarder",
-                        "forwarderConfigurationName": "dummyConfiguration"
-                    },
-                    "PAPEngineForwarder":{
-                        "forwarderType":"PAPEngineForwarder",
-                        "forwarderClassName":"",
-                        "forwarderConfigurationName": "dummyConfiguration"
+                        "forwarderConfigurationParameters": "dummyConfiguration"
                     }
                 }
-                
             }
         }
     },
     "policyForwarderConfigurationParameters":{
         "dummyConfiguration":{
-            "parameterClassName":"org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup",
+            "parameterClassName":"",
             "parameters":{
                 "useHttps": false,
                 "hostname": "192.168.99.100",

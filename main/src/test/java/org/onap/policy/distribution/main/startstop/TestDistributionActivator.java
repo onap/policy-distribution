@@ -28,6 +28,7 @@ import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.CommonTestData;
 import org.onap.policy.distribution.main.parameters.DistributionParameterGroup;
 import org.onap.policy.distribution.main.parameters.DistributionParameterHandler;
+import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup;
 
 /**
  * Class to perform unit test of DistributionActivator.
@@ -38,8 +39,7 @@ public class TestDistributionActivator {
 
     @Test
     public void testDistributionActivator() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters.json" };
+        final String[] distributionConfigParameters = {"-c", "parameters/DistributionConfigParameters.json"};
 
         final DistributionCommandLineArguments arguments =
                 new DistributionCommandLineArguments(distributionConfigParameters);
@@ -61,6 +61,9 @@ public class TestDistributionActivator {
                 activator.getParameterGroup().getReceptionHandlerParameters()
                         .get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getPluginHandlerParameters()
                         .getPolicyForwarders().get(CommonTestData.DUMMY_ENGINE_FORWARDER_KEY).getForwarderType());
+        assertEquals(DummyPolicyForwarderParameterGroup.class,
+                activator.getParameterGroup().getPolicyForwarderConfigurationParameters()
+                        .get(CommonTestData.FORWARDER_CONFIGURATION_PARAMETERS).getClass());
         activator.terminate();
     }
 }

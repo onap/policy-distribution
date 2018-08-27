@@ -29,7 +29,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.junit.Test;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
@@ -57,6 +56,7 @@ public class AbstractReceptionHandlerTest {
     private static final String FORWARDER_TYPE = "DummyForwarder";
     private static final String FORWARDER_CLASS_NAME =
             "org.onap.policy.distribution.reception.handling.DummyPolicyForwarder";
+    private static final String FORWARDER_CONFIGURATION_PARAMETERS = "DummyConfiguration";
 
     @Test
     public void testInputReceived() throws PolicyDecodingException, NoSuchFieldException, SecurityException,
@@ -121,9 +121,29 @@ public class AbstractReceptionHandlerTest {
     }
 
     class DummyPolicy1 implements Policy {
+
+        @Override
+        public String getPolicyName() {
+            return null;
+        }
+
+        @Override
+        public String getPolicyType() {
+            return null;
+        }
     }
 
     class DummyPolicy2 implements Policy {
+
+        @Override
+        public String getPolicyName() {
+            return null;
+        }
+
+        @Override
+        public String getPolicyType() {
+            return null;
+        }
     }
 
     private void setUpPlugins(final AbstractReceptionHandler receptionHandler,
@@ -160,7 +180,7 @@ public class AbstractReceptionHandlerTest {
         final Map<String, PolicyForwarderParameters> policyForwarders =
                 new HashMap<String, PolicyForwarderParameters>();
         final PolicyForwarderParameters pFParameters =
-                new PolicyForwarderParameters(FORWARDER_TYPE, FORWARDER_CLASS_NAME);
+                new PolicyForwarderParameters(FORWARDER_TYPE, FORWARDER_CLASS_NAME, FORWARDER_CONFIGURATION_PARAMETERS);
         policyForwarders.put(FORWARDER_KEY, pFParameters);
         return policyForwarders;
     }

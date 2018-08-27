@@ -37,16 +37,20 @@ public class PolicyForwarderParameters implements ParameterGroup {
 
     private String forwarderType;
     private String forwarderClassName;
+    private String forwarderConfigurationName;
 
     /**
      * Constructor for instantiating PolicyForwarderParameters.
      *
      * @param forwarderType the policy forwarder type
      * @param forwarderClassName the policy forwarder class name
+     * @param forwarderConfigurationName the name of the configuration for the policy forwarder
      */
-    public PolicyForwarderParameters(final String forwarderType, final String forwarderClassName) {
+    public PolicyForwarderParameters(final String forwarderType, final String forwarderClassName,
+            final String forwarderConfigurationName) {
         this.forwarderType = forwarderType;
         this.forwarderClassName = forwarderClassName;
+        this.forwarderConfigurationName = forwarderConfigurationName;
     }
 
     /**
@@ -65,6 +69,15 @@ public class PolicyForwarderParameters implements ParameterGroup {
      */
     public String getForwarderClassName() {
         return forwarderClassName;
+    }
+
+    /**
+     * Return the name of the forwarder configuration of this PolicyForwarderParameters instance.
+     *
+     * @return the the name of the forwarder configuration
+     */
+    public String getForwarderConfigurationName() {
+        return forwarderConfigurationName;
     }
 
     /**

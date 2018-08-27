@@ -18,24 +18,26 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.reception.decoding.pdpx;
+package org.onap.policy.distribution.main.parameters;
 
-import org.onap.policy.distribution.model.Policy;
-import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
+import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.distribution.forwarding.PolicyForwarder;
 
 /**
- * A PDP-X Policy, decoded by a {@link PolicyDecoder}.
+ * Base class of all {@link ParameterGroup} classes for configuration parameters for
+ * {@link PolicyForwarder} classes
  */
-public class PdpxPolicy implements Policy {
+public abstract class PolicyForwarderConfigurationParameterGroup implements ParameterGroup {
+
+    private String name;
 
     @Override
-    public String getPolicyName() {
-        return null;
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public String getPolicyType() {
-        return null;
+    public void setName(final String name) {
+        this.name = name;
     }
 
 }

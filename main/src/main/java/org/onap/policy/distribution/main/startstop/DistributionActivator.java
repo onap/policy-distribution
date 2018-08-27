@@ -22,20 +22,21 @@ package org.onap.policy.distribution.main.startstop;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Map.Entry;
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.DistributionParameterGroup;
+import org.onap.policy.distribution.main.parameters.PolicyForwarderConfigurationParameterGroup;
 import org.onap.policy.distribution.main.rest.DistributionRestServer;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
 /**
- * This class wraps a distributor so that it can be activated as a complete service together with all its distribution
- * and forwarding handlers.
+ * This class wraps a distributor so that it can be activated as a complete service together with
+ * all its distribution and forwarding handlers.
  */
 public class DistributionActivator {
     // The logger for this class
@@ -148,6 +149,11 @@ public class DistributionActivator {
             ParameterService.register(params.getPssdConfigurationParametersGroup());
             ParameterService.register(params.getPluginHandlerParameters());
         }
+        for (final Entry<String, PolicyForwarderConfigurationParameterGroup> forwarderConfiguration : distributionParameterGroup
+                .getPolicyForwarderConfigurationParameters().entrySet()) {
+            forwarderConfiguration.getValue().setName(forwarderConfiguration.getKey());
+            ParameterService.register(forwarderConfiguration.getValue());
+        }
     }
 
     /**
@@ -162,6 +168,11 @@ public class DistributionActivator {
             ParameterService.deregister((params.getName()));
             ParameterService.deregister((params.getPssdConfigurationParametersGroup().getName()));
             ParameterService.deregister((params.getPluginHandlerParameters().getName()));
+        }
+        for (final Entry<String, PolicyForwarderConfigurationParameterGroup> forwarderConfiguration : distributionParameterGroup
+                .getPolicyForwarderConfigurationParameters().entrySet()) {
+            forwarderConfiguration.getValue().setName(forwarderConfiguration.getKey());
+            ParameterService.deregister(forwarderConfiguration.getKey());
         }
     }
 

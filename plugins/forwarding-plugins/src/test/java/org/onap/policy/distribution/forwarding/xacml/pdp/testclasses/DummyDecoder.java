@@ -18,24 +18,42 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.reception.decoding.pdpx;
+package org.onap.policy.distribution.forwarding.xacml.pdp.testclasses;
+
+import java.util.Collection;
 
 import org.onap.policy.distribution.model.Policy;
+import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
+import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 
 /**
- * A PDP-X Policy, decoded by a {@link PolicyDecoder}.
+ * Class to create a dummy decoder for test cases.
+ *
+ * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class PdpxPolicy implements Policy {
+public class DummyDecoder implements PolicyDecoder<PolicyInput, Policy> {
 
-    @Override
-    public String getPolicyName() {
-        return null;
+    private boolean canHandleValue;
+    private Collection<Policy> policesToReturn;
+
+    public DummyDecoder() {
+        this.canHandleValue = false;
+        this.policesToReturn = null;
+    }
+
+    public DummyDecoder(final boolean canHandleValue, final Collection<Policy> policesToReturn) {
+        this.canHandleValue = canHandleValue;
+        this.policesToReturn = policesToReturn;
     }
 
     @Override
-    public String getPolicyType() {
-        return null;
+    public boolean canHandle(final PolicyInput policyInput) {
+        return canHandleValue;
     }
 
+    @Override
+    public Collection<Policy> decode(final PolicyInput input) throws PolicyDecodingException {
+        return policesToReturn;
+    }
 }
