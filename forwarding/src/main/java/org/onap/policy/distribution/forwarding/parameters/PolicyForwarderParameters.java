@@ -72,7 +72,15 @@ public class PolicyForwarderParameters implements ParameterGroup {
      */
     @Override
     public String getName() {
-        return null;
+        return getForwarderType();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setName(final String forwarderType) {
+        this.forwarderType = forwarderType;
     }
 
     /**

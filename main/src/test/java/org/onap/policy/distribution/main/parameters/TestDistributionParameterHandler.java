@@ -36,8 +36,7 @@ import org.onap.policy.distribution.main.startstop.DistributionCommandLineArgume
 public class TestDistributionParameterHandler {
     @Test
     public void testParameterHandlerNoParameterFile() throws PolicyDistributionException {
-        final String[] noArgumentString =
-        { "-c", "parameters/NoParameterFile.json" };
+        final String[] noArgumentString = { "-c", "parameters/NoParameterFile.json" };
 
         final DistributionCommandLineArguments noArguments = new DistributionCommandLineArguments();
         noArguments.parse(noArgumentString);
@@ -52,8 +51,7 @@ public class TestDistributionParameterHandler {
 
     @Test
     public void testParameterHandlerEmptyParameters() throws PolicyDistributionException {
-        final String[] emptyArgumentString =
-        { "-c", "parameters/EmptyParameters.json" };
+        final String[] emptyArgumentString = { "-c", "parameters/EmptyParameters.json" };
 
         final DistributionCommandLineArguments emptyArguments = new DistributionCommandLineArguments();
         emptyArguments.parse(emptyArgumentString);
@@ -68,8 +66,7 @@ public class TestDistributionParameterHandler {
 
     @Test
     public void testParameterHandlerBadParameters() throws PolicyDistributionException {
-        final String[] badArgumentString =
-        { "-c", "parameters/BadParameters.json" };
+        final String[] badArgumentString = { "-c", "parameters/BadParameters.json" };
 
         final DistributionCommandLineArguments badArguments = new DistributionCommandLineArguments();
         badArguments.parse(badArgumentString);
@@ -79,15 +76,14 @@ public class TestDistributionParameterHandler {
             fail("test should throw an exception here");
         } catch (final Exception e) {
             assertEquals("error reading parameters from \"parameters/BadParameters.json\"\n"
-                    + "(JsonSyntaxException):java.lang.IllegalStateException: "
-                    + "Expected a string but was BEGIN_ARRAY at line 2 column 15 path $.name", e.getMessage());
+                            + "(JsonSyntaxException):java.lang.IllegalStateException: "
+                            + "Expected a string but was BEGIN_ARRAY at line 2 column 15 path $.name", e.getMessage());
         }
     }
 
     @Test
     public void testParameterHandlerInvalidParameters() throws PolicyDistributionException {
-        final String[] invalidArgumentString =
-        { "-c", "parameters/InvalidParameters.json" };
+        final String[] invalidArgumentString = { "-c", "parameters/InvalidParameters.json" };
 
         final DistributionCommandLineArguments invalidArguments = new DistributionCommandLineArguments();
         invalidArguments.parse(invalidArgumentString);
@@ -97,15 +93,14 @@ public class TestDistributionParameterHandler {
             fail("test should throw an exception here");
         } catch (final Exception e) {
             assertEquals("error reading parameters from \"parameters/InvalidParameters.json\"\n"
-                    + "(JsonSyntaxException):java.lang.IllegalStateException: "
-                    + "Expected a string but was BEGIN_ARRAY at line 2 column 15 path $.name", e.getMessage());
+                            + "(JsonSyntaxException):java.lang.IllegalStateException: "
+                            + "Expected a string but was BEGIN_ARRAY at line 2 column 15 path $.name", e.getMessage());
         }
     }
 
     @Test
     public void testParameterHandlerNoParameters() throws PolicyDistributionException {
-        final String[] noArgumentString =
-        { "-c", "parameters/NoParameters.json" };
+        final String[] noArgumentString = { "-c", "parameters/NoParameters.json" };
 
         final DistributionCommandLineArguments noArguments = new DistributionCommandLineArguments();
         noArguments.parse(noArgumentString);
@@ -120,8 +115,7 @@ public class TestDistributionParameterHandler {
 
     @Test
     public void testParameterHandlerMinumumParameters() throws PolicyDistributionException {
-        final String[] minArgumentString =
-        { "-c", "parameters/MinimumParameters.json" };
+        final String[] minArgumentString = { "-c", "parameters/MinimumParameters.json" };
 
         final DistributionCommandLineArguments minArguments = new DistributionCommandLineArguments();
         minArguments.parse(minArgumentString);
@@ -132,8 +126,7 @@ public class TestDistributionParameterHandler {
 
     @Test
     public void testDistributionParameterGroup() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters.json" };
+        final String[] distributionConfigParameters = { "-c", "parameters/DistributionConfigParameters.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -141,21 +134,21 @@ public class TestDistributionParameterHandler {
         final DistributionParameterGroup parGroup = new DistributionParameterHandler().getParameters(arguments);
         assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, parGroup.getName());
         assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, parGroup.getReceptionHandlerParameters()
-                .get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerType());
+                        .get(CommonTestData.SDC_RECEPTION_HANDLER_KEY).getReceptionHandlerType());
         assertEquals(CommonTestData.DECODER_TYPE,
-                parGroup.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
-                        .getPluginHandlerParameters().getPolicyDecoders().get(CommonTestData.TOSCA_DECODER_KEY)
-                        .getDecoderType());
+                        parGroup.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
+                                        .getPluginHandlerParameters().getPolicyDecoders()
+                                        .get(CommonTestData.TOSCA_DECODER_KEY).getDecoderType());
         assertEquals(CommonTestData.FORWARDER_TYPE,
-                parGroup.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
-                        .getPluginHandlerParameters().getPolicyForwarders().get(CommonTestData.PAP_ENGINE_FORWARDER_KEY)
-                        .getForwarderType());
+                        parGroup.getReceptionHandlerParameters().get(CommonTestData.SDC_RECEPTION_HANDLER_KEY)
+                                        .getPluginHandlerParameters().getPolicyForwarders()
+                                        .get(CommonTestData.PAP_ENGINE_FORWARDER_KEY).getForwarderType());
     }
 
     @Test
     public void testDistributionParameterGroup_InvalidName() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidName.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_InvalidName.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -165,14 +158,14 @@ public class TestDistributionParameterHandler {
             fail("test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().contains(
-                    "field \"name\" type \"java.lang.String\" value \" \" INVALID, must be a non-blank string"));
+                            "field \"name\" type \"java.lang.String\" value \" \" INVALID, must be a non-blank string"));
         }
     }
 
     @Test
     public void testDistributionParameterGroup_InvalidReceptionHandlerType() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidReceptionHandlerType.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_InvalidReceptionHandlerType.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -182,15 +175,15 @@ public class TestDistributionParameterHandler {
             fail("test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage()
-                    .contains("field \"receptionHandlerType\" type \"java.lang.String\" value \" \" INVALID, "
-                            + "must be a non-blank string"));
+                            .contains("field \"receptionHandlerType\" type \"java.lang.String\" value \" \" INVALID, "
+                                            + "must be a non-blank string"));
         }
     }
 
     @Test
     public void testDistributionParameterGroup_InvalidPolicyDecoderType() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidPolicyDecoderType.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_InvalidPolicyDecoderType.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -200,14 +193,14 @@ public class TestDistributionParameterHandler {
             fail("test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().contains(
-                    "field \"decoderType\" type \"java.lang.String\" value \" \" INVALID, must be a non-blank string"));
+                            "field \"decoderType\" type \"java.lang.String\" value \" \" INVALID, must be a non-blank string"));
         }
     }
 
     @Test
     public void testDistributionParameterGroup_InvalidPolicyForwarderType() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidPolicyForwarderType.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_InvalidPolicyForwarderType.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -217,14 +210,14 @@ public class TestDistributionParameterHandler {
             fail("test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().contains("field \"forwarderType\" type \"java.lang.String\" value \" \" INVALID, "
-                    + "must be a non-blank string"));
+                            + "must be a non-blank string"));
         }
     }
 
     @Test
     public void testDistributionParameterGroup_NoReceptionHandler() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_NoReceptionHandler.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_NoReceptionHandler.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -239,8 +232,8 @@ public class TestDistributionParameterHandler {
 
     @Test
     public void testDistributionParameterGroup_EmptyReceptionHandler() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_EmptyReceptionHandler.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_EmptyReceptionHandler.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -249,14 +242,14 @@ public class TestDistributionParameterHandler {
             new DistributionParameterHandler().getParameters(arguments);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("parameter not a regular parameter: receptionHandlerParameters"));
+            assertTrue(e.getMessage().contains("must have at least one reception handler"));
         }
     }
 
     @Test
     public void testDistributionParameterGroup_NoPolicyDecoder() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_NoPolicyDecoder.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_NoPolicyDecoder.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -271,8 +264,8 @@ public class TestDistributionParameterHandler {
 
     @Test
     public void testDistributionParameterGroup_NoPolicyForwarder() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_NoPolicyForwarder.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_NoPolicyForwarder.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -287,8 +280,8 @@ public class TestDistributionParameterHandler {
 
     @Test
     public void testDistributionParameterGroup_EmptyPolicyDecoder() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_EmptyPolicyDecoder.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_EmptyPolicyDecoder.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -297,14 +290,14 @@ public class TestDistributionParameterHandler {
             new DistributionParameterHandler().getParameters(arguments);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("parameter not a regular parameter: policyDecoders"));
+            assertTrue(e.getMessage().contains("must have at least one policy decoder"));
         }
     }
 
     @Test
     public void testDistributionParameterGroup_EmptyPolicyForwarder() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_EmptyPolicyForwarder.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_EmptyPolicyForwarder.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -313,14 +306,14 @@ public class TestDistributionParameterHandler {
             new DistributionParameterHandler().getParameters(arguments);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("parameter not a regular parameter: policyForwarders"));
+            assertTrue(e.getMessage().contains("must have at least one policy forwarder"));
         }
     }
 
     @Test
     public void testDistributionParameterGroup_InvalidReceptionHandlerClass() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidReceptionHandlerClass.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_InvalidReceptionHandlerClass.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -335,8 +328,8 @@ public class TestDistributionParameterHandler {
 
     @Test
     public void testDistributionParameterGroup_InvalidPolicyDecoderClass() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidPolicyDecoderClass.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_InvalidPolicyDecoderClass.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -351,8 +344,8 @@ public class TestDistributionParameterHandler {
 
     @Test
     public void testDistributionParameterGroup_InvalidPolicyForwarderClass() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidPolicyForwarderClass.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_InvalidPolicyForwarderClass.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -367,8 +360,8 @@ public class TestDistributionParameterHandler {
 
     @Test
     public void testDistributionParameterGroup_InvalidRestServerHost() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidRestServerHost.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_InvalidRestServerHost.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -378,14 +371,14 @@ public class TestDistributionParameterHandler {
             fail("test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().contains(
-                    "must be a non-blank string containing hostname/ipaddress of the distribution rest server"));
+                            "must be a non-blank string containing hostname/ipaddress of the distribution rest server"));
         }
     }
 
     @Test
     public void testDistributionParameterGroup_InvalidRestServerPort() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidRestServerPort.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_InvalidRestServerPort.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -395,14 +388,14 @@ public class TestDistributionParameterHandler {
             fail("test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage()
-                    .contains("must be a positive integer containing port of the distribution rest server"));
+                            .contains("must be a positive integer containing port of the distribution rest server"));
         }
     }
 
     @Test
     public void testDistributionParameterGroup_InvalidRestServerUser() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidRestServerUser.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_InvalidRestServerUser.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -412,14 +405,14 @@ public class TestDistributionParameterHandler {
             fail("test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().contains(
-                    "must be a non-blank string containing userName for distribution rest server credentials"));
+                            "must be a non-blank string containing userName for distribution rest server credentials"));
         }
     }
 
     @Test
     public void testDistributionParameterGroup_InvalidRestServerPassword() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidRestServerPassword.json" };
+        final String[] distributionConfigParameters = { "-c",
+                        "parameters/DistributionConfigParameters_InvalidRestServerPassword.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -429,7 +422,7 @@ public class TestDistributionParameterHandler {
             fail("test should throw an exception here");
         } catch (final Exception e) {
             assertTrue(e.getMessage().contains(
-                    "must be a non-blank string containing password for distribution rest server credentials"));
+                            "must be a non-blank string containing password for distribution rest server credentials"));
         }
     }
 }

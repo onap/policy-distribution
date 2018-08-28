@@ -265,6 +265,7 @@ public class PssdConfigurationParametersGroup implements ParameterGroup {
      *
      * @param name the name to set.
      */
+    @Override
     public void setName(final String name) {
         this.name = name + "_" + UUID.randomUUID().toString();
     }
