@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_9dd99085",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestDistributionParameterHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-08-28T08:44:58Z",
+      "side": 1,
+      "message": "Did you miss this one?",
+      "range": {
+        "startLine": 237,
+        "startChar": 1,
+        "endLine": 238,
+        "endChar": 1
+      },
+      "revId": "bfb3d6cbfd65cc095aa91b858b5f60a43f5c00bb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
