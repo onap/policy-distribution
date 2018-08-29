@@ -72,7 +72,15 @@ public class PolicyDecoderParameters implements ParameterGroup {
      */
     @Override
     public String getName() {
-        return null;
+        return decoderType;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setName(final String name) {
+        this.decoderType = name;
     }
 
     /**

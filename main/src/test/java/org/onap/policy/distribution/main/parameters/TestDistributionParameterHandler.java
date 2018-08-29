@@ -202,7 +202,7 @@ public class TestDistributionParameterHandler {
             new DistributionParameterHandler().getParameters(arguments);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("parameter not a regular parameter: receptionHandlerParameters"));
+            assertTrue(e.getMessage().contains("must have at least one reception handler\n"));
         }
     }
 
@@ -250,7 +250,7 @@ public class TestDistributionParameterHandler {
             new DistributionParameterHandler().getParameters(arguments);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("parameter not a regular parameter: policyDecoders"));
+            assertTrue(e.getMessage().contains("must have at least one policy decoder\n"));
         }
     }
 
@@ -266,7 +266,7 @@ public class TestDistributionParameterHandler {
             new DistributionParameterHandler().getParameters(arguments);
             fail("test should throw an exception here");
         } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("parameter not a regular parameter: policyForwarders"));
+            assertTrue(e.getMessage().endsWith("must have at least one policy forwarder\n"));
         }
     }
 
@@ -306,6 +306,7 @@ public class TestDistributionParameterHandler {
             final String expectedResult = new String(Files.readAllBytes(
                     Paths.get("src/test/resources/expectedValidationResults/InvalidDecoderAndForwarderParameters.txt")))
                             .replaceAll("\\s+", "");
+            System.err.println(e.getMessage());
             assertEquals(expectedResult, e.getMessage().replaceAll("\\s+", ""));
         }
     }
