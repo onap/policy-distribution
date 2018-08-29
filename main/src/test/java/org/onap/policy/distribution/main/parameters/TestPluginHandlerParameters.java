@@ -21,6 +21,7 @@
 package org.onap.policy.distribution.main.parameters;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -47,9 +48,9 @@ public class TestPluginHandlerParameters {
         final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
         final GroupValidationResult validationResult = pHParameters.validate();
         assertEquals(policyDecoders.get(CommonTestData.DUMMY_DECODER_KEY),
-                pHParameters.getPolicyDecoders().get(CommonTestData.DUMMY_DECODER_KEY));
+                        pHParameters.getPolicyDecoders().get(CommonTestData.DUMMY_DECODER_KEY));
         assertEquals(policyForwarders.get(CommonTestData.DUMMY_ENGINE_FORWARDER_KEY),
-                pHParameters.getPolicyForwarders().get(CommonTestData.DUMMY_ENGINE_FORWARDER_KEY));
+                        pHParameters.getPolicyForwarders().get(CommonTestData.DUMMY_ENGINE_FORWARDER_KEY));
         assertTrue(validationResult.isValid());
     }
 
@@ -79,27 +80,21 @@ public class TestPluginHandlerParameters {
 
     @Test
     public void testPluginHandlerParameters_EmptyPolicyDecoders() {
-        try {
-            final Map<String, PolicyDecoderParameters> policyDecoders = commonTestData.getPolicyDecoders(true);
-            final Map<String, PolicyForwarderParameters> policyForwarders = commonTestData.getPolicyForwarders(false);
-            final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
-            pHParameters.validate();
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("parameter not a regular parameter: policyDecoders"));
-        }
+        final Map<String, PolicyDecoderParameters> policyDecoders = commonTestData.getPolicyDecoders(true);
+        final Map<String, PolicyForwarderParameters> policyForwarders = commonTestData.getPolicyForwarders(false);
+        final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
+        GroupValidationResult result = pHParameters.validate();
+        assertFalse(result.isValid());
+        assertTrue(result.getResult().endsWith("must have at least one policy decoder\n"));
     }
 
     @Test
     public void testPluginHandlerParameters_EmptyPolicyForwarders() {
-        try {
-            final Map<String, PolicyForwarderParameters> policyForwarders = commonTestData.getPolicyForwarders(true);
-            final Map<String, PolicyDecoderParameters> policyDecoders = commonTestData.getPolicyDecoders(false);
-            final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
-            pHParameters.validate();
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("parameter not a regular parameter: policyForwarders"));
-        }
+        final Map<String, PolicyForwarderParameters> policyForwarders = commonTestData.getPolicyForwarders(true);
+        final Map<String, PolicyDecoderParameters> policyDecoders = commonTestData.getPolicyDecoders(false);
+        final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
+        GroupValidationResult result = pHParameters.validate();
+        assertFalse(result.isValid());
+        assertTrue(result.getResult().endsWith("must have at least one policy forwarder\n"));
     }
 }

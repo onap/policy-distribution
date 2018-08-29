@@ -62,6 +62,16 @@ public class DistributionParameterGroup implements ParameterGroup {
     }
 
     /**
+     * Set the name of this parameter group instance.
+     *
+     * @param name the parameter group name
+     */
+    @Override
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    /**
      * Return the receptionHandlerParameters of this parameter group instance.
      *
      * @return the receptionHandlerParameters
