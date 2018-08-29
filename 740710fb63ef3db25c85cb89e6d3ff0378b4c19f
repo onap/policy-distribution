@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_e93321a9",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestDistributionParameterHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-08-29T16:46:05Z",
+      "side": 1,
+      "message": "Should we use a logger?",
+      "range": {
+        "startLine": 309,
+        "startChar": 12,
+        "endLine": 309,
+        "endChar": 47
+      },
+      "revId": "740710fb63ef3db25c85cb89e6d3ff0378b4c19f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
