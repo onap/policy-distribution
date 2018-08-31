@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_af9d240c",
+        "filename": "plugins/forwarding-plugins/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-08-31T19:24:46Z",
+      "side": 1,
+      "message": "Let\u0027s keep an eye on this for CLM issues. I think we use xstream from thoughtworks in other repos, and that was a later version. Will have to check.",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 21
+      },
+      "revId": "de6124af19910e5ebb1de6698843b8ab64b5931a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
