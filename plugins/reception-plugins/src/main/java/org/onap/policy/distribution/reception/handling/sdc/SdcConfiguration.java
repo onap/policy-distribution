@@ -22,30 +22,25 @@ package org.onap.policy.distribution.reception.handling.sdc;
 
 import java.util.List;
 
-import org.onap.sdc.api.consumer.IConfiguration;
 import org.onap.policy.distribution.reception.parameters.PssdConfigurationParametersGroup;
+import org.onap.sdc.api.consumer.IConfiguration;
 
 /**
- * Properties for the handling Sdc
+ * This class represents the configurations needed for SDC Client.
  *
  */
-public class PssdConfiguration implements IConfiguration {
+public class SdcConfiguration implements IConfiguration {
 
-    // Configuration file structure
-
-    // Configuration file properties
     private PssdConfigurationParametersGroup configParameters = null;
 
     /**
-     * Original constructor
+     * Constructor for instantiating PssdConfiguration class.
      *
-     * @param configParameters properties needed to be configured for the model loader
+     * @param configParameters the SDC Client configuration parameters
      */
-    public PssdConfiguration(final PssdConfigurationParametersGroup configParameters) {
+    public SdcConfiguration(final PssdConfigurationParametersGroup configParameters) {
         this.configParameters = configParameters;
-
     }
-
 
     @Override
     public String getAsdcAddress() {
@@ -121,6 +116,4 @@ public class PssdConfiguration implements IConfiguration {
     public Boolean isUseHttpsWithDmaap() {
         return configParameters.isUseHttpsWithDmaap();
     }
-
-
 }

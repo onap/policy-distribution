@@ -18,29 +18,32 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.reception.handling;
-
-import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
-import org.onap.policy.distribution.reception.decoding.PluginTerminationException;
+package org.onap.policy.distribution.reception.handling.sdc;
 
 /**
- * Handles input into Policy Distribution which may be decoded into a Policy.
+ * Class to hold the possible values for status of {@link SdcReceptionHandler}.
+ *
+ * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public interface ReceptionHandler {
+public enum SdcReceptionHandlerStatus {
 
     /**
-     * Initialize the reception handler with the given parameters.
-     *
-     * @param parameterGroupName the name of the parameter group containing the configuration for the reception handler
-     * @throws PluginInitializationException exception if it occurs
+     * The SdcReceptionHandler is not alive.
      */
-    void initialize(String parameterGroupName) throws PluginInitializationException;
+    STOPPED,
 
     /**
-     * Destroy the reception handler, removing any subscriptions and releasing all resources.
-     *
-     * @throws PluginTerminationException if it occurs
+     * The SdcReceptionHandler is initialized but not started yet.
      */
-    void destroy() throws PluginTerminationException;
+    INIT,
 
+    /**
+     * The SdcReceptionHandler is initialized, started & ready to handle incoming notifications.
+     */
+    IDLE,
+
+    /**
+     * The SdcReceptionHandler is currently busy in handling notifications.
+     */
+    BUSY
 }

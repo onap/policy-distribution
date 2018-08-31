@@ -18,29 +18,34 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.reception.handling;
-
-import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
-import org.onap.policy.distribution.reception.decoding.PluginTerminationException;
+package org.onap.policy.distribution.reception.decoding;
 
 /**
- * Handles input into Policy Distribution which may be decoded into a Policy.
+ * This exception will be called if an error occurs while terminating distribution plugins.
+ *
+ * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public interface ReceptionHandler {
+public class PluginTerminationException extends Exception {
+
+    private static final long serialVersionUID = 3809376274411309160L;
 
     /**
-     * Initialize the reception handler with the given parameters.
+     * Construct an instance with the given message.
      *
-     * @param parameterGroupName the name of the parameter group containing the configuration for the reception handler
-     * @throws PluginInitializationException exception if it occurs
+     * @param message the error message
      */
-    void initialize(String parameterGroupName) throws PluginInitializationException;
+    public PluginTerminationException(final String message) {
+        super(message);
+    }
 
     /**
-     * Destroy the reception handler, removing any subscriptions and releasing all resources.
+     * Construct an instance with the given message and cause.
      *
-     * @throws PluginTerminationException if it occurs
+     * @param message the error message
+     * @param cause the cause
      */
-    void destroy() throws PluginTerminationException;
+    public PluginTerminationException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
 
 }
