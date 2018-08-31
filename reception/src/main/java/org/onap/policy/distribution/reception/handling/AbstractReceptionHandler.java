@@ -62,8 +62,9 @@ public abstract class AbstractReceptionHandler implements ReceptionHandler {
      * example setting up subscriptions.
      *
      * @param parameterGroupName the parameter group name
+     * @throws PluginInitializationException if initialization of reception handler fails
      */
-    protected abstract void initializeReception(String parameterGroupName);
+    protected abstract void initializeReception(String parameterGroupName) throws PluginInitializationException;
 
     /**
      * Handle input that has been received. The given input shall be decoded using the {@link PolicyDecoder}s configured
