@@ -30,6 +30,7 @@ import com.google.gson.GsonBuilder;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.junit.Test;
 import org.onap.policy.common.parameters.GroupValidationResult;
@@ -54,8 +55,21 @@ public class PssdConfigurationTest {
         final GroupValidationResult validationResult = configParameters.validate();
         assertTrue(validationResult.isValid());
         final PssdConfiguration config = new PssdConfiguration(configParameters);
+        assertEquals(Arrays.asList("a.com", "b.com", "c.com"), config.getMsgBusAddress());
+        assertEquals(Arrays.asList("TOSCA_CSAR", "HEAT"), config.getRelevantArtifactTypes());
+        assertEquals("localhost", config.getAsdcAddress());
+        assertEquals("policy", config.getUser());
+        assertEquals("policy", config.getPassword());
         assertEquals(20, config.getPollingInterval());
         assertEquals(30, config.getPollingTimeout());
+        assertEquals("policy-id", config.getConsumerID());
+        assertEquals("policy-group", config.getConsumerGroup());
+        assertEquals("TEST", config.getEnvironmentName());
+        assertEquals("null", config.getKeyStorePath());
+        assertEquals("null", config.getKeyStorePassword());
+        assertEquals(false, config.activateServerTLSAuth());
+        assertEquals(true, config.isFilterInEmptyResources());
+        assertEquals(false, config.isUseHttpsWithDmaap());
     }
 
     @Test

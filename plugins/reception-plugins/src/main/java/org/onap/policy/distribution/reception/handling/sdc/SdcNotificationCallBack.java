@@ -18,28 +18,28 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.reception.handling;
+package org.onap.policy.distribution.reception.handling.sdc;
 
-import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
+import org.onap.policy.common.logging.flexlogger.FlexLogger;
+import org.onap.policy.common.logging.flexlogger.Logger;
+import org.onap.sdc.api.consumer.INotificationCallback;
+import org.onap.sdc.api.notification.INotificationData;
 
 /**
- * Handles input into Policy Distribution which may be decoded into a Policy.
+ * Class to provide an implementation of INotificationCallback interface for receiving the incoming distribution
+ * notifications from SDC.
+ *
+ * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public interface ReceptionHandler {
+public class SdcNotificationCallBack implements INotificationCallback {
 
-    /**
-     * Initialize the reception handler with the given parameters.
-     *
-     * @param parameterGroupName the name of the parameter group containing the configuration for the reception handler
-     * @throws PluginInitializationException exception if it occurs
-     */
-    void initialize(String parameterGroupName) throws PluginInitializationException;
+    private static final Logger LOGGER = FlexLogger.getLogger(SdcNotificationCallBack.class);
 
-    /**
-     * Destroy the reception handler, removing any subscriptions and releasing all resources.
-     *
-     * @throws PluginInitializationException if it occurs
-     */
-    void destroy() throws PluginInitializationException;
+    @Override
+    public void activateCallback(final INotificationData notificationData) {
+
+        LOGGER.debug("Got the message from SDC:" + notificationData.getDistributionID());
+        // Code for handling notification will come here
+    }
 
 }
