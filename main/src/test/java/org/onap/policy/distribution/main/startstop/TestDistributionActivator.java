@@ -21,6 +21,7 @@
 package org.onap.policy.distribution.main.startstop;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -49,6 +50,7 @@ public class TestDistributionActivator {
         final DistributionActivator activator = new DistributionActivator(parGroup);
         activator.initialize();
         assertTrue(activator.getParameterGroup().isValid());
+        assertTrue(DistributionActivator.isAlive());
         assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, activator.getParameterGroup().getName());
         assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE,
                 activator.getParameterGroup().getReceptionHandlerParameters()
@@ -62,5 +64,6 @@ public class TestDistributionActivator {
                         .get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getPluginHandlerParameters()
                         .getPolicyForwarders().get(CommonTestData.DUMMY_ENGINE_FORWARDER_KEY).getForwarderType());
         activator.terminate();
+        assertFalse(DistributionActivator.isAlive());
     }
 }
