@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_a4cd3e87",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/PssdConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-03T17:31:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_a925170a",
+      "range": {
+        "startLine": 32,
+        "startChar": 13,
+        "endLine": 32,
+        "endChar": 30
+      },
+      "revId": "bf2c165c6a374a71187e901865f165b8fb2a4323",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_c9e5f3dc",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-03T11:56:03Z",
       "side": 1,
       "message": "No need for field for pssdConfig, only used in initializeSdcClient",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 41
+      },
+      "revId": "bf2c165c6a374a71187e901865f165b8fb2a4323",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_64c3a657",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-03T17:31:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_c9e5f3dc",
       "range": {
         "startLine": 42,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_a4945e43",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-03T17:31:17Z",
+      "side": 1,
+      "message": "clientResult is used in multiple methods. So made it method level variable now.",
+      "parentUuid": "1a76adc5_09076b83",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 51
+      },
+      "revId": "bf2c165c6a374a71187e901865f165b8fb2a4323",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_e90f8f86",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-09-03T11:56:03Z",
       "side": 1,
       "message": "mark as \u0027volatile\u0027 to eliminate the possibility of a thread using a stale value",
+      "range": {
+        "startLine": 45,
+        "startChar": 16,
+        "endLine": 45,
+        "endChar": 40
+      },
+      "revId": "bf2c165c6a374a71187e901865f165b8fb2a4323",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_048bd21f",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-03T17:31:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_e90f8f86",
       "range": {
         "startLine": 45,
         "startChar": 16,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_44746a35",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-03T17:31:17Z",
+      "side": 1,
+      "message": "Ahh! I missed it. Actually I was having different exceptions earlier which was coming to this method. I refactored the code but didn\u0027t removed the catching part.",
+      "parentUuid": "1a76adc5_491ec3bc",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 9
+      },
+      "revId": "bf2c165c6a374a71187e901865f165b8fb2a4323",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_691b7fca",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2018-09-03T11:56:03Z",
       "side": 1,
       "message": "why catch the exception just to wrap it and rethrow",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 9
+      },
+      "revId": "bf2c165c6a374a71187e901865f165b8fb2a4323",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a47bfe26",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-03T17:31:17Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "1a76adc5_691b7fca",
       "range": {
         "startLine": 66,
         "startChar": 0,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_e49c965f",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-03T17:31:17Z",
+      "side": 1,
+      "message": "I thought this method will be handy in future for getting the live statistics of SDC Client. Removing it now and will add it when needed.",
+      "parentUuid": "1a76adc5_097c4beb",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 5
+      },
+      "revId": "bf2c165c6a374a71187e901865f165b8fb2a4323",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_69bfffaa",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
         "patchSetId": 2
@@ -174,6 +342,30 @@
       "writtenOn": "2018-09-03T11:56:03Z",
       "side": 1,
       "message": "Why protected rather than private? same question for the other protected methods",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 13
+      },
+      "revId": "bf2c165c6a374a71187e901865f165b8fb2a4323",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e4b336e7",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-03T17:31:17Z",
+      "side": 1,
+      "message": "Again the thought here was to use this method for getting status of SDCReceptionHandler during health check. Removing this method for now and will add it to the interface ReceptionHandler in another review.",
+      "parentUuid": "1a76adc5_69bfffaa",
       "range": {
         "startLine": 86,
         "startChar": 4,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_24e5aedc",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-03T17:31:17Z",
+      "side": 1,
+      "message": "This method will be used by the SdcNotificationCallback class for downloading notifications, sending status etc. Removing it for now and will add it in next review of handling notifications.",
+      "parentUuid": "1a76adc5_6944dfb6",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 5
+      },
+      "revId": "bf2c165c6a374a71187e901865f165b8fb2a4323",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_49f00391",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
         "patchSetId": 2
@@ -220,6 +436,30 @@
       "writtenOn": "2018-09-03T11:56:03Z",
       "side": 1,
       "message": "This method is not needed, can call DistributionClientFactoey.createDistributionClient() in the declaration of the distributionClient field",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 5
+      },
+      "revId": "bf2c165c6a374a71187e901865f165b8fb2a4323",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e401f66a",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-03T17:31:17Z",
+      "side": 1,
+      "message": "As discussed, this was done to avoid using PowerMock/Reflections for testing the class. However, I changed the name of method from \"get\" to \"create\" \u0026 not assigning the object to variable rather just returning the object.",
+      "parentUuid": "1a76adc5_49f00391",
       "range": {
         "startLine": 133,
         "startChar": 0,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_441eaabc",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-03T17:31:17Z",
+      "side": 1,
+      "message": "Added a new exception named PluginTerminationException for the same.",
+      "parentUuid": "1a76adc5_09152b9b",
+      "range": {
+        "startLine": 197,
+        "startChar": 42,
+        "endLine": 197,
+        "endChar": 71
+      },
+      "revId": "bf2c165c6a374a71187e901865f165b8fb2a4323",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_89413bab",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
         "patchSetId": 2
@@ -266,6 +530,30 @@
       "writtenOn": "2018-09-03T11:56:03Z",
       "side": 1,
       "message": "Dont think we should throw an exception here if client is busy, should finish off or abort any ongoing work and stop the client",
+      "range": {
+        "startLine": 200,
+        "startChar": 2,
+        "endLine": 204,
+        "endChar": 9
+      },
+      "revId": "bf2c165c6a374a71187e901865f165b8fb2a4323",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a4245ec5",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-03T17:31:17Z",
+      "side": 1,
+      "message": "Removed the BUSY check for now and will check with SDC\u0027s recommendation for best way of stopping a client.",
+      "parentUuid": "1a76adc5_89413bab",
       "range": {
         "startLine": 200,
         "startChar": 2,
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_24812ec4",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandlerStatus.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-03T17:31:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_89285be3",
+      "range": {
+        "startLine": 29,
+        "startChar": 19,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "bf2c165c6a374a71187e901865f165b8fb2a4323",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_49c24335",
         "filename": "reception/src/main/java/org/onap/policy/distribution/reception/handling/ReceptionHandler.java",
         "patchSetId": 2
@@ -312,6 +624,30 @@
       "writtenOn": "2018-09-03T11:56:03Z",
       "side": 1,
       "message": "PluginInitializationException doesnt sound like the right execption for an error when tearing down the recepion handler",
+      "range": {
+        "startLine": 43,
+        "startChar": 25,
+        "endLine": 43,
+        "endChar": 55
+      },
+      "revId": "bf2c165c6a374a71187e901865f165b8fb2a4323",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a46c5e36",
+        "filename": "reception/src/main/java/org/onap/policy/distribution/reception/handling/ReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-03T17:31:17Z",
+      "side": 1,
+      "message": "Agree, added a new exception named PluginTerminationException for the same.",
+      "parentUuid": "1a76adc5_49c24335",
       "range": {
         "startLine": 43,
         "startChar": 25,
