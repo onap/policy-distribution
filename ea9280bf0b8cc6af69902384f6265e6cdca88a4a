@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a76adc5_6a8b6d68",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-09-04T08:53:58Z",
+      "side": 1,
+      "message": "update the name in the comment as well, or better still, remove the class name from the comment",
+      "range": {
+        "startLine": 37,
+        "startChar": 37,
+        "endLine": 37,
+        "endChar": 55
+      },
+      "revId": "ea9280bf0b8cc6af69902384f6265e6cdca88a4a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_8a6a89b1",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
         "patchSetId": 3
