@@ -114,7 +114,7 @@ public class DistributionActivator {
             }
             receptionHandlersMap.clear();
             deregisterToParameterService(distributionParameterGroup);
-            DistributionActivator.setAlive(true);
+            DistributionActivator.setAlive(false);
 
             // Stop the distribution rest server
             restServer.stop();
