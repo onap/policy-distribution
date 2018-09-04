@@ -25,26 +25,25 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Class to perform unit test of PluginInitializationException.
+ * Class to perform unit test of {@link PluginTerminationException}
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class PolicyInitializationExceptionTest {
+public class PluginTerminationExceptionTest {
 
     @Test
-    public void testPolicyInitializationExceptionString() {
-        final PluginInitializationException policyInitializationException =
-                new PluginInitializationException("error message");
-        assertEquals("error message", policyInitializationException.getMessage());
+    public void testPluginTerminationExceptionString() {
+        final PluginTerminationException pluginTerminationException = new PluginTerminationException("error message");
+        assertEquals("error message", pluginTerminationException.getMessage());
     }
 
     @Test
-    public void testPolicyInitializationExceptionStringThrowable() {
+    public void testPluginTerminationExceptionStringThrowable() {
         final Exception cause = new IllegalArgumentException();
-        final PluginInitializationException policyInitializationException =
-                new PluginInitializationException("error message", cause);
-        assertEquals("error message", policyInitializationException.getMessage());
-        assertEquals(cause, policyInitializationException.getCause());
+        final PluginTerminationException pluginTerminationException =
+                new PluginTerminationException("error message", cause);
+        assertEquals("error message", pluginTerminationException.getMessage());
+        assertEquals(cause, pluginTerminationException.getCause());
     }
 
 }
