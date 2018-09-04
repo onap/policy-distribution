@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_0a6199a8",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-04T09:10:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_6a8b6d68",
+      "range": {
+        "startLine": 37,
+        "startChar": 37,
+        "endLine": 37,
+        "endChar": 55
+      },
+      "revId": "ea9280bf0b8cc6af69902384f6265e6cdca88a4a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_8a6a89b1",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-04T08:39:45Z",
       "side": 1,
       "message": "Probably should rename this variable.",
+      "range": {
+        "startLine": 120,
+        "startChar": 31,
+        "endLine": 120,
+        "endChar": 41
+      },
+      "revId": "ea9280bf0b8cc6af69902384f6265e6cdca88a4a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_2a66d5c1",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-04T09:10:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_8a6a89b1",
       "range": {
         "startLine": 120,
         "startChar": 31,
