@@ -20,14 +20,25 @@
 
 package org.onap.policy.distribution.reception.handling.sdc;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.decoding.PluginTerminationException;
+import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
+import org.onap.policy.distribution.reception.handling.sdc.exceptions.ArtifactDownloadException;
 import org.onap.policy.distribution.reception.parameters.PssdConfigurationParametersGroup;
 import org.onap.sdc.api.IDistributionClient;
+import org.onap.sdc.api.notification.IArtifactInfo;
+import org.onap.sdc.api.notification.INotificationData;
+import org.onap.sdc.api.results.IDistributionClientDownloadResult;
 import org.onap.sdc.api.results.IDistributionClientResult;
 import org.onap.sdc.impl.DistributionClientFactory;
 import org.onap.sdc.utils.DistributionActionResultEnum;
@@ -38,10 +49,13 @@ import org.onap.sdc.utils.DistributionActionResultEnum;
 public class SdcReceptionHandler extends AbstractReceptionHandler {
 
     private static final Logger LOGGER = FlexLogger.getLogger(SdcReceptionHandler.class);
+
     private SdcReceptionHandlerStatus sdcReceptionHandlerStatus = SdcReceptionHandlerStatus.STOPPED;
     private PssdConfigurationParametersGroup handlerParameters;
     private IDistributionClient distributionClient;
+    private SdcConfiguration sdcConfig;
     private volatile int nbOfNotificationsOngoing = 0;
+    private ConcurrentHashMap<String, String> downloadedServiceArtifactMap = new ConcurrentHashMap<>();
 
     @Override
     protected void initializeReception(final String parameterGroupName) throws PluginInitializationException {
@@ -74,7 +88,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler {
      *
      * @param newStatus the new status
      */
-    protected synchronized final void changeSdcReceptionHandlerStatus(final SdcReceptionHandlerStatus newStatus) {
+    private synchronized final void changeSdcReceptionHandlerStatus(final SdcReceptionHandlerStatus newStatus) {
         switch (newStatus) {
             case INIT:
             case STOPPED:
@@ -111,16 +125,16 @@ public class SdcReceptionHandler extends AbstractReceptionHandler {
      */
     private void initializeSdcClient() throws PluginInitializationException {
 
-        LOGGER.debug("Going to initialize the SDC Client...");
+        LOGGER.debug("Initializing the SDC Client...");
         if (sdcReceptionHandlerStatus != SdcReceptionHandlerStatus.STOPPED) {
             final String message = "The SDC Client is already initialized";
             LOGGER.error(message);
             throw new PluginInitializationException(message);
         }
-        final SdcConfiguration sdcConfig = new SdcConfiguration(handlerParameters);
+        sdcConfig = new SdcConfiguration(handlerParameters);
         distributionClient = createSdcDistributionClient();
         final IDistributionClientResult clientResult =
-                distributionClient.init(sdcConfig, new SdcNotificationCallBack());
+                distributionClient.init(sdcConfig, new SdcNotificationCallBack(this));
         if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
             changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.STOPPED);
             final String message =
@@ -150,5 +164,84 @@ public class SdcReceptionHandler extends AbstractReceptionHandler {
         }
         LOGGER.debug("SDC Client is started successfully");
         this.changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.IDLE);
+    }
+
+    /**
+     * Method to process csar service artifacts from incoming SDC notification.
+     *
+     * @param iNotif the notification from SDC
+     */
+    public void processCsarServiceArtifacts(final INotificationData iNotif) {
+        Csar csarObject;
+        String filePath;
+        boolean processStatus = true;
+
+        changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.BUSY);
+
+        for (final IArtifactInfo artifact : iNotif.getServiceArtifacts()) {
+            if (sdcConfig.getRelevantArtifactTypes().contains(artifact.getArtifactType())) {
+                try {
+                    final String artifactVersion = downloadedServiceArtifactMap.get(artifact.getArtifactUUID());
+                    if (artifactVersion != null && artifactVersion.equals(artifact.getArtifactVersion())) {
+                        LOGGER.error("Ignoring the artifact as it was already downloaded & deployed earlier");
+                    } else {
+                        final IDistributionClientDownloadResult resultArtifact =
+                                downloadTheArtifact(artifact, iNotif.getDistributionID());
+                        filePath = writeArtifactToFile(artifact, resultArtifact);
+                        csarObject = new Csar(filePath);
+                        inputReceived(csarObject);
+                        downloadedServiceArtifactMap.put(artifact.getArtifactUUID(), artifact.getArtifactVersion());
+                        // send deploy success status to sdc
+                    }
+                } catch (final ArtifactDownloadException | PolicyDecodingException exp) {
+                    LOGGER.error("Failed to process csar service artifacts ", exp);
+                    processStatus = false;
+                    // send deploy failed status to sdc
+                }
+            }
+        }
+        if (processStatus) {
+            // send final distribution success status to sdc
+        } else {
+            // send final distribution failed status to sdc
+        }
+        changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.IDLE);
+    }
+
+    private IDistributionClientDownloadResult downloadTheArtifact(final IArtifactInfo artifact,
+            final String distributionId) throws ArtifactDownloadException {
+
+        final IDistributionClientDownloadResult downloadResult = distributionClient.download(artifact);
+        if (!downloadResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
+            final String message = "Failed to download artifact with name: " + artifact.getArtifactName();
+            LOGGER.error(message);
+            // send failure download status to sdc
+            throw new ArtifactDownloadException(message);
+        }
+        // send success download status to sdc
+        return downloadResult;
+    }
+
+    private String writeArtifactToFile(final IArtifactInfo artifact,
+            final IDistributionClientDownloadResult resultArtifact) throws ArtifactDownloadException {
+        File tempArtifactFile = null;
+        FileOutputStream fileOutputStream = null;
+        final byte[] payloadBytes = resultArtifact.getArtifactPayload();
+        try {
+            tempArtifactFile = File.createTempFile(artifact.getArtifactName(), null);
+            fileOutputStream = new FileOutputStream(tempArtifactFile);
+            fileOutputStream.write(payloadBytes, 0, payloadBytes.length);
+        } catch (final Exception exp) {
+            final String message = "Failed to write artifact to local repository";
+            LOGGER.error(message, exp);
+            throw new ArtifactDownloadException(message, exp);
+        } finally {
+            try {
+                fileOutputStream.close();
+            } catch (final IOException exp) {
+                LOGGER.error(exp);
+            }
+        }
+        return tempArtifactFile.getPath();
     }
 }

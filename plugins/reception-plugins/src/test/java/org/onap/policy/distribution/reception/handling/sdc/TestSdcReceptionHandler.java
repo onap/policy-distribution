@@ -43,6 +43,8 @@ import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.decoding.PluginTerminationException;
 import org.onap.policy.distribution.reception.parameters.PssdConfigurationParametersGroup;
+import org.onap.sdc.api.notification.INotificationData;
+import org.onap.sdc.api.results.IDistributionClientDownloadResult;
 import org.onap.sdc.api.results.IDistributionClientResult;
 import org.onap.sdc.impl.mock.DistributionClientStubImpl;
 import org.onap.sdc.utils.DistributionActionResultEnum;
@@ -63,6 +65,10 @@ public class TestSdcReceptionHandler {
     private IDistributionClientResult failureClientInitResult;
     @Mock
     private DistributionClientStubImpl distributionClient;
+    @Mock
+    private IDistributionClientDownloadResult successfulClientDownloadResult;
+    @Mock
+    private INotificationData notificationData;
 
     private PssdConfigurationParametersGroup pssdConfigParameters;
     private SdcReceptionHandler sypHandler;
@@ -84,7 +90,10 @@ public class TestSdcReceptionHandler {
         Mockito.when(distributionClient.init(any(), any())).thenReturn(successfulClientInitResult);
         Mockito.when(distributionClient.start()).thenReturn(successfulClientInitResult);
         Mockito.when(distributionClient.stop()).thenReturn(successfulClientInitResult);
+        Mockito.when(distributionClient.download(any())).thenReturn(successfulClientDownloadResult);
         Mockito.when(successfulClientInitResult.getDistributionActionResult())
+                .thenReturn(DistributionActionResultEnum.SUCCESS);
+        Mockito.when(successfulClientDownloadResult.getDistributionActionResult())
                 .thenReturn(DistributionActionResultEnum.SUCCESS);
     }
 
@@ -175,6 +184,17 @@ public class TestSdcReceptionHandler {
             fail("Test must throw an exception here");
         } catch (final Exception exp) {
             assertTrue(exp.getMessage().startsWith("SDC client stop failed with reason"));
+        }
+    }
+
+    @Test
+    public final void testProcessCsarServiceArtifacts() {
+        try {
+            sypHandler.initializeReception(pssdConfigParameters.getName());
+            sypHandler.processCsarServiceArtifacts(notificationData);
+        } catch (final PluginInitializationException exp) {
+            LOGGER.error(exp);
+            fail("Test should not throw any exception");
         }
     }
 }
