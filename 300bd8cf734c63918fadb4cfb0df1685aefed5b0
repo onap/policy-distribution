@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_8a9cbf10",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-05T16:57:07Z",
+      "side": 1,
+      "message": "You should use File.createTempFile rather than hard coding the path. I know it may never happen but we should try and plan for cross-platform support.",
+      "range": {
+        "startLine": 53,
+        "startChar": 70,
+        "endLine": 53,
+        "endChar": 75
+      },
+      "revId": "300bd8cf734c63918fadb4cfb0df1685aefed5b0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_0aaf4f2b",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-05T16:57:07Z",
+      "side": 1,
+      "message": "Why are so many methods protected?",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 13
+      },
+      "revId": "300bd8cf734c63918fadb4cfb0df1685aefed5b0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_ca8dd7d4",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-05T16:57:07Z",
+      "side": 1,
+      "message": "Initializing SDC client\" would be better",
+      "range": {
+        "startLine": 129,
+        "startChar": 22,
+        "endLine": 129,
+        "endChar": 41
+      },
+      "revId": "300bd8cf734c63918fadb4cfb0df1685aefed5b0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_ea78d3c5",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-05T16:57:07Z",
+      "side": 1,
+      "message": "Is there a case where the artifact is already downloaded or do we just always download again regardless?",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 86
+      },
+      "revId": "300bd8cf734c63918fadb4cfb0df1685aefed5b0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_caa4f74c",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-05T16:57:07Z",
+      "side": 1,
+      "message": "To be done?",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 60
+      },
+      "revId": "300bd8cf734c63918fadb4cfb0df1685aefed5b0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_6a65a31c",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-05T16:57:07Z",
+      "side": 1,
+      "message": "To be done?",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 59
+      },
+      "revId": "300bd8cf734c63918fadb4cfb0df1685aefed5b0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_0a88afc3",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-05T16:57:07Z",
+      "side": 1,
+      "message": "It\u0027s here that you need to call File.createTempFile() etc.",
+      "range": {
+        "startLine": 225,
+        "startChar": 31,
+        "endLine": 225,
+        "endChar": 66
+      },
+      "revId": "300bd8cf734c63918fadb4cfb0df1685aefed5b0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_aa7e5bad",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-05T16:57:07Z",
+      "side": 1,
+      "message": "See comment above",
+      "range": {
+        "startLine": 237,
+        "startChar": 36,
+        "endLine": 237,
+        "endChar": 70
+      },
+      "revId": "300bd8cf734c63918fadb4cfb0df1685aefed5b0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
