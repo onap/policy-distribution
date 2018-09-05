@@ -27,6 +27,7 @@ import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.common.utils.validation.ParameterValidationUtils;
+import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
 /**
@@ -38,6 +39,8 @@ public class DistributionParameterGroup implements ParameterGroup {
     private String name;
     private RestServerParameters restServerParameters;
     private Map<String, ReceptionHandlerParameters> receptionHandlerParameters;
+    private Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurationParameters =
+            new LinkedHashMap<>();
     private Map<String, PolicyForwarderConfigurationParameterGroup> policyForwarderConfigurationParameters =
             new LinkedHashMap<>();
 
@@ -49,10 +52,12 @@ public class DistributionParameterGroup implements ParameterGroup {
      */
     public DistributionParameterGroup(final String name, final RestServerParameters restServerParameters,
             final Map<String, ReceptionHandlerParameters> receptionHandlerParameters,
+            final Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurationParameters,
             final Map<String, PolicyForwarderConfigurationParameterGroup> policyForwarderConfigurationParameters) {
         this.name = name;
         this.restServerParameters = restServerParameters;
         this.receptionHandlerParameters = receptionHandlerParameters;
+        this.receptionHandlerConfigurationParameters = receptionHandlerConfigurationParameters;
         this.policyForwarderConfigurationParameters = policyForwarderConfigurationParameters;
     }
 
@@ -94,6 +99,24 @@ public class DistributionParameterGroup implements ParameterGroup {
         return restServerParameters;
     }
 
+    /**
+     * Gets the reception handler configuration parameter map.
+     *
+     * @return the reception handler configuration parameter map
+     */
+    public Map<String, ReceptionHandlerConfigurationParameterGroup> getReceptionHandlerConfigurationParameters() {
+        return receptionHandlerConfigurationParameters;
+    }
+
+    /**
+     * Sets the reception handler configuration parameter map.
+     *
+     * @param eventInputParameters the reception handler configuration parameters
+     */
+    public void setReceptionHandlerConfigurationParameters(
+            final Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurationParameters) {
+        this.receptionHandlerConfigurationParameters = receptionHandlerConfigurationParameters;
+    }
 
     /**
      * Gets the policy forwarder configuration parameter map.

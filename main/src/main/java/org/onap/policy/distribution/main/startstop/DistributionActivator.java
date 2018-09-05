@@ -32,6 +32,7 @@ import org.onap.policy.distribution.main.parameters.PolicyForwarderConfiguration
 import org.onap.policy.distribution.main.rest.DistributionRestServer;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
+import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
 /**
@@ -143,16 +144,19 @@ public class DistributionActivator {
         for (final ReceptionHandlerParameters params : distributionParameterGroup.getReceptionHandlerParameters()
                 .values()) {
             params.setName(distributionParameterGroup.getName());
-            params.getPssdConfigurationParametersGroup().setName(distributionParameterGroup.getName());
             params.getPluginHandlerParameters().setName(distributionParameterGroup.getName());
             ParameterService.register(params);
-            ParameterService.register(params.getPssdConfigurationParametersGroup());
             ParameterService.register(params.getPluginHandlerParameters());
         }
         for (final Entry<String, PolicyForwarderConfigurationParameterGroup> forwarderConfiguration : distributionParameterGroup
                 .getPolicyForwarderConfigurationParameters().entrySet()) {
             forwarderConfiguration.getValue().setName(forwarderConfiguration.getKey());
             ParameterService.register(forwarderConfiguration.getValue());
+        }
+        for (final Entry<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfiguration : distributionParameterGroup
+                .getReceptionHandlerConfigurationParameters().entrySet()) {
+            receptionHandlerConfiguration.getValue().setName(receptionHandlerConfiguration.getKey());
+            ParameterService.register(receptionHandlerConfiguration.getValue());
         }
     }
 
@@ -166,13 +170,17 @@ public class DistributionActivator {
         for (final ReceptionHandlerParameters params : distributionParameterGroup.getReceptionHandlerParameters()
                 .values()) {
             ParameterService.deregister((params.getName()));
-            ParameterService.deregister((params.getPssdConfigurationParametersGroup().getName()));
             ParameterService.deregister((params.getPluginHandlerParameters().getName()));
         }
         for (final Entry<String, PolicyForwarderConfigurationParameterGroup> forwarderConfiguration : distributionParameterGroup
                 .getPolicyForwarderConfigurationParameters().entrySet()) {
             forwarderConfiguration.getValue().setName(forwarderConfiguration.getKey());
             ParameterService.deregister(forwarderConfiguration.getKey());
+        }
+        for (final Entry<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfiguration : distributionParameterGroup
+                .getReceptionHandlerConfigurationParameters().entrySet()) {
+            receptionHandlerConfiguration.getValue().setName(receptionHandlerConfiguration.getKey());
+            ParameterService.deregister(receptionHandlerConfiguration.getKey());
         }
     }
 

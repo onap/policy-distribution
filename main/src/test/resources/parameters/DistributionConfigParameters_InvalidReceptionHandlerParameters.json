@@ -10,30 +10,7 @@
         "DummyReceptionHandler":{
             "receptionHandlerType":"",
             "receptionHandlerClassName":"org.onap.policy.distribution.main.testclasses.InvalidSdcReceptionHandler",
-            "pssdConfiguration":{
-                "asdcAddress": "localhost",
-                "messageBusAddress": [
-                    "a.com",
-                    "b.com",
-                    "c.com"
-                 ],
-                "user": "tbdsdc-1480",
-                "password": "tbdsdc-1480",
-                "pollingInterval":20,
-                "pollingTimeout":30,
-                "consumerId": "policy-id",
-                "artifactTypes": [
-                    "TOSCA_CSAR",
-                    "HEAT"
-                ],
-                "consumerGroup": "policy-group",
-                "environmentName": "environmentName",
-                "keystorePath": "null",
-                "keystorePassword": "null",
-                "activeserverTlsAuth": false,
-                "isFilterinEmptyResources": true,
-                "isUseHttpsWithDmaap": false
-            },
+            "receptionHandlerConfigurationName":"dummyReceptionHandlerConfiguration",
             "pluginHandlerParameters":{
                 "policyDecoders":{
                     "DummyDecoder":{
@@ -48,6 +25,16 @@
                         "forwarderConfigurationName": "dummyConfiguration"
                     }
                 }
+            }
+        }
+    },
+    "receptionHandlerConfigurationParameters":{
+        "dummyReceptionHandlerConfiguration":{
+            "parameterClassName":"org.onap.policy.distribution.main.testclasses.DummyReceptionHandlerParameterGroup",
+            "parameters":{
+                "myStringParameter": "stringValue",
+                "myIntegerParameter":20,
+                "myBooleanParameter": true
             }
         }
     },

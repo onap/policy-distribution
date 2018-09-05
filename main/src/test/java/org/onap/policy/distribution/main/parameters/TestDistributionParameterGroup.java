@@ -29,6 +29,8 @@ import java.util.Map;
 import org.junit.Test;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup;
+import org.onap.policy.distribution.main.testclasses.DummyReceptionHandlerParameterGroup;
+import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
 /**
@@ -42,36 +44,50 @@ public class TestDistributionParameterGroup {
     @Test
     public void testDistributionParameterGroup() {
         final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(false);
-        final Map<String, ReceptionHandlerParameters> receptionHandlerParameters = commonTestData
-                        .getReceptionHandlerParameters(false);
+        final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
+                commonTestData.getReceptionHandlerParameters(false);
+        final Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurations =
+                commonTestData.getReceptionHandlerConfigurationParameters(false);
         final Map<String, PolicyForwarderConfigurationParameterGroup> forwarderConfigurations =
                 commonTestData.getPolicyForwarderConfigurationParameters(false);
 
         final DistributionParameterGroup distributionParameters =
                 new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters,
-                        receptionHandlerParameters, forwarderConfigurations);
+                        receptionHandlerParameters, receptionHandlerConfigurations, forwarderConfigurations);
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertTrue(validationResult.isValid());
         assertEquals(restServerParameters.getHost(), distributionParameters.getRestServerParameters().getHost());
         assertEquals(restServerParameters.getPort(), distributionParameters.getRestServerParameters().getPort());
         assertEquals(restServerParameters.getUserName(),
-                        distributionParameters.getRestServerParameters().getUserName());
+                distributionParameters.getRestServerParameters().getUserName());
         assertEquals(restServerParameters.getPassword(),
-                        distributionParameters.getRestServerParameters().getPassword());
+                distributionParameters.getRestServerParameters().getPassword());
         assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, distributionParameters.getName());
-        assertEquals(receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
-                        .getReceptionHandlerType(),
-                        distributionParameters.getReceptionHandlerParameters()
-                                        .get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getReceptionHandlerType());
-        assertEquals(receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getReceptionHandlerType(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+                        .getReceptionHandlerType());
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
                         .getReceptionHandlerClassName(),
-                        distributionParameters.getReceptionHandlerParameters()
-                                        .get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
-                                        .getReceptionHandlerClassName());
-        assertEquals(receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
-                        .getPluginHandlerParameters(),
-                        distributionParameters.getReceptionHandlerParameters()
-                                        .get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getPluginHandlerParameters());
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+                        .getReceptionHandlerClassName());
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getPluginHandlerParameters(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+                        .getPluginHandlerParameters());
+        assertEquals(CommonTestData.MY_STRING_PARAMETER_VALUE,
+                ((DummyReceptionHandlerParameterGroup) distributionParameters
+                        .getReceptionHandlerConfigurationParameters()
+                        .get(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS)).getMyStringParameter());
+        assertEquals(CommonTestData.MY_INTEGER_PARAMETER_VALUE,
+                ((DummyReceptionHandlerParameterGroup) distributionParameters
+                        .getReceptionHandlerConfigurationParameters()
+                        .get(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS)).getMyIntegerParameter());
+        assertEquals(CommonTestData.MY_BOOLEAN_PARAMETER_VALUE,
+                ((DummyReceptionHandlerParameterGroup) distributionParameters
+                        .getReceptionHandlerConfigurationParameters()
+                        .get(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS)).getMyBooleanParameter());
         assertEquals(CommonTestData.FORWARDER_HOST,
                 ((DummyPolicyForwarderParameterGroup) distributionParameters.getPolicyForwarderConfigurationParameters()
                         .get(CommonTestData.FORWARDER_CONFIGURATION_PARAMETERS)).getHostname());
@@ -80,72 +96,80 @@ public class TestDistributionParameterGroup {
     @Test
     public void testDistributionParameterGroup_NullName() {
         final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(false);
-        final Map<String, ReceptionHandlerParameters> receptionHandlerParameters = commonTestData
-                        .getReceptionHandlerParameters(false);
+        final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
+                commonTestData.getReceptionHandlerParameters(false);
+        final Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurations =
+                commonTestData.getReceptionHandlerConfigurationParameters(false);
         final Map<String, PolicyForwarderConfigurationParameterGroup> forwarderConfigurations =
                 commonTestData.getPolicyForwarderConfigurationParameters(false);
 
-        final DistributionParameterGroup distributionParameters = new DistributionParameterGroup(null,
-                restServerParameters, receptionHandlerParameters, forwarderConfigurations);
+        final DistributionParameterGroup distributionParameters =
+                new DistributionParameterGroup(null, restServerParameters, receptionHandlerParameters,
+                        receptionHandlerConfigurations, forwarderConfigurations);
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
         assertEquals(null, distributionParameters.getName());
-        assertEquals(receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
-                        .getReceptionHandlerType(),
-                        distributionParameters.getReceptionHandlerParameters()
-                                        .get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getReceptionHandlerType());
-        assertEquals(receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getReceptionHandlerType(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+                        .getReceptionHandlerType());
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
                         .getReceptionHandlerClassName(),
-                        distributionParameters.getReceptionHandlerParameters()
-                                        .get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
-                                        .getReceptionHandlerClassName());
-        assertEquals(receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
-                        .getPluginHandlerParameters(),
-                        distributionParameters.getReceptionHandlerParameters()
-                                        .get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getPluginHandlerParameters());
-        assertTrue(validationResult.getResult()
-                        .contains("field \"name\" type \"java.lang.String\" value \"null\" INVALID, "
-                                        + "must be a non-blank string"));
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+                        .getReceptionHandlerClassName());
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getPluginHandlerParameters(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+                        .getPluginHandlerParameters());
+        assertTrue(validationResult.getResult().contains(
+                "field \"name\" type \"java.lang.String\" value \"null\" INVALID, " + "must be a non-blank string"));
     }
 
     @Test
     public void testDistributionParameterGroup_EmptyName() {
         final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(false);
-        final Map<String, ReceptionHandlerParameters> receptionHandlerParameters = commonTestData
-                        .getReceptionHandlerParameters(false);
+        final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
+                commonTestData.getReceptionHandlerParameters(false);
+        final Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurations =
+                commonTestData.getReceptionHandlerConfigurationParameters(false);
         final Map<String, PolicyForwarderConfigurationParameterGroup> forwarderConfigurations =
                 commonTestData.getPolicyForwarderConfigurationParameters(false);
 
-        final DistributionParameterGroup distributionParameters = new DistributionParameterGroup("",
-                restServerParameters, receptionHandlerParameters, forwarderConfigurations);
+        final DistributionParameterGroup distributionParameters =
+                new DistributionParameterGroup("", restServerParameters, receptionHandlerParameters,
+                        receptionHandlerConfigurations, forwarderConfigurations);
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
         assertEquals("", distributionParameters.getName());
-        assertEquals(receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
-                        .getReceptionHandlerType(),
-                        distributionParameters.getReceptionHandlerParameters()
-                                        .get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getReceptionHandlerType());
-        assertEquals(receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getReceptionHandlerType(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+                        .getReceptionHandlerType());
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
                         .getReceptionHandlerClassName(),
-                        distributionParameters.getReceptionHandlerParameters()
-                                        .get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
-                                        .getReceptionHandlerClassName());
-        assertEquals(receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
-                        .getPluginHandlerParameters(),
-                        distributionParameters.getReceptionHandlerParameters()
-                                        .get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getPluginHandlerParameters());
-        assertTrue(validationResult.getResult().contains("field \"name\" type \"java.lang.String\" value \"\" INVALID, "
-                        + "must be a non-blank string"));
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+                        .getReceptionHandlerClassName());
+        assertEquals(
+                receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getPluginHandlerParameters(),
+                distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
+                        .getPluginHandlerParameters());
+        assertTrue(validationResult.getResult().contains(
+                "field \"name\" type \"java.lang.String\" value \"\" INVALID, " + "must be a non-blank string"));
     }
 
     @Test
     public void testDistributionParameterGroup_NullReceptionHandlerParameters() {
         final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(false);
+        final Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurations =
+                commonTestData.getReceptionHandlerConfigurationParameters(false);
         final Map<String, PolicyForwarderConfigurationParameterGroup> forwarderConfigurations =
                 commonTestData.getPolicyForwarderConfigurationParameters(false);
         try {
-            final DistributionParameterGroup distributionParameters = new DistributionParameterGroup(
-                    CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, null, forwarderConfigurations);
+            final DistributionParameterGroup distributionParameters =
+                    new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, null,
+                            receptionHandlerConfigurations, forwarderConfigurations);
             distributionParameters.validate();
             fail("test should throw an exception here");
         } catch (final Exception e) {
@@ -157,13 +181,15 @@ public class TestDistributionParameterGroup {
     @Test
     public void testDistributionParameterGroup_EmptyReceptionHandlerParameters() {
         final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(false);
-        final Map<String, ReceptionHandlerParameters> receptionHandlerParameters = commonTestData
-                        .getReceptionHandlerParameters(true);
+        final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
+                commonTestData.getReceptionHandlerParameters(true);
+        final Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurations =
+                commonTestData.getReceptionHandlerConfigurationParameters(false);
         final Map<String, PolicyForwarderConfigurationParameterGroup> forwarderConfigurations =
                 commonTestData.getPolicyForwarderConfigurationParameters(false);
         final DistributionParameterGroup distributionParameters =
                 new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters,
-                        receptionHandlerParameters, forwarderConfigurations);
+                        receptionHandlerParameters, receptionHandlerConfigurations, forwarderConfigurations);
         distributionParameters.validate();
         GroupValidationResult result = distributionParameters.validate();
         assertFalse(result.isValid());
@@ -173,18 +199,20 @@ public class TestDistributionParameterGroup {
     @Test
     public void testDistributionParameterGroup_EmptyRestServerParameters() {
         final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(true);
-        final Map<String, ReceptionHandlerParameters> receptionHandlerParameters = commonTestData
-                        .getReceptionHandlerParameters(false);
+        final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
+                commonTestData.getReceptionHandlerParameters(false);
+        final Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurations =
+                commonTestData.getReceptionHandlerConfigurationParameters(false);
         final Map<String, PolicyForwarderConfigurationParameterGroup> forwarderConfigurations =
                 commonTestData.getPolicyForwarderConfigurationParameters(false);
 
         final DistributionParameterGroup distributionParameters =
                 new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters,
-                        receptionHandlerParameters, forwarderConfigurations);
+                        receptionHandlerParameters, receptionHandlerConfigurations, forwarderConfigurations);
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult()
-                        .contains("\"org.onap.policy.distribution.main.parameters.RestServerParameters\" INVALID, "
-                                        + "parameter group has status INVALID"));
+                .contains("\"org.onap.policy.distribution.main.parameters.RestServerParameters\" INVALID, "
+                        + "parameter group has status INVALID"));
     }
 }

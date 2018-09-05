@@ -51,6 +51,16 @@
             }
         }
     },
+    "receptionHandlerConfigurationParameters":{
+        "dummyReceptionHandlerConfiguration":{
+            "parameterClassName":"org.onap.policy.distribution.main.testclasses.DummyReceptionHandlerParameterGroup",
+            "parameters":{
+                "myStringParameter": "stringValue",
+                "myIntegerParameter":20,
+                "myBooleanParameter": true
+            }
+        }
+    },
     "policyForwarderConfigurationParameters":{
         "dummyConfiguration":{
             "parameterClassName":"org.onap.policy.Unknown",

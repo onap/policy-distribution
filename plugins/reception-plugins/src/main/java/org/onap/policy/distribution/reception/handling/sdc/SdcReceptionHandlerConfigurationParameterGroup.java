@@ -18,24 +18,21 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.reception.parameters;
+package org.onap.policy.distribution.reception.handling.sdc;
 
 import java.util.List;
 import java.util.UUID;
-
 import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.common.utils.validation.ParameterValidationUtils;
+import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 
 /**
- * This class handles reading, parsing and validating of the Policy SDC Service Distribution parameters from Json
- * format, which strictly adheres to the interface:IConfiguration, defined by SDC SDK.
+ * This class handles reading, parsing and validating of the Policy SDC Service Distribution
+ * parameters from Json format, which strictly adheres to the interface:IConfiguration, defined by
+ * SDC SDK.
  */
-public class PssdConfigurationParametersGroup implements ParameterGroup {
-
-    // Policy SDC Service Distribution specified field.
-    private String name;
+public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHandlerConfigurationParameterGroup {
 
     // Interface of IConfiguration item
     private String asdcAddress;
@@ -153,18 +150,18 @@ public class PssdConfigurationParametersGroup implements ParameterGroup {
         /**
          * Creates a new PssdConfigurationParametersGroup instance.
          */
-        public PssdConfigurationParametersGroup build() {
-            return new PssdConfigurationParametersGroup(this);
+        public SdcReceptionHandlerConfigurationParameterGroup build() {
+            return new SdcReceptionHandlerConfigurationParameterGroup(this);
         }
     }
 
     /**
-     * The constructor for instantiating PssdConfigurationParametersGroup. It is kept private so that it could only be
-     * called by PssdConfigurationBuilder.
+     * The constructor for instantiating PssdConfigurationParametersGroup. It is kept private so
+     * that it could only be called by PssdConfigurationBuilder.
      *
      * @param builder stores all the values used by PssdConfigurationParametersGroup
      */
-    private PssdConfigurationParametersGroup(final PssdConfigurationBuilder builder) {
+    private SdcReceptionHandlerConfigurationParameterGroup(final PssdConfigurationBuilder builder) {
         asdcAddress = builder.asdcAddress;
         messageBusAddress = builder.messageBusAddress;
         user = builder.user;
@@ -248,16 +245,8 @@ public class PssdConfigurationParametersGroup implements ParameterGroup {
      */
     @Override
     public String toString() {
-        return "name =" + name + ",TestParameters:[asdcAddress = " + asdcAddress + ", messageBusAddress = "
+        return "name =" + getName() + ",TestParameters:[asdcAddress = " + asdcAddress + ", messageBusAddress = "
                 + messageBusAddress + ", user = " + user + "]";
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getName() {
-        return name;
     }
 
     /**
@@ -265,8 +254,9 @@ public class PssdConfigurationParametersGroup implements ParameterGroup {
      *
      * @param name the name to set.
      */
+    @Override
     public void setName(final String name) {
-        this.name = name + "_" + UUID.randomUUID().toString();
+        super.setName(name + "_" + UUID.randomUUID().toString());
     }
 
     /**

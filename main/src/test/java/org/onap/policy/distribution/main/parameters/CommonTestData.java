@@ -27,9 +27,11 @@ import java.util.Map;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup.DummyPolicyForwarderParameterGroupBuilder;
+import org.onap.policy.distribution.main.testclasses.DummyReceptionHandlerParameterGroup;
+import org.onap.policy.distribution.main.testclasses.DummyReceptionHandlerParameterGroup.DummyReceptionHandlerParameterGroupBuilder;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
-import org.onap.policy.distribution.reception.parameters.PssdConfigurationParametersGroup;
+import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
 /**
@@ -54,6 +56,11 @@ public class CommonTestData {
     public static final String RECEPTION_HANDLER_TYPE = "DummyReceptionHandler";
     public static final String RECEPTION_HANDLER_CLASS_NAME =
             "org.onap.policy.distribution.main.testclasses.DummyReceptionHandler";
+    public static final String RECEPTION_CONFIGURATION_PARAMETERS = "dummyReceptionHandlerConfiguration";
+    public static final String MY_STRING_PARAMETER_VALUE = "aStringValue";
+    public static final Boolean MY_BOOLEAN_PARAMETER_VALUE = true;
+    public static final int MY_INTEGER_PARAMETER_VALUE = 1234;
+
     public static final String DUMMY_RECEPTION_HANDLER_KEY = "DummyReceptionHandler";
     public static final String DUMMY_ENGINE_FORWARDER_KEY = "DummyForwarder";
     public static final String DUMMY_DECODER_KEY = "DummyDecoder";
@@ -87,38 +94,37 @@ public class CommonTestData {
         if (!isEmpty) {
             final Map<String, PolicyDecoderParameters> policyDecoders = getPolicyDecoders(isEmpty);
             final Map<String, PolicyForwarderParameters> policyForwarders = getPolicyForwarders(isEmpty);
-            final PssdConfigurationParametersGroup pssdConfiguration = getPssdConfigurationParametersGroup(isEmpty);;
             final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
             final ReceptionHandlerParameters rhParameters = new ReceptionHandlerParameters(RECEPTION_HANDLER_TYPE,
-                    RECEPTION_HANDLER_CLASS_NAME, pssdConfiguration, pHParameters);
+                    RECEPTION_HANDLER_CLASS_NAME, RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
             receptionHandlerParameters.put(DUMMY_RECEPTION_HANDLER_KEY, rhParameters);
         }
         return receptionHandlerParameters;
     }
 
     /**
-     * Returns an instance of PssdConfigurationParametersGroup for test cases.
+     * Returns ReceptionHandlerConfigurationParameterGroups for test cases.
      *
      * @param isEmpty boolean value to represent that object created should be empty or not
-     * @return the PssdConfigurationParametersGroup object
+     * @return the ReceptionHandlerConfigurationParameterGroups
      */
-    public PssdConfigurationParametersGroup getPssdConfigurationParametersGroup(final boolean isEmpty) {
-        final PssdConfigurationParametersGroup pssdConfiguration;
+    public Map<String, ReceptionHandlerConfigurationParameterGroup> getReceptionHandlerConfigurationParameters(
+            final boolean isEmpty) {
+        final Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurationParameters =
+                new HashMap<String, ReceptionHandlerConfigurationParameterGroup>();
         if (!isEmpty) {
             final List<String> messageBusAddress = new ArrayList<>();
             messageBusAddress.add("localhost");
             final List<String> artifactTypes = new ArrayList<>();
             artifactTypes.add("TOSCA_CSAR");
-            pssdConfiguration = new PssdConfigurationParametersGroup.PssdConfigurationBuilder()
-                    .setAsdcAddress("localhost").setMessageBusAddress(messageBusAddress).setUser("policy")
-                    .setPassword("policy").setPollingInterval(20).setPollingTimeout(30).setConsumerId("policy-id")
-                    .setArtifactTypes(artifactTypes).setConsumerGroup("policy-group").setEnvironmentName("TEST")
-                    .setKeystorePath("").setKeystorePassword("").setActiveserverTlsAuth(false)
-                    .setIsFilterinEmptyResources(true).setIsUseHttpsWithDmaap(false).build();
-        } else {
-            pssdConfiguration = new PssdConfigurationParametersGroup.PssdConfigurationBuilder().build();
+            DummyReceptionHandlerParameterGroup dummyReceptionHandlerParameterGroup =
+                    new DummyReceptionHandlerParameterGroupBuilder().setMyStringParameter(MY_STRING_PARAMETER_VALUE)
+                            .setMyIntegerParameter(MY_INTEGER_PARAMETER_VALUE)
+                            .setMyBooleanParameter(MY_BOOLEAN_PARAMETER_VALUE).build();
+            receptionHandlerConfigurationParameters.put(RECEPTION_CONFIGURATION_PARAMETERS,
+                    dummyReceptionHandlerParameterGroup);
         }
-        return pssdConfiguration;
+        return receptionHandlerConfigurationParameters;
     }
 
     /**

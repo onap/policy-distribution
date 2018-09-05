@@ -26,7 +26,6 @@ import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.decoding.PluginTerminationException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
-import org.onap.policy.distribution.reception.parameters.PssdConfigurationParametersGroup;
 import org.onap.sdc.api.IDistributionClient;
 import org.onap.sdc.api.results.IDistributionClientResult;
 import org.onap.sdc.impl.DistributionClientFactory;
@@ -39,13 +38,13 @@ public class SdcReceptionHandler extends AbstractReceptionHandler {
 
     private static final Logger LOGGER = FlexLogger.getLogger(SdcReceptionHandler.class);
     private SdcReceptionHandlerStatus sdcReceptionHandlerStatus = SdcReceptionHandlerStatus.STOPPED;
-    private PssdConfigurationParametersGroup handlerParameters;
+    private SdcReceptionHandlerConfigurationParameterGroup handlerParameters;
     private IDistributionClient distributionClient;
     private volatile int nbOfNotificationsOngoing = 0;
 
     @Override
     protected void initializeReception(final String parameterGroupName) throws PluginInitializationException {
-        handlerParameters = (PssdConfigurationParametersGroup) ParameterService.get(parameterGroupName);
+        handlerParameters = (SdcReceptionHandlerConfigurationParameterGroup) ParameterService.get(parameterGroupName);
         initializeSdcClient();
         startSdcClient();
     }

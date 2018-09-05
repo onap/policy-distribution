@@ -21,8 +21,6 @@
 package org.onap.policy.distribution.reception.handling.sdc;
 
 import java.util.List;
-
-import org.onap.policy.distribution.reception.parameters.PssdConfigurationParametersGroup;
 import org.onap.sdc.api.consumer.IConfiguration;
 
 /**
@@ -31,14 +29,14 @@ import org.onap.sdc.api.consumer.IConfiguration;
  */
 public class SdcConfiguration implements IConfiguration {
 
-    private PssdConfigurationParametersGroup configParameters = null;
+    private SdcReceptionHandlerConfigurationParameterGroup configParameters = null;
 
     /**
      * Constructor for instantiating {@link SdcConfiguration}.
      *
      * @param configParameters the SDC Client configuration parameters
      */
-    public SdcConfiguration(final PssdConfigurationParametersGroup configParameters) {
+    public SdcConfiguration(final SdcReceptionHandlerConfigurationParameterGroup configParameters) {
         this.configParameters = configParameters;
     }
 

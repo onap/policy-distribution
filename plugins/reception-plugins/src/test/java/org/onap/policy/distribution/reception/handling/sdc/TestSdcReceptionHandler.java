@@ -42,7 +42,6 @@ import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.decoding.PluginTerminationException;
-import org.onap.policy.distribution.reception.parameters.PssdConfigurationParametersGroup;
 import org.onap.sdc.api.results.IDistributionClientResult;
 import org.onap.sdc.impl.mock.DistributionClientStubImpl;
 import org.onap.sdc.utils.DistributionActionResultEnum;
@@ -64,7 +63,7 @@ public class TestSdcReceptionHandler {
     @Mock
     private DistributionClientStubImpl distributionClient;
 
-    private PssdConfigurationParametersGroup pssdConfigParameters;
+    private SdcReceptionHandlerConfigurationParameterGroup pssdConfigParameters;
     private SdcReceptionHandler sypHandler;
 
     /**
@@ -76,7 +75,7 @@ public class TestSdcReceptionHandler {
     public final void init() throws IOException {
         final Gson gson = new GsonBuilder().create();
         pssdConfigParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdc.json"),
-                PssdConfigurationParametersGroup.class);
+                SdcReceptionHandlerConfigurationParameterGroup.class);
         ParameterService.register(pssdConfigParameters);
         final SdcReceptionHandler sdcHandler = new SdcReceptionHandler();
         sypHandler = Mockito.spy(sdcHandler);

@@ -38,7 +38,7 @@ public class ReceptionHandlerParameters implements ParameterGroup {
     private String name;
     private String receptionHandlerType;
     private String receptionHandlerClassName;
-    private PssdConfigurationParametersGroup pssdConfiguration;
+    private String receptionHandlerConfigurationName;
     private PluginHandlerParameters pluginHandlerParameters;
 
     /**
@@ -46,14 +46,15 @@ public class ReceptionHandlerParameters implements ParameterGroup {
      *
      * @param receptionHandlerType the reception handler type
      * @param receptionHandlerClassName the reception handler class name
+     * @param receptionHandlerConfigurationName the name of the configuration for the reception
+     *        handler
      * @param pluginHandlerParameters the plugin handler parameters
      */
-    public ReceptionHandlerParameters(final String receptionHandlerType, final String receptionHandlerClassName, 
-                                      final PssdConfigurationParametersGroup pssdConfiguration, 
-                                      final PluginHandlerParameters pluginHandlerParameters) {
+    public ReceptionHandlerParameters(final String receptionHandlerType, final String receptionHandlerClassName,
+            final String receptionHandlerConfigurationName, final PluginHandlerParameters pluginHandlerParameters) {
         this.receptionHandlerType = receptionHandlerType;
         this.receptionHandlerClassName = receptionHandlerClassName;
-        this.pssdConfiguration = pssdConfiguration;
+        this.receptionHandlerConfigurationName = receptionHandlerConfigurationName;
         this.pluginHandlerParameters = pluginHandlerParameters;
     }
 
@@ -76,12 +77,13 @@ public class ReceptionHandlerParameters implements ParameterGroup {
     }
 
     /**
-     * Return the PssdConfigurationParametersGroup of this ReceptionHandlerParameters instance.
+     * Return the name of the reception handler configuration for this ReceptionHandlerParameters
+     * instance.
      *
      * @return the PssdConfigurationParametersGroup
      */
-    public PssdConfigurationParametersGroup getPssdConfigurationParametersGroup() {
-        return pssdConfiguration;
+    public String getReceptionHandlerConfigurationName() {
+        return receptionHandlerConfigurationName;
     }
 
     /**
@@ -138,6 +140,7 @@ public class ReceptionHandlerParameters implements ParameterGroup {
      *
      * @param name the name to set
      */
+    @Override
     public void setName(final String name) {
         this.name = name;
     }

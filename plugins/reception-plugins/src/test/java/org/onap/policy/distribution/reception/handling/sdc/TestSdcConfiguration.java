@@ -34,7 +34,6 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.distribution.reception.parameters.PssdConfigurationParametersGroup;
 
 /**
  * Class to perform unit test of {@link SdcConfiguration}.
@@ -44,11 +43,11 @@ public class TestSdcConfiguration {
 
     @Test
     public void testSdcConfiguration() throws IOException {
-        PssdConfigurationParametersGroup configParameters = null;
+        SdcReceptionHandlerConfigurationParameterGroup configParameters = null;
         try {
             final Gson gson = new GsonBuilder().create();
             configParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdc.json"),
-                    PssdConfigurationParametersGroup.class);
+                    SdcReceptionHandlerConfigurationParameterGroup.class);
         } catch (final Exception e) {
             fail("test should not thrown an exception here: " + e.getMessage());
         }
@@ -74,11 +73,11 @@ public class TestSdcConfiguration {
 
     @Test
     public void testInvalidSdcConfiguration() throws IOException {
-        PssdConfigurationParametersGroup configParameters = null;
+        SdcReceptionHandlerConfigurationParameterGroup configParameters = null;
         try {
             final Gson gson = new GsonBuilder().create();
             configParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdcInvalid.json"),
-                    PssdConfigurationParametersGroup.class);
+                    SdcReceptionHandlerConfigurationParameterGroup.class);
         } catch (final Exception e) {
             fail("test should not thrown an exception here: " + e.getMessage());
         }

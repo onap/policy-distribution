@@ -27,7 +27,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
-import org.onap.policy.distribution.reception.parameters.PssdConfigurationParametersGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
 /**
@@ -41,15 +40,14 @@ public class TestReceptionHandlerParameters {
     @Test
     public void testReceptionHandlerParameters() {
         final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
-        final PssdConfigurationParametersGroup pssdConfiguration = commonTestData
-                        .getPssdConfigurationParametersGroup(false);
         final ReceptionHandlerParameters rHParameters = new ReceptionHandlerParameters(
-                        CommonTestData.RECEPTION_HANDLER_TYPE, CommonTestData.RECEPTION_HANDLER_CLASS_NAME,
-                        pssdConfiguration, pHParameters);
+                CommonTestData.RECEPTION_HANDLER_TYPE, CommonTestData.RECEPTION_HANDLER_CLASS_NAME,
+                CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
         final GroupValidationResult validationResult = rHParameters.validate();
         assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, rHParameters.getReceptionHandlerType());
         assertEquals(CommonTestData.RECEPTION_HANDLER_CLASS_NAME, rHParameters.getReceptionHandlerClassName());
-        assertEquals(pssdConfiguration, rHParameters.getPssdConfigurationParametersGroup());
+        assertEquals(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS,
+                rHParameters.getReceptionHandlerConfigurationName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertTrue(validationResult.isValid());
     }
@@ -57,84 +55,79 @@ public class TestReceptionHandlerParameters {
     @Test
     public void testReceptionHandlerParameters_NullReceptionHandlerType() {
         final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
-        final PssdConfigurationParametersGroup pssdConfiguration = commonTestData
-                        .getPssdConfigurationParametersGroup(false);
-        final ReceptionHandlerParameters rHParameters = new ReceptionHandlerParameters(null,
-                        CommonTestData.RECEPTION_HANDLER_CLASS_NAME, pssdConfiguration, pHParameters);
+        final ReceptionHandlerParameters rHParameters =
+                new ReceptionHandlerParameters(null, CommonTestData.RECEPTION_HANDLER_CLASS_NAME,
+                        CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
         final GroupValidationResult validationResult = rHParameters.validate();
         assertEquals(null, rHParameters.getReceptionHandlerType());
         assertEquals(CommonTestData.RECEPTION_HANDLER_CLASS_NAME, rHParameters.getReceptionHandlerClassName());
-        assertEquals(pssdConfiguration, rHParameters.getPssdConfigurationParametersGroup());
+        assertEquals(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS,
+                rHParameters.getReceptionHandlerConfigurationName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult()
-                        .contains("field \"receptionHandlerType\" type \"java.lang.String\" value \"null\" INVALID, "
-                                        + "must be a non-blank string"));
+                .contains("field \"receptionHandlerType\" type \"java.lang.String\" value \"null\" INVALID, "
+                        + "must be a non-blank string"));
     }
 
     @Test
     public void testReceptionHandlerParameters_NullReceptionHandlerClassName() {
         final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
-        final PssdConfigurationParametersGroup pssdConfiguration = commonTestData
-                        .getPssdConfigurationParametersGroup(false);
-        final ReceptionHandlerParameters rHParameters = new ReceptionHandlerParameters(
-                        CommonTestData.RECEPTION_HANDLER_TYPE, null, pssdConfiguration, pHParameters);
+        final ReceptionHandlerParameters rHParameters =
+                new ReceptionHandlerParameters(CommonTestData.RECEPTION_HANDLER_TYPE, null,
+                        CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
         final GroupValidationResult validationResult = rHParameters.validate();
         assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, rHParameters.getReceptionHandlerType());
         assertEquals(null, rHParameters.getReceptionHandlerClassName());
-        assertEquals(pssdConfiguration, rHParameters.getPssdConfigurationParametersGroup());
+        assertEquals(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS,
+                rHParameters.getReceptionHandlerConfigurationName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertFalse(validationResult.isValid());
-        assertTrue(validationResult.getResult().contains(
-                        "field \"receptionHandlerClassName\" type \"java.lang.String\" value \"null\" INVALID, "
-                                        + "must be a non-blank string containing full class name "
-                                        + "of the reception handler"));
+        assertTrue(validationResult.getResult()
+                .contains("field \"receptionHandlerClassName\" type \"java.lang.String\" value \"null\" INVALID, "
+                        + "must be a non-blank string containing full class name " + "of the reception handler"));
     }
 
     @Test
     public void testReceptionHandlerParameters_EmptyReceptionHandlerType() {
         final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
-        final PssdConfigurationParametersGroup pssdConfiguration = commonTestData
-                        .getPssdConfigurationParametersGroup(false);
-        final ReceptionHandlerParameters rHParameters = new ReceptionHandlerParameters("",
-                        CommonTestData.RECEPTION_HANDLER_CLASS_NAME, pssdConfiguration, pHParameters);
+        final ReceptionHandlerParameters rHParameters =
+                new ReceptionHandlerParameters("", CommonTestData.RECEPTION_HANDLER_CLASS_NAME,
+                        CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
         final GroupValidationResult validationResult = rHParameters.validate();
         assertEquals("", rHParameters.getReceptionHandlerType());
         assertEquals(CommonTestData.RECEPTION_HANDLER_CLASS_NAME, rHParameters.getReceptionHandlerClassName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult()
-                        .contains("field \"receptionHandlerType\" type \"java.lang.String\" value \"\" INVALID, "
-                                        + "must be a non-blank string"));
+                .contains("field \"receptionHandlerType\" type \"java.lang.String\" value \"\" INVALID, "
+                        + "must be a non-blank string"));
     }
 
     @Test
     public void testReceptionHandlerParameters_EmptyReceptionHandlerClassName() {
         final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
-        final PssdConfigurationParametersGroup pssdConfiguration = commonTestData
-                        .getPssdConfigurationParametersGroup(false);
-        final ReceptionHandlerParameters rHParameters = new ReceptionHandlerParameters(
-                        CommonTestData.RECEPTION_HANDLER_TYPE, "", pssdConfiguration, pHParameters);
+        final ReceptionHandlerParameters rHParameters =
+                new ReceptionHandlerParameters(CommonTestData.RECEPTION_HANDLER_TYPE, "",
+                        CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
         final GroupValidationResult validationResult = rHParameters.validate();
         assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, rHParameters.getReceptionHandlerType());
         assertEquals("", rHParameters.getReceptionHandlerClassName());
-        assertEquals(pssdConfiguration, rHParameters.getPssdConfigurationParametersGroup());
+        assertEquals(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS,
+                rHParameters.getReceptionHandlerConfigurationName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult()
-                        .contains("field \"receptionHandlerClassName\" type \"java.lang.String\" value \"\" INVALID, "
-                                        + "must be a non-blank string containing full class name "
-                                        + "of the reception handler"));
+                .contains("field \"receptionHandlerClassName\" type \"java.lang.String\" value \"\" INVALID, "
+                        + "must be a non-blank string containing full class name " + "of the reception handler"));
     }
 
     @Test
     public void testReceptionHandlerParameters_EmptyPluginHandler() {
         final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(true);
-        final PssdConfigurationParametersGroup pssdConfiguration = commonTestData
-                        .getPssdConfigurationParametersGroup(false);
         final ReceptionHandlerParameters rHParameters = new ReceptionHandlerParameters(
-                        CommonTestData.RECEPTION_HANDLER_TYPE, CommonTestData.RECEPTION_HANDLER_CLASS_NAME,
-                        pssdConfiguration, pHParameters);
+                CommonTestData.RECEPTION_HANDLER_TYPE, CommonTestData.RECEPTION_HANDLER_CLASS_NAME,
+                CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
         GroupValidationResult result = rHParameters.validate();
         assertFalse(result.isValid());
         assertTrue(result.getResult().endsWith("must have at least one policy forwarder\n"));
@@ -143,16 +136,16 @@ public class TestReceptionHandlerParameters {
     @Test
     public void testReceptionHandlerParameters_InvalidReceptionHandlerClass() {
         final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
-        final PssdConfigurationParametersGroup pssdConfiguration = commonTestData
-                        .getPssdConfigurationParametersGroup(false);
+
         final ReceptionHandlerParameters rHParameters = new ReceptionHandlerParameters(
-                        CommonTestData.RECEPTION_HANDLER_TYPE, CommonTestData.RECEPTION_HANDLER_CLASS_NAME + "Invalid",
-                        pssdConfiguration, pHParameters);
+                CommonTestData.RECEPTION_HANDLER_TYPE, CommonTestData.RECEPTION_HANDLER_CLASS_NAME + "Invalid",
+                CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
         final GroupValidationResult validationResult = rHParameters.validate();
         assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, rHParameters.getReceptionHandlerType());
         assertEquals(CommonTestData.RECEPTION_HANDLER_CLASS_NAME + "Invalid",
-                        rHParameters.getReceptionHandlerClassName());
-        assertEquals(pssdConfiguration, rHParameters.getPssdConfigurationParametersGroup());
+                rHParameters.getReceptionHandlerClassName());
+        assertEquals(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS,
+                rHParameters.getReceptionHandlerConfigurationName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult().contains("reception handler class not found in classpath"));
