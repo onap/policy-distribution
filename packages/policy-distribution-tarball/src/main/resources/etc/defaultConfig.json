@@ -1,0 +1,69 @@
+{
+    "name":"SDCDistributionGroup",
+    "restServerParameters":{
+        "host":"0.0.0.0",
+        "port":6969,
+        "userName":"healthcheck",
+        "password":"zb!XztG34"
+    },
+    "receptionHandlerParameters":{
+        "SDCReceptionHandler":{
+            "receptionHandlerType":"SDC",
+            "receptionHandlerClassName":"org.onap.policy.distribution.reception.handling.sdc.SdcReceptionHandler",
+            "pssdConfiguration":{
+                "asdcAddress": "localhost",
+                "messageBusAddress": [
+                    "a.com",
+                    "b.com",
+                    "c.com"
+                 ],
+                "user": "tbdsdc-1480",
+                "password": "tbdsdc-1480",
+                "pollingInterval":20,
+                "pollingTimeout":30,
+                "consumerId": "policy-id",
+                "artifactTypes": [
+                    "TOSCA_CSAR",
+                    "HEAT"
+                ],
+                "consumerGroup": "policy-group",
+                "environmentName": "environmentName",
+                "keystorePath": "null",
+                "keystorePassword": "null",
+                "activeserverTlsAuth": false,
+                "isFilterinEmptyResources": true,
+                "isUseHttpsWithDmaap": false
+            },
+            "pluginHandlerParameters":{
+                "policyDecoders":{
+                    "TOSCADecoder":{
+                        "decoderType":"ToscaDecoder",
+                        "decoderClassName":"org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderToscaPdpx"
+                    }
+                },
+                "policyForwarders":{
+                    "PAPEngineForwarder":{
+                        "forwarderType":"PAPEngine",
+                        "forwarderClassName":"org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarder",
+                        "forwarderConfigurationName": "xacmlPdpConfiguration"
+                    }
+                }
+            }
+        }
+    },
+    "policyForwarderConfigurationParameters":{
+        "xacmlPdpConfiguration":{
+            "parameterClassName":"org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarderParameterGroup",
+            "parameters":{
+                "useHttps": false,
+                "hostname": "pdp",
+                "port": 8081,
+                "userName": "testpdp",
+                "password": "alpha123",
+                "clientAuth": "cHl0aG9uOnRlc3Q=",
+                "isManaged": true,
+                "pdpGroup": "pdpGroup"
+            }
+        }
+    }
+}

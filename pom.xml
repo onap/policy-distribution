@@ -54,6 +54,7 @@
         <module>reception</module>
         <module>forwarding</module>
         <module>plugins</module>
+	<module>packages</module>
     </modules>
 
     <dependencies>
