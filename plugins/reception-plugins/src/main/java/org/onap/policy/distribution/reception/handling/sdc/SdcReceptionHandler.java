@@ -20,14 +20,26 @@
 
 package org.onap.policy.distribution.reception.handling.sdc;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.decoding.PluginTerminationException;
+import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
+import org.onap.policy.distribution.reception.handling.sdc.exceptions.ArtifactDownloadException;
 import org.onap.policy.distribution.reception.parameters.PssdConfigurationParametersGroup;
 import org.onap.sdc.api.IDistributionClient;
+import org.onap.sdc.api.notification.IArtifactInfo;
+import org.onap.sdc.api.notification.INotificationData;
+import org.onap.sdc.api.results.IDistributionClientDownloadResult;
 import org.onap.sdc.api.results.IDistributionClientResult;
 import org.onap.sdc.impl.DistributionClientFactory;
 import org.onap.sdc.utils.DistributionActionResultEnum;
@@ -38,9 +50,12 @@ import org.onap.sdc.utils.DistributionActionResultEnum;
 public class SdcReceptionHandler extends AbstractReceptionHandler {
 
     private static final Logger LOGGER = FlexLogger.getLogger(SdcReceptionHandler.class);
+    private static final String POLICY_DISTRIBUTION_ARTIFACTS_PATH = "/tmp/policy/distribution/artifacts/";
+
     private SdcReceptionHandlerStatus sdcReceptionHandlerStatus = SdcReceptionHandlerStatus.STOPPED;
     private PssdConfigurationParametersGroup handlerParameters;
     private IDistributionClient distributionClient;
+    private SdcConfiguration sdcConfig;
     private volatile int nbOfNotificationsOngoing = 0;
 
     @Override
@@ -117,10 +132,10 @@ public class SdcReceptionHandler extends AbstractReceptionHandler {
             LOGGER.error(message);
             throw new PluginInitializationException(message);
         }
-        final SdcConfiguration sdcConfig = new SdcConfiguration(handlerParameters);
+        sdcConfig = new SdcConfiguration(handlerParameters);
         distributionClient = createSdcDistributionClient();
         final IDistributionClientResult clientResult =
-                distributionClient.init(sdcConfig, new SdcNotificationCallBack());
+                distributionClient.init(sdcConfig, new SdcNotificationCallBack(this));
         if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
             changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.STOPPED);
             final String message =
@@ -150,5 +165,84 @@ public class SdcReceptionHandler extends AbstractReceptionHandler {
         }
         LOGGER.debug("SDC Client is started successfully");
         this.changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.IDLE);
+    }
+
+    /**
+     * Method to process csar service artifacts from incoming SDC notification.
+     *
+     * @param iNotif the notification from SDC
+     */
+    protected void processCsarServiceArtifacts(final INotificationData iNotif) {
+        Csar csarObject;
+        String filePath;
+        boolean processStatus = true;
+
+        changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.BUSY);
+
+        for (final IArtifactInfo artifact : iNotif.getServiceArtifacts()) {
+            if (sdcConfig.getRelevantArtifactTypes().contains(artifact.getArtifactType())) {
+                try {
+                    final IDistributionClientDownloadResult resultArtifact =
+                            downloadTheArtifact(artifact, iNotif.getDistributionID());
+                    filePath = writeArtifactToFile(artifact, resultArtifact);
+                    csarObject = new Csar(filePath);
+                    inputReceived(csarObject);
+                    // send deploy success status to sdc
+                } catch (final ArtifactDownloadException | PolicyDecodingException exp) {
+                    LOGGER.error("Failed to process csar service artifacts ", exp);
+                    processStatus = false;
+                    // send deploy failed status to sdc
+                }
+            }
+        }
+        if (processStatus) {
+            // send final distribution success status to sdc
+        } else {
+            // send final distribution failed status to sdc
+        }
+        changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.IDLE);
+    }
+
+    private IDistributionClientDownloadResult downloadTheArtifact(final IArtifactInfo artifact,
+            final String distributionId) throws ArtifactDownloadException {
+
+        final IDistributionClientDownloadResult downloadResult = distributionClient.download(artifact);
+        if (!downloadResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
+            final String message = "Failed to download artifact with name: " + artifact.getArtifactName();
+            LOGGER.error(message);
+            // send failure download status to sdc
+            throw new ArtifactDownloadException(message);
+        }
+        // send success download status to sdc
+        return downloadResult;
+    }
+
+    private String writeArtifactToFile(final IArtifactInfo artifact,
+            final IDistributionClientDownloadResult resultArtifact) throws ArtifactDownloadException {
+
+        final byte[] payloadBytes = resultArtifact.getArtifactPayload();
+        createDirectories();
+        final String filePath = POLICY_DISTRIBUTION_ARTIFACTS_PATH + artifact.getArtifactName();
+        try (FileOutputStream outFile = new FileOutputStream(filePath)) {
+            outFile.write(payloadBytes, 0, payloadBytes.length);
+        } catch (final Exception exp) {
+            final String message = "Failed to write artifact to local repository";
+            LOGGER.error(message, exp);
+            throw new ArtifactDownloadException(message, exp);
+        }
+        return filePath;
+    }
+
+    private void createDirectories() throws ArtifactDownloadException {
+        final Path path = Paths.get(POLICY_DISTRIBUTION_ARTIFACTS_PATH);
+        if (!Files.exists(path)) {
+            try {
+                Files.createDirectories(path);
+            } catch (final IOException exp) {
+                final String message = "Failed to create directories for local repository";
+                LOGGER.error(message, exp);
+                throw new ArtifactDownloadException(message, exp);
+            }
+        }
     }
 }

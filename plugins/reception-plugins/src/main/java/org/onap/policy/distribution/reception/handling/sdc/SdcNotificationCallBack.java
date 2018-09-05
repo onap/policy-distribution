@@ -35,11 +35,16 @@ public class SdcNotificationCallBack implements INotificationCallback {
 
     private static final Logger LOGGER = FlexLogger.getLogger(SdcNotificationCallBack.class);
 
-    @Override
-    public void activateCallback(final INotificationData notificationData) {
+    private SdcReceptionHandler sdcReceptionHandler;
 
-        LOGGER.debug("Got the message from SDC:" + notificationData.getDistributionID());
-        // Code for handling notification will come here
+    public SdcNotificationCallBack(final SdcReceptionHandler sdcReceptionHandler) {
+        this.sdcReceptionHandler = sdcReceptionHandler;
     }
 
+    @Override
+    public void activateCallback(final INotificationData notificationData) {
+        LOGGER.debug("Receieved the notification from SDC with ID: " + notificationData.getDistributionID());
+        sdcReceptionHandler.processCsarServiceArtifacts(notificationData);
+        LOGGER.debug("Processed the notification from SDC with ID: " + notificationData.getDistributionID());
+    }
 }
