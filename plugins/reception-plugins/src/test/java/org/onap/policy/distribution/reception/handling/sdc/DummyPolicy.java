@@ -20,26 +20,43 @@
 
 package org.onap.policy.distribution.reception.handling.sdc;
 
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
-import org.onap.sdc.api.consumer.INotificationCallback;
-import org.onap.sdc.api.notification.INotificationData;
+import org.onap.policy.distribution.model.Policy;
 
 /**
- * Class to provide an implementation of INotificationCallback interface for receiving the incoming distribution
- * notifications from SDC.
+ * Class to create a dummy policy for test cases.
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class SdcNotificationCallBack implements INotificationCallback {
+public class DummyPolicy implements Policy {
 
-    private static final Logger LOGGER = FlexLogger.getLogger(SdcNotificationCallBack.class);
+    private String policyName;
+    private String policyType;
 
-    @Override
-    public void activateCallback(final INotificationData notificationData) {
-
-        LOGGER.debug("Got the message from SDC:" + notificationData.getDistributionID());
-        // Code for handling notification will come here
+    /**
+     * Constructor for instantiating {@link DummyPolicy} class.
+     *
+     * @param policyName the policy name
+     * @param policyType the policy type
+     */
+    public DummyPolicy(final String policyName, final String policyType) {
+        super();
+        this.policyName = policyName;
+        this.policyType = policyType;
     }
 
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public String getPolicyName() {
+        return policyName;
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public String getPolicyType() {
+        return policyType;
+    }
 }
