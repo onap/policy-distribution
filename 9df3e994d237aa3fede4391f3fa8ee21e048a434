@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_363952f2",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcNotificationCallBack.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-06T18:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_7b01f303",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 71
+      },
+      "revId": "9df3e994d237aa3fede4391f3fa8ee21e048a434",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_3b07fb19",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-05T23:10:25Z",
       "side": 1,
       "message": "no need to define these here, define where they are initialized",
+      "range": {
+        "startLine": 175,
+        "startChar": 7,
+        "endLine": 176,
+        "endChar": 24
+      },
+      "revId": "9df3e994d237aa3fede4391f3fa8ee21e048a434",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_162456c3",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-06T18:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_3b07fb19",
       "range": {
         "startLine": 175,
         "startChar": 7,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_41a3eaff",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-06T18:54:32Z",
+      "side": 1,
+      "message": "This is more of a safety net to filter only the policy relevant artifacts for further processing. I agree that we are giving this to SDC during initialization but not sure how they use it. Removing the check for now and hoping for the best from SDC :)",
+      "parentUuid": "1a76adc5_9b064f1c",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 92
+      },
+      "revId": "9df3e994d237aa3fede4391f3fa8ee21e048a434",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_90894e77",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-09-05T19:43:14Z",
       "side": 1,
       "message": "Of course this will only work for the period since the distributor component was started. It\u0027s fine for now but maybe we should open a Jira to check if we should have some persistence here or whether we forward the artifacts regardless and let the entitites at the end of the reception chain worry about duplicates.",
+      "range": {
+        "startLine": 184,
+        "startChar": 51,
+        "endLine": 184,
+        "endChar": 79
+      },
+      "revId": "9df3e994d237aa3fede4391f3fa8ee21e048a434",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_417a0a78",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-06T18:54:32Z",
+      "side": 1,
+      "message": "Removing the check for now as we are not sure of the behavior of all the recipients. Will raise a JIRA for the same and we will discuss more and fix it as part of that later.",
+      "parentUuid": "1a76adc5_90894e77",
       "range": {
         "startLine": 184,
         "startChar": 51,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_61a866db",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-06T18:54:32Z",
+      "side": 1,
+      "message": "Added code for deleting the file after processing.",
+      "parentUuid": "1a76adc5_9b2def97",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 107
+      },
+      "revId": "9df3e994d237aa3fede4391f3fa8ee21e048a434",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_1b39dfd6",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2018-09-05T23:10:25Z",
       "side": 1,
       "message": "rename \u0027processStatus\u0027  to \u0027artifactsProcessedSuccessfully\u0027 - the if statement will read better",
+      "range": {
+        "startLine": 203,
+        "startChar": 12,
+        "endLine": 203,
+        "endChar": 25
+      },
+      "revId": "9df3e994d237aa3fede4391f3fa8ee21e048a434",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_019892be",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-06T18:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_1b39dfd6",
       "range": {
         "startLine": 203,
         "startChar": 12,
@@ -187,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_41f1aaff",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-06T18:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_5b12f709",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 41
+      },
+      "revId": "9df3e994d237aa3fede4391f3fa8ee21e048a434",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_9b7baf8b",
         "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/TestSdcReceptionHandler.java",
         "patchSetId": 2
@@ -198,6 +366,30 @@
       "writtenOn": "2018-09-05T23:10:25Z",
       "side": 1,
       "message": "there is no verification that this method has done anything",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 69
+      },
+      "revId": "9df3e994d237aa3fede4391f3fa8ee21e048a434",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f0dbdd79",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/TestSdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-06T18:54:32Z",
+      "side": 1,
+      "message": "Created new test with DummyDecoder, DummyForwarder, DummyPolicy implementations and required assertions.",
+      "parentUuid": "1a76adc5_9b7baf8b",
       "range": {
         "startLine": 194,
         "startChar": 0,
