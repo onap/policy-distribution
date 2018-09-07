@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_5f65fa1b",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-07T15:53:06Z",
+      "side": 1,
+      "message": "We are already giving relevantArtifacts list to SDC during initialization. So ideally SDC should only send us the notification for those artifacts. Hence no need to check here.\nInfact the check was removed in the last patch :)",
+      "parentUuid": "1a76adc5_bfd52ee6",
+      "revId": "905324b15dd1a3e80397d514aa22873703d8f239",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_1ffc6271",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2018-09-07T15:28:49Z",
       "side": 1,
       "message": "could we keep the downloaded csar? in order to further debug.",
+      "revId": "905324b15dd1a3e80397d514aa22873703d8f239",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_bf8d2ed5",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-07T15:53:06Z",
+      "side": 1,
+      "message": "I am deleting it after all processing of csar is done and it has reached the receiving entity which for us is pdp. Hence, don\u0027t find any reason for keeping it which will lead to other issues like disk full, purge etc. And for debugging, we have enough loggers in the file to trace the call flow.",
+      "parentUuid": "1a76adc5_1ffc6271",
       "revId": "905324b15dd1a3e80397d514aa22873703d8f239",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
