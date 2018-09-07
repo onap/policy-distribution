@@ -36,6 +36,8 @@ import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
 import org.onap.policy.distribution.reception.handling.sdc.exceptions.ArtifactDownloadException;
 import org.onap.sdc.api.IDistributionClient;
+import org.onap.sdc.api.consumer.IComponentDoneStatusMessage;
+import org.onap.sdc.api.consumer.IDistributionStatusMessage;
 import org.onap.sdc.api.consumer.INotificationCallback;
 import org.onap.sdc.api.notification.IArtifactInfo;
 import org.onap.sdc.api.notification.INotificationData;
@@ -43,6 +45,7 @@ import org.onap.sdc.api.results.IDistributionClientDownloadResult;
 import org.onap.sdc.api.results.IDistributionClientResult;
 import org.onap.sdc.impl.DistributionClientFactory;
 import org.onap.sdc.utils.DistributionActionResultEnum;
+import org.onap.sdc.utils.DistributionStatusEnum;
 
 /**
  * Handles reception of inputs from ONAP Service Design and Creation (SDC) from which policies may be decoded.
@@ -54,7 +57,12 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
     private SdcReceptionHandlerStatus sdcReceptionHandlerStatus = SdcReceptionHandlerStatus.STOPPED;
     private SdcReceptionHandlerConfigurationParameterGroup handlerParameters;
     private IDistributionClient distributionClient;
+    private SdcConfiguration sdcConfig;
     private volatile int nbOfNotificationsOngoing = 0;
+
+    private enum DistributionStatusType {
+        DOWNLOAD, DEPLOY
+    }
 
     @Override
     protected void initializeReception(final String parameterGroupName) throws PluginInitializationException {
@@ -62,9 +70,6 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
         initializeSdcClient();
         startSdcClient();
     }
-
-    // Add functionality for receiving SDC distibutions and invoking AbstractReceptionHandler
-    // inputReceived()
 
     @Override
     public void destroy() throws PluginTerminationException {
@@ -96,7 +101,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
      *
      * @param newStatus the new status
      */
-    private synchronized final void changeSdcReceptionHandlerStatus(final SdcReceptionHandlerStatus newStatus) {
+    private final synchronized void changeSdcReceptionHandlerStatus(final SdcReceptionHandlerStatus newStatus) {
         switch (newStatus) {
             case INIT:
             case STOPPED:
@@ -139,7 +144,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
             LOGGER.error(message);
             throw new PluginInitializationException(message);
         }
-        final SdcConfiguration sdcConfig = new SdcConfiguration(handlerParameters);
+        sdcConfig = new SdcConfiguration(handlerParameters);
         distributionClient = createSdcDistributionClient();
         final IDistributionClientResult clientResult = distributionClient.init(sdcConfig, this);
         if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
@@ -176,29 +181,35 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
     /**
      * Method to process csar service artifacts from incoming SDC notification.
      *
-     * @param iNotif the notification from SDC
+     * @param notificationData the notification from SDC
      */
-    public void processCsarServiceArtifacts(final INotificationData iNotif) {
+    public void processCsarServiceArtifacts(final INotificationData notificationData) {
         boolean artifactsProcessedSuccessfully = true;
 
-        for (final IArtifactInfo artifact : iNotif.getServiceArtifacts()) {
+        for (final IArtifactInfo artifact : notificationData.getServiceArtifacts()) {
             try {
-                final IDistributionClientDownloadResult resultArtifact = downloadTheArtifact(artifact);
+                final IDistributionClientDownloadResult resultArtifact =
+                        downloadTheArtifact(artifact, notificationData);
                 final Path filePath = writeArtifactToFile(artifact, resultArtifact);
                 final Csar csarObject = new Csar(filePath.toString());
                 inputReceived(csarObject);
-                // send deploy success status to sdc
+                sendDistributionStatus(DistributionStatusType.DEPLOY, artifact.getArtifactURL(),
+                        notificationData.getDistributionID(), DistributionStatusEnum.DEPLOY_OK, null);
                 deleteArtifactFile(filePath);
             } catch (final ArtifactDownloadException | PolicyDecodingException exp) {
                 LOGGER.error("Failed to process csar service artifacts ", exp);
                 artifactsProcessedSuccessfully = false;
-                // send deploy failed status to sdc
+                sendDistributionStatus(DistributionStatusType.DEPLOY, artifact.getArtifactURL(),
+                        notificationData.getDistributionID(), DistributionStatusEnum.DEPLOY_ERROR,
+                        "Failed to deploy the artifact due to: " + exp.getMessage());
             }
         }
         if (artifactsProcessedSuccessfully) {
-            // send final distribution success status to sdc
+            sendComponentDoneStatus(notificationData.getDistributionID(), DistributionStatusEnum.COMPONENT_DONE_OK,
+                    null);
         } else {
-            // send final distribution failed status to sdc
+            sendComponentDoneStatus(notificationData.getDistributionID(), DistributionStatusEnum.COMPONENT_DONE_ERROR,
+                    "Failed to process the artifact");
         }
     }
 
@@ -209,17 +220,20 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
      * @return the download result
      * @throws ArtifactDownloadException if download fails
      */
-    private IDistributionClientDownloadResult downloadTheArtifact(final IArtifactInfo artifact)
-            throws ArtifactDownloadException {
+    private IDistributionClientDownloadResult downloadTheArtifact(final IArtifactInfo artifact,
+            final INotificationData notificationData) throws ArtifactDownloadException {
 
         final IDistributionClientDownloadResult downloadResult = distributionClient.download(artifact);
         if (!downloadResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
-            final String message = "Failed to download artifact with name: " + artifact.getArtifactName();
+            final String message = "Failed to download artifact with name: " + artifact.getArtifactName() + " due to: "
+                    + downloadResult.getDistributionMessageResult();
             LOGGER.error(message);
-            // send failure download status to sdc
+            sendDistributionStatus(DistributionStatusType.DOWNLOAD, artifact.getArtifactURL(),
+                    notificationData.getDistributionID(), DistributionStatusEnum.DOWNLOAD_ERROR, message);
             throw new ArtifactDownloadException(message);
         }
-        // send success download status to sdc
+        sendDistributionStatus(DistributionStatusType.DOWNLOAD, artifact.getArtifactURL(),
+                notificationData.getDistributionID(), DistributionStatusEnum.DOWNLOAD_OK, null);
         return downloadResult;
     }
 
@@ -257,6 +271,90 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
             Files.deleteIfExists(filePath);
         } catch (final IOException exp) {
             LOGGER.error("Failed to delete the downloaded artifact file", exp);
+        }
+    }
+
+    /**
+     * Sends the distribution status to SDC using the input values.
+     *
+     * @param statusType the status type
+     * @param artifactUrl the artifact url
+     * @param distributionId the distribution id
+     * @param status the status
+     * @param errorReason the error reason
+     */
+    private void sendDistributionStatus(final DistributionStatusType statusType, final String artifactUrl,
+            final String distributionId, final DistributionStatusEnum status, final String errorReason) {
+
+        IDistributionClientResult clientResult = null;
+        final DistributionStatusMessageBuilder messageBuilder = new DistributionStatusMessageBuilder()
+                .setArtifactUrl(artifactUrl).setConsumerId(sdcConfig.getConsumerID()).setDistributionId(distributionId)
+                .setDistributionStatus(status).setTimestamp(System.currentTimeMillis());
+        final IDistributionStatusMessage message = new DistributionStatusMessage(messageBuilder);
+        switch (statusType) {
+            case DOWNLOAD:
+                if (errorReason != null) {
+                    clientResult = distributionClient.sendDownloadStatus(message, errorReason);
+                } else {
+                    clientResult = distributionClient.sendDownloadStatus(message);
+                }
+                break;
+            case DEPLOY:
+                if (errorReason != null) {
+                    clientResult = distributionClient.sendDeploymentStatus(message, errorReason);
+                } else {
+                    clientResult = distributionClient.sendDeploymentStatus(message);
+                }
+        }
+
+        final StringBuilder loggerMessage = new StringBuilder();
+        loggerMessage.append("distribution status to SDC with values - ").append("DistributionId")
+                .append(distributionId).append(" Artifact: ").append(artifactUrl).append(" StatusType: ")
+                .append(statusType.name()).append(" Status: ").append(status.name());
+        if (errorReason != null) {
+            loggerMessage.append(" ErrorReason: ").append(errorReason);
+        }
+        if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
+            loggerMessage.insert(0, "Failed sending ");
+            LOGGER.debug(loggerMessage);
+        } else {
+            loggerMessage.insert(0, "Successfully Sent ");
+            LOGGER.debug(loggerMessage);
+        }
+    }
+
+    /**
+     * Sends the component done status to SDC using the input values.
+     *
+     * @param distributionId the distribution Id
+     * @param status the distribution status
+     * @param errorReason the error reason
+     */
+    private void sendComponentDoneStatus(final String distributionId, final DistributionStatusEnum status,
+            final String errorReason) {
+        IDistributionClientResult clientResult = null;
+        final ComponentDoneStatusMessageBuilder messageBuilder = new ComponentDoneStatusMessageBuilder()
+                .setConsumerId(sdcConfig.getConsumerID()).setDistributionId(distributionId)
+                .setDistributionStatus(status).setTimestamp(System.currentTimeMillis());
+        final IComponentDoneStatusMessage message = new ComponentDoneStatusMessage(messageBuilder);
+        if (errorReason == null) {
+            clientResult = distributionClient.sendComponentDoneStatus(message);
+        } else {
+            clientResult = distributionClient.sendComponentDoneStatus(message, errorReason);
+        }
+
+        final StringBuilder loggerMessage = new StringBuilder();
+        loggerMessage.append("component done status to SDC with values - ").append("DistributionId")
+                .append(distributionId).append(" Status: ").append(status.name());
+        if (errorReason != null) {
+            loggerMessage.append(" ErrorReason: ").append(errorReason);
+        }
+        if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
+            loggerMessage.insert(0, "Failed sending ");
+            LOGGER.debug(loggerMessage);
+        } else {
+            loggerMessage.insert(0, "Successfully Sent ");
+            LOGGER.debug(loggerMessage);
         }
     }
 }
