@@ -45,17 +45,17 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
     private List<String> artifactTypes;
     private String consumerGroup;
     private String environmentName;
-    private String keystorePath;
-    private String keystorePassword;
-    private boolean activeserverTlsAuth;
-    private boolean isFilterinEmptyResources;
-    private Boolean isUseHttpsWithDmaap;
+    private String keyStorePath;
+    private String keyStorePassword;
+    private boolean activeServerTlsAuth;
+    private boolean isFilterInEmptyResources;
+    private boolean isUseHttpsWithDmaap;
 
     /**
      * Inner static class is to used as a Builder.
      *
      */
-    public static class PssdConfigurationBuilder {
+    public static class SdcConfigurationBuilder {
         private String asdcAddress;
         private List<String> messageBusAddress;
         private String user;
@@ -72,77 +72,77 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
         private boolean isFilterinEmptyResources;
         private Boolean isUseHttpsWithDmaap;
 
-        public PssdConfigurationBuilder setAsdcAddress(final String val) {
+        public SdcConfigurationBuilder setAsdcAddress(final String val) {
             asdcAddress = val;
             return this;
         }
 
-        public PssdConfigurationBuilder setMessageBusAddress(final List<String> val) {
+        public SdcConfigurationBuilder setMessageBusAddress(final List<String> val) {
             messageBusAddress = val;
             return this;
         }
 
-        public PssdConfigurationBuilder setUser(final String val) {
+        public SdcConfigurationBuilder setUser(final String val) {
             user = val;
             return this;
         }
 
-        public PssdConfigurationBuilder setPassword(final String val) {
+        public SdcConfigurationBuilder setPassword(final String val) {
             password = val;
             return this;
         }
 
-        public PssdConfigurationBuilder setPollingInterval(final int val) {
+        public SdcConfigurationBuilder setPollingInterval(final int val) {
             pollingInterval = val;
             return this;
         }
 
-        public PssdConfigurationBuilder setPollingTimeout(final int val) {
+        public SdcConfigurationBuilder setPollingTimeout(final int val) {
             pollingTimeout = val;
             return this;
         }
 
-        public PssdConfigurationBuilder setConsumerId(final String val) {
+        public SdcConfigurationBuilder setConsumerId(final String val) {
             consumerId = val;
             return this;
         }
 
-        public PssdConfigurationBuilder setArtifactTypes(final List<String> val) {
+        public SdcConfigurationBuilder setArtifactTypes(final List<String> val) {
             artifactTypes = val;
             return this;
         }
 
-        public PssdConfigurationBuilder setConsumerGroup(final String val) {
+        public SdcConfigurationBuilder setConsumerGroup(final String val) {
             consumerGroup = val;
             return this;
         }
 
-        public PssdConfigurationBuilder setEnvironmentName(final String val) {
+        public SdcConfigurationBuilder setEnvironmentName(final String val) {
             environmentName = val;
             return this;
         }
 
-        public PssdConfigurationBuilder setKeystorePath(final String val) {
+        public SdcConfigurationBuilder setKeystorePath(final String val) {
             keystorePath = val;
             return this;
         }
 
-        public PssdConfigurationBuilder setKeystorePassword(final String val) {
+        public SdcConfigurationBuilder setKeystorePassword(final String val) {
             keystorePassword = val;
             return this;
         }
 
-        public PssdConfigurationBuilder setActiveserverTlsAuth(final boolean val) {
+        public SdcConfigurationBuilder setActiveserverTlsAuth(final boolean val) {
             activeserverTlsAuth = val;
             return this;
         }
 
-        public PssdConfigurationBuilder setIsFilterinEmptyResources(final boolean val) {
+        public SdcConfigurationBuilder setIsFilterinEmptyResources(final boolean val) {
             isFilterinEmptyResources = val;
             return this;
         }
 
-        public PssdConfigurationBuilder setIsUseHttpsWithDmaap(final Boolean val) {
+        public SdcConfigurationBuilder setIsUseHttpsWithDmaap(final Boolean val) {
             isUseHttpsWithDmaap = val;
             return this;
         }
@@ -161,7 +161,7 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
      *
      * @param builder stores all the values used by PssdConfigurationParametersGroup
      */
-    private SdcReceptionHandlerConfigurationParameterGroup(final PssdConfigurationBuilder builder) {
+    private SdcReceptionHandlerConfigurationParameterGroup(final SdcConfigurationBuilder builder) {
         asdcAddress = builder.asdcAddress;
         messageBusAddress = builder.messageBusAddress;
         user = builder.user;
@@ -172,10 +172,10 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
         artifactTypes = builder.artifactTypes;
         consumerGroup = builder.consumerGroup;
         environmentName = builder.environmentName;
-        keystorePath = builder.keystorePath;
-        keystorePassword = builder.keystorePassword;
-        activeserverTlsAuth = builder.activeserverTlsAuth;
-        isFilterinEmptyResources = builder.isFilterinEmptyResources;
+        keyStorePath = builder.keystorePath;
+        keyStorePassword = builder.keystorePassword;
+        activeServerTlsAuth = builder.activeserverTlsAuth;
+        isFilterInEmptyResources = builder.isFilterinEmptyResources;
         isUseHttpsWithDmaap = builder.isUseHttpsWithDmaap;
 
     }
@@ -184,7 +184,7 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
         return asdcAddress;
     }
 
-    public List<String> getMsgBusAddress() {
+    public List<String> getMessageBusAddress() {
         return messageBusAddress;
     }
 
@@ -204,7 +204,7 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
         return pollingTimeout;
     }
 
-    public String getConsumerID() {
+    public String getConsumerId() {
         return consumerId;
     }
 
@@ -221,22 +221,22 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
     }
 
     public String getKeyStorePassword() {
-        return keystorePassword;
+        return keyStorePassword;
+    }
+
+    public boolean isActiveServerTlsAuth() {
+        return activeServerTlsAuth;
     }
 
     public String getKeyStorePath() {
-        return keystorePath;
-    }
-
-    public boolean activateServerTLSAuth() {
-        return activeserverTlsAuth;
+        return keyStorePath;
     }
 
     public boolean isFilterInEmptyResources() {
-        return isFilterinEmptyResources;
+        return isFilterInEmptyResources;
     }
 
-    public Boolean isUseHttpsWithDmaap() {
+    public boolean isUseHttpsWithDmaap() {
         return isUseHttpsWithDmaap;
     }
 
@@ -269,8 +269,8 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
         validateStringElement(validationResult, user, "user");
         validateStringElement(validationResult, consumerId, "consumerId");
         validateStringElement(validationResult, consumerGroup, "consumerGroup");
-        validateStringElement(validationResult, keystorePath, "keystorePath");
-        validateStringElement(validationResult, keystorePassword, "keystorePassword");
+        validateStringElement(validationResult, keyStorePath, "keyStorePath");
+        validateStringElement(validationResult, keyStorePassword, "keyStorePassword");
         validateIntElement(validationResult, pollingInterval, "pollingInterval");
         validateIntElement(validationResult, pollingTimeout, "pollingTimeout");
         validateStringListElement(validationResult, messageBusAddress, "messageBusAddress");

@@ -87,7 +87,7 @@ public class TestDistributionParameterGroup {
         assertEquals(CommonTestData.MY_BOOLEAN_PARAMETER_VALUE,
                 ((DummyReceptionHandlerParameterGroup) distributionParameters
                         .getReceptionHandlerConfigurationParameters()
-                        .get(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS)).getMyBooleanParameter());
+                        .get(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS)).isMyBooleanParameter());
         assertEquals(CommonTestData.FORWARDER_HOST,
                 ((DummyPolicyForwarderParameterGroup) distributionParameters.getPolicyForwarderConfigurationParameters()
                         .get(CommonTestData.FORWARDER_CONFIGURATION_PARAMETERS)).getHostname());
