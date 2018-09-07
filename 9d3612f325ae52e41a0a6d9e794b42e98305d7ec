@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_44ea13ad",
+        "filename": "packages/policy-distribution-tarball/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-07T12:56:42Z",
+      "side": 0,
+      "message": "This is not needed in this project, it causes an error in my eclipse.",
+      "range": {
+        "startLine": 88,
+        "startChar": 5,
+        "endLine": 88,
+        "endChar": 13
+      },
+      "revId": "9d3612f325ae52e41a0a6d9e794b42e98305d7ec",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
