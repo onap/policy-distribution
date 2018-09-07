@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_bfd52ee6",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-07T15:28:49Z",
+      "side": 1,
+      "message": "here need add judgement, since currently we care about the VNFD, instead of all artifacts, so suppose only need download the TOSCA_CSAR",
+      "revId": "905324b15dd1a3e80397d514aa22873703d8f239",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_1ffc6271",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-07T15:28:49Z",
+      "side": 1,
+      "message": "could we keep the downloaded csar? in order to further debug.",
+      "revId": "905324b15dd1a3e80397d514aa22873703d8f239",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
