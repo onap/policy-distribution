@@ -81,7 +81,7 @@ public class DummyReceptionHandlerParameterGroup extends ReceptionHandlerConfigu
         return myIntegerParameter;
     }
 
-    public boolean getMyBooleanParameter() {
+    public boolean isMyBooleanParameter() {
         return myBooleanParameter;
     }
 

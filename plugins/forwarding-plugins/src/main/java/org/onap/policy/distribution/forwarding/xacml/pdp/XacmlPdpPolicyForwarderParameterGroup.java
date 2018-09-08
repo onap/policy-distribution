@@ -29,7 +29,6 @@ import org.onap.policy.distribution.main.parameters.PolicyForwarderConfiguration
  * Holds the parameters for the{@link XacmlPdpPolicyForwarder}
  */
 public class XacmlPdpPolicyForwarderParameterGroup extends PolicyForwarderConfigurationParameterGroup {
-
     public static final String POLICY_FORWARDER_PLUGIN_CLASS = XacmlPdpPolicyForwarder.class.getCanonicalName();
 
     private boolean useHttps;

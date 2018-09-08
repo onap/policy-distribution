@@ -47,7 +47,7 @@ public class SdcConfiguration implements IConfiguration {
 
     @Override
     public List<String> getMsgBusAddress() {
-        return configParameters.getMsgBusAddress();
+        return configParameters.getMessageBusAddress();
     }
 
     @Override
@@ -87,7 +87,7 @@ public class SdcConfiguration implements IConfiguration {
 
     @Override
     public String getConsumerID() {
-        return configParameters.getConsumerID();
+        return configParameters.getConsumerId();
     }
 
     @Override
@@ -102,7 +102,7 @@ public class SdcConfiguration implements IConfiguration {
 
     @Override
     public boolean activateServerTLSAuth() {
-        return configParameters.activateServerTLSAuth();
+        return configParameters.isActiveServerTlsAuth();
     }
 
     @Override

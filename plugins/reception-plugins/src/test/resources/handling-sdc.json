@@ -17,10 +17,10 @@
     ],
     "consumerGroup": "policy-group",
     "environmentName": "TEST",
-    "keystorePath": "null",
-    "keystorePassword": "null",
-    "activeserverTlsAuth": false,
-    "isFilterinEmptyResources": true,
+    "keyStorePath": "null",
+    "keyStorePassword": "null",
+    "activeServerTlsAuth": false,
+    "isFilterInEmptyResources": true,
     "isUseHttpsWithDmaap": false
 }
 
