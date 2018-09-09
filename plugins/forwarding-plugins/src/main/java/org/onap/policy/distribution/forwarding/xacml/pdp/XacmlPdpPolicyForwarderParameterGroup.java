@@ -5,15 +5,15 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -26,7 +26,7 @@ import org.onap.policy.common.utils.validation.ParameterValidationUtils;
 import org.onap.policy.distribution.main.parameters.PolicyForwarderConfigurationParameterGroup;
 
 /**
- * Holds the parameters for the{@link XacmlPdpPolicyForwarder}
+ * Holds the parameters for the{@link XacmlPdpPolicyForwarder}.
  */
 public class XacmlPdpPolicyForwarderParameterGroup extends PolicyForwarderConfigurationParameterGroup {
     public static final String POLICY_FORWARDER_PLUGIN_CLASS = XacmlPdpPolicyForwarder.class.getCanonicalName();
@@ -39,6 +39,22 @@ public class XacmlPdpPolicyForwarderParameterGroup extends PolicyForwarderConfig
     private String clientAuth;
     private boolean isManaged;
     private String pdpGroup;
+
+    /**
+     * Construct an instance.
+     *
+     * @param builder the builder create the instance from
+     */
+    private XacmlPdpPolicyForwarderParameterGroup(final XacmlPdpPolicyForwarderParameterGroupBuilder builder) {
+        this.useHttps = builder.useHttps;
+        this.hostname = builder.hostname;
+        this.port = builder.port;
+        this.userName = builder.userName;
+        this.password = builder.password;
+        this.clientAuth = builder.clientAuth;
+        this.isManaged = builder.isManaged;
+        this.pdpGroup = builder.pdpGroup;
+    }
 
     public boolean isUseHttps() {
         return useHttps;
@@ -131,22 +147,6 @@ public class XacmlPdpPolicyForwarderParameterGroup extends PolicyForwarderConfig
         public XacmlPdpPolicyForwarderParameterGroup build() {
             return new XacmlPdpPolicyForwarderParameterGroup(this);
         }
-    }
-
-    /**
-     * Construct an instance
-     *
-     * @param builder the builder create the instance from
-     */
-    private XacmlPdpPolicyForwarderParameterGroup(final XacmlPdpPolicyForwarderParameterGroupBuilder builder) {
-        this.useHttps = builder.useHttps;
-        this.hostname = builder.hostname;
-        this.port = builder.port;
-        this.userName = builder.userName;
-        this.password = builder.password;
-        this.clientAuth = builder.clientAuth;
-        this.isManaged = builder.isManaged;
-        this.pdpGroup = builder.pdpGroup;
     }
 
     @Override

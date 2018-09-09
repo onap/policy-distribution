@@ -23,6 +23,7 @@ package org.onap.policy.distribution.reception.handling;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
@@ -52,7 +53,7 @@ public class PluginHandler {
      * @throws PluginInitializationException exception if it occurs
      */
     public PluginHandler(final String parameterGroupName) throws PluginInitializationException {
-        final PluginHandlerParameters params = (PluginHandlerParameters) ParameterService.get(parameterGroupName);
+        final PluginHandlerParameters params = ParameterService.get(parameterGroupName);
         initializePolicyDecoders(params.getPolicyDecoders());
         initializePolicyForwarders(params.getPolicyForwarders());
     }
@@ -113,7 +114,7 @@ public class PluginHandler {
             try {
                 final Class<PolicyForwarder> policyForwarderClass =
                         (Class<PolicyForwarder>) Class.forName(forwarderParameters.getForwarderClassName());
-                PolicyForwarder policyForwarder = policyForwarderClass.newInstance();
+                final PolicyForwarder policyForwarder = policyForwarderClass.newInstance();
                 policyForwarder.configure(forwarderParameters.getForwarderConfigurationName());
                 policyForwarders.add(policyForwarder);
             } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException exp) {

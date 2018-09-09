@@ -22,6 +22,7 @@ package org.onap.policy.distribution.reception.handling;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
@@ -35,10 +36,9 @@ import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
 /**
- * Base implementation of {@link ReceptionHandler}. All reception handlers should extend this base
- * class by implementing the {@link #initializeReception(String)} method to perform the specific
- * initialization required to receive inputs and by invoking {@link #inputReceived(PolicyInput)}
- * when the reception handler receives input.
+ * Base implementation of {@link ReceptionHandler}. All reception handlers should extend this base class by implementing
+ * the {@link #initializeReception(String)} method to perform the specific initialization required to receive inputs and
+ * by invoking {@link #inputReceived(PolicyInput)} when the reception handler receives input.
  */
 public abstract class AbstractReceptionHandler implements ReceptionHandler {
 
@@ -51,15 +51,14 @@ public abstract class AbstractReceptionHandler implements ReceptionHandler {
      */
     @Override
     public void initialize(final String parameterGroupName) throws PluginInitializationException {
-        final ReceptionHandlerParameters receptionHandlerParameters =
-                (ReceptionHandlerParameters) ParameterService.get(parameterGroupName);
+        final ReceptionHandlerParameters receptionHandlerParameters = ParameterService.get(parameterGroupName);
         pluginHandler = new PluginHandler(receptionHandlerParameters.getPluginHandlerParameters().getName());
         initializeReception(receptionHandlerParameters.getReceptionHandlerConfigurationName());
     }
 
     /**
-     * Sub classes must implement this method to perform the specific initialization required to
-     * receive inputs, for example setting up subscriptions.
+     * Sub classes must implement this method to perform the specific initialization required to receive inputs, for
+     * example setting up subscriptions.
      *
      * @param parameterGroupName the parameter group name
      * @throws PluginInitializationException if initialization of reception handler fails
@@ -67,13 +66,12 @@ public abstract class AbstractReceptionHandler implements ReceptionHandler {
     protected abstract void initializeReception(String parameterGroupName) throws PluginInitializationException;
 
     /**
-     * Handle input that has been received. The given input shall be decoded using the
-     * {@link PolicyDecoder}s configured for this reception handler and forwarded using the
-     * {@link PolicyForwarder}s configured for this reception handler.
+     * Handle input that has been received. The given input shall be decoded using the {@link PolicyDecoder}s configured
+     * for this reception handler and forwarded using the {@link PolicyForwarder}s configured for this reception
+     * handler.
      *
      * @param policyInput the input that has been received
-     * @throws PolicyDecodingException if an error occurs in decoding a policy from the received
-     *         input
+     * @throws PolicyDecodingException if an error occurs in decoding a policy from the received input
      */
     protected void inputReceived(final PolicyInput policyInput) throws PolicyDecodingException {
 
