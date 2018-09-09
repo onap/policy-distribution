@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_99472d77",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/ComponentDoneStatusMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-09T13:01:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_b5146fe9",
+      "range": {
+        "startLine": 46,
+        "startChar": 38,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "f11ca0b74b719bbec2ae4a7b94923f2cb231fed0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_55d5db19",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/DistributionStatusMessage.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-07T20:41:41Z",
       "side": 1,
       "message": "a lot of parameters for a constructor, maybe use Builder pattern?",
+      "range": {
+        "startLine": 49,
+        "startChar": 37,
+        "endLine": 50,
+        "endChar": 84
+      },
+      "revId": "f11ca0b74b719bbec2ae4a7b94923f2cb231fed0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_39605900",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/DistributionStatusMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-09T13:01:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_55d5db19",
       "range": {
         "startLine": 49,
         "startChar": 37,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_f97e61ae",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/DistributionStatusMessage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-09T13:01:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_9517f3ed",
+      "revId": "f11ca0b74b719bbec2ae4a7b94923f2cb231fed0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_35e05ff9",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
         "patchSetId": 1
@@ -76,6 +142,30 @@
       "writtenOn": "2018-09-07T20:41:41Z",
       "side": 1,
       "message": "Not final any more?",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 147,
+        "endChar": 17
+      },
+      "revId": "f11ca0b74b719bbec2ae4a7b94923f2cb231fed0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_597675d8",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-09T13:01:51Z",
+      "side": 1,
+      "message": "This object is created during initializing SDC client and used when we get the notification callback while sending status. And they are separate call flows. So we need to make this a class level field, to make it accessible for both call flows. And once you make it class level then you cannot have it final.\n\nIf you want then I can extract only consumerId from sdcConfig and make it a class level field. But in future if we need anymore parameters from sdcConfig then we will have to extract that as well. What do you say?",
+      "parentUuid": "1a76adc5_35e05ff9",
       "range": {
         "startLine": 147,
         "startChar": 8,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_397939c8",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-09T13:01:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_55bcfbdb",
+      "range": {
+        "startLine": 238,
+        "startChar": 91,
+        "endLine": 238,
+        "endChar": 116
+      },
+      "revId": "f11ca0b74b719bbec2ae4a7b94923f2cb231fed0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_f5e50709",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
         "patchSetId": 1
@@ -122,6 +236,30 @@
       "writtenOn": "2018-09-07T20:41:41Z",
       "side": 1,
       "message": "You don\u0027t need this parameter, you can just read the consumerId from the SDC configuration.",
+      "range": {
+        "startLine": 291,
+        "startChar": 12,
+        "endLine": 291,
+        "endChar": 35
+      },
+      "revId": "f11ca0b74b719bbec2ae4a7b94923f2cb231fed0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_99708ddd",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-09T13:01:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_f5e50709",
       "range": {
         "startLine": 291,
         "startChar": 12,
