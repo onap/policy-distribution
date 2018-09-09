@@ -202,6 +202,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_bc7697a2",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-09T20:21:12Z",
+      "side": 1,
+      "message": "Ok, thanks Liam.",
+      "parentUuid": "1a76adc5_1c2f8b89",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 147,
+        "endChar": 17
+      },
+      "revId": "f11ca0b74b719bbec2ae4a7b94923f2cb231fed0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_55bcfbdb",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
         "patchSetId": 1
