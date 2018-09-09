@@ -22,15 +22,15 @@ package org.onap.policy.distribution.reception.handling.sdc;
 
 import java.util.List;
 import java.util.UUID;
+
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.common.utils.validation.ParameterValidationUtils;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 
 /**
- * This class handles reading, parsing and validating of the Policy SDC Service Distribution
- * parameters from Json format, which strictly adheres to the interface:IConfiguration, defined by
- * SDC SDK.
+ * This class handles reading, parsing and validating of the Policy SDC Service Distribution parameters from Json
+ * format, which strictly adheres to the interface:IConfiguration, defined by SDC SDK.
  */
 public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHandlerConfigurationParameterGroup {
 
@@ -50,6 +50,101 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
     private boolean activeServerTlsAuth;
     private boolean isFilterInEmptyResources;
     private boolean isUseHttpsWithDmaap;
+
+    /**
+     * The constructor for instantiating PssdConfigurationParametersGroup. It is kept private so that it could only be
+     * called by PssdConfigurationBuilder.
+     *
+     * @param builder stores all the values used by PssdConfigurationParametersGroup
+     */
+    private SdcReceptionHandlerConfigurationParameterGroup(final SdcConfigurationBuilder builder) {
+        asdcAddress = builder.asdcAddress;
+        messageBusAddress = builder.messageBusAddress;
+        user = builder.user;
+        password = builder.password;
+        pollingInterval = builder.pollingInterval;
+        pollingTimeout = builder.pollingTimeout;
+        consumerId = builder.consumerId;
+        artifactTypes = builder.artifactTypes;
+        consumerGroup = builder.consumerGroup;
+        environmentName = builder.environmentName;
+        keyStorePath = builder.keystorePath;
+        keyStorePassword = builder.keystorePassword;
+        activeServerTlsAuth = builder.activeserverTlsAuth;
+        isFilterInEmptyResources = builder.isFilterinEmptyResources;
+        isUseHttpsWithDmaap = builder.isUseHttpsWithDmaap;
+
+    }
+
+    public String getAsdcAddress() {
+        return asdcAddress;
+    }
+
+    public List<String> getMessageBusAddress() {
+        return messageBusAddress;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public int getPollingInterval() {
+        return pollingInterval;
+    }
+
+    public int getPollingTimeout() {
+        return pollingTimeout;
+    }
+
+    public String getConsumerId() {
+        return consumerId;
+    }
+
+    public List<String> getArtifactTypes() {
+        return artifactTypes;
+    }
+
+    public String getConsumerGroup() {
+        return consumerGroup;
+    }
+
+    public String getEnvironmentName() {
+        return environmentName;
+    }
+
+    public String getKeyStorePassword() {
+        return keyStorePassword;
+    }
+
+    public boolean isActiveServerTlsAuth() {
+        return activeServerTlsAuth;
+    }
+
+    public String getKeyStorePath() {
+        return keyStorePath;
+    }
+
+    public boolean isFilterInEmptyResources() {
+        return isFilterInEmptyResources;
+    }
+
+    public boolean isUseHttpsWithDmaap() {
+        return isUseHttpsWithDmaap;
+    }
+
+    /**
+     * Set the name of this group.
+     *
+     * @param name the name to set.
+     */
+    @Override
+    public void setName(final String name) {
+        super.setName(name + "_" + UUID.randomUUID().toString());
+    }
 
     /**
      * Inner static class is to used as a Builder.
@@ -156,107 +251,12 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
     }
 
     /**
-     * The constructor for instantiating PssdConfigurationParametersGroup. It is kept private so
-     * that it could only be called by PssdConfigurationBuilder.
-     *
-     * @param builder stores all the values used by PssdConfigurationParametersGroup
-     */
-    private SdcReceptionHandlerConfigurationParameterGroup(final SdcConfigurationBuilder builder) {
-        asdcAddress = builder.asdcAddress;
-        messageBusAddress = builder.messageBusAddress;
-        user = builder.user;
-        password = builder.password;
-        pollingInterval = builder.pollingInterval;
-        pollingTimeout = builder.pollingTimeout;
-        consumerId = builder.consumerId;
-        artifactTypes = builder.artifactTypes;
-        consumerGroup = builder.consumerGroup;
-        environmentName = builder.environmentName;
-        keyStorePath = builder.keystorePath;
-        keyStorePassword = builder.keystorePassword;
-        activeServerTlsAuth = builder.activeserverTlsAuth;
-        isFilterInEmptyResources = builder.isFilterinEmptyResources;
-        isUseHttpsWithDmaap = builder.isUseHttpsWithDmaap;
-
-    }
-
-    public String getAsdcAddress() {
-        return asdcAddress;
-    }
-
-    public List<String> getMessageBusAddress() {
-        return messageBusAddress;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public int getPollingInterval() {
-        return pollingInterval;
-    }
-
-    public int getPollingTimeout() {
-        return pollingTimeout;
-    }
-
-    public String getConsumerId() {
-        return consumerId;
-    }
-
-    public List<String> getArtifactTypes() {
-        return artifactTypes;
-    }
-
-    public String getConsumerGroup() {
-        return consumerGroup;
-    }
-
-    public String getEnvironmentName() {
-        return environmentName;
-    }
-
-    public String getKeyStorePassword() {
-        return keyStorePassword;
-    }
-
-    public boolean isActiveServerTlsAuth() {
-        return activeServerTlsAuth;
-    }
-
-    public String getKeyStorePath() {
-        return keyStorePath;
-    }
-
-    public boolean isFilterInEmptyResources() {
-        return isFilterInEmptyResources;
-    }
-
-    public boolean isUseHttpsWithDmaap() {
-        return isUseHttpsWithDmaap;
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
     public String toString() {
         return "name =" + getName() + ",TestParameters:[asdcAddress = " + asdcAddress + ", messageBusAddress = "
                 + messageBusAddress + ", user = " + user + "]";
-    }
-
-    /**
-     * Set the name of this group.
-     *
-     * @param name the name to set.
-     */
-    @Override
-    public void setName(final String name) {
-        super.setName(name + "_" + UUID.randomUUID().toString());
     }
 
     /**
@@ -324,7 +324,7 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
      */
     private void validateStringElement(final GroupValidationResult validationResult, final String element,
             final String elementName) {
-        if (!ParameterValidationUtils.validateStringParameter(asdcAddress)) {
+        if (!ParameterValidationUtils.validateStringParameter(element)) {
             validationResult.setResult(elementName, ValidationStatus.INVALID,
                     elementName + " must be a non-blank string");
         }
