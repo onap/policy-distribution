@@ -110,6 +110,12 @@ public class TestSdcReceptionHandler {
         Mockito.when(distributionClient.init(any(), any())).thenReturn(successfulClientInitResult);
         Mockito.when(distributionClient.start()).thenReturn(successfulClientInitResult);
         Mockito.when(distributionClient.stop()).thenReturn(successfulClientInitResult);
+        Mockito.when(distributionClient.sendComponentDoneStatus(any())).thenReturn(successfulClientInitResult);
+        Mockito.when(distributionClient.sendComponentDoneStatus(any(), any())).thenReturn(successfulClientInitResult);
+        Mockito.when(distributionClient.sendDownloadStatus(any())).thenReturn(successfulClientInitResult);
+        Mockito.when(distributionClient.sendDownloadStatus(any(), any())).thenReturn(successfulClientInitResult);
+        Mockito.when(distributionClient.sendDeploymentStatus(any())).thenReturn(successfulClientInitResult);
+        Mockito.when(distributionClient.sendDeploymentStatus(any(), any())).thenReturn(successfulClientInitResult);
         Mockito.when(distributionClient.download(any())).thenReturn(successfulClientDownloadResult);
         Mockito.when(notificationData.getServiceArtifacts()).thenReturn(Arrays.asList(artifactInfo));
         Mockito.when(artifactInfo.getArtifactName()).thenReturn(DUMMY_SERVICE_CSAR);
@@ -118,6 +124,8 @@ public class TestSdcReceptionHandler {
                 .thenReturn(DistributionActionResultEnum.SUCCESS);
         Mockito.when(successfulClientDownloadResult.getDistributionActionResult())
                 .thenReturn(DistributionActionResultEnum.SUCCESS);
+        Mockito.when(failureClientInitResult.getDistributionActionResult())
+                .thenReturn(DistributionActionResultEnum.FAIL);
 
     }
 
@@ -164,8 +172,6 @@ public class TestSdcReceptionHandler {
     public final void testStartSdcClient_Failure() throws PluginInitializationException {
         try {
             Mockito.when(distributionClient.start()).thenReturn(failureClientInitResult);
-            Mockito.when(failureClientInitResult.getDistributionActionResult())
-                    .thenReturn(DistributionActionResultEnum.FAIL);
             sypHandler.initializeReception(pssdConfigParameters.getName());
 
             fail("Test must throw an exception here");
@@ -239,6 +245,32 @@ public class TestSdcReceptionHandler {
 
         Mockito.when(successfulClientDownloadResult.getDistributionActionResult())
                 .thenReturn(DistributionActionResultEnum.FAIL);
+
+        final DummyDecoder policyDecoder = new DummyDecoder();
+        final Collection<PolicyDecoder<Csar, DummyPolicy>> policyDecoders = new ArrayList<>();
+        policyDecoders.add(policyDecoder);
+
+        final DummyPolicyForwarder policyForwarder = new DummyPolicyForwarder();
+        final Collection<PolicyForwarder> policyForwarders = new ArrayList<>();
+        policyForwarders.add(policyForwarder);
+
+        setUpPlugins(sypHandler, policyDecoders, policyForwarders);
+        sypHandler.initializeReception(pssdConfigParameters.getName());
+        sypHandler.activateCallback(notificationData);
+
+        assertEquals(null, policyDecoder.getDecodedPolicy());
+        assertEquals(0, policyForwarder.getNumberOfPoliciesReceived());
+    }
+
+    @Test
+    public void testSendDistributionStatusFailure() throws NoSuchFieldException, SecurityException,
+            IllegalArgumentException, IllegalAccessException, PluginInitializationException {
+
+        Mockito.when(successfulClientDownloadResult.getDistributionActionResult())
+                .thenReturn(DistributionActionResultEnum.FAIL);
+        Mockito.when(distributionClient.sendDownloadStatus(any(), any())).thenReturn(failureClientInitResult);
+        Mockito.when(distributionClient.sendDeploymentStatus(any(), any())).thenReturn(failureClientInitResult);
+        Mockito.when(distributionClient.sendComponentDoneStatus(any(), any())).thenReturn(failureClientInitResult);
 
         final DummyDecoder policyDecoder = new DummyDecoder();
         final Collection<PolicyDecoder<Csar, DummyPolicy>> policyDecoders = new ArrayList<>();
