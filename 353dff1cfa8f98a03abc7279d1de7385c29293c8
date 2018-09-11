@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_38884ac4",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Attribute.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T09:22:46Z",
+      "side": 1,
+      "message": "I think the pom checkstyle doesn\u0027t find everything. You need to run it in your IDE as a plugin.",
+      "parentUuid": "1a76adc5_18746e66",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 83
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_38128a57",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Attribute.java",
         "patchSetId": 2
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Liam, it is used to generate the policy by Gson, whose format is defined in https://wiki.onap.org/pages/viewpage.action?pageId\u003d40206714 \nthe attribute_name is regarded as a keyword in the OOF/MultiCloud/AAI, that\u0027s why use this kind instead of camel case",
       "parentUuid": "1a76adc5_38128a57",
+      "range": {
+        "startLine": 27,
+        "startChar": 19,
+        "endLine": 27,
+        "endChar": 33
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_98971eec",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Attribute.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T09:22:46Z",
+      "side": 1,
+      "message": "OK",
+      "parentUuid": "1a76adc5_785b22f6",
       "range": {
         "startLine": 27,
         "startChar": 19,
