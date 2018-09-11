@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_380b6a2b",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Content.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-11T11:26:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_d85fd60d",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 89
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_f85c121b",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
         "patchSetId": 2
@@ -178,6 +202,30 @@
       "writtenOn": "2018-09-11T08:32:44Z",
       "side": 1,
       "message": "period",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 71
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7b855c05",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-11T11:26:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_f85c121b",
       "range": {
         "startLine": 53,
         "startChar": 0,
@@ -225,6 +273,30 @@
       "side": 1,
       "message": "just a placeholder, which to be changed once we define which value should be added. i\u0027ll remove them",
       "parentUuid": "1a76adc5_581e6660",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 42
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f8009203",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-11T11:26:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_b80c5aee",
       "range": {
         "startLine": 88,
         "startChar": 0,
@@ -376,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_9bc95828",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-11T11:26:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_585506f8",
+      "range": {
+        "startLine": 193,
+        "startChar": 23,
+        "endLine": 193,
+        "endChar": 39
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_18430e43",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
         "patchSetId": 2
@@ -422,6 +518,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_bb06941b",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/FlavorFeature.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-11T11:26:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_989ddebe",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_b8a21afb",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/FlavorProperty.java",
         "patchSetId": 2
@@ -433,6 +553,30 @@
       "writtenOn": "2018-09-11T08:32:44Z",
       "side": 1,
       "message": "period",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 59
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5b074018",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/FlavorProperty.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-11T11:26:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_b8a21afb",
       "range": {
         "startLine": 27,
         "startChar": 0,
@@ -514,6 +658,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_bb8f7429",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-11T11:26:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_98763ea3",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 67
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_b87bfa8a",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
         "patchSetId": 2
@@ -525,6 +693,30 @@
       "writtenOn": "2018-09-11T08:32:44Z",
       "side": 1,
       "message": "checkstyle",
+      "range": {
+        "startLine": 67,
+        "startChar": 17,
+        "endLine": 67,
+        "endChar": 20
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5b80a0f6",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-11T11:26:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_b87bfa8a",
       "range": {
         "startLine": 67,
         "startChar": 17,
