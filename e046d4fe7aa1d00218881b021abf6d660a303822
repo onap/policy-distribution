@@ -1,0 +1,204 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_d655671e",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Attribute.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-09-11T13:58:37Z",
+      "side": 1,
+      "message": "Need default constructor with super() for sonar",
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_96336f13",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Attribute.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-09-11T13:58:37Z",
+      "side": 1,
+      "message": "attributeName\nattributeValue\n\nUse camel case for variable names.",
+      "range": {
+        "startLine": 29,
+        "startChar": 19,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_563957f0",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Content.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-09-11T13:58:37Z",
+      "side": 1,
+      "message": "default constructor with super() for sonar",
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_763ed3db",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Directive.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-09-11T13:58:37Z",
+      "side": 1,
+      "message": "default constructor with super()",
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_16275fcb",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-09-11T13:58:37Z",
+      "side": 1,
+      "message": "Cleaner way to write this:\nif (content.getFlavorFeatures().isEmpty() ) {\n  reutrn null;\n}\nthen add the rest of the code.  Keeps complexity down",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 133,
+        "endChar": 9
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3624dbc3",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/FlavorFeature.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-09-11T13:58:37Z",
+      "side": 1,
+      "message": "missing constructor with super()",
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_1660bfff",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/FlavorProperty.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-09-11T13:58:37Z",
+      "side": 1,
+      "message": "Not sure why checkstyle isn\u0027t detecting this:\nhpaFeature is the camel case name.\n\nNeed a default constructor with super() for sonar",
+      "range": {
+        "startLine": 32,
+        "startChar": 19,
+        "endLine": 32,
+        "endChar": 30
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d62c87ae",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/FlavorProperty.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-09-11T13:58:37Z",
+      "side": 1,
+      "message": "hpaVersion",
+      "range": {
+        "startLine": 35,
+        "startChar": 19,
+        "endLine": 35,
+        "endChar": 30
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f629839b",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/FlavorProperty.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-09-11T13:58:37Z",
+      "side": 1,
+      "message": "hpaFeatureAttributes",
+      "range": {
+        "startLine": 37,
+        "startChar": 38,
+        "endLine": 37,
+        "endChar": 60
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_961a8f7b",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/HpaFeatureAttribute.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-09-11T13:58:37Z",
+      "side": 1,
+      "message": "same issues",
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
