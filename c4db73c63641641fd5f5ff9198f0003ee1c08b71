@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_719c9d5d",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/apex/pdp/ApexPdpPolicyForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T14:55:52Z",
+      "side": 1,
+      "message": "It probably should be an error of there is more than one policy model, an apex engine will only execute one policy model.\n\nWhile this code will work, it will just overwrite each model with the next until the last one is reached.",
+      "range": {
+        "startLine": 65,
+        "startChar": 1,
+        "endLine": 71,
+        "endChar": 9
+      },
+      "revId": "c4db73c63641641fd5f5ff9198f0003ee1c08b71",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_71b33de9",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/apex/pdp/ApexPdpPolicyForwarderParameterGroup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T14:55:52Z",
+      "side": 1,
+      "message": "I\u0027m not sure if we should expose these flags as they are kinda overrides on good behaviour but let\u0027s leave them in for now.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 32
+      },
+      "revId": "c4db73c63641641fd5f5ff9198f0003ee1c08b71",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
