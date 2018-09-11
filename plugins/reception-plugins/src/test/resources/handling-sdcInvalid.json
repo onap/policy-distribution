@@ -1,6 +1,6 @@
 {
     "name" : "parameterConfig1",
-    "asdcAddress": "localhost",
+    "asdcAddress": "",
     "messageBusAddress": [
         "a.com",
         "b.com",

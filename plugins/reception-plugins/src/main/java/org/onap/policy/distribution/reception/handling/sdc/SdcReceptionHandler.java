@@ -66,7 +66,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
 
     @Override
     protected void initializeReception(final String parameterGroupName) throws PluginInitializationException {
-        handlerParameters = (SdcReceptionHandlerConfigurationParameterGroup) ParameterService.get(parameterGroupName);
+        handlerParameters = ParameterService.get(parameterGroupName);
         initializeSdcClient();
         startSdcClient();
     }
@@ -108,12 +108,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
                 sdcReceptionHandlerStatus = newStatus;
                 break;
             case IDLE:
-                if (nbOfNotificationsOngoing > 1) {
-                    --nbOfNotificationsOngoing;
-                } else {
-                    nbOfNotificationsOngoing = 0;
-                    sdcReceptionHandlerStatus = newStatus;
-                }
+                handleIdleStatusChange(newStatus);
                 break;
             case BUSY:
                 ++nbOfNotificationsOngoing;
@@ -286,27 +281,24 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
     private void sendDistributionStatus(final DistributionStatusType statusType, final String artifactUrl,
             final String distributionId, final DistributionStatusEnum status, final String errorReason) {
 
-        IDistributionClientResult clientResult = null;
+        IDistributionClientResult clientResult;
         final DistributionStatusMessageBuilder messageBuilder = new DistributionStatusMessageBuilder()
                 .setArtifactUrl(artifactUrl).setConsumerId(sdcConfig.getConsumerID()).setDistributionId(distributionId)
                 .setDistributionStatus(status).setTimestamp(System.currentTimeMillis());
         final IDistributionStatusMessage message = new DistributionStatusMessage(messageBuilder);
-        switch (statusType) {
-            case DOWNLOAD:
-                if (errorReason != null) {
-                    clientResult = distributionClient.sendDownloadStatus(message, errorReason);
-                } else {
-                    clientResult = distributionClient.sendDownloadStatus(message);
-                }
-                break;
-            case DEPLOY:
-                if (errorReason != null) {
-                    clientResult = distributionClient.sendDeploymentStatus(message, errorReason);
-                } else {
-                    clientResult = distributionClient.sendDeploymentStatus(message);
-                }
+        if (DistributionStatusType.DOWNLOAD.equals(statusType)) {
+            if (errorReason != null) {
+                clientResult = distributionClient.sendDownloadStatus(message, errorReason);
+            } else {
+                clientResult = distributionClient.sendDownloadStatus(message);
+            }
+        } else {
+            if (errorReason != null) {
+                clientResult = distributionClient.sendDeploymentStatus(message, errorReason);
+            } else {
+                clientResult = distributionClient.sendDeploymentStatus(message);
+            }
         }
-
         final StringBuilder loggerMessage = new StringBuilder();
         loggerMessage.append("distribution status to SDC with values - ").append("DistributionId")
                 .append(distributionId).append(" Artifact: ").append(artifactUrl).append(" StatusType: ")
@@ -332,7 +324,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
      */
     private void sendComponentDoneStatus(final String distributionId, final DistributionStatusEnum status,
             final String errorReason) {
-        IDistributionClientResult clientResult = null;
+        IDistributionClientResult clientResult;
         final ComponentDoneStatusMessageBuilder messageBuilder = new ComponentDoneStatusMessageBuilder()
                 .setConsumerId(sdcConfig.getConsumerID()).setDistributionId(distributionId)
                 .setDistributionStatus(status).setTimestamp(System.currentTimeMillis());
@@ -355,6 +347,20 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
         } else {
             loggerMessage.insert(0, "Successfully Sent ");
             LOGGER.debug(loggerMessage);
+        }
+    }
+
+    /**
+     * Handle the status change of {@link SdcReceptionHandler} to Idle.
+     *
+     * @param newStatus the new status
+     */
+    private void handleIdleStatusChange(final SdcReceptionHandlerStatus newStatus) {
+        if (nbOfNotificationsOngoing > 1) {
+            --nbOfNotificationsOngoing;
+        } else {
+            nbOfNotificationsOngoing = 0;
+            sdcReceptionHandlerStatus = newStatus;
         }
     }
 }

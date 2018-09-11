@@ -34,7 +34,6 @@ import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigu
  */
 public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHandlerConfigurationParameterGroup {
 
-    // Interface of IConfiguration item
     private String asdcAddress;
     private List<String> messageBusAddress;
     private String user;
@@ -56,22 +55,23 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
      *
      * @param builder the SDC configuration builder
      */
-    private SdcReceptionHandlerConfigurationParameterGroup(final SdcConfigurationBuilder builder) {
-        asdcAddress = builder.asdcAddress;
-        messageBusAddress = builder.messageBusAddress;
-        user = builder.user;
-        password = builder.password;
-        pollingInterval = builder.pollingInterval;
-        pollingTimeout = builder.pollingTimeout;
-        consumerId = builder.consumerId;
-        artifactTypes = builder.artifactTypes;
-        consumerGroup = builder.consumerGroup;
-        environmentName = builder.environmentName;
-        keyStorePath = builder.keystorePath;
-        keyStorePassword = builder.keystorePassword;
-        activeServerTlsAuth = builder.activeserverTlsAuth;
-        isFilterInEmptyResources = builder.isFilterinEmptyResources;
-        isUseHttpsWithDmaap = builder.isUseHttpsWithDmaap;
+    public SdcReceptionHandlerConfigurationParameterGroup(
+            final SdcReceptionHandlerConfigurationParameterBuilder builder) {
+        asdcAddress = builder.getAsdcAddress();
+        messageBusAddress = builder.getMessageBusAddress();
+        user = builder.getUser();
+        password = builder.getPassword();
+        pollingInterval = builder.getPollingInterval();
+        pollingTimeout = builder.getPollingTimeout();
+        consumerId = builder.getConsumerId();
+        artifactTypes = builder.getArtifactTypes();
+        consumerGroup = builder.getConsumerGroup();
+        environmentName = builder.getEnvironmentName();
+        keyStorePath = builder.getKeystorePath();
+        keyStorePassword = builder.getKeystorePassword();
+        activeServerTlsAuth = builder.isActiveserverTlsAuth();
+        isFilterInEmptyResources = builder.isFilterinEmptyResources();
+        isUseHttpsWithDmaap = builder.getIsUseHttpsWithDmaap();
 
     }
 
@@ -146,119 +146,6 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
     }
 
     /**
-     * Inner static class is to used as a Builder.
-     *
-     */
-    public static class SdcConfigurationBuilder {
-        private String asdcAddress;
-        private List<String> messageBusAddress;
-        private String user;
-        private String password;
-        private int pollingInterval;
-        private int pollingTimeout;
-        private String consumerId;
-        private List<String> artifactTypes;
-        private String consumerGroup;
-        private String environmentName;
-        private String keystorePath;
-        private String keystorePassword;
-        private boolean activeserverTlsAuth;
-        private boolean isFilterinEmptyResources;
-        private Boolean isUseHttpsWithDmaap;
-
-        public SdcConfigurationBuilder setAsdcAddress(final String val) {
-            asdcAddress = val;
-            return this;
-        }
-
-        public SdcConfigurationBuilder setMessageBusAddress(final List<String> val) {
-            messageBusAddress = val;
-            return this;
-        }
-
-        public SdcConfigurationBuilder setUser(final String val) {
-            user = val;
-            return this;
-        }
-
-        public SdcConfigurationBuilder setPassword(final String val) {
-            password = val;
-            return this;
-        }
-
-        public SdcConfigurationBuilder setPollingInterval(final int val) {
-            pollingInterval = val;
-            return this;
-        }
-
-        public SdcConfigurationBuilder setPollingTimeout(final int val) {
-            pollingTimeout = val;
-            return this;
-        }
-
-        public SdcConfigurationBuilder setConsumerId(final String val) {
-            consumerId = val;
-            return this;
-        }
-
-        public SdcConfigurationBuilder setArtifactTypes(final List<String> val) {
-            artifactTypes = val;
-            return this;
-        }
-
-        public SdcConfigurationBuilder setConsumerGroup(final String val) {
-            consumerGroup = val;
-            return this;
-        }
-
-        public SdcConfigurationBuilder setEnvironmentName(final String val) {
-            environmentName = val;
-            return this;
-        }
-
-        public SdcConfigurationBuilder setKeystorePath(final String val) {
-            keystorePath = val;
-            return this;
-        }
-
-        public SdcConfigurationBuilder setKeystorePassword(final String val) {
-            keystorePassword = val;
-            return this;
-        }
-
-        public SdcConfigurationBuilder setActiveserverTlsAuth(final boolean val) {
-            activeserverTlsAuth = val;
-            return this;
-        }
-
-        public SdcConfigurationBuilder setIsFilterinEmptyResources(final boolean val) {
-            isFilterinEmptyResources = val;
-            return this;
-        }
-
-        public SdcConfigurationBuilder setIsUseHttpsWithDmaap(final Boolean val) {
-            isUseHttpsWithDmaap = val;
-            return this;
-        }
-
-        /**
-         * Creates an instance of {@link SdcReceptionHandlerConfigurationParameterGroup}.
-         */
-        public SdcReceptionHandlerConfigurationParameterGroup build() {
-            return new SdcReceptionHandlerConfigurationParameterGroup(this);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String toString() {
-        return "name =" + getName() + ",TestParameters:[asdcAddress = " + asdcAddress + ", messageBusAddress = "
-                + messageBusAddress + ", user = " + user + "]";
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -301,15 +188,10 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
      */
     private void validateStringListElement(final GroupValidationResult validationResult, final List<String> element,
             final String elementName) {
-        if (element == null) {
-            validationResult.setResult(elementName, ValidationStatus.INVALID,
-                    elementName + " must be a list of non-blank string");
-        } else {
-            for (final String temp : element) {
-                if (!ParameterValidationUtils.validateStringParameter(temp)) {
-                    validationResult.setResult(elementName, ValidationStatus.INVALID,
-                            "the string of " + elementName + "must be a non-blank string");
-                }
+        for (final String temp : element) {
+            if (!ParameterValidationUtils.validateStringParameter(temp)) {
+                validationResult.setResult(elementName, ValidationStatus.INVALID,
+                        "the string of " + elementName + "must be a non-blank string");
             }
         }
     }
