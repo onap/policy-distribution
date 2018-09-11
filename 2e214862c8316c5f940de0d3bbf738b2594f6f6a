@@ -449,6 +449,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_b81f7a6b",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-11T11:26:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_7844821a",
+      "range": {
+        "startLine": 124,
+        "startChar": 15,
+        "endLine": 124,
+        "endChar": 87
+      },
+      "revId": "2e214862c8316c5f940de0d3bbf738b2594f6f6a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_13fe96ae",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/FlavorFeature.java",
         "patchSetId": 1
@@ -802,6 +826,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_f852d233",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PdpxPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-11T11:26:09Z",
+      "side": 1,
+      "message": "ok. i\u0027ll change to make it as the default value instead of static.",
+      "parentUuid": "1a76adc5_78a2424c",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 62
+      },
+      "revId": "2e214862c8316c5f940de0d3bbf738b2594f6f6a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_f3c51a5c",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
         "patchSetId": 1
@@ -861,6 +909,30 @@
       "side": 1,
       "message": "agree that it is used in 2 methods but they both belong to same flow. So you can take return from one method and pass it to next method.",
       "parentUuid": "1a76adc5_e269c58c",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 33
+      },
+      "revId": "2e214862c8316c5f940de0d3bbf738b2594f6f6a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_583986f0",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-11T11:26:09Z",
+      "side": 1,
+      "message": "ok. i\u0027ll do it. one variable is ok to return/pass, once there are more than one, it may become NOT convenient.",
+      "parentUuid": "1a76adc5_18b22e94",
       "range": {
         "startLine": 53,
         "startChar": 4,
