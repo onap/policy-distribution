@@ -425,6 +425,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_7844821a",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-11T09:24:14Z",
+      "side": 1,
+      "message": "That\u0027s ok. But still you should pass exception object to logger.",
+      "parentUuid": "1a76adc5_224d7d3e",
+      "range": {
+        "startLine": 124,
+        "startChar": 15,
+        "endLine": 124,
+        "endChar": 87
+      },
+      "revId": "2e214862c8316c5f940de0d3bbf738b2594f6f6a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_13fe96ae",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/FlavorFeature.java",
         "patchSetId": 1
@@ -754,6 +778,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_78a2424c",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PdpxPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-11T09:24:14Z",
+      "side": 1,
+      "message": "That file is defined to only have Optimization policies so it is ok there. But I think this class is more generic and can represent any type of Pdpx policy including optimization. Having it static will not let that happen.",
+      "parentUuid": "1a76adc5_a260ada5",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 62
+      },
+      "revId": "2e214862c8316c5f940de0d3bbf738b2594f6f6a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_f3c51a5c",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
         "patchSetId": 1
@@ -789,6 +837,30 @@
       "side": 1,
       "message": "since it will be used in both decode and extractInfo functions.",
       "parentUuid": "1a76adc5_f3c51a5c",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 33
+      },
+      "revId": "2e214862c8316c5f940de0d3bbf738b2594f6f6a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_18b22e94",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-11T09:24:14Z",
+      "side": 1,
+      "message": "agree that it is used in 2 methods but they both belong to same flow. So you can take return from one method and pass it to next method.",
+      "parentUuid": "1a76adc5_e269c58c",
       "range": {
         "startLine": 53,
         "startChar": 4,
