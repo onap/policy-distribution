@@ -1,0 +1,395 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_98287e87",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Attribute.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "Please add a period at the end of the first sentence of Javadoc comments or checkstyle will complain. Please propagate this comment throughout the other classes in the review.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 83
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_38128a57",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Attribute.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "Java prefers camel case rather than c style for variable names, this variable should be called attributeName.\n\nPlease propagate this change to other variable names in the class and also to the setter and getter method names.",
+      "range": {
+        "startLine": 27,
+        "startChar": 19,
+        "endLine": 27,
+        "endChar": 33
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d85fd60d",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Content.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "period.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 89
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f85c121b",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "period",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 71
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_581e6660",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "Just a question, what\u0027s the significance of \"a\" and \"b\"?",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 42
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_782322a7",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "There should be a space before the parenthesis. Do you have your checkstyle plugin turned on in your IDE? It would catch these things.",
+      "range": {
+        "startLine": 120,
+        "startChar": 8,
+        "endLine": 120,
+        "endChar": 11
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_183c6ec7",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "This should be a Javadoc comment, this is a public method.",
+      "range": {
+        "startLine": 135,
+        "startChar": 3,
+        "endLine": 141,
+        "endChar": 7
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d83116ee",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "Again, although this is a provate method, use Javadoc format for the comment.",
+      "range": {
+        "startLine": 168,
+        "startChar": 3,
+        "endLine": 173,
+        "endChar": 7
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_984f1e6b",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "Checkstyle",
+      "range": {
+        "startLine": 178,
+        "startChar": 12,
+        "endLine": 178,
+        "endChar": 16
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_585506f8",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "bad variable name",
+      "range": {
+        "startLine": 193,
+        "startChar": 23,
+        "endLine": 193,
+        "endChar": 39
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_18430e43",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "Comments again. Please propagate to rest of class.",
+      "range": {
+        "startLine": 205,
+        "startChar": 3,
+        "endLine": 208,
+        "endChar": 7
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_989ddebe",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/FlavorFeature.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "period",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b8a21afb",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/FlavorProperty.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "period",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 59
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_38404a33",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/FlavorProperty.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "variable names",
+      "range": {
+        "startLine": 30,
+        "startChar": 19,
+        "endLine": 30,
+        "endChar": 30
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d848365e",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/HpaFeatureAttribute.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "variable names",
+      "range": {
+        "startLine": 27,
+        "startChar": 19,
+        "endLine": 27,
+        "endChar": 36
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_98763ea3",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "Indentation",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 67
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b87bfa8a",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-11T08:32:44Z",
+      "side": 1,
+      "message": "checkstyle",
+      "range": {
+        "startLine": 67,
+        "startChar": 17,
+        "endLine": 67,
+        "endChar": 20
+      },
+      "revId": "353dff1cfa8f98a03abc7279d1de7385c29293c8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
