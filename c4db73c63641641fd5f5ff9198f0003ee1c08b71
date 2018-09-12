@@ -211,6 +211,30 @@
       "revId": "c4db73c63641641fd5f5ff9198f0003ee1c08b71",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_1fcbeb1f",
+        "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/apex/pdp/ApexPdpPolicyForwarderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-12T13:00:27Z",
+      "side": 1,
+      "message": "Agree Michael, added the check.",
+      "parentUuid": "1a76adc5_5492aaf6",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 40
+      },
+      "revId": "c4db73c63641641fd5f5ff9198f0003ee1c08b71",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
