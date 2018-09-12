@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_df56d305",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Attribute.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-09-12T11:57:33Z",
+      "side": 1,
+      "message": "@SerializedName annotation can be used so as the variable name does not need to match the json field name",
+      "parentUuid": "1a76adc5_4ea9bb22",
+      "range": {
+        "startLine": 29,
+        "startChar": 19,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_563957f0",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Content.java",
         "patchSetId": 3
@@ -358,6 +382,98 @@
       "side": 1,
       "message": "same. not a subclass which extends any class.",
       "parentUuid": "1a76adc5_961a8f7b",
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5f1c036a",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PdpxPolicy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-09-12T11:57:33Z",
+      "side": 1,
+      "message": "Use the org.onap.policy.distribution.model.OptimizationPolicy class in the model instead of this class",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 3
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_9f6b7bb6",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-09-12T11:57:33Z",
+      "side": 1,
+      "message": "the extractInfo method seems to only set the content in the Policy object, where do the other fields get set, e.g. policyName, service etc",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 63
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_df1fb359",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/decoding/pdpx/TestPolicyDecoderCsarPdpx.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-09-12T11:57:33Z",
+      "side": 1,
+      "message": "The contents of the Policy object should be verifed",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 40
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5f33a3f5",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/decoding/pdpx/TestPolicyDecoderCsarPdpx.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-09-12T11:57:33Z",
+      "side": 1,
+      "message": "The contents of the Policy object should be verified",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 40
+      },
       "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
