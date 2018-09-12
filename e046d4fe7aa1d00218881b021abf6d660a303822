@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_aeae4f2c",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Attribute.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-12T02:55:59Z",
+      "side": 1,
+      "message": "it does NOT extend any class, don\u0027t know why need add super(). :",
+      "parentUuid": "1a76adc5_d655671e",
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_96336f13",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Attribute.java",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2018-09-11T13:58:37Z",
       "side": 1,
       "message": "attributeName\nattributeValue\n\nUse camel case for variable names.",
+      "range": {
+        "startLine": 29,
+        "startChar": 19,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_4ea9bb22",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Attribute.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-12T02:55:59Z",
+      "side": 1,
+      "message": "it is used to generate the policy by Gson, whose format is defined in 40206714\" target\u003d\"_blank\"\u003ehttps://wiki.onap.org/pages/viewpage.action?pageId\u003d40206714 \nthe attribute_name is regarded as a keyword in the OOF/MultiCloud/AAI, that\u0027s why we have to use this kind instead of camel case",
+      "parentUuid": "1a76adc5_96336f13",
       "range": {
         "startLine": 29,
         "startChar": 19,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_0e674327",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Content.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-12T02:55:59Z",
+      "side": 1,
+      "message": "same",
+      "parentUuid": "1a76adc5_563957f0",
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_763ed3db",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Directive.java",
         "patchSetId": 3
@@ -70,6 +130,24 @@
       "writtenOn": "2018-09-11T13:58:37Z",
       "side": 1,
       "message": "default constructor with super()",
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_2e6a3fee",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Directive.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-12T02:55:59Z",
+      "side": 1,
+      "message": "same",
+      "parentUuid": "1a76adc5_763ed3db",
       "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_8ea6f3ac",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-12T02:55:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_16275fcb",
+      "range": {
+        "startLine": 123,
+        "startChar": 8,
+        "endLine": 133,
+        "endChar": 9
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_3624dbc3",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/FlavorFeature.java",
         "patchSetId": 3
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_ce6ceb0a",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/FlavorFeature.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-12T02:55:59Z",
+      "side": 1,
+      "message": "same",
+      "parentUuid": "1a76adc5_3624dbc3",
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_1660bfff",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/FlavorProperty.java",
         "patchSetId": 3
@@ -127,6 +247,30 @@
       "writtenOn": "2018-09-11T13:58:37Z",
       "side": 1,
       "message": "Not sure why checkstyle isn\u0027t detecting this:\nhpaFeature is the camel case name.\n\nNeed a default constructor with super() for sonar",
+      "range": {
+        "startLine": 32,
+        "startChar": 19,
+        "endLine": 32,
+        "endChar": 30
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_ee6f67fa",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/FlavorProperty.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-12T02:55:59Z",
+      "side": 1,
+      "message": "same",
+      "parentUuid": "1a76adc5_1660bfff",
       "range": {
         "startLine": 32,
         "startChar": 19,
@@ -196,6 +340,24 @@
       "writtenOn": "2018-09-11T13:58:37Z",
       "side": 1,
       "message": "same issues",
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_8e7a73bb",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/HpaFeatureAttribute.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-12T02:55:59Z",
+      "side": 1,
+      "message": "same. not a subclass which extends any class.",
+      "parentUuid": "1a76adc5_961a8f7b",
       "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
