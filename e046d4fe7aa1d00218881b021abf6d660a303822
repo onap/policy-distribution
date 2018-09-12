@@ -108,6 +108,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_3f6587b4",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Attribute.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-12T12:22:46Z",
+      "side": 1,
+      "message": "ok, i\u0027ll have a try",
+      "parentUuid": "1a76adc5_df56d305",
+      "range": {
+        "startLine": 29,
+        "startChar": 19,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_563957f0",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Content.java",
         "patchSetId": 3
@@ -411,6 +435,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_5f6ba384",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PdpxPolicy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-12T12:22:46Z",
+      "side": 1,
+      "message": "@Ram may have comments. \nsince using this class is the suggestion from him, and in the progress of whole flow. :",
+      "parentUuid": "1a76adc5_5f1c036a",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 3
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_9f6b7bb6",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
         "patchSetId": 3
@@ -422,6 +470,30 @@
       "writtenOn": "2018-09-12T11:57:33Z",
       "side": 1,
       "message": "the extractInfo method seems to only set the content in the Policy object, where do the other fields get set, e.g. policyName, service etc",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 63
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_9ffcdbb9",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-12T12:22:46Z",
+      "side": 1,
+      "message": "which needs add, and i\u0027ve sent out the email to you and Pamela since i need the rule that how to generate the serivce and policyname, which need your advice.",
+      "parentUuid": "1a76adc5_9f6b7bb6",
       "range": {
         "startLine": 63,
         "startChar": 0,
@@ -457,6 +529,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_5f02c3b4",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/decoding/pdpx/TestPolicyDecoderCsarPdpx.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-12T12:22:46Z",
+      "side": 1,
+      "message": "yes, right. and my plan is to add them in the next patch since there are still three HPA policies feature to be added\nthis patch is for the whole flow of dynamically generation policy from CSAR",
+      "parentUuid": "1a76adc5_df1fb359",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 40
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_5f33a3f5",
         "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/decoding/pdpx/TestPolicyDecoderCsarPdpx.java",
         "patchSetId": 3
@@ -468,6 +564,30 @@
       "writtenOn": "2018-09-12T11:57:33Z",
       "side": 1,
       "message": "The contents of the Policy object should be verified",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 40
+      },
+      "revId": "e046d4fe7aa1d00218881b021abf6d660a303822",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7ffd3fb0",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/decoding/pdpx/TestPolicyDecoderCsarPdpx.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-12T12:22:46Z",
+      "side": 1,
+      "message": "same",
+      "parentUuid": "1a76adc5_5f33a3f5",
       "range": {
         "startLine": 61,
         "startChar": 0,
