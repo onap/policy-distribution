@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_34804ebf",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/apex/pdp/ApexPdpPolicyForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-12T10:57:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_719c9d5d",
+      "range": {
+        "startLine": 65,
+        "startChar": 1,
+        "endLine": 71,
+        "endChar": 9
+      },
+      "revId": "c4db73c63641641fd5f5ff9198f0003ee1c08b71",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_71b33de9",
         "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/apex/pdp/ApexPdpPolicyForwarderParameterGroup.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-11T14:55:52Z",
       "side": 1,
       "message": "I\u0027m not sure if we should expose these flags as they are kinda overrides on good behaviour but let\u0027s leave them in for now.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 32
+      },
+      "revId": "c4db73c63641641fd5f5ff9198f0003ee1c08b71",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f485f6ce",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/apex/pdp/ApexPdpPolicyForwarderParameterGroup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-12T10:57:56Z",
+      "side": 1,
+      "message": "Agree, let me know if you want me remove them now.",
+      "parentUuid": "1a76adc5_71b33de9",
       "range": {
         "startLine": 36,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_b46bfe1c",
+        "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/apex/pdp/ApexPdpPolicyForwarderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-12T10:57:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_0b7df5e7",
+      "range": {
+        "startLine": 89,
+        "startChar": 20,
+        "endLine": 89,
+        "endChar": 33
+      },
+      "revId": "c4db73c63641641fd5f5ff9198f0003ee1c08b71",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_eb8519cf",
         "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/apex/pdp/ApexPdpPolicyForwarderTest.java",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2018-09-11T22:16:09Z",
       "side": 1,
       "message": "verify the init and deployModel methods in the engineServiceFacade mock are invoked correctly",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 40
+      },
+      "revId": "c4db73c63641641fd5f5ff9198f0003ee1c08b71",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_744806b3",
+        "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/apex/pdp/ApexPdpPolicyForwarderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-12T10:57:56Z",
+      "side": 1,
+      "message": "As per Liam\u0027s comment on throwing exception if there is more than one policy, the tests are now refactored and it contains only one policy for success case. For failure case it anyway throws an exception. So not adding check for verifying invocation of methods in engineServiceFacade. Hope that\u0027s ok?",
+      "parentUuid": "1a76adc5_eb8519cf",
       "range": {
         "startLine": 101,
         "startChar": 0,
