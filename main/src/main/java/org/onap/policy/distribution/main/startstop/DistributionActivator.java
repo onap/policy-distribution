@@ -23,6 +23,7 @@ package org.onap.policy.distribution.main.startstop;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
@@ -32,12 +33,13 @@ import org.onap.policy.distribution.main.parameters.PolicyForwarderConfiguration
 import org.onap.policy.distribution.main.rest.DistributionRestServer;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
+import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
 /**
- * This class wraps a distributor so that it can be activated as a complete service together with
- * all its distribution and forwarding handlers.
+ * This class wraps a distributor so that it can be activated as a complete service together with all its distribution
+ * and forwarding handlers.
  */
 public class DistributionActivator {
     // The logger for this class
@@ -158,6 +160,11 @@ public class DistributionActivator {
             receptionHandlerConfiguration.getValue().setName(receptionHandlerConfiguration.getKey());
             ParameterService.register(receptionHandlerConfiguration.getValue());
         }
+        for (final Entry<String, PolicyDecoderConfigurationParameterGroup> decoderConfiguration : distributionParameterGroup
+                .getPolicyDecoderConfigurationParameters().entrySet()) {
+            decoderConfiguration.getValue().setName(decoderConfiguration.getKey());
+            ParameterService.register(decoderConfiguration.getValue());
+        }
     }
 
     /**
@@ -181,6 +188,11 @@ public class DistributionActivator {
                 .getReceptionHandlerConfigurationParameters().entrySet()) {
             receptionHandlerConfiguration.getValue().setName(receptionHandlerConfiguration.getKey());
             ParameterService.deregister(receptionHandlerConfiguration.getKey());
+        }
+        for (final Entry<String, PolicyDecoderConfigurationParameterGroup> decoderConfiguration : distributionParameterGroup
+                .getPolicyDecoderConfigurationParameters().entrySet()) {
+            decoderConfiguration.getValue().setName(decoderConfiguration.getKey());
+            ParameterService.deregister(decoderConfiguration.getKey());
         }
     }
 

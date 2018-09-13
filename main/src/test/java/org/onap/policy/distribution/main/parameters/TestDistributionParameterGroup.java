@@ -26,10 +26,12 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Map;
+
 import org.junit.Test;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup;
 import org.onap.policy.distribution.main.testclasses.DummyReceptionHandlerParameterGroup;
+import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
@@ -50,10 +52,12 @@ public class TestDistributionParameterGroup {
                 commonTestData.getReceptionHandlerConfigurationParameters(false);
         final Map<String, PolicyForwarderConfigurationParameterGroup> forwarderConfigurations =
                 commonTestData.getPolicyForwarderConfigurationParameters(false);
+        final Map<String, PolicyDecoderConfigurationParameterGroup> decoderConfigurations =
+                commonTestData.getPolicyDecoderConfigurationParameters(false);
 
-        final DistributionParameterGroup distributionParameters =
-                new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters,
-                        receptionHandlerParameters, receptionHandlerConfigurations, forwarderConfigurations);
+        final DistributionParameterGroup distributionParameters = new DistributionParameterGroup(
+                CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, receptionHandlerParameters,
+                receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertTrue(validationResult.isValid());
         assertEquals(restServerParameters.getHost(), distributionParameters.getRestServerParameters().getHost());
@@ -102,10 +106,12 @@ public class TestDistributionParameterGroup {
                 commonTestData.getReceptionHandlerConfigurationParameters(false);
         final Map<String, PolicyForwarderConfigurationParameterGroup> forwarderConfigurations =
                 commonTestData.getPolicyForwarderConfigurationParameters(false);
+        final Map<String, PolicyDecoderConfigurationParameterGroup> decoderConfigurations =
+                commonTestData.getPolicyDecoderConfigurationParameters(false);
 
         final DistributionParameterGroup distributionParameters =
                 new DistributionParameterGroup(null, restServerParameters, receptionHandlerParameters,
-                        receptionHandlerConfigurations, forwarderConfigurations);
+                        receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
         assertEquals(null, distributionParameters.getName());
@@ -135,10 +141,12 @@ public class TestDistributionParameterGroup {
                 commonTestData.getReceptionHandlerConfigurationParameters(false);
         final Map<String, PolicyForwarderConfigurationParameterGroup> forwarderConfigurations =
                 commonTestData.getPolicyForwarderConfigurationParameters(false);
+        final Map<String, PolicyDecoderConfigurationParameterGroup> decoderConfigurations =
+                commonTestData.getPolicyDecoderConfigurationParameters(false);
 
         final DistributionParameterGroup distributionParameters =
                 new DistributionParameterGroup("", restServerParameters, receptionHandlerParameters,
-                        receptionHandlerConfigurations, forwarderConfigurations);
+                        receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
         assertEquals("", distributionParameters.getName());
@@ -166,10 +174,12 @@ public class TestDistributionParameterGroup {
                 commonTestData.getReceptionHandlerConfigurationParameters(false);
         final Map<String, PolicyForwarderConfigurationParameterGroup> forwarderConfigurations =
                 commonTestData.getPolicyForwarderConfigurationParameters(false);
+        final Map<String, PolicyDecoderConfigurationParameterGroup> decoderConfigurations =
+                commonTestData.getPolicyDecoderConfigurationParameters(false);
         try {
             final DistributionParameterGroup distributionParameters =
                     new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, null,
-                            receptionHandlerConfigurations, forwarderConfigurations);
+                            receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
             distributionParameters.validate();
             fail("test should throw an exception here");
         } catch (final Exception e) {
@@ -187,11 +197,13 @@ public class TestDistributionParameterGroup {
                 commonTestData.getReceptionHandlerConfigurationParameters(false);
         final Map<String, PolicyForwarderConfigurationParameterGroup> forwarderConfigurations =
                 commonTestData.getPolicyForwarderConfigurationParameters(false);
-        final DistributionParameterGroup distributionParameters =
-                new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters,
-                        receptionHandlerParameters, receptionHandlerConfigurations, forwarderConfigurations);
+        final Map<String, PolicyDecoderConfigurationParameterGroup> decoderConfigurations =
+                commonTestData.getPolicyDecoderConfigurationParameters(false);
+        final DistributionParameterGroup distributionParameters = new DistributionParameterGroup(
+                CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, receptionHandlerParameters,
+                receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
         distributionParameters.validate();
-        GroupValidationResult result = distributionParameters.validate();
+        final GroupValidationResult result = distributionParameters.validate();
         assertFalse(result.isValid());
         assertTrue(result.getResult().endsWith("must have at least one reception handler\n"));
     }
@@ -205,10 +217,12 @@ public class TestDistributionParameterGroup {
                 commonTestData.getReceptionHandlerConfigurationParameters(false);
         final Map<String, PolicyForwarderConfigurationParameterGroup> forwarderConfigurations =
                 commonTestData.getPolicyForwarderConfigurationParameters(false);
+        final Map<String, PolicyDecoderConfigurationParameterGroup> decoderConfigurations =
+                commonTestData.getPolicyDecoderConfigurationParameters(false);
 
-        final DistributionParameterGroup distributionParameters =
-                new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters,
-                        receptionHandlerParameters, receptionHandlerConfigurations, forwarderConfigurations);
+        final DistributionParameterGroup distributionParameters = new DistributionParameterGroup(
+                CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, receptionHandlerParameters,
+                receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult()
