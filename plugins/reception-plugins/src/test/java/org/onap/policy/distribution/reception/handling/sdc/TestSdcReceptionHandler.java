@@ -57,6 +57,7 @@ import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
 import org.onap.policy.distribution.reception.handling.PluginHandler;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
+import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
 import org.onap.sdc.api.notification.IArtifactInfo;
 import org.onap.sdc.api.notification.INotificationData;
 import org.onap.sdc.api.results.IDistributionClientDownloadResult;
@@ -99,6 +100,7 @@ public class TestSdcReceptionHandler {
      */
     @Before
     public final void init() throws IOException {
+        DistributionStatisticsManager.resetAllStatistics();
         final Gson gson = new GsonBuilder().create();
         pssdConfigParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdc.json"),
                 SdcReceptionHandlerConfigurationParameterGroup.class);
@@ -237,6 +239,12 @@ public class TestSdcReceptionHandler {
         assertTrue(policyDecoder.getDecodedPolicy().getPolicyName().contains(DUMMY_SERVICE_CSAR));
         assertEquals(1, policyForwarder.getNumberOfPoliciesReceived());
         assertTrue(policyForwarder.receivedPolicyWithGivenType(DummyDecoder.DUMMY_POLICY));
+        assertEquals(1, DistributionStatisticsManager.getTotalDistributionCount());
+        assertEquals(1, DistributionStatisticsManager.getDistributionSuccessCount());
+        assertEquals(0, DistributionStatisticsManager.getDistributionFailureCount());
+        assertEquals(1, DistributionStatisticsManager.getTotalDownloadCount());
+        assertEquals(1, DistributionStatisticsManager.getDownloadSuccessCount());
+        assertEquals(0, DistributionStatisticsManager.getDownloadFailureCount());
     }
 
     @Test
@@ -260,6 +268,12 @@ public class TestSdcReceptionHandler {
 
         assertEquals(null, policyDecoder.getDecodedPolicy());
         assertEquals(0, policyForwarder.getNumberOfPoliciesReceived());
+        assertEquals(1, DistributionStatisticsManager.getTotalDistributionCount());
+        assertEquals(0, DistributionStatisticsManager.getDistributionSuccessCount());
+        assertEquals(1, DistributionStatisticsManager.getDistributionFailureCount());
+        assertEquals(1, DistributionStatisticsManager.getTotalDownloadCount());
+        assertEquals(0, DistributionStatisticsManager.getDownloadSuccessCount());
+        assertEquals(1, DistributionStatisticsManager.getDownloadFailureCount());
     }
 
     @Test

@@ -35,6 +35,7 @@ import org.onap.policy.distribution.reception.decoding.PluginTerminationExceptio
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
 import org.onap.policy.distribution.reception.handling.sdc.exceptions.ArtifactDownloadException;
+import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
 import org.onap.sdc.api.IDistributionClient;
 import org.onap.sdc.api.consumer.IComponentDoneStatusMessage;
 import org.onap.sdc.api.consumer.IDistributionStatusMessage;
@@ -180,7 +181,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
      */
     public void processCsarServiceArtifacts(final INotificationData notificationData) {
         boolean artifactsProcessedSuccessfully = true;
-
+        DistributionStatisticsManager.updateTotalDistributionCount();
         for (final IArtifactInfo artifact : notificationData.getServiceArtifacts()) {
             try {
                 final IDistributionClientDownloadResult resultArtifact =
@@ -200,9 +201,11 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
             }
         }
         if (artifactsProcessedSuccessfully) {
+            DistributionStatisticsManager.updateDistributionSuccessCount();
             sendComponentDoneStatus(notificationData.getDistributionID(), DistributionStatusEnum.COMPONENT_DONE_OK,
                     null);
         } else {
+            DistributionStatisticsManager.updateDistributionFailureCount();
             sendComponentDoneStatus(notificationData.getDistributionID(), DistributionStatusEnum.COMPONENT_DONE_ERROR,
                     "Failed to process the artifact");
         }
@@ -218,8 +221,10 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
     private IDistributionClientDownloadResult downloadTheArtifact(final IArtifactInfo artifact,
             final INotificationData notificationData) throws ArtifactDownloadException {
 
+        DistributionStatisticsManager.updateTotalDownloadCount();
         final IDistributionClientDownloadResult downloadResult = distributionClient.download(artifact);
         if (!downloadResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
+            DistributionStatisticsManager.updateDownloadFailureCount();
             final String message = "Failed to download artifact with name: " + artifact.getArtifactName() + " due to: "
                     + downloadResult.getDistributionMessageResult();
             LOGGER.error(message);
@@ -227,6 +232,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
                     notificationData.getDistributionID(), DistributionStatusEnum.DOWNLOAD_ERROR, message);
             throw new ArtifactDownloadException(message);
         }
+        DistributionStatisticsManager.updateDownloadSuccessCount();
         sendDistributionStatus(DistributionStatusType.DOWNLOAD, artifact.getArtifactURL(),
                 notificationData.getDistributionID(), DistributionStatusEnum.DOWNLOAD_OK, null);
         return downloadResult;
