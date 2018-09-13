@@ -20,22 +20,21 @@
 
 package org.onap.policy.distribution.reception.decoding.pdpx;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
- * The attribute acts an abstraction to indicate OOF which supports two different Models
- * (Heat and TOSCA), two areas are wrapped: in the VNFC level to indicate the flavor, 
- * in the hpa_feature level to contains specified information.
+ * The attribute acts an abstraction to indicate OOF which supports two different Models (Heat and TOSCA), two areas are
+ * wrapped: in the VNFC level to indicate the flavor, in the hpa_feature level to contains specified information.
  *
  * @author Libo Zhu (libo.zhu@intel.com)
  */
-class Directive{
+class Directive {
     private String type;
     private List<Attribute> attributes = new ArrayList<>();
 
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -46,6 +45,5 @@ class Directive{
     public List<Attribute> getAttributes() {
         return attributes;
     }
-
 }
 

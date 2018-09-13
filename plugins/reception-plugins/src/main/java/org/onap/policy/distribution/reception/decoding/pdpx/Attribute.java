@@ -33,7 +33,7 @@ class Attribute {
     @SerializedName(value = "attribute_value")
     private String attributeValue;
 
-    public void setAttributeName(String attributeName) {
+    public void setAttributeName(final String attributeName) {
         this.attributeName = attributeName;
     }
 
@@ -41,13 +41,12 @@ class Attribute {
         return attributeName;
     }
 
-    public void setAttributeValue(String attributeValue) {
+    public void setAttributeValue(final String attributeValue) {
         this.attributeValue = attributeValue;
     }
 
     public String getAttributeValue() {
         return attributeValue;
     }
-    
 }
 

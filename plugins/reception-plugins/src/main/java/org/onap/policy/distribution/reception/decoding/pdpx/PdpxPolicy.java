@@ -28,15 +28,15 @@ import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
  */
 public class PdpxPolicy implements Policy {
 
+    private String guard;
     private String service;
     private String policyName;
     private String description;
     private String templateVersion;
     private String version;
-    private String priority;
     private String riskType;
+    private String priority;
     private String riskLevel;
-    private String guard;
     private Content content = new Content();
 
     @Override
@@ -49,28 +49,16 @@ public class PdpxPolicy implements Policy {
         return content.getPolicyType();
     }
 
-    public void setService(String service) {
-        this.service = service;
+    public String getGuard() {
+        return guard;
     }
 
     public String getService() {
         return service;
-    }    
-
-    public void setPolicyName(String policyName) {
-        this.policyName = policyName;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getDescription() {
         return description;
-    }
-
-    public void setTemplateVersion(String templateVersion) {
-        this.templateVersion = templateVersion;
     }
 
     public String getTemplateVersion() {
@@ -81,48 +69,59 @@ public class PdpxPolicy implements Policy {
         return version;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
+    public String getRiskType() {
+        return riskType;
     }
 
     public String getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
-
-    public String getGuard() {
-        return guard;
-    }
-
-    public void setGuard(String guard) {
-        this.guard = guard;
-    }
-
     public String getRiskLevel() {
         return riskLevel;
     }
 
-    public void setRiskLevel(String riskLevel) {
-        this.riskLevel = riskLevel;
-    }
-
-    public String getRiskType() {
-        return riskType;
-    }
-
-    public void setRiskType(String riskType) {
-        this.riskType = riskType;
-    }
-
-    public Content getContent(){
+    public Content getContent() {
         return content;
     }
 
-    public void setContent(Content content) {
-        this.content = content;
-    }    
+    public void setGuard(final String guard) {
+        this.guard = guard;
+    }
 
+    public void setService(final String service) {
+        this.service = service;
+    }
+
+    public void setPolicyName(final String policyName) {
+        this.policyName = policyName;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
+    }
+
+    public void setTemplateVersion(final String templateVersion) {
+        this.templateVersion = templateVersion;
+    }
+
+    public void setVersion(final String version) {
+        this.version = version;
+    }
+
+    public void setRiskType(final String riskType) {
+        this.riskType = riskType;
+    }
+
+    public void setPriority(final String priority) {
+        this.priority = priority;
+    }
+
+    public void setRiskLevel(final String riskLevel) {
+        this.riskLevel = riskLevel;
+    }
+
+    public void setContent(final Content content) {
+        this.content = content;
+    }
 }

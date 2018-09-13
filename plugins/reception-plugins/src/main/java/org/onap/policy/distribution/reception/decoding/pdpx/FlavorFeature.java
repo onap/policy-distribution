@@ -20,8 +20,8 @@
 
 package org.onap.policy.distribution.reception.decoding.pdpx;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The FlavorFeature includes all the specified flavor infos used in multicloud, it represents one VDU of TOSCA.
@@ -29,12 +29,12 @@ import java.util.ArrayList;
  * @author Libo Zhu (libo.zhu@intel.com)
  */
 class FlavorFeature {
-    private String id ;
+    private String id;
     private String type = "tosca.node.nfv.Vdu.Compute";
     private List<Directive> directives = new ArrayList<>();
     private List<FlavorProperty> flavorProperties = new ArrayList<>();
-    
-    public void setId(String id) {
+
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -42,7 +42,7 @@ class FlavorFeature {
         return id;
     }
 
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -50,18 +50,12 @@ class FlavorFeature {
         return type;
     }
 
-    public List<FlavorProperty>  getFlavorProperties() {
+    public List<FlavorProperty> getFlavorProperties() {
         return flavorProperties;
     }
 
     public List<Directive> getDirectives() {
         return directives;
-    }
-
-    @Override
-    public String toString() {
-        return "{ id = " + id + ", type = " + type + ", \n" + "directivies:["+directives + ",\n"
-            + flavorProperties + "}";
     }
 }
 

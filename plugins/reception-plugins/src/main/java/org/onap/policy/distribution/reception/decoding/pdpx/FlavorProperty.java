@@ -20,17 +20,17 @@
 
 package org.onap.policy.distribution.reception.decoding.pdpx;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The FlavorProperty includes all the properties of Flavor.
  *
  * @author Libo Zhu (libo.zhu@intel.com)
  */
-class FlavorProperty{
+class FlavorProperty {
     @SerializedName(value = "hpa-feature")
     private String hpaFeature;
     private String mandatory = "true";
@@ -41,7 +41,7 @@ class FlavorProperty{
     @SerializedName(value = "hpa-feature-attributes")
     private List<HpaFeatureAttribute> hpaFeatureAttributes = new ArrayList<>();
 
-    public void setHpaFeature(String hpaFeature) {
+    public void setHpaFeature(final String hpaFeature) {
         this.hpaFeature = hpaFeature;
     }
 
@@ -49,7 +49,7 @@ class FlavorProperty{
         return hpaFeature;
     }
 
-    public void setMandatory(String mandatory) {
+    public void setMandatory(final String mandatory) {
         this.mandatory = mandatory;
     }
 
@@ -57,7 +57,7 @@ class FlavorProperty{
         return mandatory;
     }
 
-    public void setArchitecture(String architecture) {
+    public void setArchitecture(final String architecture) {
         this.architecture = architecture;
     }
 
@@ -65,7 +65,7 @@ class FlavorProperty{
         return architecture;
     }
 
-    public void setHpaVersion(String hpaVersion) {
+    public void setHpaVersion(final String hpaVersion) {
         this.hpaVersion = hpaVersion;
     }
 
@@ -80,12 +80,5 @@ class FlavorProperty{
     public List<HpaFeatureAttribute> getHpaFeatureAttributes() {
         return hpaFeatureAttributes;
     }
-
-    @Override
-    public String toString() {
-        return "{ hpaFeature:" + hpaFeature + ", mandatory = " + mandatory + ",architecture:" + architecture
-            + ", hpaFeatureAttributes : [" + hpaFeatureAttributes + "]";
-    }
-
 }
 
