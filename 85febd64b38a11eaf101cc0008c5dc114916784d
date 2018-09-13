@@ -140,6 +140,52 @@
       "revId": "85febd64b38a11eaf101cc0008c5dc114916784d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_793312f6",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-09-13T20:58:19Z",
+      "side": 1,
+      "message": "remove the comment",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 37
+      },
+      "revId": "85febd64b38a11eaf101cc0008c5dc114916784d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_992e2e8b",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderToscaPdpx.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-09-13T20:58:19Z",
+      "side": 1,
+      "message": "remove the comment",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 37
+      },
+      "revId": "85febd64b38a11eaf101cc0008c5dc114916784d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
