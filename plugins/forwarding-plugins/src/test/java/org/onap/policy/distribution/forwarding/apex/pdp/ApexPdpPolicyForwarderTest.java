@@ -22,11 +22,11 @@ package org.onap.policy.distribution.forwarding.apex.pdp;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -45,9 +45,14 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
-import org.onap.policy.distribution.model.ApexPdpPolicy;
 import org.onap.policy.distribution.model.Policy;
+import org.onap.policy.distribution.model.PolicyAsString;
 
+/**
+ * Class to perform unit test of {@link ApexPdpPolicyForwarder}.
+ *
+ * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class ApexPdpPolicyForwarderTest {
 
@@ -84,7 +89,6 @@ public class ApexPdpPolicyForwarderTest {
     public void testForwardPolicy() throws ApexException, FileNotFoundException, IOException, PolicyForwardingException,
             NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 
-        final FileInputStream fis = new FileInputStream(File.createTempFile("policy1", null));
         final Collection<Policy> policies = new ArrayList<>();
         final ApexPdpPolicyForwarder forwarder = new ApexPdpPolicyForwarder();
         forwarder.configure(GROUP_NAME);
@@ -93,13 +97,14 @@ public class ApexPdpPolicyForwarderTest {
         forwarderField.setAccessible(true);
         forwarderField.set(forwarder, engineServiceFacade);
 
-        final ApexPdpPolicy policy = new ApexPdpPolicy("policy", fis);
+        final PolicyAsString policy = new PolicyAsString("policy", "APEX", "Sample Policy of apex");
         policies.add(policy);
 
         try {
             forwarder.forward(policies);
             verify(engineServiceFacade, times(1)).init();
-            verify(engineServiceFacade, times(1)).deployModel("policy", fis, IGNORE_CONFLICTS, FORCE_UPDATE);
+            verify(engineServiceFacade, times(1)).deployModel(eq("policy"), anyObject(), eq(IGNORE_CONFLICTS),
+                    eq(FORCE_UPDATE));
         } catch (final Exception exp) {
             fail("Test must not throw an exception");
         }
@@ -110,19 +115,18 @@ public class ApexPdpPolicyForwarderTest {
             throws ApexException, FileNotFoundException, IOException, PolicyForwardingException, NoSuchFieldException,
             SecurityException, IllegalArgumentException, IllegalAccessException {
 
-        final FileInputStream fis = new FileInputStream(File.createTempFile("policy1", null));
         final Collection<Policy> policies = new ArrayList<>();
         final ApexPdpPolicyForwarder forwarder = new ApexPdpPolicyForwarder();
         forwarder.configure(GROUP_NAME);
 
-        Mockito.doThrow(new ApexException("Failed")).when(engineServiceFacade).deployModel("policy1", fis,
-                IGNORE_CONFLICTS, FORCE_UPDATE);
+        Mockito.doThrow(new ApexException("Failed")).when(engineServiceFacade).deployModel(eq("policy1"), anyObject(),
+                eq(IGNORE_CONFLICTS), eq(FORCE_UPDATE));
 
         final Field decodersField = forwarder.getClass().getDeclaredField("engineServiceFacade");
         decodersField.setAccessible(true);
         decodersField.set(forwarder, engineServiceFacade);
 
-        final ApexPdpPolicy policy1 = new ApexPdpPolicy("policy1", fis);
+        final PolicyAsString policy1 = new PolicyAsString("policy1", "APEX", "Sample Policy of apex");
         policies.add(policy1);
 
         try {
@@ -147,12 +151,10 @@ public class ApexPdpPolicyForwarderTest {
         forwarderField.setAccessible(true);
         forwarderField.set(forwarder, engineServiceFacade);
 
-        final ApexPdpPolicy policy1 =
-                new ApexPdpPolicy("policy1", new FileInputStream(File.createTempFile("policy1", null)));
+        final PolicyAsString policy1 = new PolicyAsString("policy1", "APEX", "Sample Policy of apex");
         policies.add(policy1);
 
-        final ApexPdpPolicy policy2 =
-                new ApexPdpPolicy("policy2", new FileInputStream(File.createTempFile("policy2", null)));
+        final PolicyAsString policy2 = new PolicyAsString("policy2", "APEX", "Sample Policy of apex");
         policies.add(policy2);
 
         try {

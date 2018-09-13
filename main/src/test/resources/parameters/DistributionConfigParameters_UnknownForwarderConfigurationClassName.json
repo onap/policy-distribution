@@ -10,35 +10,13 @@
         "DummyReceptionHandler":{
             "receptionHandlerType":"DummyReceptionHandler",
             "receptionHandlerClassName":"org.onap.policy.distribution.main.testclasses.DummyReceptionHandler",
-            "pssdConfiguration":{
-                "asdcAddress": "localhost",
-                "messageBusAddress": [
-                    "a.com",
-                    "b.com",
-                    "c.com"
-                 ],
-                "user": "tbdsdc-1480",
-                "password": "tbdsdc-1480",
-                "pollingInterval":20,
-                "pollingTimeout":30,
-                "consumerId": "policy-id",
-                "artifactTypes": [
-                    "TOSCA_CSAR",
-                    "HEAT"
-                ],
-                "consumerGroup": "policy-group",
-                "environmentName": "environmentName",
-                "keystorePath": "null",
-                "keystorePassword": "null",
-                "activeserverTlsAuth": false,
-                "isFilterinEmptyResources": true,
-                "isUseHttpsWithDmaap": false
-            },
+            "receptionHandlerConfigurationName":"dummyReceptionHandlerConfiguration",
             "pluginHandlerParameters":{
                 "policyDecoders":{
                     "DummyDecoder":{
                         "decoderType":"DummyDecoder",
-                        "decoderClassName":"org.onap.policy.distribution.main.testclasses.DummyDecoder"
+                        "decoderClassName":"org.onap.policy.distribution.main.testclasses.DummyDecoder",
+                        "decoderConfigurationParameters": "dummyDecoderConfiguration"
                     }
                 },
                 "policyForwarders":{
@@ -71,6 +49,15 @@
                 "userName": "user",
                 "password": "pw123",
                 "isManaged": true
+            }
+        }
+    },
+    "policyDecoderConfigurationParameters":{
+        "dummyDecoderConfiguration":{
+            "parameterClassName":"org.onap.policy.distribution.main.testclasses.DummyPolicyDecoderParameterGroup",
+            "parameters":{
+                "policyName": "SamplePolicy",
+                "policyType": "DUMMY"
             }
         }
     }

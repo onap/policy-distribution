@@ -56,4 +56,7 @@ public class DummyDecoder implements PolicyDecoder<PolicyInput, Policy> {
     public Collection<Policy> decode(final PolicyInput input) throws PolicyDecodingException {
         return policesToReturn;
     }
+
+    @Override
+    public void configure(final String parameterGroupName) {}
 }

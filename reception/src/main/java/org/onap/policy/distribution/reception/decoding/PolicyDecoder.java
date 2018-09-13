@@ -34,6 +34,14 @@ import org.onap.policy.distribution.model.PolicyInput;
 public interface PolicyDecoder<S extends PolicyInput, T extends Policy> {
 
     /**
+     * Configure the policy decoder. This method will be invoked immediately after instantiation in order for the policy
+     * decoder to configure itself.
+     *
+     * @param parameterGroupName the name of the parameter group which contains the configuration for the policy decoder
+     */
+    void configure(String parameterGroupName);
+
+    /**
      * Can the decoder handle input of the specified type.
      *
      * @param policyInput the type
