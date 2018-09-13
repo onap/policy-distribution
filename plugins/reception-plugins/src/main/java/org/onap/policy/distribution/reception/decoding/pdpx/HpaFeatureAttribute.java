@@ -27,7 +27,7 @@ import com.google.gson.annotations.SerializedName;
  *
  * @author Libo Zhu (libo.zhu@intel.com)
  */
-class HpaFeatureAttribute{
+class HpaFeatureAttribute {
     @SerializedName(value = "hpa-attribute-key")
     private String hpaAttributeKey;
     @SerializedName(value = "hap-attribute-value")
@@ -35,17 +35,15 @@ class HpaFeatureAttribute{
     private String operator;
     private String unit;
 
-    public HpaFeatureAttribute(){}
-
-    public void setHpaAttributeKey(String hpaAttributeKey) {
+    public void setHpaAttributeKey(final String hpaAttributeKey) {
         this.hpaAttributeKey = hpaAttributeKey;
     }
-    
+
     public String getHpaAttributeKey() {
         return hpaAttributeKey;
     }
 
-    public void setHpaAttributeValue(String hpaAttributeValue) {
+    public void setHpaAttributeValue(final String hpaAttributeValue) {
         this.hpaAttributeValue = hpaAttributeValue;
     }
 
@@ -53,15 +51,15 @@ class HpaFeatureAttribute{
         return hpaAttributeValue;
     }
 
-    public void setOperator(String operator) {
+    public void setOperator(final String operator) {
         this.operator = operator;
     }
 
     public String getOperator() {
         return operator;
     }
-    
-    public void setUnit(String unit) {
+
+    public void setUnit(final String unit) {
         this.unit = unit;
     }
 
@@ -70,5 +68,4 @@ class HpaFeatureAttribute{
     }
 }
 
-    
 

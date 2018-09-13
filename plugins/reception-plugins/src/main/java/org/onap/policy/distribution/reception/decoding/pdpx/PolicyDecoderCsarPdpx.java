@@ -36,7 +36,7 @@ import org.onap.sdc.tosca.parser.impl.SdcToscaParserFactory;
 import org.onap.sdc.toscaparser.api.NodeTemplate;
 
 /**
- * Decodes PDP-X policies from a TOSCA file.
+ * Decodes PDP-X policies from a CSAR file.
  */
 public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, PdpxPolicy> {
 
@@ -44,7 +44,6 @@ public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, PdpxPolicy> {
 
     @Override
     public Collection<PdpxPolicy> decode(final Csar csar) throws PolicyDecodingException {
-        // logic for generating the policies from the CSAR.
         final List<PdpxPolicy> lPdpxPolicy = new ArrayList<>();
         final ISdcCsarHelper sdcCsarHelper = parseCsar(csar);
         final List<NodeTemplate> lnodeVf = sdcCsarHelper.getServiceVfList();
@@ -66,7 +65,7 @@ public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, PdpxPolicy> {
     }
 
     /**
-     * Parse the input Csar by SDC tosca tool.
+     * Parse the input Csar using SDC TOSCA parser.
      *
      * @param csar represents the service TOSCA Csar
      * @return the object to represents the content of input csar
@@ -75,23 +74,18 @@ public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, PdpxPolicy> {
     public ISdcCsarHelper parseCsar(final Csar csar) throws PolicyDecodingException {
         ISdcCsarHelper sdcCsarHelper;
         try {
-
-            final SdcToscaParserFactory factory = SdcToscaParserFactory.getInstance();// Autoclosable
-
-            LOGGER.debug("tosca File Path = " + csar.getCsarPath());
-
-            final File spoolFile = new File(csar.getCsarPath());
-
-            sdcCsarHelper = factory.getSdcCsarHelper(spoolFile.getAbsolutePath());
-
-        } catch (final Exception e) {
-            LOGGER.error("Exception got in parseTosca", e);
-            throw new PolicyDecodingException("Exception caught when passing the csar file to the parser ", e);
+            final SdcToscaParserFactory factory = SdcToscaParserFactory.getInstance();
+            LOGGER.debug("Csar File Path = " + csar.getCsarPath());
+            final File csarFile = new File(csar.getCsarPath());
+            sdcCsarHelper = factory.getSdcCsarHelper(csarFile.getAbsolutePath());
+        } catch (final Exception exp) {
+            final String message = "Failed passing the csar file";
+            LOGGER.error(message, exp);
+            throw new PolicyDecodingException(message, exp);
         }
         return sdcCsarHelper;
     }
 
     @Override
     public void configure(final String parameterGroupName) {}
-
 }

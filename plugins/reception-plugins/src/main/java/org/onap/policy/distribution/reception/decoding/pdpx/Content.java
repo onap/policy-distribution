@@ -20,8 +20,8 @@
 
 package org.onap.policy.distribution.reception.decoding.pdpx;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The content acts the high level abstraction which to be used by OOF to do Optimization.
@@ -35,15 +35,15 @@ class Content {
     private String policyType = "Optimization";
     private List<FlavorFeature> flavorFeatures = new ArrayList<>();
 
-    public void setResources(String resources) {
+    public void setResources(final String resources) {
         this.resources = resources;
     }
 
     public String getResources() {
         return resources;
-    }   
+    }
 
-    public void setIdentity(String identity) {
+    public void setIdentity(final String identity) {
         this.identity = identity;
     }
 
@@ -55,7 +55,7 @@ class Content {
         return policyScope;
     }
 
-    public void setPolicyType(String policyType) {
+    public void setPolicyType(final String policyType) {
         this.policyType = policyType;
     }
 
@@ -66,6 +66,5 @@ class Content {
     public List<FlavorFeature> getFlavorFeatures() {
         return flavorFeatures;
     }
-
 }
 
