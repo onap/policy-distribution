@@ -15,7 +15,8 @@
                 "policyDecoders":{
                     "DummyDecoder":{
                         "decoderType":"DummyDecoder",
-                        "decoderClassName":"org.onap.policy.distribution.main.testclasses.DummyDecoder"
+                        "decoderClassName":"org.onap.policy.distribution.main.testclasses.DummyDecoder",
+                        "decoderConfigurationParameters": "dummyDecoderConfiguration"
                     }
                 },
                 "policyForwarders":{
@@ -48,6 +49,15 @@
                 "userName": "user",
                 "password": "pw123",
                 "isManaged": true
+            }
+        }
+    },
+    "policyDecoderConfigurationParameters":{
+        "dummyDecoderConfiguration":{
+            "parameterClassName":"org.onap.policy.distribution.main.testclasses.DummyPolicyDecoderParameterGroup",
+            "parameters":{
+                "policyName": "SamplePolicy",
+                "policyType": "DUMMY"
             }
         }
     }

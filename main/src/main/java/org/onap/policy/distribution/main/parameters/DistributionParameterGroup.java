@@ -23,10 +23,12 @@ package org.onap.policy.distribution.main.parameters;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.common.utils.validation.ParameterValidationUtils;
+import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
@@ -43,6 +45,9 @@ public class DistributionParameterGroup implements ParameterGroup {
             new LinkedHashMap<>();
     private Map<String, PolicyForwarderConfigurationParameterGroup> policyForwarderConfigurationParameters =
             new LinkedHashMap<>();
+    private Map<String, PolicyDecoderConfigurationParameterGroup> policyDecoderConfigurationParameters =
+            new LinkedHashMap<>();
+
 
 
     /**
@@ -53,12 +58,14 @@ public class DistributionParameterGroup implements ParameterGroup {
     public DistributionParameterGroup(final String name, final RestServerParameters restServerParameters,
             final Map<String, ReceptionHandlerParameters> receptionHandlerParameters,
             final Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurationParameters,
-            final Map<String, PolicyForwarderConfigurationParameterGroup> policyForwarderConfigurationParameters) {
+            final Map<String, PolicyForwarderConfigurationParameterGroup> policyForwarderConfigurationParameters,
+            final Map<String, PolicyDecoderConfigurationParameterGroup> policyDecoderConfigurationParameters) {
         this.name = name;
         this.restServerParameters = restServerParameters;
         this.receptionHandlerParameters = receptionHandlerParameters;
         this.receptionHandlerConfigurationParameters = receptionHandlerConfigurationParameters;
         this.policyForwarderConfigurationParameters = policyForwarderConfigurationParameters;
+        this.policyDecoderConfigurationParameters = policyDecoderConfigurationParameters;
     }
 
     /**
@@ -130,11 +137,30 @@ public class DistributionParameterGroup implements ParameterGroup {
     /**
      * Sets the policy forwarder configuration parameter map.
      *
-     * @param eventInputParameters the policy forwarder configuration parameters
+     * @param policyForwarderConfigurationParameters the policy forwarder configuration parameters
      */
     public void setPolicyForwarderConfigurationParameters(
             final Map<String, PolicyForwarderConfigurationParameterGroup> policyForwarderConfigurationParameters) {
         this.policyForwarderConfigurationParameters = policyForwarderConfigurationParameters;
+    }
+
+    /**
+     * Returns the policy decoder configuration parameter map.
+     *
+     * @return the policyDecoderConfigurationParameters
+     */
+    public Map<String, PolicyDecoderConfigurationParameterGroup> getPolicyDecoderConfigurationParameters() {
+        return policyDecoderConfigurationParameters;
+    }
+
+    /**
+     * Set the policy decoder configuration parameter map.
+     *
+     * @param policyDecoderConfigurationParameters the policyDecoderConfigurationParameters to set
+     */
+    public void setPolicyDecoderConfigurationParameters(
+            final Map<String, PolicyDecoderConfigurationParameterGroup> policyDecoderConfigurationParameters) {
+        this.policyDecoderConfigurationParameters = policyDecoderConfigurationParameters;
     }
 
     /**
@@ -156,13 +182,10 @@ public class DistributionParameterGroup implements ParameterGroup {
         }
         validateReceptionHandlers(validationResult);
         validateForwarderConfigurations(validationResult);
+        validateDecoderConfigurations(validationResult);
         return validationResult;
     }
 
-    /**
-     * Validate the reception handlers.
-     *
-     */
     private void validateReceptionHandlers(final GroupValidationResult validationResult) {
         if (receptionHandlerParameters == null || receptionHandlerParameters.size() == 0) {
             validationResult.setResult("receptionHandlerParameters", ValidationStatus.INVALID,
@@ -180,6 +203,14 @@ public class DistributionParameterGroup implements ParameterGroup {
         for (final Entry<String, PolicyForwarderConfigurationParameterGroup> configurationParameters : policyForwarderConfigurationParameters
                 .entrySet()) {
             validationResult.setResult("policyForwarderConfigurationParameters", configurationParameters.getKey(),
+                    configurationParameters.getValue().validate());
+        }
+    }
+
+    private void validateDecoderConfigurations(final GroupValidationResult validationResult) {
+        for (final Entry<String, PolicyDecoderConfigurationParameterGroup> configurationParameters : policyDecoderConfigurationParameters
+                .entrySet()) {
+            validationResult.setResult("policyDecoderConfigurationParameters", configurationParameters.getKey(),
                     configurationParameters.getValue().validate());
         }
     }

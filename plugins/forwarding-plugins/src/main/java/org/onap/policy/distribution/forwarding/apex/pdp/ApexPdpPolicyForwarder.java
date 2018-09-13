@@ -20,8 +20,11 @@
 
 package org.onap.policy.distribution.forwarding.apex.pdp;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 
+import org.apache.commons.io.IOUtils;
 import org.onap.policy.apex.core.deployment.EngineServiceFacade;
 import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
@@ -30,8 +33,8 @@ import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarder;
-import org.onap.policy.distribution.model.ApexPdpPolicy;
 import org.onap.policy.distribution.model.Policy;
+import org.onap.policy.distribution.model.PolicyAsString;
 
 /**
  * This class provides an implementation of {@link PolicyForwarder} interface for forwarding the given policies to
@@ -42,6 +45,7 @@ import org.onap.policy.distribution.model.Policy;
 public class ApexPdpPolicyForwarder implements PolicyForwarder {
 
     private static final Logger LOGGER = FlexLogger.getLogger(XacmlPdpPolicyForwarder.class);
+    private static final String POLICY_TYPE = "APEX";
 
     private ApexPdpPolicyForwarderParameterGroup apexForwarderParameters;
     private EngineServiceFacade engineServiceFacade;
@@ -69,8 +73,9 @@ public class ApexPdpPolicyForwarder implements PolicyForwarder {
 
         } else {
             final Policy policy = (Policy) policies.toArray()[0];
-            if (policy.getClass().isAssignableFrom(ApexPdpPolicy.class)) {
-                forwardPolicy((ApexPdpPolicy) policy);
+            if (policy.getClass().isAssignableFrom(PolicyAsString.class)
+                    && policy.getPolicyType().equalsIgnoreCase(POLICY_TYPE)) {
+                forwardPolicy((PolicyAsString) policy);
             } else {
                 final String message = "Ignoring the policy as it is not an apex-pdp policy";
                 LOGGER.debug(message);
@@ -85,16 +90,17 @@ public class ApexPdpPolicyForwarder implements PolicyForwarder {
      * @param apexPolicy the apex policy
      * @throws PolicyForwardingException if any exception occurs while forwarding policy
      */
-    private void forwardPolicy(final ApexPdpPolicy apexPolicy) throws PolicyForwardingException {
+    private void forwardPolicy(final PolicyAsString apexPolicy) throws PolicyForwardingException {
         try {
             engineServiceFacade.init();
-            engineServiceFacade.deployModel(apexPolicy.getPolicyName(), apexPolicy.getPolicyInputStream(),
+            final InputStream input = IOUtils.toInputStream(apexPolicy.getPolicy(), "UTF-8");
+            engineServiceFacade.deployModel(apexPolicy.getPolicyName(), input,
                     apexForwarderParameters.isIgnoreConflicts(), apexForwarderParameters.isForceUpdate());
 
             LOGGER.debug("Sucessfully forwarded the policy to apex-pdp egine at "
                     + apexForwarderParameters.getHostname() + ":" + apexForwarderParameters.getPort());
 
-        } catch (final ApexException exp) {
+        } catch (final ApexException | IOException exp) {
             final String message = "Error sending policy to apex-pdp engine at" + apexForwarderParameters.getHostname()
                     + ":" + apexForwarderParameters.getPort();
             LOGGER.error(message, exp);

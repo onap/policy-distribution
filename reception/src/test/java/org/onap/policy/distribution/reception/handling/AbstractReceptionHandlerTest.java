@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.Test;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
@@ -57,6 +58,7 @@ public class AbstractReceptionHandlerTest {
     private static final String FORWARDER_CLASS_NAME =
             "org.onap.policy.distribution.reception.handling.DummyPolicyForwarder";
     private static final String FORWARDER_CONFIGURATION_PARAMETERS = "DummyConfiguration";
+    private static final String DECODER_CONFIGURATION_PARAMETERS = "DummyDecoderConfiguration";
 
     @Test
     public void testInputReceived() throws PolicyDecodingException, NoSuchFieldException, SecurityException,
@@ -171,7 +173,8 @@ public class AbstractReceptionHandlerTest {
 
     private Map<String, PolicyDecoderParameters> getPolicyDecoders() {
         final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<String, PolicyDecoderParameters>();
-        final PolicyDecoderParameters pDParameters = new PolicyDecoderParameters(DECODER_TYPE, DECODER_CLASS_NAME);
+        final PolicyDecoderParameters pDParameters =
+                new PolicyDecoderParameters(DECODER_TYPE, DECODER_CLASS_NAME, DECODER_CONFIGURATION_PARAMETERS);
         policyDecoders.put(DECODER_KEY, pDParameters);
         return policyDecoders;
     }

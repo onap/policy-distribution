@@ -24,12 +24,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
+import org.onap.policy.distribution.main.testclasses.DummyPolicyDecoderParameterGroup;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup.DummyPolicyForwarderParameterGroupBuilder;
 import org.onap.policy.distribution.main.testclasses.DummyReceptionHandlerParameterGroup;
 import org.onap.policy.distribution.main.testclasses.DummyReceptionHandlerParameterGroup.DummyReceptionHandlerParameterGroupBuilder;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
+import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
@@ -64,6 +67,10 @@ public class CommonTestData {
     public static final String DUMMY_RECEPTION_HANDLER_KEY = "DummyReceptionHandler";
     public static final String DUMMY_ENGINE_FORWARDER_KEY = "DummyForwarder";
     public static final String DUMMY_DECODER_KEY = "DummyDecoder";
+
+    public static final String POLICY_TYPE = "DUMMY";
+    public static final String POLICY_NAME = "SamplePolicy";
+    public static final String DECODER_CONFIGURATION_PARAMETERS = "dummyDecoderConfiguration";
 
     /**
      * Returns an instance of ReceptionHandlerParameters for test cases.
@@ -117,7 +124,7 @@ public class CommonTestData {
             messageBusAddress.add("localhost");
             final List<String> artifactTypes = new ArrayList<>();
             artifactTypes.add("TOSCA_CSAR");
-            DummyReceptionHandlerParameterGroup dummyReceptionHandlerParameterGroup =
+            final DummyReceptionHandlerParameterGroup dummyReceptionHandlerParameterGroup =
                     new DummyReceptionHandlerParameterGroupBuilder().setMyStringParameter(MY_STRING_PARAMETER_VALUE)
                             .setMyIntegerParameter(MY_INTEGER_PARAMETER_VALUE)
                             .setMyBooleanParameter(MY_BOOLEAN_PARAMETER_VALUE).build();
@@ -167,7 +174,8 @@ public class CommonTestData {
     public Map<String, PolicyDecoderParameters> getPolicyDecoders(final boolean isEmpty) {
         final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<String, PolicyDecoderParameters>();
         if (!isEmpty) {
-            final PolicyDecoderParameters pDParameters = new PolicyDecoderParameters(DECODER_TYPE, DECODER_CLASS_NAME);
+            final PolicyDecoderParameters pDParameters =
+                    new PolicyDecoderParameters(DECODER_TYPE, DECODER_CLASS_NAME, DECODER_CONFIGURATION_PARAMETERS);
             policyDecoders.put(DUMMY_DECODER_KEY, pDParameters);
         }
         return policyDecoders;
@@ -184,12 +192,31 @@ public class CommonTestData {
         final Map<String, PolicyForwarderConfigurationParameterGroup> policyForwarderConfigurationParameters =
                 new HashMap<String, PolicyForwarderConfigurationParameterGroup>();
         if (!isEmpty) {
-            DummyPolicyForwarderParameterGroup dummyPolicyForwarderParameterGroup =
+            final DummyPolicyForwarderParameterGroup dummyPolicyForwarderParameterGroup =
                     new DummyPolicyForwarderParameterGroupBuilder().setUseHttps(true).setHostname(FORWARDER_HOST)
                             .setPort(1234).setUserName("myUser").setPassword("myPassword").setIsManaged(true).build();
             policyForwarderConfigurationParameters.put(FORWARDER_CONFIGURATION_PARAMETERS,
                     dummyPolicyForwarderParameterGroup);
         }
         return policyForwarderConfigurationParameters;
+    }
+
+    /**
+     * Returns PolicyDecoderConfigurationParameterGroups for test cases.
+     *
+     * @param isEmpty boolean value to represent that object created should be empty or not
+     * @return the PolicyDecoderConfigurationParameterGroups
+     */
+    public Map<String, PolicyDecoderConfigurationParameterGroup> getPolicyDecoderConfigurationParameters(
+            final boolean isEmpty) {
+        final Map<String, PolicyDecoderConfigurationParameterGroup> policyDecoderConfigurationParameters =
+                new HashMap<String, PolicyDecoderConfigurationParameterGroup>();
+        if (!isEmpty) {
+            final DummyPolicyDecoderParameterGroup dummyPolicyForwarderParameterGroup =
+                    new DummyPolicyDecoderParameterGroup(POLICY_NAME, POLICY_TYPE);
+            policyDecoderConfigurationParameters.put(DECODER_CONFIGURATION_PARAMETERS,
+                    dummyPolicyForwarderParameterGroup);
+        }
+        return policyDecoderConfigurationParameters;
     }
 }

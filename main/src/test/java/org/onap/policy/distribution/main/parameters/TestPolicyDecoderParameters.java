@@ -23,6 +23,9 @@ package org.onap.policy.distribution.main.parameters;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.onap.policy.distribution.main.parameters.CommonTestData.DECODER_CLASS_NAME;
+import static org.onap.policy.distribution.main.parameters.CommonTestData.DECODER_CONFIGURATION_PARAMETERS;
+import static org.onap.policy.distribution.main.parameters.CommonTestData.DECODER_TYPE;
 
 import org.junit.Test;
 import org.onap.policy.common.parameters.GroupValidationResult;
@@ -38,19 +41,21 @@ public class TestPolicyDecoderParameters {
     @Test
     public void testPolicyDecoderParameters() {
         final PolicyDecoderParameters pDParameters =
-                new PolicyDecoderParameters(CommonTestData.DECODER_TYPE, CommonTestData.DECODER_CLASS_NAME);
+                new PolicyDecoderParameters(DECODER_TYPE, DECODER_CLASS_NAME, DECODER_CONFIGURATION_PARAMETERS);
         final GroupValidationResult validationResult = pDParameters.validate();
-        assertEquals(CommonTestData.DECODER_TYPE, pDParameters.getDecoderType());
-        assertEquals(CommonTestData.DECODER_CLASS_NAME, pDParameters.getDecoderClassName());
+        assertEquals(DECODER_TYPE, pDParameters.getDecoderType());
+        assertEquals(DECODER_CLASS_NAME, pDParameters.getDecoderClassName());
+        assertEquals(DECODER_CONFIGURATION_PARAMETERS, pDParameters.getDecoderConfigurationName());
         assertTrue(validationResult.isValid());
     }
 
     @Test
     public void testPolicyDecoderParameters_InvalidDecoderType() {
-        final PolicyDecoderParameters pDParameters = new PolicyDecoderParameters("", CommonTestData.DECODER_CLASS_NAME);
+        final PolicyDecoderParameters pDParameters =
+                new PolicyDecoderParameters("", DECODER_CLASS_NAME, DECODER_CONFIGURATION_PARAMETERS);
         final GroupValidationResult validationResult = pDParameters.validate();
         assertEquals("", pDParameters.getDecoderType());
-        assertEquals(CommonTestData.DECODER_CLASS_NAME, pDParameters.getDecoderClassName());
+        assertEquals(DECODER_CLASS_NAME, pDParameters.getDecoderClassName());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult().contains(
                 "field \"decoderType\" type \"java.lang.String\" value \"\" INVALID, must be a non-blank string"));
@@ -58,9 +63,10 @@ public class TestPolicyDecoderParameters {
 
     @Test
     public void testPolicyDecoderParameters_InvalidDecoderClassName() {
-        final PolicyDecoderParameters pDParameters = new PolicyDecoderParameters(CommonTestData.DECODER_TYPE, "");
+        final PolicyDecoderParameters pDParameters =
+                new PolicyDecoderParameters(DECODER_TYPE, "", DECODER_CONFIGURATION_PARAMETERS);
         final GroupValidationResult validationResult = pDParameters.validate();
-        assertEquals(CommonTestData.DECODER_TYPE, pDParameters.getDecoderType());
+        assertEquals(DECODER_TYPE, pDParameters.getDecoderType());
         assertEquals("", pDParameters.getDecoderClassName());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult()
@@ -70,7 +76,8 @@ public class TestPolicyDecoderParameters {
 
     @Test
     public void testPolicyDecoderParameters_InvalidDecoderTypeAndClassName() {
-        final PolicyDecoderParameters pDParameters = new PolicyDecoderParameters("", "");
+        final PolicyDecoderParameters pDParameters =
+                new PolicyDecoderParameters("", "", DECODER_CONFIGURATION_PARAMETERS);
         final GroupValidationResult validationResult = pDParameters.validate();
         assertEquals("", pDParameters.getDecoderType());
         assertEquals("", pDParameters.getDecoderClassName());
@@ -84,11 +91,11 @@ public class TestPolicyDecoderParameters {
 
     @Test
     public void testPolicyDecoderParameters_NullDecoderType() {
-        final PolicyDecoderParameters pDParameters = 
-                new PolicyDecoderParameters(null, CommonTestData.DECODER_CLASS_NAME);
+        final PolicyDecoderParameters pDParameters =
+                new PolicyDecoderParameters(null, DECODER_CLASS_NAME, DECODER_CONFIGURATION_PARAMETERS);
         final GroupValidationResult validationResult = pDParameters.validate();
         assertEquals(null, pDParameters.getDecoderType());
-        assertEquals(CommonTestData.DECODER_CLASS_NAME, pDParameters.getDecoderClassName());
+        assertEquals(DECODER_CLASS_NAME, pDParameters.getDecoderClassName());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult().contains(
                 "field \"decoderType\" type \"java.lang.String\" value \"null\" INVALID, must be a non-blank string"));
@@ -96,9 +103,10 @@ public class TestPolicyDecoderParameters {
 
     @Test
     public void testPolicyDecoderParameters_NullDecoderClassName() {
-        final PolicyDecoderParameters pDParameters = new PolicyDecoderParameters(CommonTestData.DECODER_TYPE, null);
+        final PolicyDecoderParameters pDParameters =
+                new PolicyDecoderParameters(DECODER_TYPE, null, DECODER_CONFIGURATION_PARAMETERS);
         final GroupValidationResult validationResult = pDParameters.validate();
-        assertEquals(CommonTestData.DECODER_TYPE, pDParameters.getDecoderType());
+        assertEquals(DECODER_TYPE, pDParameters.getDecoderType());
         assertEquals(null, pDParameters.getDecoderClassName());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult()
@@ -108,11 +116,11 @@ public class TestPolicyDecoderParameters {
 
     @Test
     public void testPolicyDecoderParameters_InvalidDecoderClass() {
-        final PolicyDecoderParameters pDParameters =
-                new PolicyDecoderParameters(CommonTestData.DECODER_TYPE, CommonTestData.DECODER_CLASS_NAME + "Invalid");
+        final PolicyDecoderParameters pDParameters = new PolicyDecoderParameters(DECODER_TYPE,
+                DECODER_CLASS_NAME + "Invalid", DECODER_CONFIGURATION_PARAMETERS);
         final GroupValidationResult validationResult = pDParameters.validate();
-        assertEquals(CommonTestData.DECODER_TYPE, pDParameters.getDecoderType());
-        assertEquals(CommonTestData.DECODER_CLASS_NAME + "Invalid", pDParameters.getDecoderClassName());
+        assertEquals(DECODER_TYPE, pDParameters.getDecoderType());
+        assertEquals(DECODER_CLASS_NAME + "Invalid", pDParameters.getDecoderClassName());
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult().contains("policy decoder class not found in classpath"));
     }
