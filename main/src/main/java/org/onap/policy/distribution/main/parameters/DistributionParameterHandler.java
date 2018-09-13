@@ -22,18 +22,21 @@ package org.onap.policy.distribution.main.parameters;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import java.io.FileReader;
+
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.startstop.DistributionCommandLineArguments;
+import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;
+import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParametersJsonAdapter;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParametersJsonAdapter;
 
 /**
- * This class handles reading, parsing and validating of policy distribution parameters from JSON
- * files.
+ * This class handles reading, parsing and validating of policy distribution parameters from JSON files.
  */
 public class DistributionParameterHandler {
     private static final Logger LOGGER = FlexLogger.getLogger(DistributionParameterHandler.class);
@@ -57,6 +60,8 @@ public class DistributionParameterHandler {
                             new PolicyForwarderConfigurationParametersJsonAdapter())
                     .registerTypeAdapter(ReceptionHandlerConfigurationParameterGroup.class,
                             new ReceptionHandlerConfigurationParametersJsonAdapter())
+                    .registerTypeAdapter(PolicyDecoderConfigurationParameterGroup.class,
+                            new PolicyDecoderConfigurationParametersJsonAdapter())
                     .create();
             distributionParameterGroup = gson.fromJson(new FileReader(arguments.getFullConfigurationFilePath()),
                     DistributionParameterGroup.class);

@@ -92,6 +92,7 @@ public class PluginHandler {
                         (Class<PolicyDecoder<PolicyInput, Policy>>) Class
                                 .forName(decoderParameters.getDecoderClassName());
                 final PolicyDecoder<PolicyInput, Policy> decoder = policyDecoderClass.newInstance();
+                decoder.configure(decoderParameters.getDecoderConfigurationName());
                 policyDecoders.add(decoder);
             } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException exp) {
                 LOGGER.error("exception occured while initializing decoders", exp);

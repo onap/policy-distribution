@@ -322,7 +322,7 @@ public class TestSdcReceptionHandler {
     private Map<String, PolicyDecoderParameters> getPolicyDecoders() {
         final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<String, PolicyDecoderParameters>();
         final PolicyDecoderParameters pDParameters = new PolicyDecoderParameters("DummyDecoder",
-                "org.onap.policy.distribution.reception.handling.sdc.DummyDecoder");
+                "org.onap.policy.distribution.reception.handling.sdc.DummyDecoder", "DummyDecoderConfiguration");
         policyDecoders.put("DummyDecoderKey", pDParameters);
         return policyDecoders;
     }

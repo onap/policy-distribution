@@ -31,6 +31,7 @@ import java.nio.file.Paths;
 import org.junit.Test;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.startstop.DistributionCommandLineArguments;
+import org.onap.policy.distribution.main.testclasses.DummyPolicyDecoderParameterGroup;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup;
 
 /**
@@ -42,7 +43,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testParameterHandlerNoParameterFile() throws PolicyDistributionException {
         final String[] noArgumentString =
-        { "-c", "parameters/NoParameterFile.json" };
+            { "-c", "parameters/NoParameterFile.json" };
 
         final DistributionCommandLineArguments noArguments = new DistributionCommandLineArguments();
         noArguments.parse(noArgumentString);
@@ -58,7 +59,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testParameterHandlerEmptyParameters() throws PolicyDistributionException {
         final String[] emptyArgumentString =
-        { "-c", "parameters/EmptyParameters.json" };
+            { "-c", "parameters/EmptyParameters.json" };
 
         final DistributionCommandLineArguments emptyArguments = new DistributionCommandLineArguments();
         emptyArguments.parse(emptyArgumentString);
@@ -74,7 +75,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testParameterHandlerBadParameters() throws PolicyDistributionException {
         final String[] badArgumentString =
-        { "-c", "parameters/BadParameters.json" };
+            { "-c", "parameters/BadParameters.json" };
 
         final DistributionCommandLineArguments badArguments = new DistributionCommandLineArguments();
         badArguments.parse(badArgumentString);
@@ -92,7 +93,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testParameterHandlerInvalidParameters() throws PolicyDistributionException {
         final String[] invalidArgumentString =
-        { "-c", "parameters/InvalidParameters.json" };
+            { "-c", "parameters/InvalidParameters.json" };
 
         final DistributionCommandLineArguments invalidArguments = new DistributionCommandLineArguments();
         invalidArguments.parse(invalidArgumentString);
@@ -110,7 +111,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testParameterHandlerNoParameters() throws PolicyDistributionException {
         final String[] noArgumentString =
-        { "-c", "parameters/NoParameters.json" };
+            { "-c", "parameters/NoParameters.json" };
 
         final DistributionCommandLineArguments noArguments = new DistributionCommandLineArguments();
         noArguments.parse(noArgumentString);
@@ -126,7 +127,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testParameterHandlerMinumumParameters() throws PolicyDistributionException {
         final String[] minArgumentString =
-        { "-c", "parameters/MinimumParameters.json" };
+            { "-c", "parameters/MinimumParameters.json" };
 
         final DistributionCommandLineArguments minArguments = new DistributionCommandLineArguments();
         minArguments.parse(minArgumentString);
@@ -138,7 +139,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testDistributionParameterGroup() throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters.json" };
+            { "-c", "parameters/DistributionConfigParameters.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -159,13 +160,19 @@ public class TestDistributionParameterHandler {
         assertEquals(CommonTestData.FORWARDER_HOST,
                 ((DummyPolicyForwarderParameterGroup) parGroup.getPolicyForwarderConfigurationParameters()
                         .get(CommonTestData.FORWARDER_CONFIGURATION_PARAMETERS)).getHostname());
+        assertEquals(CommonTestData.POLICY_TYPE,
+                ((DummyPolicyDecoderParameterGroup) parGroup.getPolicyDecoderConfigurationParameters()
+                        .get(CommonTestData.DECODER_CONFIGURATION_PARAMETERS)).getPolicyType());
+        assertEquals(CommonTestData.POLICY_NAME,
+                ((DummyPolicyDecoderParameterGroup) parGroup.getPolicyDecoderConfigurationParameters()
+                        .get(CommonTestData.DECODER_CONFIGURATION_PARAMETERS)).getPolicyName());
     }
 
     @Test
     public void testDistributionParameterGroup_InvalidForwarderConfigurationClassName()
             throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidForwarderConfigurationClassName.json" };
+            { "-c", "parameters/DistributionConfigParameters_InvalidForwarderConfigurationClassName.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -182,7 +189,7 @@ public class TestDistributionParameterHandler {
     public void testDistributionParameterGroup_UnknownForwarderConfigurationClassName()
             throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_UnknownForwarderConfigurationClassName.json" };
+            { "-c", "parameters/DistributionConfigParameters_UnknownForwarderConfigurationClassName.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -199,7 +206,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testDistributionParameterGroup_InvalidName() throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidName.json" };
+            { "-c", "parameters/DistributionConfigParameters_InvalidName.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -216,7 +223,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testDistributionParameterGroup_NoReceptionHandler() throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_NoReceptionHandler.json" };
+            { "-c", "parameters/DistributionConfigParameters_NoReceptionHandler.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -232,7 +239,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testDistributionParameterGroup_EmptyReceptionHandler() throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_EmptyReceptionHandler.json" };
+            { "-c", "parameters/DistributionConfigParameters_EmptyReceptionHandler.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -248,7 +255,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testDistributionParameterGroup_NoPolicyDecoder() throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_NoPolicyDecoder.json" };
+            { "-c", "parameters/DistributionConfigParameters_NoPolicyDecoder.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -264,7 +271,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testDistributionParameterGroup_NoPolicyForwarder() throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_NoPolicyForwarder.json" };
+            { "-c", "parameters/DistributionConfigParameters_NoPolicyForwarder.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -280,7 +287,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testDistributionParameterGroup_EmptyPolicyDecoder() throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_EmptyPolicyDecoder.json" };
+            { "-c", "parameters/DistributionConfigParameters_EmptyPolicyDecoder.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -296,7 +303,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testDistributionParameterGroup_EmptyPolicyForwarder() throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_EmptyPolicyForwarder.json" };
+            { "-c", "parameters/DistributionConfigParameters_EmptyPolicyForwarder.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -313,7 +320,7 @@ public class TestDistributionParameterHandler {
     public void testDistributionParameterGroup_InvalidReceptionHandlerParameters()
             throws PolicyDistributionException, IOException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidReceptionHandlerParameters.json" };
+            { "-c", "parameters/DistributionConfigParameters_InvalidReceptionHandlerParameters.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -333,7 +340,7 @@ public class TestDistributionParameterHandler {
     public void testDistributionParameterGroup_InvalidDecoderAndForwarderParameters()
             throws PolicyDistributionException, IOException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidDecoderAndForwarderParameters.json" };
+            { "-c", "parameters/DistributionConfigParameters_InvalidDecoderAndForwarderParameters.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -353,7 +360,7 @@ public class TestDistributionParameterHandler {
     public void testDistributionParameterGroup_InvalidRestServerParameters()
             throws PolicyDistributionException, IOException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidRestServerParameters.json" };
+            { "-c", "parameters/DistributionConfigParameters_InvalidRestServerParameters.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -372,7 +379,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testDistributionVersion() throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-v" };
+            { "-v" };
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         final String version = arguments.parse(distributionConfigParameters);
         assertTrue(version.startsWith("ONAP Policy Framework Distribution Service"));
@@ -381,7 +388,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testDistributionHelp() throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-h" };
+            { "-h" };
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         final String help = arguments.parse(distributionConfigParameters);
         assertTrue(help.startsWith("usage:"));
@@ -390,7 +397,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testDistributionInvalidOption() throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-d" };
+            { "-d" };
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         try {
             arguments.parse(distributionConfigParameters);
@@ -402,7 +409,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testDistributionParameterGroup_InvalidReceptionHandlerClass() throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidReceptionHandlerClass.json" };
+            { "-c", "parameters/DistributionConfigParameters_InvalidReceptionHandlerClass.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -417,7 +424,7 @@ public class TestDistributionParameterHandler {
     @Test
     public void testDistributionParameterGroup_EmptyReceptionHandlerClass() throws PolicyDistributionException {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_EmptyReceptionHandlerClass.json" };
+            { "-c", "parameters/DistributionConfigParameters_EmptyReceptionHandlerClass.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
@@ -426,6 +433,41 @@ public class TestDistributionParameterHandler {
             new DistributionParameterHandler().getParameters(arguments);
         } catch (final Exception e) {
             assertTrue(e.getMessage().contains("invalid in JSON file"));
+        }
+    }
+
+    @Test
+    public void testDistributionParameterGroup_InvalidDecoderConfigurationClassName()
+            throws PolicyDistributionException {
+        final String[] distributionConfigParameters =
+            { "-c", "parameters/DistributionConfigParameters_InvalidDecoderConfigurationClassName.json" };
+
+        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
+        arguments.parse(distributionConfigParameters);
+
+        try {
+            new DistributionParameterHandler().getParameters(arguments);
+            fail("test should throw an exception here");
+        } catch (final Exception e) {
+            assertTrue(e.getMessage().contains("parameter \"parameterClassName\" value \"\" invalid in JSON file"));
+        }
+    }
+
+    @Test
+    public void testDistributionParameterGroup_UnknownDecoderConfigurationClassName()
+            throws PolicyDistributionException {
+        final String[] distributionConfigParameters =
+            { "-c", "parameters/DistributionConfigParameters_UnknownDecoderConfigurationClassName.json" };
+
+        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
+        arguments.parse(distributionConfigParameters);
+
+        try {
+            new DistributionParameterHandler().getParameters(arguments);
+            fail("test should throw an exception here");
+        } catch (final Exception e) {
+            assertTrue(e.getMessage().contains(
+                    "parameter \"parameterClassName\" value \"org.onap.policy.Unknown\", could not find class"));
         }
     }
 }

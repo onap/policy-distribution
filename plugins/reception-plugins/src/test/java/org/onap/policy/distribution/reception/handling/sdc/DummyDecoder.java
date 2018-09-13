@@ -64,4 +64,10 @@ public class DummyDecoder implements PolicyDecoder<Csar, DummyPolicy> {
     public DummyPolicy getDecodedPolicy() {
         return decodedPolicy;
     }
+
+    @Override
+    public void configure(final String parameterGroupName) {
+        // Auto-generated method stub
+
+    }
 }

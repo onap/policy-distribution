@@ -20,35 +20,36 @@
 
 package org.onap.policy.distribution.model;
 
-import java.io.InputStream;
-
 /**
- * This class represents an apex-pdp policy which can be decoded by a relevant {@link PolicyDecoder}.
+ * This class represents a policy which can be decoded by a relevant {@link PolicyDecoder}.
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class ApexPdpPolicy implements Policy {
+public class PolicyAsString implements Policy {
     private String policyName;
-    private InputStream policyInputStream;
+    private String policyType;
+    private String policy;
 
     /**
-     * Constructor for creating instance of {@link ApexPdpPolicy}.
+     * Constructor for creating instance of {@link PolicyAsString}.
      *
      * @param policyName the policy file name
-     * @param policyInputStream the input stream
+     * @param policyType the policy type
+     * @param policy the policy
      */
-    public ApexPdpPolicy(final String policyName, final InputStream policyInputStream) {
+    public PolicyAsString(final String policyName, final String policyType, final String policy) {
         this.policyName = policyName;
-        this.policyInputStream = policyInputStream;
+        this.policyType = policyType;
+        this.policy = policy;
     }
 
     /**
-     * Returns the policyInputStream of this ApexPdpPolicy instance.
+     * Returns the policy of this {@link PolicyAsString} instance.
      *
-     * @return the policyInputStream
+     * @return the policy
      */
-    public InputStream getPolicyInputStream() {
-        return policyInputStream;
+    public String getPolicy() {
+        return policy;
     }
 
     /**
@@ -64,6 +65,6 @@ public class ApexPdpPolicy implements Policy {
      */
     @Override
     public String getPolicyType() {
-        return "Method not supported";
+        return policyType;
     }
 }

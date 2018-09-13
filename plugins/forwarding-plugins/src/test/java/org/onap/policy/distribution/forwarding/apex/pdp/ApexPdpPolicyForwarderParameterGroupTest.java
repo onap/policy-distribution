@@ -27,6 +27,11 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.onap.policy.common.parameters.ValidationStatus;
 
+/**
+ * Class to perform unit test of {@link ApexPdpPolicyForwarderParameterGroup}.
+ *
+ * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
+ */
 public class ApexPdpPolicyForwarderParameterGroupTest {
 
     @Test

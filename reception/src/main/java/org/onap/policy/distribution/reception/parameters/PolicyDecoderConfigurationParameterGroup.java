@@ -18,35 +18,28 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.reception.decoding.pdpx;
+package org.onap.policy.distribution.reception.parameters;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.onap.policy.distribution.model.PolicyInput;
-import org.onap.policy.distribution.model.Tosca;
+import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 
 /**
- * Decodes PDP-X policies from a TOSCA file.
+ * Base class of all {@link ParameterGroup} classes for configuration parameters for {@link PolicyDecoder} classes.
+ *
+ * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class PolicyDecoderToscaPdpx implements PolicyDecoder<Tosca, PdpxPolicy> {
+public abstract class PolicyDecoderConfigurationParameterGroup implements ParameterGroup {
+
+    private String name;
 
     @Override
-    public Collection<PdpxPolicy> decode(final Tosca tosca) {
-        // Add logic for generating the policies from the TOSCA
-        return Collections.emptySet();
+    public String getName() {
+        return name;
     }
 
     @Override
-    public boolean canHandle(final PolicyInput policyInput) {
-        return policyInput.getClass().isAssignableFrom(Tosca.class);
-    }
-
-    @Override
-    public void configure(final String parameterGroupName) {
-        // Auto-generated method stub
-
+    public void setName(final String name) {
+        this.name = name;
     }
 
 }
