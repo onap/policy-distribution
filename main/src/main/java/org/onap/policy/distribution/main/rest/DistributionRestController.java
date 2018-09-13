@@ -44,9 +44,11 @@ import org.onap.policy.common.endpoints.report.HealthCheckReport;
 @Produces(MediaType.APPLICATION_JSON)
 @SwaggerDefinition(
         info = @Info(description = "Policy Distribution Service", version = "v1.0", title = "Policy Distribution"),
-        consumes = { MediaType.APPLICATION_JSON }, produces = { MediaType.APPLICATION_JSON },
-        schemes = { SwaggerDefinition.Scheme.HTTP },
-        tags = { @Tag(name = "policy-distribution", description = "Policy Distribution Service Operations") })
+        consumes =
+        { MediaType.APPLICATION_JSON }, produces =
+        { MediaType.APPLICATION_JSON }, schemes =
+        { SwaggerDefinition.Scheme.HTTP }, tags =
+        { @Tag(name = "policy-distribution", description = "Policy Distribution Service Operations") })
 public class DistributionRestController {
 
     @GET
@@ -56,5 +58,15 @@ public class DistributionRestController {
             notes = "Provides healthy status of the Policy Distribution component", response = HealthCheckReport.class)
     public Response healthcheck() {
         return Response.status(Response.Status.OK).entity(new HealthCheckProvider().performHealthCheck()).build();
+    }
+
+    @GET
+    @Path("statistics")
+    @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Fetch current statistics",
+            notes = "Provides current statistics of the Policy Distribution component",
+            response = StatisticsReport.class)
+    public Response statistics() {
+        return Response.status(Response.Status.OK).entity(new StatisticsProvider().fetchCurrentStatistics()).build();
     }
 }
