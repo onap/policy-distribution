@@ -15,15 +15,18 @@
                 "policyDecoders":{
                     "DummyDecoder":{
                         "decoderType":"DummyDecoder",
-                        "decoderClassName":"org.onap.policy.distribution.main.testclasses.DummyDecoder"
+                        "decoderClassName":"org.onap.policy.distribution.main.testclasses.DummyDecoder",
+                        "decoderConfigurationParameters": "dummyDecoderConfiguration"
                     },
                     "APEXDecoder":{
                         "decoderType":"",
-                        "decoderClassName":"org.onap.policy.distribution.main.testclasses.PolicyDecoderApexPdpa"
+                        "decoderClassName":"org.onap.policy.distribution.main.testclasses.PolicyDecoderApexPdpa",
+                        "decoderConfigurationParameters": "dummyDecoderConfiguration"
                     },
                     "DROOLSDecoder":{
                         "decoderType":"DROOLS",
-                        "decoderClassName":""
+                        "decoderClassName":"",
+                        "decoderConfigurationParameters": "dummyDecoderConfiguration"
                     }
                 },
                 "policyForwarders":{
@@ -67,6 +70,15 @@
                 "userName": "user",
                 "password": "pw123",
                 "isManaged": true
+            }
+        }
+    },
+    "policyDecoderConfigurationParameters":{
+        "dummyDecoderConfiguration":{
+            "parameterClassName":"org.onap.policy.distribution.main.testclasses.DummyPolicyDecoderParameterGroup",
+            "parameters":{
+                "policyName": "SamplePolicy",
+                "policyType": "DUMMY"
             }
         }
     }

@@ -37,16 +37,20 @@ public class PolicyDecoderParameters implements ParameterGroup {
 
     private String decoderType;
     private String decoderClassName;
+    private String decoderConfigurationName;
 
     /**
      * Constructor for instantiating PolicyDecoderParameters.
      *
      * @param decoderType the policy decoder type
      * @param decoderClassName the policy decoder class name
+     * @param decoderConfigurationName the policy decoder configuration name
      */
-    public PolicyDecoderParameters(final String decoderType, final String decoderClassName) {
+    public PolicyDecoderParameters(final String decoderType, final String decoderClassName,
+            final String decoderConfigurationName) {
         this.decoderType = decoderType;
         this.decoderClassName = decoderClassName;
+        this.decoderConfigurationName = decoderConfigurationName;
     }
 
     /**
@@ -65,6 +69,15 @@ public class PolicyDecoderParameters implements ParameterGroup {
      */
     public String getDecoderClassName() {
         return decoderClassName;
+    }
+
+    /**
+     * Return the name of the decoder configuration of this {@link PolicyDecoderParameters} instance.
+     *
+     * @return the the name of the decoder configuration
+     */
+    public String getDecoderConfigurationName() {
+        return decoderConfigurationName;
     }
 
     /**

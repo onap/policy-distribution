@@ -41,7 +41,7 @@
     },
     "policyForwarderConfigurationParameters":{
         "dummyConfiguration":{
-            "parameterClassName":"",
+            "parameterClassName":"org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup",
             "parameters":{
                 "useHttps": false,
                 "hostname": "192.168.99.100",
@@ -54,7 +54,7 @@
     },
     "policyDecoderConfigurationParameters":{
         "dummyDecoderConfiguration":{
-            "parameterClassName":"org.onap.policy.distribution.main.testclasses.DummyPolicyDecoderParameterGroup",
+            "parameterClassName":"",
             "parameters":{
                 "policyName": "SamplePolicy",
                 "policyType": "DUMMY"

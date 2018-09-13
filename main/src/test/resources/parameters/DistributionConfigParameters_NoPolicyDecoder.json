@@ -44,5 +44,14 @@
                 "isManaged": true
             }
         }
+    },
+    "policyDecoderConfigurationParameters":{
+        "dummyDecoderConfiguration":{
+            "parameterClassName":"org.onap.policy.distribution.main.testclasses.DummyPolicyDecoderParameterGroup",
+            "parameters":{
+                "policyName": "SamplePolicy",
+                "policyType": "DUMMY"
+            }
+        }
     }
 }

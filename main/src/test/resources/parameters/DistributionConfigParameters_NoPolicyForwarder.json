@@ -15,7 +15,8 @@
                 "policyDecoders":{
                     "DummyDecoder":{
                         "decoderType":"DummyDecoder",
-                        "decoderClassName":"org.onap.policy.distribution.main.testclasses.DummyDecoder"
+                        "decoderClassName":"org.onap.policy.distribution.main.testclasses.DummyDecoder",
+                        "decoderConfigurationParameters": "dummyDecoderConfiguration"
                     }
                 }
             }
@@ -28,6 +29,15 @@
                 "myStringParameter": "stringValue",
                 "myIntegerParameter":20,
                 "myBooleanParameter": true
+            }
+        }
+    },
+    "policyDecoderConfigurationParameters":{
+        "dummyDecoderConfiguration":{
+            "parameterClassName":"org.onap.policy.distribution.main.testclasses.DummyPolicyDecoderParameterGroup",
+            "parameters":{
+                "policyName": "SamplePolicy",
+                "policyType": "DUMMY"
             }
         }
     }
