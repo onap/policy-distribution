@@ -30,7 +30,6 @@ public class OptimizationPolicy implements Policy {
     private static final String OPTIMIZATION = "Optimization";
     private String policyName;
     private String policyDescription;
-    private String policyConfigType;
     private String onapName;
     private String configBody;
     private String configBodyType;
@@ -62,11 +61,7 @@ public class OptimizationPolicy implements Policy {
     }
 
     public String getPolicyConfigType() {
-        return policyConfigType;
-    }
-
-    public void setPolicyConfigType(final String policyConfigType) {
-        this.policyConfigType = policyConfigType;
+        return OPTIMIZATION;
     }
 
     public String getOnapName() {

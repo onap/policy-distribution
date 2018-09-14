@@ -37,7 +37,7 @@ public class TestDirective {
         final Directive directive = new Directive();
         directive.setType(type);
 
-        validateReport(type,directive);
+        validateReport(type, directive);
     }
 
     private void validateReport(final String type, final Directive directive) {

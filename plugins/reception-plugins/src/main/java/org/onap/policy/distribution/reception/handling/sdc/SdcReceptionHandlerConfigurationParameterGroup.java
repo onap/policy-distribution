@@ -21,16 +21,15 @@
 package org.onap.policy.distribution.reception.handling.sdc;
 
 import java.util.List;
-import java.util.UUID;
-
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.common.utils.validation.ParameterValidationUtils;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 
 /**
- * This class handles reading, parsing and validating of the Policy SDC Service Distribution parameters from Json
- * format, which strictly adheres to the interface:IConfiguration, defined by SDC SDK.
+ * This class handles reading, parsing and validating of the Policy SDC Service Distribution
+ * parameters from Json format, which strictly adheres to the interface:IConfiguration, defined by
+ * SDC SDK.
  */
 public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHandlerConfigurationParameterGroup {
 
@@ -51,7 +50,8 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
     private boolean isUseHttpsWithDmaap;
 
     /**
-     * The constructor for instantiating {@link SdcReceptionHandlerConfigurationParameterGroup} class.
+     * The constructor for instantiating {@link SdcReceptionHandlerConfigurationParameterGroup}
+     * class.
      *
      * @param builder the SDC configuration builder
      */
@@ -133,16 +133,6 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
 
     public boolean isUseHttpsWithDmaap() {
         return isUseHttpsWithDmaap;
-    }
-
-    /**
-     * Set the name of this group.
-     *
-     * @param name the name to set.
-     */
-    @Override
-    public void setName(final String name) {
-        super.setName(name + "_" + UUID.randomUUID().toString());
     }
 
     /**

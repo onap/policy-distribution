@@ -39,7 +39,7 @@ public class TestAttribute {
         attribute.setAttributeName(attributeName);
         attribute.setAttributeValue(attributeValue);
 
-        validateReport(attributeName,attributeValue,attribute);
+        validateReport(attributeName, attributeValue, attribute);
     }
 
     private void validateReport(final String name, final String value, final Attribute attribute) {
