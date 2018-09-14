@@ -87,5 +87,7 @@ public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, PdpxPolicy> {
     }
 
     @Override
-    public void configure(final String parameterGroupName) {}
+    public void configure(final String parameterGroupName) {
+        throw new UnsupportedOperationException("The method is not supprted");
+    }
 }

@@ -34,6 +34,10 @@ public class DistributionStatisticsManager {
     private static long downloadSuccessCount;
     private static long downloadFailureCount;
 
+    private DistributionStatisticsManager() {
+        throw new IllegalStateException("Instantiation of the class is not allowed");
+    }
+
     /**
      * Method to update the total distribution count.
      *

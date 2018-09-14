@@ -44,6 +44,8 @@ public class PolicyDecoderToscaPdpx implements PolicyDecoder<Tosca, PdpxPolicy> 
     }
 
     @Override
-    public void configure(final String parameterGroupName) {}
+    public void configure(final String parameterGroupName) {
+        throw new UnsupportedOperationException("The method is not supprted");
+    }
 
 }
