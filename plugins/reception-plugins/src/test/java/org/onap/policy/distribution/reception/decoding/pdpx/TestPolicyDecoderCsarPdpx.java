@@ -41,24 +41,173 @@ public class TestPolicyDecoderCsarPdpx {
     @Test
     public void testHpaPolicy2Vnf() throws IOException {
         Csar csar = new Csar("src/test/resources/service-TestNs8-csar.csar");
-
         PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
         try {
             Collection<PdpxPolicy> ret = policyDecoderCsarPdpx.decode(csar);
             assertEquals(2, ret.size());
+            PdpxPolicy pdpxPolicy = (PdpxPolicy) ret.toArray()[0];
+            assertEquals("Optimization", pdpxPolicy.getContent().getPolicyType());
+            assertEquals(1, pdpxPolicy.getContent().getFlavorFeatures().size());
+
+            FlavorFeature flavorFeature = pdpxPolicy.getContent().getFlavorFeatures().get(0);
+            assertEquals("vdu_vnf_1", flavorFeature.getId());
+            assertEquals("tosca.node.nfv.Vdu.Compute", flavorFeature.getType());
+            assertEquals(1, flavorFeature.getDirectives().size());
+            Directive directive = flavorFeature.getDirectives().get(0);
+            assertEquals("flavor_directive", directive.getType());            
+            assertEquals(1, directive.getAttributes().size());
+            assertEquals("flavorName", directive.getAttributes().get(0).getAttributeName());
+            assertEquals("", directive.getAttributes().get(0).getAttributeValue());
+            assertEquals(2, flavorFeature.getFlavorProperties().size());
+            FlavorProperty flavorProperty = flavorFeature.getFlavorProperties().get(0);
+            assertEquals("BasicCapabilities", flavorProperty.getHpaFeature());
+            assertEquals("true", flavorProperty.getMandatory());
+            assertEquals("generic", flavorProperty.getArchitecture());
+            assertEquals("v1", flavorProperty.getHpaVersion());
+            assertEquals(0, flavorProperty.getDirectives().size());
+            assertEquals(1, flavorProperty.getHpaFeatureAttributes().size());
+            HpaFeatureAttribute hpaFeatreAttribute = flavorProperty.getHpaFeatureAttributes().get(0);
+            assertEquals("virtualMemSize",hpaFeatreAttribute.getHpaAttributeKey());
+            assertEquals("4096",hpaFeatreAttribute.getHpaAttributeValue());
+            assertEquals("",hpaFeatreAttribute.getOperator());
+            assertEquals("MB",hpaFeatreAttribute.getUnit());
+            
         } catch (Exception e) {
             fail("test should not thrown an exception here: " + e.getMessage());
         }
     }
 
     @Test
-    public void testHpaPolicyFeature() throws IOException {
-        Csar csar = new Csar("src/test/resources/hpaPolicySRIOV.csar");
-
+    public void testHpaPolicySriov() throws IOException {
+        Csar csar = new Csar("src/test/resources/hpaPolicySriov.csar");
         PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
         try {
             Collection<PdpxPolicy> ret = policyDecoderCsarPdpx.decode(csar);
             assertEquals(2, ret.size());
+            PdpxPolicy pdpxPolicy = (PdpxPolicy) ret.toArray()[0];
+            assertEquals("Optimization", pdpxPolicy.getContent().getPolicyType());
+            assertEquals(1, pdpxPolicy.getContent().getFlavorFeatures().size());
+
+            FlavorFeature flavorFeature = pdpxPolicy.getContent().getFlavorFeatures().get(0);
+            assertEquals("vdu_vnf_1", flavorFeature.getId());
+            assertEquals("tosca.node.nfv.Vdu.Compute", flavorFeature.getType());
+            assertEquals(1, flavorFeature.getDirectives().size());
+            Directive directive = flavorFeature.getDirectives().get(0);
+            assertEquals("flavor_directive", directive.getType());            
+            assertEquals(1, directive.getAttributes().size());
+            assertEquals("flavorName", directive.getAttributes().get(0).getAttributeName());
+            assertEquals("", directive.getAttributes().get(0).getAttributeValue());
+            assertEquals(4, flavorFeature.getFlavorProperties().size());
+            FlavorProperty flavorProperty = flavorFeature.getFlavorProperties().get(3);
+            assertEquals("SriovNICNetwork", flavorProperty.getHpaFeature());
+            assertEquals("true", flavorProperty.getMandatory());
+            assertEquals("generic", flavorProperty.getArchitecture());
+            assertEquals("v1", flavorProperty.getHpaVersion());
+            assertEquals(0, flavorProperty.getDirectives().size());
+            assertEquals(3, flavorProperty.getHpaFeatureAttributes().size());
+
+            HpaFeatureAttribute pciVendorId = flavorProperty.getHpaFeatureAttributes().get(0);
+            assertEquals("pciVendorId",pciVendorId.getHpaAttributeKey());
+            assertEquals("1234",pciVendorId.getHpaAttributeValue());
+            assertEquals("",pciVendorId.getOperator());
+            assertEquals("",pciVendorId.getUnit());
+            HpaFeatureAttribute pciDeviceId = flavorProperty.getHpaFeatureAttributes().get(1);
+            assertEquals("pciDeviceId",pciDeviceId.getHpaAttributeKey());
+            assertEquals("5678",pciDeviceId.getHpaAttributeValue());
+            assertEquals("",pciDeviceId.getOperator());
+            assertEquals("",pciDeviceId.getUnit());
+            HpaFeatureAttribute pciNumDevices = flavorProperty.getHpaFeatureAttributes().get(2);
+            assertEquals("pciNumDevices",pciNumDevices.getHpaAttributeKey());
+            assertEquals("1",pciNumDevices.getHpaAttributeValue());
+            assertEquals("",pciNumDevices.getOperator());
+            assertEquals("",pciNumDevices.getUnit());
+        } catch (Exception e) {
+            fail("test should not thrown an exception here: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testHpaPolicyPciePassthrough() throws IOException {
+        Csar csar = new Csar("src/test/resources/hpaPolicyPciePassthrough.csar");
+        PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
+        try {
+            Collection<PdpxPolicy> ret = policyDecoderCsarPdpx.decode(csar);
+            assertEquals(2, ret.size());
+            PdpxPolicy pdpxPolicy = (PdpxPolicy) ret.toArray()[0];
+            assertEquals("Optimization", pdpxPolicy.getContent().getPolicyType());
+            assertEquals(1, pdpxPolicy.getContent().getFlavorFeatures().size());
+
+            FlavorFeature flavorFeature = pdpxPolicy.getContent().getFlavorFeatures().get(0);
+            assertEquals("vdu_vnf_1", flavorFeature.getId());
+            assertEquals("tosca.node.nfv.Vdu.Compute", flavorFeature.getType());
+            assertEquals(1, flavorFeature.getDirectives().size());
+            Directive directive = flavorFeature.getDirectives().get(0);
+            assertEquals("flavor_directive", directive.getType());            
+            assertEquals(1, directive.getAttributes().size());
+            assertEquals("flavorName", directive.getAttributes().get(0).getAttributeName());
+            assertEquals("", directive.getAttributes().get(0).getAttributeValue());
+            assertEquals(4, flavorFeature.getFlavorProperties().size());
+            FlavorProperty flavorProperty = flavorFeature.getFlavorProperties().get(3);
+            assertEquals("pciePassthrough", flavorProperty.getHpaFeature());
+            assertEquals("true", flavorProperty.getMandatory());
+            assertEquals("generic", flavorProperty.getArchitecture());
+            assertEquals("v1", flavorProperty.getHpaVersion());
+            assertEquals(0, flavorProperty.getDirectives().size());
+            assertEquals(3, flavorProperty.getHpaFeatureAttributes().size());
+
+            HpaFeatureAttribute pciVendorId = flavorProperty.getHpaFeatureAttributes().get(0);
+            assertEquals("pciVendorId",pciVendorId.getHpaAttributeKey());
+            assertEquals("1234",pciVendorId.getHpaAttributeValue());
+            assertEquals("",pciVendorId.getOperator());
+            assertEquals("",pciVendorId.getUnit());
+            HpaFeatureAttribute pciDeviceId = flavorProperty.getHpaFeatureAttributes().get(1);
+            assertEquals("pciDeviceId",pciDeviceId.getHpaAttributeKey());
+            assertEquals("5678",pciDeviceId.getHpaAttributeValue());
+            assertEquals("",pciDeviceId.getOperator());
+            assertEquals("",pciDeviceId.getUnit());
+            HpaFeatureAttribute pciNumDevices = flavorProperty.getHpaFeatureAttributes().get(2);
+            assertEquals("pciNumDevices",pciNumDevices.getHpaAttributeKey());
+            assertEquals("1",pciNumDevices.getHpaAttributeValue());
+            assertEquals("",pciNumDevices.getOperator());
+            assertEquals("",pciNumDevices.getUnit());
+        } catch (Exception e) {
+            fail("test should not thrown an exception here: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testHpaPolicyHugePage() throws IOException {
+        Csar csar = new Csar("src/test/resources/hpaPolicyHugePage.csar");
+        PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
+        try {
+            Collection<PdpxPolicy> ret = policyDecoderCsarPdpx.decode(csar);
+            assertEquals(2, ret.size());
+            PdpxPolicy pdpxPolicy = (PdpxPolicy) ret.toArray()[0];
+            assertEquals("Optimization", pdpxPolicy.getContent().getPolicyType());
+            assertEquals(1, pdpxPolicy.getContent().getFlavorFeatures().size());
+
+            FlavorFeature flavorFeature = pdpxPolicy.getContent().getFlavorFeatures().get(0);
+            assertEquals("vdu_vnf_1", flavorFeature.getId());
+            assertEquals("tosca.node.nfv.Vdu.Compute", flavorFeature.getType());
+            assertEquals(1, flavorFeature.getDirectives().size());
+            Directive directive = flavorFeature.getDirectives().get(0);
+            assertEquals("flavor_directive", directive.getType());            
+            assertEquals(1, directive.getAttributes().size());
+            assertEquals("flavorName", directive.getAttributes().get(0).getAttributeName());
+            assertEquals("", directive.getAttributes().get(0).getAttributeValue());
+            assertEquals(3, flavorFeature.getFlavorProperties().size());
+            FlavorProperty flavorProperty = flavorFeature.getFlavorProperties().get(2);
+            assertEquals("hugePages", flavorProperty.getHpaFeature());
+            assertEquals("false", flavorProperty.getMandatory());
+            assertEquals("generic", flavorProperty.getArchitecture());
+            assertEquals("v1", flavorProperty.getHpaVersion());
+            assertEquals(0, flavorProperty.getDirectives().size());
+            assertEquals(1, flavorProperty.getHpaFeatureAttributes().size());
+            HpaFeatureAttribute hpaFeatreAttribute = flavorProperty.getHpaFeatureAttributes().get(0);
+            assertEquals("memoryPageSize",hpaFeatreAttribute.getHpaAttributeKey());
+            assertEquals("2",hpaFeatreAttribute.getHpaAttributeValue());
+            assertEquals("",hpaFeatreAttribute.getOperator());
+            assertEquals("MB",hpaFeatreAttribute.getUnit());
         } catch (Exception e) {
             fail("test should not thrown an exception here: " + e.getMessage());
         }
