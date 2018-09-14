@@ -43,11 +43,11 @@ public class TestFlavorProperty {
         flavorProperty.setArchitecture(architecture);
         flavorProperty.setHpaVersion(hpaVersion);
 
-        validateReport(hpaFeature,mandatory,architecture,hpaVersion,flavorProperty);
+        validateReport(hpaFeature, mandatory, architecture, hpaVersion, flavorProperty);
     }
 
     private void validateReport(final String hpaFeature, final String mandatory, final String architecture,
-                                final String hpaVersion, final FlavorProperty flavorProperty) {
+            final String hpaVersion, final FlavorProperty flavorProperty) {
         assertEquals(hpaFeature, flavorProperty.getHpaFeature());
         assertEquals(mandatory, flavorProperty.getMandatory());
         assertEquals(architecture, flavorProperty.getArchitecture());

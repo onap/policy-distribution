@@ -43,11 +43,11 @@ public class TestHpaFeatureAttribute {
         hpaFeatureAttribute.setOperator(operator);
         hpaFeatureAttribute.setUnit(unit);
 
-        validateReport(hpaAttributeKey,hpaAttributeValue,operator,unit,hpaFeatureAttribute);
+        validateReport(hpaAttributeKey, hpaAttributeValue, operator, unit, hpaFeatureAttribute);
     }
 
     private void validateReport(final String hpaAttributeKey, final String hpaAttributeValue, final String operator,
-                                final String unit, final HpaFeatureAttribute hpaFeatureAttribute) {
+            final String unit, final HpaFeatureAttribute hpaFeatureAttribute) {
         assertEquals(hpaAttributeKey, hpaFeatureAttribute.getHpaAttributeKey());
         assertEquals(hpaAttributeValue, hpaFeatureAttribute.getHpaAttributeValue());
         assertEquals(operator, hpaFeatureAttribute.getOperator());

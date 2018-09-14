@@ -99,7 +99,6 @@ public class XacmlPdpPolicyForwarderTest {
 
         OptimizationPolicy policy1 = new OptimizationPolicy();
         policy1.setPolicyName("policy1");
-        policy1.setPolicyConfigType("Optimization");
         policies.add(policy1);
 
         Policy policy2 = new UnsupportedPolicy();
@@ -107,7 +106,6 @@ public class XacmlPdpPolicyForwarderTest {
 
         OptimizationPolicy policy3 = new OptimizationPolicy();
         policy3.setPolicyName("policy3");
-        policy3.setPolicyConfigType("Optimization");
         policies.add(policy3);
 
         forwarder.forward(policies);
@@ -143,7 +141,6 @@ public class XacmlPdpPolicyForwarderTest {
         Collection<Policy> policies = new ArrayList<>();
         OptimizationPolicy policy = new OptimizationPolicy();
         policy.setPolicyName("policy");
-        policy.setPolicyConfigType("Optimization");
         policies.add(policy);
         forwarder.forward(policies);
 
@@ -172,7 +169,6 @@ public class XacmlPdpPolicyForwarderTest {
         Collection<Policy> policies = new ArrayList<>();
         OptimizationPolicy policy = new OptimizationPolicy();
         policy.setPolicyName("policy");
-        policy.setPolicyConfigType("Optimization");
         policies.add(policy);
         forwarder.forward(policies);
 
@@ -202,7 +198,6 @@ public class XacmlPdpPolicyForwarderTest {
         Collection<Policy> policies = new ArrayList<>();
         OptimizationPolicy policy = new OptimizationPolicy();
         policy.setPolicyName("policy");
-        policy.setPolicyConfigType("Optimization");
         policies.add(policy);
         forwarder.forward(policies);
 
@@ -232,7 +227,6 @@ public class XacmlPdpPolicyForwarderTest {
         Collection<Policy> policies = new ArrayList<>();
         OptimizationPolicy policy = new OptimizationPolicy();
         policy.setPolicyName("policy");
-        policy.setPolicyConfigType("Optimization");
         policies.add(policy);
         forwarder.forward(policies);
 

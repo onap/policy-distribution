@@ -39,7 +39,7 @@ public class TestFlavorFeature {
         flavorFeature.setId(id);
         flavorFeature.setType(type);
 
-        validateReport(id,type,flavorFeature);
+        validateReport(id, type, flavorFeature);
     }
 
     private void validateReport(final String id, final String type, final FlavorFeature flavorFeature) {

@@ -21,16 +21,17 @@
 package org.onap.policy.distribution.reception.decoding.pdpx;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Collection;
-
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
+import org.onap.policy.distribution.model.OptimizationPolicy;
+import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 
 /**
  * Class to perform unit test of {@link PolicyDecoderCsarPdpx}.
@@ -38,178 +39,164 @@ import org.onap.policy.distribution.model.Csar;
  */
 public class TestPolicyDecoderCsarPdpx {
 
+    private static final String CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION = "csarToOptimizationPolicyConfiguration";
+
+    /**
+     * Set up for test cases.
+     */
+    @BeforeClass
+    public static void setUp() {
+        ParameterGroup parameterGroup = new PolicyDecoderCsarPdpxConfigurationParameterBuilder().setOnapName("onapName")
+                .setPolicyNamePrefix("OOF").setPriority("5").setRiskLevel("2").setRiskType("Test").setVersion("1.0")
+                .build();
+        parameterGroup.setName(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
+        ParameterService.register(parameterGroup);
+    }
+
     @Test
-    public void testHpaPolicy2Vnf() throws IOException {
+    public void testHpaPolicy2Vnf() throws IOException, PolicyDecodingException {
         Csar csar = new Csar("src/test/resources/service-TestNs8-csar.csar");
         PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
-        try {
-            Collection<PdpxPolicy> ret = policyDecoderCsarPdpx.decode(csar);
-            assertEquals(2, ret.size());
-            PdpxPolicy pdpxPolicy = (PdpxPolicy) ret.toArray()[0];
-            assertEquals("Optimization", pdpxPolicy.getContent().getPolicyType());
-            assertEquals(1, pdpxPolicy.getContent().getFlavorFeatures().size());
+        policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
 
-            FlavorFeature flavorFeature = pdpxPolicy.getContent().getFlavorFeatures().get(0);
-            assertEquals("vdu_vnf_1", flavorFeature.getId());
-            assertEquals("tosca.node.nfv.Vdu.Compute", flavorFeature.getType());
-            assertEquals(1, flavorFeature.getDirectives().size());
-            Directive directive = flavorFeature.getDirectives().get(0);
-            assertEquals("flavor_directive", directive.getType());            
-            assertEquals(1, directive.getAttributes().size());
-            assertEquals("flavorName", directive.getAttributes().get(0).getAttributeName());
-            assertEquals("", directive.getAttributes().get(0).getAttributeValue());
-            assertEquals(2, flavorFeature.getFlavorProperties().size());
-            FlavorProperty flavorProperty = flavorFeature.getFlavorProperties().get(0);
-            assertEquals("BasicCapabilities", flavorProperty.getHpaFeature());
-            assertEquals("true", flavorProperty.getMandatory());
-            assertEquals("generic", flavorProperty.getArchitecture());
-            assertEquals("v1", flavorProperty.getHpaVersion());
-            assertEquals(0, flavorProperty.getDirectives().size());
-            assertEquals(1, flavorProperty.getHpaFeatureAttributes().size());
-            HpaFeatureAttribute hpaFeatreAttribute = flavorProperty.getHpaFeatureAttributes().get(0);
-            assertEquals("virtualMemSize",hpaFeatreAttribute.getHpaAttributeKey());
-            assertEquals("4096",hpaFeatreAttribute.getHpaAttributeValue());
-            assertEquals("",hpaFeatreAttribute.getOperator());
-            assertEquals("MB",hpaFeatreAttribute.getUnit());
-            
-        } catch (Exception e) {
-            fail("test should not thrown an exception here: " + e.getMessage());
-        }
+        Collection<OptimizationPolicy> ret = policyDecoderCsarPdpx.decode(csar);
+
+        assertEquals(2, ret.size());
+        OptimizationPolicy policy = (OptimizationPolicy) ret.toArray()[0];
+
+        assertEquals("onapName", policy.getOnapName());
+        assertTrue(policy.getPolicyName().startsWith("OOF."));
+        assertTrue(policy.getConfigBody().contains("\"priority\":\"5\""));
+        assertTrue(policy.getConfigBody().contains("\"riskLevel\":\"2\""));
+        assertTrue(policy.getConfigBody().contains("\"riskType\":\"Test\""));
+        assertTrue(policy.getConfigBody().contains("\"version\":\"1.0\""));
+        assertTrue(policy.getConfigBody().contains("\"policyType\":\"Optimization\""));
+
+        assertTrue(policy.getConfigBody().contains("\"id\":\"vdu_vnf_1\""));
+        assertTrue(policy.getConfigBody().contains("\"type\":\"tosca.node.nfv.Vdu.Compute\""));
+        assertTrue(policy.getConfigBody().contains("\"type\":\"flavor_directive\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-feature\":\"BasicCapabilities\""));
+        assertTrue(policy.getConfigBody().contains("\"mandatory\":\"true\""));
+        assertTrue(policy.getConfigBody().contains("\"architecture\":\"generic\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-version\":\"v1\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-attribute-key\":\"virtualMemSize\""));
+        assertTrue(policy.getConfigBody().contains("\"operator\":\"\""));
+        assertTrue(policy.getConfigBody().contains("\"unit\":\"MB\""));
     }
 
     @Test
-    public void testHpaPolicySriov() throws IOException {
+    public void testHpaPolicySriov() throws IOException, PolicyDecodingException {
         Csar csar = new Csar("src/test/resources/hpaPolicySriov.csar");
         PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
-        try {
-            Collection<PdpxPolicy> ret = policyDecoderCsarPdpx.decode(csar);
-            assertEquals(2, ret.size());
-            PdpxPolicy pdpxPolicy = (PdpxPolicy) ret.toArray()[0];
-            assertEquals("Optimization", pdpxPolicy.getContent().getPolicyType());
-            assertEquals(1, pdpxPolicy.getContent().getFlavorFeatures().size());
+        policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
 
-            FlavorFeature flavorFeature = pdpxPolicy.getContent().getFlavorFeatures().get(0);
-            assertEquals("vdu_vnf_1", flavorFeature.getId());
-            assertEquals("tosca.node.nfv.Vdu.Compute", flavorFeature.getType());
-            assertEquals(1, flavorFeature.getDirectives().size());
-            Directive directive = flavorFeature.getDirectives().get(0);
-            assertEquals("flavor_directive", directive.getType());            
-            assertEquals(1, directive.getAttributes().size());
-            assertEquals("flavorName", directive.getAttributes().get(0).getAttributeName());
-            assertEquals("", directive.getAttributes().get(0).getAttributeValue());
-            assertEquals(4, flavorFeature.getFlavorProperties().size());
-            FlavorProperty flavorProperty = flavorFeature.getFlavorProperties().get(3);
-            assertEquals("SriovNICNetwork", flavorProperty.getHpaFeature());
-            assertEquals("true", flavorProperty.getMandatory());
-            assertEquals("generic", flavorProperty.getArchitecture());
-            assertEquals("v1", flavorProperty.getHpaVersion());
-            assertEquals(0, flavorProperty.getDirectives().size());
-            assertEquals(3, flavorProperty.getHpaFeatureAttributes().size());
+        Collection<OptimizationPolicy> policies = policyDecoderCsarPdpx.decode(csar);
+        OptimizationPolicy policy = (OptimizationPolicy) policies.toArray()[0];
 
-            HpaFeatureAttribute pciVendorId = flavorProperty.getHpaFeatureAttributes().get(0);
-            assertEquals("pciVendorId",pciVendorId.getHpaAttributeKey());
-            assertEquals("1234",pciVendorId.getHpaAttributeValue());
-            assertEquals("",pciVendorId.getOperator());
-            assertEquals("",pciVendorId.getUnit());
-            HpaFeatureAttribute pciDeviceId = flavorProperty.getHpaFeatureAttributes().get(1);
-            assertEquals("pciDeviceId",pciDeviceId.getHpaAttributeKey());
-            assertEquals("5678",pciDeviceId.getHpaAttributeValue());
-            assertEquals("",pciDeviceId.getOperator());
-            assertEquals("",pciDeviceId.getUnit());
-            HpaFeatureAttribute pciNumDevices = flavorProperty.getHpaFeatureAttributes().get(2);
-            assertEquals("pciNumDevices",pciNumDevices.getHpaAttributeKey());
-            assertEquals("1",pciNumDevices.getHpaAttributeValue());
-            assertEquals("",pciNumDevices.getOperator());
-            assertEquals("",pciNumDevices.getUnit());
-        } catch (Exception e) {
-            fail("test should not thrown an exception here: " + e.getMessage());
-        }
+        assertEquals("onapName", policy.getOnapName());
+        assertTrue(policy.getPolicyName().startsWith("OOF."));
+        assertTrue(policy.getConfigBody().contains("\"priority\":\"5\""));
+        assertTrue(policy.getConfigBody().contains("\"riskLevel\":\"2\""));
+        assertTrue(policy.getConfigBody().contains("\"riskType\":\"Test\""));
+        assertTrue(policy.getConfigBody().contains("\"version\":\"1.0\""));
+        assertTrue(policy.getConfigBody().contains("\"policyType\":\"Optimization\""));
+
+        assertTrue(policy.getConfigBody().contains("\"id\":\"vdu_vnf_1\""));
+        assertTrue(policy.getConfigBody().contains("\"type\":\"tosca.node.nfv.Vdu.Compute\""));
+        assertTrue(policy.getConfigBody().contains("\"type\":\"flavor_directive\""));
+        assertTrue(policy.getConfigBody().contains("\"attribute_name\":\"flavorName\""));
+        assertTrue(policy.getConfigBody().contains("\"attribute_value\":\"\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-feature\":\"SriovNICNetwork\""));
+        assertTrue(policy.getConfigBody().contains("\"mandatory\":\"true\""));
+        assertTrue(policy.getConfigBody().contains("\"architecture\":\"generic\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-version\":\"v1\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-attribute-key\":\"pciVendorId\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-attribute-value\":\"1234\""));
+        assertTrue(policy.getConfigBody().contains("\"operator\":\"\""));
+        assertTrue(policy.getConfigBody().contains("\"unit\":\"\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-attribute-key\":\"pciDeviceId\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-attribute-value\":\"5678\""));
+        assertTrue(policy.getConfigBody().contains("\"operator\":\"\""));
+        assertTrue(policy.getConfigBody().contains("\"unit\":\"\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-attribute-key\":\"pciNumDevices\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-attribute-value\":\"1\""));
+        assertTrue(policy.getConfigBody().contains("\"operator\":\"\""));
+        assertTrue(policy.getConfigBody().contains("\"unit\":\"\""));
     }
 
     @Test
-    public void testHpaPolicyPciePassthrough() throws IOException {
+    public void testHpaPolicyPciePassthrough() throws IOException, PolicyDecodingException {
         Csar csar = new Csar("src/test/resources/hpaPolicyPciePassthrough.csar");
         PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
-        try {
-            Collection<PdpxPolicy> ret = policyDecoderCsarPdpx.decode(csar);
-            assertEquals(2, ret.size());
-            PdpxPolicy pdpxPolicy = (PdpxPolicy) ret.toArray()[0];
-            assertEquals("Optimization", pdpxPolicy.getContent().getPolicyType());
-            assertEquals(1, pdpxPolicy.getContent().getFlavorFeatures().size());
+        policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
 
-            FlavorFeature flavorFeature = pdpxPolicy.getContent().getFlavorFeatures().get(0);
-            assertEquals("vdu_vnf_1", flavorFeature.getId());
-            assertEquals("tosca.node.nfv.Vdu.Compute", flavorFeature.getType());
-            assertEquals(1, flavorFeature.getDirectives().size());
-            Directive directive = flavorFeature.getDirectives().get(0);
-            assertEquals("flavor_directive", directive.getType());            
-            assertEquals(1, directive.getAttributes().size());
-            assertEquals("flavorName", directive.getAttributes().get(0).getAttributeName());
-            assertEquals("", directive.getAttributes().get(0).getAttributeValue());
-            assertEquals(4, flavorFeature.getFlavorProperties().size());
-            FlavorProperty flavorProperty = flavorFeature.getFlavorProperties().get(3);
-            assertEquals("pciePassthrough", flavorProperty.getHpaFeature());
-            assertEquals("true", flavorProperty.getMandatory());
-            assertEquals("generic", flavorProperty.getArchitecture());
-            assertEquals("v1", flavorProperty.getHpaVersion());
-            assertEquals(0, flavorProperty.getDirectives().size());
-            assertEquals(3, flavorProperty.getHpaFeatureAttributes().size());
+        Collection<OptimizationPolicy> policies = policyDecoderCsarPdpx.decode(csar);
+        assertEquals(2, policies.size());
+        OptimizationPolicy policy = (OptimizationPolicy) policies.toArray()[0];
 
-            HpaFeatureAttribute pciVendorId = flavorProperty.getHpaFeatureAttributes().get(0);
-            assertEquals("pciVendorId",pciVendorId.getHpaAttributeKey());
-            assertEquals("1234",pciVendorId.getHpaAttributeValue());
-            assertEquals("",pciVendorId.getOperator());
-            assertEquals("",pciVendorId.getUnit());
-            HpaFeatureAttribute pciDeviceId = flavorProperty.getHpaFeatureAttributes().get(1);
-            assertEquals("pciDeviceId",pciDeviceId.getHpaAttributeKey());
-            assertEquals("5678",pciDeviceId.getHpaAttributeValue());
-            assertEquals("",pciDeviceId.getOperator());
-            assertEquals("",pciDeviceId.getUnit());
-            HpaFeatureAttribute pciNumDevices = flavorProperty.getHpaFeatureAttributes().get(2);
-            assertEquals("pciNumDevices",pciNumDevices.getHpaAttributeKey());
-            assertEquals("1",pciNumDevices.getHpaAttributeValue());
-            assertEquals("",pciNumDevices.getOperator());
-            assertEquals("",pciNumDevices.getUnit());
-        } catch (Exception e) {
-            fail("test should not thrown an exception here: " + e.getMessage());
-        }
+        assertEquals("onapName", policy.getOnapName());
+        assertTrue(policy.getPolicyName().startsWith("OOF."));
+        assertTrue(policy.getConfigBody().contains("\"priority\":\"5\""));
+        assertTrue(policy.getConfigBody().contains("\"riskLevel\":\"2\""));
+        assertTrue(policy.getConfigBody().contains("\"riskType\":\"Test\""));
+        assertTrue(policy.getConfigBody().contains("\"version\":\"1.0\""));
+        assertTrue(policy.getConfigBody().contains("\"policyType\":\"Optimization\""));
+
+        assertTrue(policy.getConfigBody().contains("\"id\":\"vdu_vnf_1\""));
+        assertTrue(policy.getConfigBody().contains("\"type\":\"tosca.node.nfv.Vdu.Compute\""));
+        assertTrue(policy.getConfigBody().contains("\"type\":\"flavor_directive\""));
+        assertTrue(policy.getConfigBody().contains("\"attribute_name\":\"flavorName\""));
+        assertTrue(policy.getConfigBody().contains("\"attribute_value\":\"\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-feature\":\"pciePassthrough\""));
+        assertTrue(policy.getConfigBody().contains("\"mandatory\":\"true\""));
+        assertTrue(policy.getConfigBody().contains("\"architecture\":\"generic\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-version\":\"v1\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-attribute-key\":\"pciVendorId\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-attribute-value\":\"1234\""));
+        assertTrue(policy.getConfigBody().contains("\"operator\":\"\""));
+        assertTrue(policy.getConfigBody().contains("\"unit\":\"\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-attribute-key\":\"pciDeviceId\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-attribute-value\":\"5678\""));
+        assertTrue(policy.getConfigBody().contains("\"operator\":\"\""));
+        assertTrue(policy.getConfigBody().contains("\"unit\":\"\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-attribute-key\":\"pciNumDevices\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-attribute-value\":\"1\""));
+        assertTrue(policy.getConfigBody().contains("\"operator\":\"\""));
+        assertTrue(policy.getConfigBody().contains("\"unit\":\"\""));
+
+
     }
 
     @Test
-    public void testHpaPolicyHugePage() throws IOException {
+    public void testHpaPolicyHugePage() throws IOException, PolicyDecodingException {
         Csar csar = new Csar("src/test/resources/hpaPolicyHugePage.csar");
         PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
-        try {
-            Collection<PdpxPolicy> ret = policyDecoderCsarPdpx.decode(csar);
-            assertEquals(2, ret.size());
-            PdpxPolicy pdpxPolicy = (PdpxPolicy) ret.toArray()[0];
-            assertEquals("Optimization", pdpxPolicy.getContent().getPolicyType());
-            assertEquals(1, pdpxPolicy.getContent().getFlavorFeatures().size());
+        policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
 
-            FlavorFeature flavorFeature = pdpxPolicy.getContent().getFlavorFeatures().get(0);
-            assertEquals("vdu_vnf_1", flavorFeature.getId());
-            assertEquals("tosca.node.nfv.Vdu.Compute", flavorFeature.getType());
-            assertEquals(1, flavorFeature.getDirectives().size());
-            Directive directive = flavorFeature.getDirectives().get(0);
-            assertEquals("flavor_directive", directive.getType());            
-            assertEquals(1, directive.getAttributes().size());
-            assertEquals("flavorName", directive.getAttributes().get(0).getAttributeName());
-            assertEquals("", directive.getAttributes().get(0).getAttributeValue());
-            assertEquals(3, flavorFeature.getFlavorProperties().size());
-            FlavorProperty flavorProperty = flavorFeature.getFlavorProperties().get(2);
-            assertEquals("hugePages", flavorProperty.getHpaFeature());
-            assertEquals("false", flavorProperty.getMandatory());
-            assertEquals("generic", flavorProperty.getArchitecture());
-            assertEquals("v1", flavorProperty.getHpaVersion());
-            assertEquals(0, flavorProperty.getDirectives().size());
-            assertEquals(1, flavorProperty.getHpaFeatureAttributes().size());
-            HpaFeatureAttribute hpaFeatreAttribute = flavorProperty.getHpaFeatureAttributes().get(0);
-            assertEquals("memoryPageSize",hpaFeatreAttribute.getHpaAttributeKey());
-            assertEquals("2",hpaFeatreAttribute.getHpaAttributeValue());
-            assertEquals("",hpaFeatreAttribute.getOperator());
-            assertEquals("MB",hpaFeatreAttribute.getUnit());
-        } catch (Exception e) {
-            fail("test should not thrown an exception here: " + e.getMessage());
-        }
+        Collection<OptimizationPolicy> policies = policyDecoderCsarPdpx.decode(csar);
+        assertEquals(2, policies.size());
+        OptimizationPolicy policy = (OptimizationPolicy) policies.toArray()[0];
+
+        assertEquals("onapName", policy.getOnapName());
+        assertTrue(policy.getPolicyName().startsWith("OOF."));
+        assertTrue(policy.getConfigBody().contains("\"priority\":\"5\""));
+        assertTrue(policy.getConfigBody().contains("\"riskLevel\":\"2\""));
+        assertTrue(policy.getConfigBody().contains("\"riskType\":\"Test\""));
+        assertTrue(policy.getConfigBody().contains("\"version\":\"1.0\""));
+        assertTrue(policy.getConfigBody().contains("\"policyType\":\"Optimization\""));
+
+        assertTrue(policy.getConfigBody().contains("\"id\":\"vdu_vnf_1\""));
+        assertTrue(policy.getConfigBody().contains("\"type\":\"tosca.node.nfv.Vdu.Compute\""));
+        assertTrue(policy.getConfigBody().contains("\"type\":\"flavor_directive\""));
+        assertTrue(policy.getConfigBody().contains("\"attribute_name\":\"flavorName\""));
+        assertTrue(policy.getConfigBody().contains("\"attribute_value\":\"\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-feature\":\"hugePages\""));
+        assertTrue(policy.getConfigBody().contains("\"mandatory\":\"false\""));
+        assertTrue(policy.getConfigBody().contains("\"architecture\":\"generic\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-version\":\"v1\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-attribute-key\":\"memoryPageSize\""));
+        assertTrue(policy.getConfigBody().contains("\"hpa-attribute-value\":\"2\""));
+        assertTrue(policy.getConfigBody().contains("\"operator\":\"\""));
+        assertTrue(policy.getConfigBody().contains("\"unit\":\"MB\""));
     }
 }

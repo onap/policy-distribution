@@ -41,11 +41,11 @@ public class TestContent {
         content.setIdentity(identity);
         content.setPolicyType(policyType);
 
-        validateReport(resources, identity, policyType,content);
+        validateReport(resources, identity, policyType, content);
     }
 
-    private void validateReport(final String resources, final String identity, final String policyType, 
-                                final Content content) {
+    private void validateReport(final String resources, final String identity, final String policyType,
+            final Content content) {
         assertEquals(resources, content.getResources());
         assertEquals(identity, content.getIdentity());
         assertEquals(policyType, content.getPolicyType());

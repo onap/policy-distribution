@@ -20,14 +20,17 @@
 
 package org.onap.policy.distribution.reception.decoding.pdpx;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
+import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
+import org.onap.policy.distribution.model.OptimizationPolicy;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
@@ -38,25 +41,40 @@ import org.onap.sdc.toscaparser.api.NodeTemplate;
 /**
  * Decodes PDP-X policies from a CSAR file.
  */
-public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, PdpxPolicy> {
+public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, OptimizationPolicy> {
 
     private static final Logger LOGGER = FlexLogger.getLogger(PolicyDecoderCsarPdpx.class);
+    private final Gson gson = new GsonBuilder().serializeNulls().disableHtmlEscaping().create();
+    private PolicyDecoderCsarPdpxConfigurationParameterGroup decoderParameters;
 
     @Override
-    public Collection<PdpxPolicy> decode(final Csar csar) throws PolicyDecodingException {
-        final List<PdpxPolicy> lPdpxPolicy = new ArrayList<>();
+    public Collection<OptimizationPolicy> decode(final Csar csar) throws PolicyDecodingException {
+        final List<OptimizationPolicy> policys = new ArrayList<>();
         final ISdcCsarHelper sdcCsarHelper = parseCsar(csar);
         final List<NodeTemplate> lnodeVf = sdcCsarHelper.getServiceVfList();
         LOGGER.debug("the size of Vf = " + lnodeVf.size());
         final ExtractFromNode extractFromNode = new ExtractFromNode();
         extractFromNode.setSdcCsarHelper(sdcCsarHelper);
         for (final NodeTemplate node : lnodeVf) {
-            final PdpxPolicy ret = extractFromNode.extractInfo(node);
-            if (ret != null) {
-                lPdpxPolicy.add(ret);
+            final Content content = extractFromNode.extractInfo(node);
+            if (content != null) {
+                final OptimizationPolicy policy = new OptimizationPolicy();
+                policy.setOnapName(decoderParameters.getOnapName());
+                policy.setPolicyName(decoderParameters.getPolicyNamePrefix() + "." + content.getIdentity());
+                ConfigBody configBody = new ConfigBody();
+                configBody.setService("hpaPolicy");
+                configBody.setDescription("OOF Policy");
+                configBody.setVersion(decoderParameters.getVersion());
+                configBody.setPriority(decoderParameters.getPriority());
+                configBody.setRiskLevel(decoderParameters.getRiskLevel());
+                configBody.setRiskType(decoderParameters.getRiskType());
+                configBody.setGuard("false");
+                configBody.setContent(content);
+                policy.setConfigBody(gson.toJson(configBody));
+                policys.add(policy);
             }
         }
-        return lPdpxPolicy;
+        return policys;
     }
 
     @Override
@@ -88,6 +106,6 @@ public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, PdpxPolicy> {
 
     @Override
     public void configure(final String parameterGroupName) {
-        throw new UnsupportedOperationException("The method is not supprted");
+        decoderParameters = ParameterService.get(parameterGroupName);
     }
 }

@@ -10,15 +10,35 @@
         "SDCReceptionHandler":{
             "receptionHandlerType":"SDC",
             "receptionHandlerClassName":"org.onap.policy.distribution.reception.handling.sdc.SdcReceptionHandler",
-            "pssdConfiguration":{
-                "asdcAddress": "localhost",
+	    "receptionHandlerConfigurationName":"sdcConfiguration",
+            "pluginHandlerParameters":{
+                "policyDecoders":{
+                    "CsarDecoder":{
+                        "decoderType":"CsarDecoder",
+                        "decoderClassName":"org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderCsarPdpx",
+                        "decoderConfigurationName": "csarToOptimizationPolicyConfiguration"
+                    }
+                },
+                "policyForwarders":{
+                    "PAPEngineForwarder":{
+                        "forwarderType":"PAPEngine",
+                        "forwarderClassName":"org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarder",
+                        "forwarderConfigurationName": "xacmlPdpConfiguration"
+                    }
+                }
+            }
+        }
+    },
+    "receptionHandlerConfigurationParameters":{
+        "sdcConfiguration":{
+            "parameterClassName":"org.onap.policy.distribution.reception.handling.sdc.SdcReceptionHandlerConfigurationParameterGroup",
+            "parameters":{
+	        "asdcAddress": "sdc-be.onap:8443",
                 "messageBusAddress": [
-                    "a.com",
-                    "b.com",
-                    "c.com"
+                    "message-router.onap"
                  ],
-                "user": "tbdsdc-1480",
-                "password": "tbdsdc-1480",
+                "user": "sdc-1480",
+                "password": "sdc-1480",
                 "pollingInterval":20,
                 "pollingTimeout":30,
                 "consumerId": "policy-id",
@@ -33,21 +53,19 @@
                 "activeserverTlsAuth": false,
                 "isFilterinEmptyResources": true,
                 "isUseHttpsWithDmaap": false
-            },
-            "pluginHandlerParameters":{
-                "policyDecoders":{
-                    "TOSCADecoder":{
-                        "decoderType":"ToscaDecoder",
-                        "decoderClassName":"org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderToscaPdpx"
-                    }
-                },
-                "policyForwarders":{
-                    "PAPEngineForwarder":{
-                        "forwarderType":"PAPEngine",
-                        "forwarderClassName":"org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarder",
-                        "forwarderConfigurationName": "xacmlPdpConfiguration"
-                    }
-                }
+	        }
+        }
+    },
+    "policyDecoderConfigurationParameters":{
+        "csarToOptimizationPolicyConfiguration":{
+            "parameterClassName":"org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderCsarPdpxConfigurationParameterGroup",
+            "parameters":{
+                "policyNamePrefix": "oofCasablanca",
+                "onapName": "OOF",
+                "version": "1.0",
+                "priority": "3",
+                "riskType": "Test",
+                "riskLevel": "2"
             }
         }
     },

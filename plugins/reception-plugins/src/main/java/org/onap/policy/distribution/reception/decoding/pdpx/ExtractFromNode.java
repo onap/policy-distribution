@@ -20,15 +20,12 @@
 
 package org.onap.policy.distribution.reception.decoding.pdpx;
 
-import java.io.FileWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -76,14 +73,16 @@ public class ExtractFromNode {
     }
 
     /**
-     * ExtractInfo from VNF , each VNF may includes more than one VDUs and CPs return new generated PdpxPolicy if it has
-     * got Hpa feature info or else return null.
+     * ExtractInfo from VNF , each VNF may includes more than one VDUs and CPs return new generated
+     * PdpxPolicy if it has got Hpa feature info or else return null.
      *
      * @param node the NodeTemplate
+     * 
      * @return the extracted info from input node
+     * 
      * @throws PolicyDecodingException if extract fails
      */
-    public PdpxPolicy extractInfo(final NodeTemplate node) throws PolicyDecodingException {
+    public Content extractInfo(final NodeTemplate node) throws PolicyDecodingException {
 
         LOGGER.debug("the meta data of this nodetemplate = " + sdcCsarHelper.getNodeTemplateMetadata(node));
         final List<NodeTemplate> lnodeChild = sdcCsarHelper.getNodeTemplateChildren(node);
@@ -106,31 +105,23 @@ public class ExtractFromNode {
         LOGGER.debug("the size of vdu is =" + lnodeVdu.size());
         LOGGER.debug("the size of cp is =" + lnodeVduCp.size());
 
-        final PdpxPolicy pdpxPolicy = new PdpxPolicy();
-        final Content content = pdpxPolicy.getContent();
+        final Content content = new Content();
         extractInfoVdu(lnodeVdu, content);
         extractInfoVduCp(lnodeVduCp, content);
         if (content.getFlavorFeatures().isEmpty()) {
             return null;
         }
-        String outputFile = sdcCsarHelper.getNodeTemplateMetadata(node).getValue("name");
-        outputFile += ".json";
-        LOGGER.debug("outputFile = " + outputFile);
-        try (Writer writer = new FileWriter(outputFile)) {
-            gson.toJson(pdpxPolicy, writer);
-        } catch (final Exception exp) {
-            final String message = "Failed writing generated policies to file";
-            LOGGER.error(message, exp);
-            throw new PolicyDecodingException(message, exp);
-        }
-        return pdpxPolicy;
+
+        return content;
     }
 
 
     /**
-     * ExtractInfofromVdu, supported hpa features, All under the capability of tosca.nodes.nfv.Vdu.Compute.
+     * ExtractInfofromVdu, supported hpa features, All under the capability of
+     * tosca.nodes.nfv.Vdu.Compute.
      *
      * @param lnodeVdu the list of Vdu node
+     * 
      * @param content to be change based on lnodeVdu
      */
     public void extractInfoVdu(final List<NodeTemplate> lnodeVdu, final Content content) {
@@ -158,9 +149,11 @@ public class ExtractFromNode {
     }
 
     /**
-     * GenerateBasicCapability, supported hpa features, All under the capability of tosca.nodes.nfv.Vdu.Compute.
+     * GenerateBasicCapability, supported hpa features, All under the capability of
+     * tosca.nodes.nfv.Vdu.Compute.
      *
      * @param capabilityAssignment represents the capability of node
+     * 
      * @param flavorFeature represents all the features of specified flavor
      */
     private void generateBasicCapability(final CapabilityAssignment capabilityAssignment, FlavorFeature flavorFeature){
@@ -195,11 +188,14 @@ public class ExtractFromNode {
     }
 
     /**
-     * GenerateHpaFeatureAttribute based on the value of featureValue. the format: "hpa-attribute-key": "pciVendorId",
-     * "hpa-attribute-value": "1234", "operator": "=", "unit": "xxx".
+     * GenerateHpaFeatureAttribute based on the value of featureValue. the format:
+     * "hpa-attribute-key": "pciVendorId", "hpa-attribute-value": "1234", "operator": "=", "unit":
+     * "xxx".
      *
      * @param hpaAttributeKey get from the high layer tosca DM
+     * 
      * @param featureValue get from the high layer tosca DM
+     * 
      */
     private HpaFeatureAttribute generateHpaFeatureAttribute(final String hpaAttributeKey, final String featureValue) {
         //based on input featureValue, return back a suitable hpaFeatureAttribute
@@ -221,11 +217,13 @@ public class ExtractFromNode {
     }
 
     /**
-     * GenerateHugePages, supported hpa features, All under the capability of tosca.nodes.nfv.Vdu.Compute. The format is
-     * a map like: {"schema-version": "0", "schema-location": "", "platform-id": "generic", "mandatory": true,
-     * "configuration-value": "2 MB"}
+     * GenerateHugePages, supported hpa features, All under the capability of
+     * tosca.nodes.nfv.Vdu.Compute. The format is a map like: {"schema-version": "0",
+     * "schema-location": "", "platform-id": "generic", "mandatory": true, "configuration-value": "2
+     * MB"}
      *
      * @param capabilityAssignment represents the capability of node
+     * 
      * @param flavorFeature represents all the features of specified flavor
      */
     private void generateHugePages(final CapabilityAssignment capabilityAssignment, FlavorFeature flavorFeature){
@@ -255,6 +253,7 @@ public class ExtractFromNode {
      * tosca.nodes.nfv.VduCp.
      *
      * @param lnodeVduCp the list of VduCp node
+     * 
      * @param content to be change based on lnodeVduCp
      * @throws PolicyDecodingException if extract CP fails
      */
