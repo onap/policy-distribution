@@ -30,7 +30,7 @@ import com.google.gson.annotations.SerializedName;
 class HpaFeatureAttribute {
     @SerializedName(value = "hpa-attribute-key")
     private String hpaAttributeKey;
-    @SerializedName(value = "hap-attribute-value")
+    @SerializedName(value = "hpa-attribute-value")
     private String hpaAttributeValue;
     private String operator;
     private String unit;
