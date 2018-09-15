@@ -70,16 +70,14 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Poli
     @Override
     public Collection<PolicyAsString> decode(final Csar csar) throws PolicyDecodingException {
         final Collection<PolicyAsString> policyList = new ArrayList<>();
-
-        try (ZipFile zipFile = new ZipFile(csar.getCsarPath())) {
+        ZipFile zipFile = null;
+        try {
+            zipFile = new ZipFile(csar.getCsarPath());
             final Enumeration<? extends ZipEntry> entries = zipFile.entries();
             while (entries.hasMoreElements()) {
                 final ZipEntry entry = entries.nextElement();
                 if (entry.getName().contains(decoderParameters.getPolicyFileName())) {
-                    final StringWriter writer = new StringWriter();
-                    IOUtils.copy(zipFile.getInputStream(entry), writer, "UTF-8");
-                    final PolicyAsString poilcy = new PolicyAsString(decoderParameters.getPolicyFileName(),
-                            decoderParameters.getPolicyType(), writer.toString());
+                    final PolicyAsString poilcy = createPolicy(zipFile, entry);
                     policyList.add(poilcy);
                 }
             }
@@ -87,8 +85,31 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Poli
             final String message = "Failed decoding the policy";
             LOGGER.error(message, exp);
             throw new PolicyDecodingException(message, exp);
+        } finally {
+            if (zipFile != null) {
+                try {
+                    zipFile.close();
+                } catch (final IOException exp) {
+                    LOGGER.error("Failed closing the zipFile", exp);
+                }
+            }
         }
-
         return policyList;
+    }
+
+    /**
+     * Creates the policy from given input.
+     *
+     * @param zipFile the csar file
+     * @param entry an entry in the csar file
+     * @return the created policy
+     * @throws IOException if policy creation fails
+     */
+    private PolicyAsString createPolicy(final ZipFile zipFile, final ZipEntry entry) throws IOException {
+        final StringWriter writer = new StringWriter();
+        IOUtils.copy(zipFile.getInputStream(entry), writer, "UTF-8");
+        final PolicyAsString poilcy = new PolicyAsString(decoderParameters.getPolicyFileName(),
+                decoderParameters.getPolicyType(), writer.toString());
+        return poilcy;
     }
 }

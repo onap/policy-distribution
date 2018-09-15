@@ -32,9 +32,17 @@ public class PolicyDecoderCsarPdpxConfigurationParameterBuilder {
     private String riskType;
     private String riskLevel;
 
+    public String getPolicyNamePrefix() {
+        return policyNamePrefix;
+    }
+
     public PolicyDecoderCsarPdpxConfigurationParameterBuilder setPolicyNamePrefix(final String policyNamePrefix) {
         this.policyNamePrefix = policyNamePrefix;
         return this;
+    }
+
+    public String getOnapName() {
+        return onapName;
     }
 
     public PolicyDecoderCsarPdpxConfigurationParameterBuilder setOnapName(final String onapName) {
@@ -42,9 +50,17 @@ public class PolicyDecoderCsarPdpxConfigurationParameterBuilder {
         return this;
     }
 
+    public String getVersion() {
+        return version;
+    }
+
     public PolicyDecoderCsarPdpxConfigurationParameterBuilder setVersion(final String version) {
         this.version = version;
         return this;
+    }
+
+    public String getPriority() {
+        return priority;
     }
 
     public PolicyDecoderCsarPdpxConfigurationParameterBuilder setPriority(final String priority) {
@@ -52,9 +68,17 @@ public class PolicyDecoderCsarPdpxConfigurationParameterBuilder {
         return this;
     }
 
+    public String getRiskType() {
+        return riskType;
+    }
+
     public PolicyDecoderCsarPdpxConfigurationParameterBuilder setRiskType(final String riskType) {
         this.riskType = riskType;
         return this;
+    }
+
+    public String getRiskLevel() {
+        return riskLevel;
     }
 
     public PolicyDecoderCsarPdpxConfigurationParameterBuilder setRiskLevel(final String riskLevel) {
@@ -65,31 +89,6 @@ public class PolicyDecoderCsarPdpxConfigurationParameterBuilder {
     public PolicyDecoderCsarPdpxConfigurationParameterGroup build() {
         return new PolicyDecoderCsarPdpxConfigurationParameterGroup(this);
     }
-
-    public String getPolicyNamePrefix() {
-        return policyNamePrefix;
-    }
-
-    public String getOnapName() {
-        return onapName;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public String getPriority() {
-        return priority;
-    }
-
-    public String getRiskType() {
-        return riskType;
-    }
-
-    public String getRiskLevel() {
-        return riskLevel;
-    }
-
 }
 
 

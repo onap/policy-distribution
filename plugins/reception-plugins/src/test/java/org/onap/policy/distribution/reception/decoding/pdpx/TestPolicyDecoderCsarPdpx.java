@@ -25,6 +25,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Collection;
+
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.onap.policy.common.parameters.ParameterGroup;
@@ -46,23 +48,31 @@ public class TestPolicyDecoderCsarPdpx {
      */
     @BeforeClass
     public static void setUp() {
-        ParameterGroup parameterGroup = new PolicyDecoderCsarPdpxConfigurationParameterBuilder().setOnapName("onapName")
-                .setPolicyNamePrefix("OOF").setPriority("5").setRiskLevel("2").setRiskType("Test").setVersion("1.0")
-                .build();
+        final ParameterGroup parameterGroup = new PolicyDecoderCsarPdpxConfigurationParameterBuilder()
+                .setOnapName("onapName").setPolicyNamePrefix("OOF").setPriority("5").setRiskLevel("2")
+                .setRiskType("Test").setVersion("1.0").build();
         parameterGroup.setName(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
         ParameterService.register(parameterGroup);
     }
 
+    /**
+     * Tear down.
+     */
+    @AfterClass
+    public static void tearDown() {
+        ParameterService.deregister(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
+    }
+
     @Test
     public void testHpaPolicy2Vnf() throws IOException, PolicyDecodingException {
-        Csar csar = new Csar("src/test/resources/service-TestNs8-csar.csar");
-        PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
+        final Csar csar = new Csar("src/test/resources/service-TestNs8-csar.csar");
+        final PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
         policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
 
-        Collection<OptimizationPolicy> ret = policyDecoderCsarPdpx.decode(csar);
+        final Collection<OptimizationPolicy> ret = policyDecoderCsarPdpx.decode(csar);
 
         assertEquals(2, ret.size());
-        OptimizationPolicy policy = (OptimizationPolicy) ret.toArray()[0];
+        final OptimizationPolicy policy = (OptimizationPolicy) ret.toArray()[0];
 
         assertEquals("onapName", policy.getOnapName());
         assertTrue(policy.getPolicyName().startsWith("OOF."));
@@ -86,12 +96,12 @@ public class TestPolicyDecoderCsarPdpx {
 
     @Test
     public void testHpaPolicySriov() throws IOException, PolicyDecodingException {
-        Csar csar = new Csar("src/test/resources/hpaPolicySriov.csar");
-        PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
+        final Csar csar = new Csar("src/test/resources/hpaPolicySriov.csar");
+        final PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
         policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
 
-        Collection<OptimizationPolicy> policies = policyDecoderCsarPdpx.decode(csar);
-        OptimizationPolicy policy = (OptimizationPolicy) policies.toArray()[0];
+        final Collection<OptimizationPolicy> policies = policyDecoderCsarPdpx.decode(csar);
+        final OptimizationPolicy policy = (OptimizationPolicy) policies.toArray()[0];
 
         assertEquals("onapName", policy.getOnapName());
         assertTrue(policy.getPolicyName().startsWith("OOF."));
@@ -126,13 +136,13 @@ public class TestPolicyDecoderCsarPdpx {
 
     @Test
     public void testHpaPolicyPciePassthrough() throws IOException, PolicyDecodingException {
-        Csar csar = new Csar("src/test/resources/hpaPolicyPciePassthrough.csar");
-        PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
+        final Csar csar = new Csar("src/test/resources/hpaPolicyPciePassthrough.csar");
+        final PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
         policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
 
-        Collection<OptimizationPolicy> policies = policyDecoderCsarPdpx.decode(csar);
+        final Collection<OptimizationPolicy> policies = policyDecoderCsarPdpx.decode(csar);
         assertEquals(2, policies.size());
-        OptimizationPolicy policy = (OptimizationPolicy) policies.toArray()[0];
+        final OptimizationPolicy policy = (OptimizationPolicy) policies.toArray()[0];
 
         assertEquals("onapName", policy.getOnapName());
         assertTrue(policy.getPolicyName().startsWith("OOF."));
@@ -169,13 +179,13 @@ public class TestPolicyDecoderCsarPdpx {
 
     @Test
     public void testHpaPolicyHugePage() throws IOException, PolicyDecodingException {
-        Csar csar = new Csar("src/test/resources/hpaPolicyHugePage.csar");
-        PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
+        final Csar csar = new Csar("src/test/resources/hpaPolicyHugePage.csar");
+        final PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
         policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
 
-        Collection<OptimizationPolicy> policies = policyDecoderCsarPdpx.decode(csar);
+        final Collection<OptimizationPolicy> policies = policyDecoderCsarPdpx.decode(csar);
         assertEquals(2, policies.size());
-        OptimizationPolicy policy = (OptimizationPolicy) policies.toArray()[0];
+        final OptimizationPolicy policy = (OptimizationPolicy) policies.toArray()[0];
 
         assertEquals("onapName", policy.getOnapName());
         assertTrue(policy.getPolicyName().startsWith("OOF."));
