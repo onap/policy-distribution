@@ -69,6 +69,24 @@
       "revId": "56f01f55d862df459ee37ad63a152ab3776a9337",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_df431c11",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-09-17T11:31:52Z",
+      "side": 1,
+      "message": "Sonar will then complain to use try-with-resources - sometimes you can\u0027t win with that tool!!",
+      "parentUuid": "1a76adc5_3f4a5055",
+      "revId": "56f01f55d862df459ee37ad63a152ab3776a9337",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
