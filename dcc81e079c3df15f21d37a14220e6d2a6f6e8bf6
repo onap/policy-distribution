@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_f0d3a75d",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-17T16:32:46Z",
+      "side": 1,
+      "message": "Oops! my mistake, this ID is for checking try-with-resources must be used. Ignoring this will not help. \nI intend to ignore the coverage issue that sonar is reporting. After going through lots of pages found that ignoring that is not possible because it applies to a file not to method/class.\nFortunately, found a solution that others are using to tell sonar not to check a specific line of code using // NOSONAR\nHope this helps us!!!",
+      "parentUuid": "1a76adc5_55704d3f",
+      "range": {
+        "startLine": 71,
+        "startChar": 23,
+        "endLine": 71,
+        "endChar": 34
+      },
+      "revId": "dcc81e079c3df15f21d37a14220e6d2a6f6e8bf6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_359ef163",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicy.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-17T15:12:09Z",
       "side": 1,
       "message": "policy :-)",
+      "range": {
+        "startLine": 82,
+        "startChar": 41,
+        "endLine": 82,
+        "endChar": 47
+      },
+      "revId": "dcc81e079c3df15f21d37a14220e6d2a6f6e8bf6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b07bef79",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-17T16:32:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_359ef163",
       "range": {
         "startLine": 82,
         "startChar": 41,
