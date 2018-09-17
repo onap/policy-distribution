@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_bf1f405a",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-17T10:58:00Z",
+      "side": 1,
+      "message": "It will compile and work fine as well :)\nfinal with reference variable will make sure that reference variable marked final cannot be reassigned to different object, but the internals of the object can change. In other words, final can restrict re-assignment but can\u0027t provide immutability for the referencing object.\n\nYou can read more about final reference variable in below links.\n\nhttps://en.wikipedia.org/wiki/Final_(Java)#Final_variables\nhttps://stackoverflow.com/questions/14997746",
+      "parentUuid": "1a76adc5_09bac6c0",
+      "revId": "56f01f55d862df459ee37ad63a152ab3776a9337",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_09e166d0",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicy.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-09-17T06:05:19Z",
       "side": 1,
       "message": "using  the try-with-resource method is to make code simple, \nI\u0027m wondering why we need change?",
+      "revId": "56f01f55d862df459ee37ad63a152ab3776a9337",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3f4a5055",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-09-17T10:58:00Z",
+      "side": 1,
+      "message": "Compiler generates lot of extra branches (in total 8) for try-with-resource when you compile the code. Due to which the branch coverage will not meet the expected coverage of 65% and hence sonar will report it as Code Smell. \nIt is a very well know issue and I think Jacoco (the tool that we use) has plans of fixing it.\n\nYou can read more about it here.\nhttps://stackoverflow.com/questions/17354150\nhttps://github.com/cobertura/cobertura/issues/289",
+      "parentUuid": "1a76adc5_09e166d0",
       "revId": "56f01f55d862df459ee37ad63a152ab3776a9337",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
