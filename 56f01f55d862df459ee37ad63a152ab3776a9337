@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_09bac6c0",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-17T06:05:19Z",
+      "side": 1,
+      "message": "although + final may pass the compile, the value of this flavorFeature actually change by flavorFeature.getFlavorProperties().add(flavorProperty).",
+      "revId": "56f01f55d862df459ee37ad63a152ab3776a9337",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_09e166d0",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-09-17T06:05:19Z",
+      "side": 1,
+      "message": "using  the try-with-resource method is to make code simple, \nI\u0027m wondering why we need change?",
+      "revId": "56f01f55d862df459ee37ad63a152ab3776a9337",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
