@@ -22,4 +22,10 @@
 JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 POLICY_DISTRIBUTION_HOME=/opt/app/policy/distribution
 
-$JAVA_HOME/bin/java -cp "$POLICY_DISTRIBUTION_HOME/etc:$POLICY_DISTRIBUTION_HOME/lib/*" org.onap.policy.distribution.main.startstop.Main -c $POLICY_DISTRIBUTION_HOME/etc/defaultConfig.json
+CONFIG_FILE=$1
+if [ -z "$CONFIG_FILE" ]
+  then
+    CONFIG_FILE=$POLICY_DISTRIBUTION_HOME/etc/defaultConfig.json
+fi
+
+$JAVA_HOME/bin/java -cp "$POLICY_DISTRIBUTION_HOME/etc:$POLICY_DISTRIBUTION_HOME/lib/*" org.onap.policy.distribution.main.startstop.Main -c $CONFIG_FILE
