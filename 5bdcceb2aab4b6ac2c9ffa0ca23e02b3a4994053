@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_5811585b",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-18T19:38:29Z",
+      "side": 1,
+      "message": "Is ${jacoco.version} coming from oparent? Ideally that\u0027s what should be updated but not 2 days before MS4",
+      "range": {
+        "startLine": 162,
+        "startChar": 29,
+        "endLine": 162,
+        "endChar": 34
+      },
+      "revId": "5bdcceb2aab4b6ac2c9ffa0ca23e02b3a4994053",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
