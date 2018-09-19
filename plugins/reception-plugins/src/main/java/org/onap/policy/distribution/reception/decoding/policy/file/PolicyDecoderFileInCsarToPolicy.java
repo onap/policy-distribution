@@ -83,7 +83,7 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Poli
                     policyList.add(policy);
                 }
             }
-        } catch (final IOException exp) { // NOSONAR
+        } catch (final IOException exp) {
             final String message = "Failed decoding the policy";
             LOGGER.error(message, exp);
             throw new PolicyDecodingException(message, exp);

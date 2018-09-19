@@ -61,7 +61,7 @@ public class OptimizationPolicy implements Policy {
     }
 
     public String getPolicyConfigType() {
-        return OPTIMIZATION;
+        return getPolicyType();
     }
 
     public String getOnapName() {

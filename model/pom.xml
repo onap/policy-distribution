@@ -31,5 +31,10 @@
     <description>[${project.parent.artifactId}] module provides the model for policy distribution</description>
 
     <dependencies>
+        <dependency>
+            <groupId>org.onap.policy.common</groupId>
+            <artifactId>utils</artifactId>
+            <version>${policy.common.version}</version>
+        </dependency>
     </dependencies>
 </project>
