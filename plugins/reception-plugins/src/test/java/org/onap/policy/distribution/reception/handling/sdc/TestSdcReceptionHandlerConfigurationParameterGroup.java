@@ -92,8 +92,8 @@ public class TestSdcReceptionHandlerConfigurationParameterGroup {
                 new SdcReceptionHandlerConfigurationParameterBuilder().setAsdcAddress("localhost")
                         .setConsumerGroup("policy-group").setConsumerId("policy-id").setEnvironmentName("TEST")
                         .setKeystorePassword("password").setKeystorePath("dummyPath").setPassword("policy")
-                        .setPollingInterval(10).setPollingTimeout(20).setUser("policy").setUseHttpsWithDmaap(false)
-                        .setActiveserverTlsAuth(false).setFilterinEmptyResources(true)
+                        .setPollingInterval(10).setPollingTimeout(20).setRetryDelay(30).setUser("policy")
+                        .setUseHttpsWithDmaap(false).setActiveserverTlsAuth(false).setFilterinEmptyResources(true)
                         .setArtifactTypes(Arrays.asList("TOSCA_CSAR")).setMessageBusAddress(Arrays.asList("localhost"));
         final SdcReceptionHandlerConfigurationParameterGroup configParameters =
                 new SdcReceptionHandlerConfigurationParameterGroup(builder);
@@ -106,6 +106,7 @@ public class TestSdcReceptionHandlerConfigurationParameterGroup {
         assertEquals("policy", configParameters.getPassword());
         assertEquals(10, configParameters.getPollingInterval());
         assertEquals(20, configParameters.getPollingTimeout());
+        assertEquals(30, configParameters.getRetryDelay());
         assertEquals("policy-id", configParameters.getConsumerId());
         assertEquals("policy-group", configParameters.getConsumerGroup());
         assertEquals("TEST", configParameters.getEnvironmentName());

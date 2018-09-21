@@ -24,6 +24,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -51,7 +54,6 @@ import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
-import org.onap.policy.distribution.reception.decoding.PluginTerminationException;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
 import org.onap.policy.distribution.reception.handling.PluginHandler;
@@ -140,6 +142,8 @@ public class TestSdcReceptionHandler {
     public final void testInitializeSdcClient() {
         try {
             sypHandler.initializeReception(pssdConfigParameters.getName());
+            verify(distributionClient, times(1)).init(anyObject(), anyObject());
+            verify(distributionClient, times(1)).start();
         } catch (final PluginInitializationException exp) {
             LOGGER.error(exp);
             fail("Test should not throw any exception");
@@ -161,24 +165,26 @@ public class TestSdcReceptionHandler {
     public final void testInitializeSdcClient_Failure() throws PluginInitializationException {
 
         Mockito.when(successfulClientInitResult.getDistributionActionResult())
-                .thenReturn(DistributionActionResultEnum.FAIL);
+                .thenReturn(DistributionActionResultEnum.FAIL).thenReturn(DistributionActionResultEnum.SUCCESS);
         try {
             sypHandler.initializeReception(pssdConfigParameters.getName());
-            fail("Test must throw an exception here");
+            verify(distributionClient, times(2)).init(anyObject(), anyObject());
         } catch (final Exception exp) {
-            assertTrue(exp.getMessage().startsWith("SDC client initialization failed with reason"));
+            LOGGER.error(exp);
+            fail("Test should not throw any exception");
         }
     }
 
     @Test
     public final void testStartSdcClient_Failure() throws PluginInitializationException {
         try {
-            Mockito.when(distributionClient.start()).thenReturn(failureClientInitResult);
+            Mockito.when(distributionClient.start()).thenReturn(failureClientInitResult)
+                    .thenReturn(successfulClientInitResult);
             sypHandler.initializeReception(pssdConfigParameters.getName());
-
-            fail("Test must throw an exception here");
+            verify(distributionClient, times(2)).start();
         } catch (final Exception exp) {
-            assertTrue(exp.getMessage().startsWith("SDC client start failed with reason"));
+            LOGGER.error(exp);
+            fail("Test should not throw any exception");
         }
     }
 
@@ -187,7 +193,8 @@ public class TestSdcReceptionHandler {
         try {
             sypHandler.initializeReception(pssdConfigParameters.getName());
             sypHandler.destroy();
-        } catch (final PluginInitializationException | PluginTerminationException exp) {
+            verify(distributionClient, times(1)).stop();
+        } catch (final Exception exp) {
             LOGGER.error(exp);
             fail("Test should not throw any exception");
         }
@@ -198,7 +205,8 @@ public class TestSdcReceptionHandler {
     public final void testStopSdcClientWithoutStart() {
         try {
             sypHandler.destroy();
-        } catch (final PluginTerminationException exp) {
+            verify(distributionClient, times(0)).stop();
+        } catch (final Exception exp) {
             LOGGER.error(exp);
             fail("Test should not throw any exception");
         }
@@ -210,12 +218,13 @@ public class TestSdcReceptionHandler {
 
         sypHandler.initializeReception(pssdConfigParameters.getName());
         Mockito.when(successfulClientInitResult.getDistributionActionResult())
-                .thenReturn(DistributionActionResultEnum.FAIL);
+                .thenReturn(DistributionActionResultEnum.FAIL).thenReturn(DistributionActionResultEnum.SUCCESS);
         try {
             sypHandler.destroy();
-            fail("Test must throw an exception here");
+            verify(distributionClient, times(2)).stop();
         } catch (final Exception exp) {
-            assertTrue(exp.getMessage().startsWith("SDC client stop failed with reason"));
+            LOGGER.error(exp);
+            fail("Test should not throw any exception");
         }
     }
 

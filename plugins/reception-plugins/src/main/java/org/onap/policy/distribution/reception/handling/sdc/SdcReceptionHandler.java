@@ -25,13 +25,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.TimeUnit;
 
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
-import org.onap.policy.distribution.reception.decoding.PluginTerminationException;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
 import org.onap.policy.distribution.reception.handling.sdc.exceptions.ArtifactDownloadException;
@@ -54,12 +54,14 @@ import org.onap.sdc.utils.DistributionStatusEnum;
 public class SdcReceptionHandler extends AbstractReceptionHandler implements INotificationCallback {
 
     private static final Logger LOGGER = FlexLogger.getLogger(SdcReceptionHandler.class);
+    private static final String SECONDS = "Seconds";
 
     private SdcReceptionHandlerStatus sdcReceptionHandlerStatus = SdcReceptionHandlerStatus.STOPPED;
     private SdcReceptionHandlerConfigurationParameterGroup handlerParameters;
     private IDistributionClient distributionClient;
     private SdcConfiguration sdcConfig;
     private volatile int nbOfNotificationsOngoing = 0;
+    private int retryDelay;
 
     private enum DistributionStatusType {
         DOWNLOAD, DEPLOY
@@ -68,20 +70,21 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
     @Override
     protected void initializeReception(final String parameterGroupName) throws PluginInitializationException {
         handlerParameters = ParameterService.get(parameterGroupName);
+        retryDelay = handlerParameters.getRetryDelay() < 30 ? 30 : handlerParameters.getRetryDelay();
         initializeSdcClient();
         startSdcClient();
     }
 
     @Override
-    public void destroy() throws PluginTerminationException {
+    public void destroy() {
         LOGGER.debug("Going to stop the SDC Client...");
         if (distributionClient != null) {
             final IDistributionClientResult clientResult = distributionClient.stop();
             if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
-                final String message =
-                        "SDC client stop failed with reason:" + clientResult.getDistributionMessageResult();
-                LOGGER.error(message);
-                throw new PluginTerminationException(message);
+                LOGGER.error("SDC client stop failed with reason:" + clientResult.getDistributionMessageResult()
+                        + ". Stop will be retried after " + retryDelay + SECONDS);
+                delayBeforeRetry(retryDelay);
+                destroy();
             }
         }
         changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.STOPPED);
@@ -115,6 +118,8 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
                 ++nbOfNotificationsOngoing;
                 sdcReceptionHandlerStatus = newStatus;
                 break;
+            default:
+                break;
         }
     }
 
@@ -144,11 +149,10 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
         distributionClient = createSdcDistributionClient();
         final IDistributionClientResult clientResult = distributionClient.init(sdcConfig, this);
         if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
-            changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.STOPPED);
-            final String message =
-                    "SDC client initialization failed with reason:" + clientResult.getDistributionMessageResult();
-            LOGGER.error(message);
-            throw new PluginInitializationException(message);
+            LOGGER.error("SDC client initialization failed with reason:" + clientResult.getDistributionMessageResult()
+                    + ". Initializarion will be retried after " + retryDelay + SECONDS);
+            delayBeforeRetry(retryDelay);
+            initializeSdcClient();
         }
         LOGGER.debug("SDC Client is initialized successfully");
         this.changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.INIT);
@@ -158,17 +162,16 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
      * Method to start the SDC client.
      *
      * @param configParameter the configuration parameters
-     * @throws PluginInitializationException if the start of SDC Client fails
      */
-    private void startSdcClient() throws PluginInitializationException {
+    private void startSdcClient() {
 
         LOGGER.debug("Going to start the SDC Client...");
         final IDistributionClientResult clientResult = distributionClient.start();
         if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
-            changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.STOPPED);
-            final String message = "SDC client start failed with reason:" + clientResult.getDistributionMessageResult();
-            LOGGER.error(message);
-            throw new PluginInitializationException(message);
+            LOGGER.error("SDC client start failed with reason:" + clientResult.getDistributionMessageResult()
+                    + ". Start will be retried after " + retryDelay + SECONDS);
+            delayBeforeRetry(retryDelay);
+            startSdcClient();
         }
         LOGGER.debug("SDC Client is started successfully");
         this.changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.IDLE);
@@ -367,6 +370,20 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
         } else {
             nbOfNotificationsOngoing = 0;
             sdcReceptionHandlerStatus = newStatus;
+        }
+    }
+
+    /**
+     * Delays the execution of thread for given time.
+     *
+     * @param delay the time to delay
+     */
+    private void delayBeforeRetry(final int delay) {
+        try {
+            TimeUnit.SECONDS.sleep(delay);
+        } catch (final InterruptedException exp) {
+            LOGGER.error(exp);
+            Thread.currentThread().interrupt();
         }
     }
 }

@@ -10,6 +10,7 @@
     "password": "policy",
     "pollingInterval":20,
     "pollingTimeout":30,
+    "retryDelay":30,
     "consumerId": "policy-id",
     "artifactTypes": [
         "TOSCA_CSAR", 
