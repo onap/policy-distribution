@@ -30,10 +30,9 @@ import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
-import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
-import org.onap.policy.distribution.reception.decoding.PluginTerminationException;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
+import org.onap.policy.distribution.reception.handling.sdc.SdcClientHandler.SdcClientOperationType;
 import org.onap.policy.distribution.reception.handling.sdc.exceptions.ArtifactDownloadException;
 import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
 import org.onap.sdc.api.IDistributionClient;
@@ -54,38 +53,34 @@ import org.onap.sdc.utils.DistributionStatusEnum;
 public class SdcReceptionHandler extends AbstractReceptionHandler implements INotificationCallback {
 
     private static final Logger LOGGER = FlexLogger.getLogger(SdcReceptionHandler.class);
+    private static final String SECONDS = "Seconds";
 
     private SdcReceptionHandlerStatus sdcReceptionHandlerStatus = SdcReceptionHandlerStatus.STOPPED;
-    private SdcReceptionHandlerConfigurationParameterGroup handlerParameters;
     private IDistributionClient distributionClient;
     private SdcConfiguration sdcConfig;
     private volatile int nbOfNotificationsOngoing = 0;
+    private int retryDelay;
+    private SdcClientHandler sdcClientHandler;
 
     private enum DistributionStatusType {
         DOWNLOAD, DEPLOY
     }
 
     @Override
-    protected void initializeReception(final String parameterGroupName) throws PluginInitializationException {
-        handlerParameters = ParameterService.get(parameterGroupName);
-        initializeSdcClient();
-        startSdcClient();
+    protected void initializeReception(final String parameterGroupName) {
+        final SdcReceptionHandlerConfigurationParameterGroup handlerParameters =
+                ParameterService.get(parameterGroupName);
+        retryDelay = handlerParameters.getRetryDelay() < 30 ? 30 : handlerParameters.getRetryDelay();
+        sdcConfig = new SdcConfiguration(handlerParameters);
+        distributionClient = createSdcDistributionClient();
+        sdcClientHandler = new SdcClientHandler(this, SdcClientOperationType.START, retryDelay);
     }
 
     @Override
-    public void destroy() throws PluginTerminationException {
-        LOGGER.debug("Going to stop the SDC Client...");
+    public void destroy() {
         if (distributionClient != null) {
-            final IDistributionClientResult clientResult = distributionClient.stop();
-            if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
-                final String message =
-                        "SDC client stop failed with reason:" + clientResult.getDistributionMessageResult();
-                LOGGER.error(message);
-                throw new PluginTerminationException(message);
-            }
+            sdcClientHandler = new SdcClientHandler(this, SdcClientOperationType.STOP, retryDelay);
         }
-        changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.STOPPED);
-        LOGGER.debug("SDC Client is stopped successfully");
     }
 
     @Override
@@ -115,6 +110,8 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
                 ++nbOfNotificationsOngoing;
                 sdcReceptionHandlerStatus = newStatus;
                 break;
+            default:
+                break;
         }
     }
 
@@ -130,48 +127,61 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
     /**
      * Method to initialize the SDC client.
      *
-     * @throws PluginInitializationException if the initialization of SDC Client fails
      */
-    private void initializeSdcClient() throws PluginInitializationException {
+    protected void initializeSdcClient() {
 
         LOGGER.debug("Initializing the SDC Client...");
         if (sdcReceptionHandlerStatus != SdcReceptionHandlerStatus.STOPPED) {
-            final String message = "The SDC Client is already initialized";
-            LOGGER.error(message);
-            throw new PluginInitializationException(message);
+            LOGGER.error("The SDC Client is already initialized");
+            return;
         }
-        sdcConfig = new SdcConfiguration(handlerParameters);
-        distributionClient = createSdcDistributionClient();
         final IDistributionClientResult clientResult = distributionClient.init(sdcConfig, this);
         if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
-            changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.STOPPED);
-            final String message =
-                    "SDC client initialization failed with reason:" + clientResult.getDistributionMessageResult();
-            LOGGER.error(message);
-            throw new PluginInitializationException(message);
+            LOGGER.error("SDC client initialization failed with reason:" + clientResult.getDistributionMessageResult()
+                    + ". Initialization will be retried after " + retryDelay + SECONDS);
+            return;
         }
         LOGGER.debug("SDC Client is initialized successfully");
-        this.changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.INIT);
+        changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.INIT);
     }
 
     /**
      * Method to start the SDC client.
      *
-     * @param configParameter the configuration parameters
-     * @throws PluginInitializationException if the start of SDC Client fails
      */
-    private void startSdcClient() throws PluginInitializationException {
+    protected void startSdcClient() {
 
         LOGGER.debug("Going to start the SDC Client...");
+        if (sdcReceptionHandlerStatus != SdcReceptionHandlerStatus.INIT) {
+            LOGGER.error("The SDC Client is not initialized");
+            return;
+        }
         final IDistributionClientResult clientResult = distributionClient.start();
         if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
-            changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.STOPPED);
-            final String message = "SDC client start failed with reason:" + clientResult.getDistributionMessageResult();
-            LOGGER.error(message);
-            throw new PluginInitializationException(message);
+            LOGGER.error("SDC client start failed with reason:" + clientResult.getDistributionMessageResult()
+                    + ". Start will be retried after " + retryDelay + SECONDS);
+            return;
         }
         LOGGER.debug("SDC Client is started successfully");
-        this.changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.IDLE);
+        changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.IDLE);
+        sdcClientHandler.cancel();
+    }
+
+    /**
+     * Method to stop the SDC client.
+     *
+     */
+    protected void stopSdcClient() {
+        LOGGER.debug("Going to stop the SDC Client...");
+        final IDistributionClientResult clientResult = distributionClient.stop();
+        if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
+            LOGGER.error("SDC client stop failed with reason:" + clientResult.getDistributionMessageResult()
+                    + ". Stop will be retried after " + retryDelay + SECONDS);
+            return;
+        }
+        LOGGER.debug("SDC Client is stopped successfully");
+        changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.STOPPED);
+        sdcClientHandler.cancel();
     }
 
     /**

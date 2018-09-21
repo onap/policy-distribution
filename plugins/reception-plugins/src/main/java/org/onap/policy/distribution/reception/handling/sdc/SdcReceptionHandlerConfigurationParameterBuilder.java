@@ -44,6 +44,7 @@ public class SdcReceptionHandlerConfigurationParameterBuilder {
     private String keystorePassword;
     private List<String> messageBusAddress;
     private List<String> artifactTypes;
+    private int retryDelay;
 
     /**
      * Set activeserverTlsAuth to this {@link SdcReceptionHandlerConfigurationParameterBuilder} instance.
@@ -197,6 +198,16 @@ public class SdcReceptionHandlerConfigurationParameterBuilder {
     }
 
     /**
+     * Set retryDelay to this {@link SdcReceptionHandlerConfigurationParameterBuilder} instance.
+     *
+     * @param retryDelay the retryDelay
+     */
+    public SdcReceptionHandlerConfigurationParameterBuilder setRetryDelay(final int retryDelay) {
+        this.retryDelay = retryDelay;
+        return this;
+    }
+
+    /**
      * Returns the active server TlsAuth of this {@link SdcReceptionHandlerConfigurationParameterBuilder} instance.
      *
      * @return the activeserverTlsAuth
@@ -330,6 +341,15 @@ public class SdcReceptionHandlerConfigurationParameterBuilder {
      */
     public List<String> getArtifactTypes() {
         return artifactTypes;
+    }
+
+    /**
+     * Returns the retryDelay of this {@link SdcReceptionHandlerConfigurationParameterBuilder} instance.
+     *
+     * @return the retryDelay
+     */
+    public int getRetryDelay() {
+        return retryDelay;
     }
 
 }

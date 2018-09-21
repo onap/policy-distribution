@@ -21,15 +21,15 @@
 package org.onap.policy.distribution.reception.handling.sdc;
 
 import java.util.List;
+
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.common.utils.validation.ParameterValidationUtils;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 
 /**
- * This class handles reading, parsing and validating of the Policy SDC Service Distribution
- * parameters from Json format, which strictly adheres to the interface:IConfiguration, defined by
- * SDC SDK.
+ * This class handles reading, parsing and validating of the Policy SDC Service Distribution parameters from Json
+ * format, which strictly adheres to the interface:IConfiguration, defined by SDC SDK.
  */
 public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHandlerConfigurationParameterGroup {
 
@@ -39,6 +39,7 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
     private String password;
     private int pollingInterval;
     private int pollingTimeout;
+    private int retryDelay;
     private String consumerId;
     private List<String> artifactTypes;
     private String consumerGroup;
@@ -50,8 +51,7 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
     private boolean isUseHttpsWithDmaap;
 
     /**
-     * The constructor for instantiating {@link SdcReceptionHandlerConfigurationParameterGroup}
-     * class.
+     * The constructor for instantiating {@link SdcReceptionHandlerConfigurationParameterGroup} class.
      *
      * @param builder the SDC configuration builder
      */
@@ -63,6 +63,7 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
         password = builder.getPassword();
         pollingInterval = builder.getPollingInterval();
         pollingTimeout = builder.getPollingTimeout();
+        retryDelay = builder.getRetryDelay();
         consumerId = builder.getConsumerId();
         artifactTypes = builder.getArtifactTypes();
         consumerGroup = builder.getConsumerGroup();
@@ -97,6 +98,10 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
 
     public int getPollingTimeout() {
         return pollingTimeout;
+    }
+
+    public int getRetryDelay() {
+        return retryDelay;
     }
 
     public String getConsumerId() {
@@ -149,6 +154,7 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
         validateStringElement(validationResult, keyStorePassword, "keyStorePassword");
         validateIntElement(validationResult, pollingInterval, "pollingInterval");
         validateIntElement(validationResult, pollingTimeout, "pollingTimeout");
+        validateIntElement(validationResult, retryDelay, "retryDelay");
         validateStringListElement(validationResult, messageBusAddress, "messageBusAddress");
         validateStringListElement(validationResult, artifactTypes, "artifactTypes");
         return validationResult;
