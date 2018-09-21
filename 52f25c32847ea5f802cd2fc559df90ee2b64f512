@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_337268ae",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1581
+      },
+      "writtenOn": "2018-09-21T11:11:19Z",
+      "side": 1,
+      "message": "there is no need to invoke the whole method again, the distributionClient.init() is all that needs to be invoked.\n\nAs this is all happening in a single thread, any delay in bringing up a reception handler would prevent other reception handlers from coming up. \nWe should spawn a separate thread for performing the init and return from the initializeReception, allowing other reception handlers(should any exist) to be initialized and causing DistributionActivator.alive to be set to true",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 34
+      },
+      "revId": "52f25c32847ea5f802cd2fc559df90ee2b64f512",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
