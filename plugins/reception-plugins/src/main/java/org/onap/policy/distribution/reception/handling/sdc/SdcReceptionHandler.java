@@ -260,7 +260,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
             final IDistributionClientDownloadResult resultArtifact) throws ArtifactDownloadException {
         try {
             final byte[] payloadBytes = resultArtifact.getArtifactPayload();
-            final File tempArtifactFile = File.createTempFile(artifact.getArtifactName(), null);
+            final File tempArtifactFile = File.createTempFile(artifact.getArtifactName(), ".csar");
             try (FileOutputStream fileOutputStream = new FileOutputStream(tempArtifactFile)) {
                 fileOutputStream.write(payloadBytes, 0, payloadBytes.length);
                 return tempArtifactFile.toPath();
