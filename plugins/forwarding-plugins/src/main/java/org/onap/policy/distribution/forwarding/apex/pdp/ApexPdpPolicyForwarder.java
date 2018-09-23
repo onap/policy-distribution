@@ -66,11 +66,14 @@ public class ApexPdpPolicyForwarder implements PolicyForwarder {
      */
     @Override
     public void forward(final Collection<Policy> policies) throws PolicyForwardingException {
-        if (policies.size() > 1) {
+        if (policies.isEmpty()) {
+            final String message = "No apex policy to be forwarded to an apex engine";
+            LOGGER.debug(message);
+            throw new PolicyForwardingException(message);
+        } else if (policies.size() > 1) {
             final String message = "More than one apex policy cannot be forwarded to an apex engine";
             LOGGER.debug(message);
             throw new PolicyForwardingException(message);
-
         } else {
             final Policy policy = (Policy) policies.toArray()[0];
             if (policy.getClass().isAssignableFrom(PolicyAsString.class)
