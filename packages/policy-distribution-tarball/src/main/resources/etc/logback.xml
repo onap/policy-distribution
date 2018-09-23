@@ -232,10 +232,13 @@
   <appender-ref ref="asyncEELFError" />
   </logger>
   
-   <logger name="com.att.eelf.debug" level="info" additivity="false">
+   <logger name="com.att.eelf.debug" level="debug" additivity="false">
         <appender-ref ref="asyncEELFDebug" />
   </logger>
   
+  <logger name="org.onap.sdc" level="trace">
+      <appender-ref ref="asyncEELFDebug" />
+  </logger>
   
   
   <root level="INFO">
