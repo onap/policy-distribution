@@ -22,6 +22,30 @@
       "revId": "5aca51e8b8f5cefa21370ccca1efc24195923550",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_4db41dd1",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/apex/pdp/ApexPdpPolicyForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-09-24T12:13:47Z",
+      "side": 1,
+      "message": "agree",
+      "parentUuid": "1a76adc5_0d92a59f",
+      "range": {
+        "startLine": 69,
+        "startChar": 1,
+        "endLine": 77,
+        "endChar": 1
+      },
+      "revId": "5aca51e8b8f5cefa21370ccca1efc24195923550",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
