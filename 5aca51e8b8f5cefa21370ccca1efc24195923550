@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_0d92a59f",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/apex/pdp/ApexPdpPolicyForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-09-24T09:41:47Z",
+      "side": 1,
+      "message": "Thanks for finding this!\n\nSonar doesn\u0027t like size() \u003d\u003d 0 checks so this might be better:\n\n        if (policies.isEmpty()) {\n            final String message \u003d \"No apex policy to be forwarded to an apex engine\";\n            LOGGER.debug(message);\n            throw new PolicyForwardingException(message);\n        } else if (policies.size() \u003e 1) {\n            final String message \u003d \"More than one apex policy cannot be forwarded to an apex engine\";\n            LOGGER.debug(message);\n            throw new PolicyForwardingException(message);\n        } else {",
+      "range": {
+        "startLine": 69,
+        "startChar": 1,
+        "endLine": 77,
+        "endChar": 1
+      },
+      "revId": "5aca51e8b8f5cefa21370ccca1efc24195923550",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
