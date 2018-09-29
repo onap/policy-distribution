@@ -37,8 +37,8 @@
                 "messageBusAddress": [
                     "message-router.onap"
                  ],
-                "user": "sdc-1480",
-                "password": "sdc-1480",
+                "user": "policy",
+                "password": "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U",
                 "pollingInterval":20,
                 "pollingTimeout":30,
                 "consumerId": "policy-id",
@@ -47,7 +47,7 @@
                     "HEAT"
                 ],
                 "consumerGroup": "policy-group",
-                "environmentName": "environmentName",
+                "environmentName": "AUTO",
                 "keystorePath": "null",
                 "keystorePassword": "null",
                 "activeserverTlsAuth": false,
