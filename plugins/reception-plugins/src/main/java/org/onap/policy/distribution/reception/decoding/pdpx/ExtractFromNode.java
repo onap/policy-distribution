@@ -48,7 +48,7 @@ import org.onap.sdc.toscaparser.api.RequirementAssignment;
  */
 public class ExtractFromNode {
 
-    private static final String CONFIGURATION_VALUE = "configuration-value";
+    private static final String CONFIGURATION_VALUE = "configurationValue";
     private static final Logger LOGGER = FlexLogger.getLogger(ExtractFromNode.class);
     private static final String VDU_TYPE = "tosca.nodes.nfv.Vdu.Compute";
     private static final String VDU_CP_TYPE = "tosca.nodes.nfv.VduCp";
@@ -215,8 +215,8 @@ public class ExtractFromNode {
 
     /**
      * GenerateHugePages, supported hpa features, All under the capability of tosca.nodes.nfv.Vdu.Compute. The format is
-     * a map like: {"schema-version": "0", "schema-location": "", "platform-id": "generic", "mandatory": true,
-     * "configuration-value": "2 MB"}
+     * a map like: {"schemaVersion": "0", "schemaSelector": "", "hardwarePlatform": "generic", "mandatory": "true",
+     * "configurationValue": "2 MB"}
      *
      * @param capabilityAssignment represents the capability of node
      *
@@ -227,11 +227,14 @@ public class ExtractFromNode {
                 sdcCsarHelper.getCapabilityPropertyLeafValue(capabilityAssignment, MEMORY_PAGE_SIZE_PATH);
         LOGGER.debug("the memoryPageSize = " + memoryPageSize);
         if (memoryPageSize != null) {
-            final Map<String, Object> retMap =
-                    gson.fromJson(memoryPageSize, new TypeToken<HashMap<String, Object>>() {}.getType());
+            final Map<String, String> retMap =
+                    gson.fromJson(memoryPageSize, new TypeToken<HashMap<String, String>>() {}.getType());
             LOGGER.debug("the retMap = " + retMap);
-            final String memoryPageSizeValue = retMap.get(CONFIGURATION_VALUE).toString();
-            final String mandatory = retMap.get("mandatory").toString();
+            final String memoryPageSizeValue = retMap.get(CONFIGURATION_VALUE);
+            final String mandatory = retMap.get("mandatory");
+            if (memoryPageSizeValue == null) {
+                return;
+            }
             final HpaFeatureAttribute hpaFeatureAttribute =
                     generateHpaFeatureAttribute("memoryPageSize", memoryPageSizeValue);
             final FlavorProperty flavorProperty = new FlavorProperty();
@@ -283,7 +286,7 @@ public class ExtractFromNode {
                     return;
                 }
             } else {
-                LOGGER.debug(" no configuration-value defined in interfaceType");
+                LOGGER.debug(" no configurationValue defined in interfaceType");
                 return;
             }
 
@@ -303,8 +306,8 @@ public class ExtractFromNode {
 
     /**
      * GenerateNetworkFeature, all pci feature are grouped into FlavorFeature together. The format is a map like:
-     * {"schema-version": "0", "schema-location": "", "platform-id": "generic", "mandatory": true,
-     * "configuration-value": "2 MB"}
+     * {"schemaVersion": "0", "schemaSelector": "", "hardwarePlatform": "generic", "mandatory": "true",
+     * "configurationValue": "2 MB"}
      *
      * @param networkHpaFeature represents the specified Hpa feature
      * @param node represents the CP Node
@@ -321,9 +324,12 @@ public class ExtractFromNode {
             final String pciValue = sdcCsarHelper.getNodeTemplatePropertyLeafValue(node, pciKeyPath);
             if (pciValue != null) {
                 LOGGER.debug("the pciValue = " + pciValue);
-                final Map<String, Object> retMap =
-                        gson.fromJson(pciValue, new TypeToken<HashMap<String, Object>>() {}.getType());
-                final String pciConfigValue = retMap.get(CONFIGURATION_VALUE).toString();
+                final Map<String, String> retMap =
+                        gson.fromJson(pciValue, new TypeToken<HashMap<String, String>>() {}.getType());
+                final String pciConfigValue = retMap.get(CONFIGURATION_VALUE);
+                if (pciConfigValue == null) {
+                    return;
+                }
                 final HpaFeatureAttribute hpaFeatureAttribute = generateHpaFeatureAttribute(pciKey, pciConfigValue);
                 flavorProperty.getHpaFeatureAttributes().add(hpaFeatureAttribute);
             }
