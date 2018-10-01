@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_76654844",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2018-10-01T09:20:26Z",
+      "side": 1,
+      "message": "It will be great if we can keep covering the new branches in code through test cases to maintain the sanity.",
+      "range": {
+        "startLine": 235,
+        "startChar": 12,
+        "endLine": 237,
+        "endChar": 13
+      },
+      "revId": "5e880aefe549a5825429740962c1acf9ff91e49e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
