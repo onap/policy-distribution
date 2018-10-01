@@ -22,6 +22,30 @@
       "revId": "5e880aefe549a5825429740962c1acf9ff91e49e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_f6d7f8bd",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-10-01T09:57:55Z",
+      "side": 1,
+      "message": "thanks, Ram, i\u0027ll add more test case to cover these exceptional after back from holiday.",
+      "parentUuid": "bada0100_76654844",
+      "range": {
+        "startLine": 235,
+        "startChar": 12,
+        "endLine": 237,
+        "endChar": 13
+      },
+      "revId": "5e880aefe549a5825429740962c1acf9ff91e49e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
