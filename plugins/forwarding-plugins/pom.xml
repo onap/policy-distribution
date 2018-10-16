@@ -45,6 +45,12 @@
             <groupId>org.onap.policy.engine</groupId>
             <artifactId>PolicyEngineAPI</artifactId>
             <version>${policy.engine.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.persistence</groupId>
+                    <artifactId>eclipselink</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.onap.policy.apex-pdp.core</groupId>
