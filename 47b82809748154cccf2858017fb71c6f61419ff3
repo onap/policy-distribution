@@ -22,6 +22,30 @@
       "revId": "47b82809748154cccf2858017fb71c6f61419ff3",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_257af3f1",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-10-16T11:01:49Z",
+      "side": 1,
+      "message": "thanks for the comment. update it.",
+      "parentUuid": "bada0100_a526e314",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 52
+      },
+      "revId": "47b82809748154cccf2858017fb71c6f61419ff3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
