@@ -70,6 +70,7 @@ public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, OptimizationPo
                 configBody.setRiskType(decoderParameters.getRiskType());
                 configBody.setGuard("false");
                 configBody.setContent(content);
+                content.getPolicyScope().add("HPA");
                 policy.setConfigBody(gson.toJson(configBody));
                 policys.add(policy);
             }
