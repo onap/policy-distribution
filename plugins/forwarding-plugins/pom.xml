@@ -55,7 +55,7 @@
         <dependency>
             <groupId>org.onap.policy.apex-pdp.core</groupId>
             <artifactId>core-deployment</artifactId>
-            <version>${project.version}</version>
+            <version>${policy.apex-pdp.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
