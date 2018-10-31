@@ -84,7 +84,7 @@ public class TestPolicyDecoderCsarPdpx {
 
         assertTrue(policy.getConfigBody().contains("\"id\":\"vdu_vnf_1\""));
         assertTrue(policy.getConfigBody().contains("\"type\":\"tosca.node.nfv.Vdu.Compute\""));
-        assertTrue(policy.getConfigBody().contains("\"type\":\"flavor_directive\""));
+        assertTrue(policy.getConfigBody().contains("\"type\":\"flavor_directives\""));
         assertTrue(policy.getConfigBody().contains("\"hpa-feature\":\"BasicCapabilities\""));
         assertTrue(policy.getConfigBody().contains("\"mandatory\":\"true\""));
         assertTrue(policy.getConfigBody().contains("\"architecture\":\"generic\""));
@@ -113,7 +113,7 @@ public class TestPolicyDecoderCsarPdpx {
 
         assertTrue(policy.getConfigBody().contains("\"id\":\"vdu_vnf_1\""));
         assertTrue(policy.getConfigBody().contains("\"type\":\"tosca.node.nfv.Vdu.Compute\""));
-        assertTrue(policy.getConfigBody().contains("\"type\":\"flavor_directive\""));
+        assertTrue(policy.getConfigBody().contains("\"type\":\"flavor_directives\""));
         assertTrue(policy.getConfigBody().contains("\"attribute_name\":\"flavorName\""));
         assertTrue(policy.getConfigBody().contains("\"attribute_value\":\"\""));
         assertTrue(policy.getConfigBody().contains("\"hpa-feature\":\"SriovNICNetwork\""));
@@ -154,7 +154,7 @@ public class TestPolicyDecoderCsarPdpx {
 
         assertTrue(policy.getConfigBody().contains("\"id\":\"vdu_vnf_1\""));
         assertTrue(policy.getConfigBody().contains("\"type\":\"tosca.node.nfv.Vdu.Compute\""));
-        assertTrue(policy.getConfigBody().contains("\"type\":\"flavor_directive\""));
+        assertTrue(policy.getConfigBody().contains("\"type\":\"flavor_directives\""));
         assertTrue(policy.getConfigBody().contains("\"attribute_name\":\"flavorName\""));
         assertTrue(policy.getConfigBody().contains("\"attribute_value\":\"\""));
         assertTrue(policy.getConfigBody().contains("\"hpa-feature\":\"pciePassthrough\""));
@@ -197,7 +197,7 @@ public class TestPolicyDecoderCsarPdpx {
 
         assertTrue(policy.getConfigBody().contains("\"id\":\"vdu_vnf_1\""));
         assertTrue(policy.getConfigBody().contains("\"type\":\"tosca.node.nfv.Vdu.Compute\""));
-        assertTrue(policy.getConfigBody().contains("\"type\":\"flavor_directive\""));
+        assertTrue(policy.getConfigBody().contains("\"type\":\"flavor_directives\""));
         assertTrue(policy.getConfigBody().contains("\"attribute_name\":\"flavorName\""));
         assertTrue(policy.getConfigBody().contains("\"attribute_value\":\"\""));
         assertTrue(policy.getConfigBody().contains("\"hpa-feature\":\"hugePages\""));
