@@ -55,6 +55,8 @@ public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, OptimizationPo
         LOGGER.debug("the size of Vf = " + lnodeVf.size());
         final ExtractFromNode extractFromNode = new ExtractFromNode();
         extractFromNode.setSdcCsarHelper(sdcCsarHelper);
+        final String serviceName = sdcCsarHelper.getServiceMetadata().getValue("name");
+        LOGGER.debug("the name of the service = " + serviceName);
         for (final NodeTemplate node : lnodeVf) {
             final Content content = extractFromNode.extractInfo(node);
             if (content != null) {
@@ -70,6 +72,7 @@ public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, OptimizationPo
                 configBody.setRiskType(decoderParameters.getRiskType());
                 configBody.setGuard("false");
                 content.getPolicyScope().add("HPA");
+                content.getPolicyScope().add(serviceName);
                 configBody.setContent(content);
                 policy.setConfigBody(gson.toJson(configBody));
                 policys.add(policy);

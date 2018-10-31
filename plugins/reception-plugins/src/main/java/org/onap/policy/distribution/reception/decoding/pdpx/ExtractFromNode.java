@@ -38,6 +38,7 @@ import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.sdc.tosca.parser.api.ISdcCsarHelper;
 import org.onap.sdc.toscaparser.api.CapabilityAssignment;
 import org.onap.sdc.toscaparser.api.CapabilityAssignments;
+import org.onap.sdc.toscaparser.api.elements.Metadata;
 import org.onap.sdc.toscaparser.api.NodeTemplate;
 import org.onap.sdc.toscaparser.api.RequirementAssignment;
 
@@ -82,8 +83,8 @@ public class ExtractFromNode {
      * @throws PolicyDecodingException if extract fails
      */
     public Content extractInfo(final NodeTemplate node) throws PolicyDecodingException {
-
-        LOGGER.debug("the meta data of this nodetemplate = " + sdcCsarHelper.getNodeTemplateMetadata(node));
+        Metadata metaData = sdcCsarHelper.getNodeTemplateMetadata(node);
+        LOGGER.debug("the meta data of this nodetemplate = " + metaData);
         final List<NodeTemplate> lnodeChild = sdcCsarHelper.getNodeTemplateChildren(node);
         LOGGER.debug("the size of lnodeChild = " + lnodeChild.size());
 
@@ -105,6 +106,8 @@ public class ExtractFromNode {
         LOGGER.debug("the size of cp is =" + lnodeVduCp.size());
 
         final Content content = new Content();
+        content.setResources(metaData.getValue("name"));
+        content.setIdentity(content.getPolicyType() + "_" + content.getResources());
         extractInfoVdu(lnodeVdu, content);
         extractInfoVduCp(lnodeVduCp, content);
         if (content.getFlavorFeatures().isEmpty()) {
@@ -128,7 +131,7 @@ public class ExtractFromNode {
             flavorAttribute.setAttributeName("flavorName");
             flavorAttribute.setAttributeValue("");
             final Directive flavorDirective = new Directive();
-            flavorDirective.setType("flavor_directive");
+            flavorDirective.setType("flavor_directives");
             flavorDirective.getAttributes().add(flavorAttribute);
             final FlavorFeature flavorFeature = new FlavorFeature();
             flavorFeature.setId(sdcCsarHelper.getNodeTemplatePropertyLeafValue(node, "name"));
