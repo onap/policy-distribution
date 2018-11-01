@@ -73,14 +73,14 @@
         "xacmlPdpConfiguration":{
             "parameterClassName":"org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarderParameterGroup",
             "parameters":{
-                "useHttps": false,
+                "useHttps": true,
                 "hostname": "pdp",
                 "port": 8081,
                 "userName": "testpdp",
                 "password": "alpha123",
                 "clientAuth": "cHl0aG9uOnRlc3Q=",
                 "isManaged": true,
-                "pdpGroup": "pdpGroup"
+                "pdpGroup": "default"
             }
         }
     }
