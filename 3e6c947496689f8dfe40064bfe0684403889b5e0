@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_d2e68216",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-11-01T01:37:15Z",
+      "side": 1,
+      "message": "Right here we are missing \u003c",
+      "range": {
+        "startLine": 50,
+        "startChar": 46,
+        "endLine": 50,
+        "endChar": 48
+      },
+      "revId": "3e6c947496689f8dfe40064bfe0684403889b5e0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_f2e38603",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-11-01T01:37:15Z",
+      "side": 1,
+      "message": "this is highlighted - I will patch this since I hope that Liam is asleep",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 16
+      },
+      "revId": "3e6c947496689f8dfe40064bfe0684403889b5e0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
