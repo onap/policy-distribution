@@ -1,0 +1,289 @@
+tosca_definitions_version: tosca_simple_yaml_1_1
+metadata:
+  invariantUUID: b233407f-fe4e-474e-af23-5ddca98639b2
+  UUID: 9119a7bd-859b-46ae-825f-47aa7570220d
+  name: ##RANDOM_RESOURCE_NAME##
+  description: test
+  type: VF
+  category: Generic
+  subcategory: Infrastructure
+  resourceVendor: vendor
+  resourceVendorRelease: '1.0'
+  resourceVendorModelNumber: ''
+imports:
+- nodes:
+    file: nodes.yml
+- datatypes:
+    file: data.yml
+- capabilities:
+    file: capabilities.yml
+- relationships:
+    file: relationships.yml
+- groups:
+    file: groups.yml
+- policies:
+    file: policies.yml
+- annotations:
+    file: annotations.yml
+- resource-vgw1181049-interface:
+    file: resource-Vgw1181049-template-interface.yml
+- resource-VNF:
+    file: resource-Vnf-template.yml
+- resource-VnfVirtualLink:
+    file: resource-Vnfvirtuallink-template.yml
+- resource-VDU Cp:
+    file: resource-VduCp-template.yml
+- resource-VDU VirtualStorage:
+    file: resource-VduVirtualstorage-template.yml
+- resource-VDU Compute:
+    file: resource-VduCompute-template.yml
+topology_template:
+  inputs:
+    nf_naming:
+      default:
+        ecomp_generated_naming: true
+      type: org.openecomp.datatypes.Naming
+      required: false
+    multi_stage_design:
+      default: false
+      type: boolean
+      required: false
+    nf_function:
+      type: string
+      required: false
+    nf_naming_code:
+      type: string
+      required: false
+    availability_zone_max_count:
+      default: 1
+      type: integer
+      required: false
+    nf_role:
+      type: string
+      required: false
+    min_instances:
+      type: integer
+      required: false
+    max_instances:
+      type: integer
+      required: false
+    nf_type:
+      type: string
+      required: false
+  node_templates:
+    LLU_VNF:
+      type: tosca.nodes.nfv.VNF
+      metadata:
+        invariantUUID: 7f6227f9-771a-4d25-86bb-2b3ba809e81c
+        UUID: d5c50615-de40-4a8a-a2a6-9eae9bd5b30f
+        customizationUUID: 06bffc87-30c7-42ad-b99d-19c6c13405dc
+        version: '1.0'
+        name: VNF
+        description: VNF
+        type: VFC
+        category: Generic
+        subcategory: Infrastructure
+        resourceVendor: ATT (Tosca)
+        resourceVendorRelease: 1.0.0.wd03
+        resourceVendorModelNumber: ''
+      properties:
+        descriptor_id: b1bb0ce7-2222-4fa7-95ed-4840d70a1177
+        provider: onap
+        vnfm_info:
+        - gvnfm
+        flavour_id: simple
+        descriptor_version: '1.0'
+        software_version: '1.0'
+        flavour_description: simple
+        product_name: vcpe_vgw
+    VL_mux_gw_private_net:
+      type: tosca.nodes.nfv.VnfVirtualLink
+      metadata:
+        invariantUUID: eb48e8b6-1ad6-48c1-91d2-f77c5792a624
+        UUID: 4ded12c9-0565-446a-82f6-eac26b0d4031
+        customizationUUID: fbea54ef-8f8b-4f35-81d6-997a47282698
+        version: '1.0'
+        name: VnfVirtualLink
+        description: VnfVirtualLink
+        type: VL
+        category: Generic
+        subcategory: Infrastructure
+        resourceVendor: ATT (Tosca)
+        resourceVendorRelease: 1.0.0.wd03
+        resourceVendorModelNumber: ''
+      properties:
+        vl_profile:
+          min_bit_rate_requirements:
+            root: 10000000
+            leaf: 10000000
+          max_bit_rate_requirements:
+            root: 10000000
+            leaf: 10000000
+          networkName: mux_gw_private_net_id
+          cidr: 192.168.0.0/24
+          dhcpEnabled: false
+        connectivity_type:
+          layer_protocol: ipv4
+    VDU_vgw_0:
+      type: tosca.nodes.nfv.Vdu.Compute
+      metadata:
+        invariantUUID: 545f0f07-e4b4-483c-8976-87d6b2585976
+        UUID: 705026b1-0e14-4c4c-b203-9aa5002616a8
+        customizationUUID: 93c3f2e3-67e7-4bb4-be11-8a48df924c4c
+        version: '1.0'
+        name: VDU Compute
+        description: VDU Compute
+        type: VFC
+        category: Generic
+        subcategory: Infrastructure
+        resourceVendor: ATT (Tosca)
+        resourceVendorRelease: 1.0.0.wd03
+        resourceVendorModelNumber: ''
+      properties:
+        configurable_properties:
+          additional_vnfc_configurable_properties: {
+            }
+        name: vdu_vgw_0
+        description: vgw
+        vdu_profile:
+          watchdog: none
+          min_number_of_instances: 1
+          max_number_of_instances: 1
+      requirements:
+      - virtual_storage:
+          capability: virtual_storage
+          node: VirtualStorage_root_all
+      capabilities:
+        virtual_compute:
+          properties:
+            virtual_memory:
+              virtual_mem_size: 4096 MB
+            virtual_cpu:
+              cpu_architecture: generic
+              num_virtual_cpu: 2
+    VirtualStorage_root_all:
+      type: tosca.nodes.nfv.Vdu.VirtualStorage
+      metadata:
+        invariantUUID: a2b52b7f-dcc1-4ac9-9333-db87b5393841
+        UUID: e7153786-05ac-4911-a125-0560f7e62ec9
+        customizationUUID: dc20e1ad-aed9-4154-b2b4-3a702eee49a7
+        version: '1.0'
+        name: VDU VirtualStorage
+        description: VDU VirtualStorage
+        type: VFC
+        category: Generic
+        subcategory: Infrastructure
+        resourceVendor: ATT (Tosca)
+        resourceVendorRelease: 1.0.0.wd03
+        resourceVendorModelNumber: ''
+      properties:
+        size_of_storage: 40 GB
+        type_of_storage: root
+    Cp_vgw_mux_gw_private_net:
+      type: tosca.nodes.nfv.VduCp
+      metadata:
+        invariantUUID: 05cfefb0-25e0-4aa6-a5c3-bb96a34372a0
+        UUID: 1da2c936-84df-4a98-a6aa-a53847cbebc9
+        customizationUUID: b5ff315f-effc-46e9-a0c5-aec1954845e0
+        version: '1.0'
+        name: VDU Cp
+        description: VDU Cp
+        type: CP
+        category: Generic
+        subcategory: Network Elements
+        resourceVendor: ATT (Tosca)
+        resourceVendorRelease: 1.0.0.wd03
+        resourceVendorModelNumber: ''
+      properties:
+        trunk_mode: false
+        protocol_data:
+        - asscociated_layer_protocol: ipv4
+          address_data:
+            address_type: ip_address
+            l3_address_data:
+              fixed_ip_address:
+              - 192.168.0.1
+              ip_address_assignment: false
+              floating_ip_activated: false
+        layer_protocol:
+        - ipv4
+        virtual_network_interface_requirements:
+        - name: "sriov-support"
+          support_mandatory: true
+          # Uncomment when POLICY-1254 fixed
+          #network_interface_requirements:
+          #  interfaceType: '{"schemaVersion": "0", "schemaSelector": "", "hardwarePlatform":"generic", "mandatory": "true", "configurationValue": "PCI-Passthrough"}'
+          nic_io_requirements:
+            logical_node_requirements:
+              pciNumDevices: '{"schemaVersion": "0", "schemaSelector": "", "hardwarePlatform": "generic", "mandatory": "true", "configurationValue": "1"}'
+      requirements:
+      - virtual_link:
+          capability: virtual_linkable
+          node: VL_mux_gw_private_net
+      - virtual_binding:
+          capability: virtual_binding
+          node: VDU_vgw_0
+  substitution_mappings:
+    node_type: org.openecomp.resource.vf.Vgw1181049
+    capabilities:
+      vl_mux_gw_private_net.feature:
+      - vl_mux_gw_private_net
+      - feature
+      cp_vgw_mux_gw_private_net.feature:
+      - cp_vgw_mux_gw_private_net
+      - feature
+      vdu_vgw_0.virtual_compute:
+      - vdu_vgw_0
+      - virtual_compute
+      vdu_vgw_0.virtual_binding:
+      - vdu_vgw_0
+      - virtual_binding
+      virtualstorage_root_all.virtual_storage:
+      - virtualstorage_root_all
+      - virtual_storage
+      llu_vnf.feature:
+      - llu_vnf
+      - feature
+      vl_mux_gw_private_net.virtual_linkable:
+      - vl_mux_gw_private_net
+      - virtual_linkable
+      vl_mux_gw_private_net.monitoring_parameter:
+      - vl_mux_gw_private_net
+      - monitoring_parameter
+      vdu_vgw_0.monitoring_parameter:
+      - vdu_vgw_0
+      - monitoring_parameter
+      virtualstorage_root_all.feature:
+      - virtualstorage_root_all
+      - feature
+      vdu_vgw_0.feature:
+      - vdu_vgw_0
+      - feature
+    requirements:
+      vdu_vgw_0.virtual_storage:
+      - vdu_vgw_0
+      - virtual_storage
+      vl_mux_gw_private_net.dependency:
+      - vl_mux_gw_private_net
+      - dependency
+      virtualstorage_root_all.dependency:
+      - virtualstorage_root_all
+      - dependency
+      vdu_vgw_0.dependency:
+      - vdu_vgw_0
+      - dependency
+      cp_vgw_mux_gw_private_net.virtual_binding:
+      - cp_vgw_mux_gw_private_net
+      - virtual_binding
+      cp_vgw_mux_gw_private_net.dependency:
+      - cp_vgw_mux_gw_private_net
+      - dependency
+      llu_vnf.dependency:
+      - llu_vnf
+      - dependency
+      llu_vnf.virtual_link:
+      - llu_vnf
+      - virtual_link
+      cp_vgw_mux_gw_private_net.virtual_link:
+      - cp_vgw_mux_gw_private_net
+      - virtual_link
