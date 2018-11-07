@@ -1,0 +1,68 @@
+{
+    "name":"SDCDistributionGroup",
+    "restServerParameters":{
+        "host":"0.0.0.0",
+        "port":6969,
+        "userName":"healthcheck",
+        "password":"zb!XztG34"
+    },
+    "receptionHandlerParameters":{
+        "S3PReceptionHandler":{
+            "receptionHandlerType":"S3P",
+            "receptionHandlerClassName":"org.onap.policy.distribution.reception.handling.sdc.FileSystemReceptionHandler",
+            "receptionHandlerConfigurationName":"fileConfiguration",
+            "pluginHandlerParameters":{
+                "policyDecoders":{
+                    "CsarDecoder":{
+                        "decoderType":"CsarDecoder",
+                        "decoderClassName":"org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderCsarPdpx",
+                        "decoderConfigurationName": "csarToOptimizationPolicyConfiguration"
+                    }
+                },
+                "policyForwarders":{
+                    "PAPEngineForwarder":{
+                        "forwarderType":"PAPEngine",
+                        "forwarderClassName":"org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarder",
+                        "forwarderConfigurationName": "xacmlPdpConfiguration"
+                    }
+                }
+            }
+        }
+    },
+    "receptionHandlerConfigurationParameters":{
+        "fileConfiguration":{
+            "parameterClassName":"org.onap.policy.distribution.reception.handling.sdc.FileSystemReceptionHandlerConfigurationParameterGroup",
+            "parameters":{
+                "watchPath": "/tmp/policy_distribution/csar/"
+            }
+        }
+    },
+    "policyDecoderConfigurationParameters":{
+        "csarToOptimizationPolicyConfiguration":{
+            "parameterClassName":"org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderCsarPdpxConfigurationParameterGroup",
+            "parameters":{
+                "policyNamePrefix": "oofCasablanca",
+                "onapName": "OOF",
+                "version": "1.0",
+                "priority": "3",
+                "riskType": "Test",
+                "riskLevel": "2"
+            }
+        }
+    },
+    "policyForwarderConfigurationParameters":{
+        "xacmlPdpConfiguration":{
+            "parameterClassName":"org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarderParameterGroup",
+            "parameters":{
+                "useHttps": true,
+                "hostname": "pdp",
+                "port": 8081,
+                "userName": "testpdp",
+                "password": "alpha123",
+                "clientAuth": "cHl0aG9uOnRlc3Q=",
+                "isManaged": true,
+                "pdpGroup": "default"
+            }
+        }
+    }
+}
