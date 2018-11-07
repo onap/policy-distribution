@@ -22,6 +22,30 @@
       "revId": "ea5b5217617dbef02a129498c60e98ec41139502",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_3086d4ba",
+        "filename": "packages/policy-distribution-docker/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-07T12:52:05Z",
+      "side": 1,
+      "message": "liam@lofzbook:~/git/onap/policy/distribution$ git status\nNo, pom.xml on master branch is on 2.1.0-SNAPSHOT\n\nI guess this review should be rebased.\n\nliam@lofzbook:~/git/onap/policy/distribution$ git status\nOn branch master\nYour branch is up-to-date with \u0027origin/master\u0027.\n\nnothing to commit, working tree clean\nliam@lofzbook:~/git/onap/policy/distribution$ head -40 pom.xml | tail -20\n\u003cproject xmlns\u003d\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi\u003d\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation\u003d\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\"\u003e\n    \u003cmodelVersion\u003e4.0.0\u003c/modelVersion\u003e\n\n    \u003cparent\u003e\n        \u003cgroupId\u003eorg.onap.policy.parent\u003c/groupId\u003e\n        \u003cartifactId\u003eintegration\u003c/artifactId\u003e\n        \u003cversion\u003e2.1.0-SNAPSHOT\u003c/version\u003e\n        \u003crelativePath /\u003e\n    \u003c/parent\u003e\n\n    \u003cgroupId\u003eorg.onap.policy.distribution\u003c/groupId\u003e\n    \u003cartifactId\u003epolicy-distribution\u003c/artifactId\u003e\n    \u003cversion\u003e2.1.0-SNAPSHOT\u003c/version\u003e\n\n    \u003cpackaging\u003epom\u003c/packaging\u003e\n\n    \u003cname\u003epolicy-distribution\u003c/name\u003e\n    \u003cdescription\u003eCode that implements our integration with SDC service distribution API.\u003c/description\u003e\n\n    \u003cproperties\u003e",
+      "parentUuid": "9adffdf1_500cb894",
+      "range": {
+        "startLine": 29,
+        "startChar": 15,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "ea5b5217617dbef02a129498c60e98ec41139502",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
