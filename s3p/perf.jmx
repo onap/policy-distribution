@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.0 r1840935">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="perf test plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="PDP_HOST" elementType="Argument">
+            <stringProp name="Argument.name">PDP_HOST</stringProp>
+            <stringProp name="Argument.value">${__P(host,pdp)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="RETRY" elementType="Argument">
+            <stringProp name="Argument.name">RETRY</stringProp>
+            <stringProp name="Argument.value">${__P(retry, 100)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="PERF_DATA" elementType="Argument">
+            <stringProp name="Argument.name">PERF_DATA</stringProp>
+            <stringProp name="Argument.value">${__P(perf_data, perf_data.csv)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="BASE_DIR" elementType="Argument">
+            <stringProp name="Argument.name">BASE_DIR</stringProp>
+            <stringProp name="Argument.value">${__BeanShell(import org.apache.jmeter.services.FileServer; FileServer.getFileServer().getBaseDir();)}${__BeanShell(File.separator,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="CSAR_DIR" elementType="Argument">
+            <stringProp name="Argument.name">CSAR_DIR</stringProp>
+            <stringProp name="Argument.value">${__P(csardir, /tmp/policy_distribution/csar)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="TOTAL" elementType="Argument">
+            <stringProp name="Argument.name">TOTAL</stringProp>
+            <stringProp name="Argument.value">${__P(total, 5)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration">${DURATION}</stringProp>
+        <stringProp name="ThreadGroup.delay">1</stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="prepare_perf_data" enabled="true"/>
+        <hashTree>
+          <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="OS Process Sampler" enabled="true">
+            <boolProp name="SystemSampler.checkReturnCode">false</boolProp>
+            <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
+            <stringProp name="SystemSampler.command">${BASE_DIR}generate_perf.sh</stringProp>
+            <elementProp name="SystemSampler.arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="Argument">
+                  <stringProp name="Argument.name"></stringProp>
+                  <stringProp name="Argument.value">${CSAR_DIR}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Argument">
+                  <stringProp name="Argument.name"></stringProp>
+                  <stringProp name="Argument.value">${TOTAL}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <elementProp name="SystemSampler.environment" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="SystemSampler.directory"></stringProp>
+          </SystemSampler>
+          <hashTree/>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Load_all_data" enabled="true">
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">def data_file=new File(vars.get(&apos;BASE_DIR&apos;) + vars.get(&apos;PERF_DATA&apos;));
+def data=data_file.readLines();
+def total=data.size();
+
+vars.putObject(&apos;data&apos;, data);
+vars.putObject(&apos;total&apos;, total);
+vars.putObject(&apos;idx&apos;, 0);
+vars.putObject(&apos;total_counter&apos;, vars.get(&apos;RETRY&apos;).toInteger() * total);
+
+SampleResult.setIgnore();</stringProp>
+            <stringProp name="scriptLanguage">groovy</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="verify policy created" enabled="true">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+          <boolProp name="TransactionController.parent">true</boolProp>
+        </TransactionController>
+        <hashTree>
+          <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="innter_counter" elementType="Argument">
+                <stringProp name="Argument.name">innter_counter</stringProp>
+                <stringProp name="Argument.value">1</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="rescode" elementType="Argument">
+                <stringProp name="Argument.name">rescode</stringProp>
+                <stringProp name="Argument.value"></stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="counter" elementType="Argument">
+                <stringProp name="Argument.name">counter</stringProp>
+                <stringProp name="Argument.value">1</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </Arguments>
+          <hashTree/>
+          <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="OUTER" enabled="true">
+            <stringProp name="WhileController.condition">${__javaScript(${counter} &lt; ${total_counter} &amp;&amp; ${idx} &lt; ${total})}</stringProp>
+          </WhileController>
+          <hashTree>
+            <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Reset_Inner_Loop" enabled="true">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">//log.info(&quot;idx: &quot; + vars.getObject(&apos;idx&apos;));
+//log.info(&quot;counter: &quot; + vars.get(&apos;counter&apos;));
+//log.info(&quot;total_counter: &quot; + vars.get(&apos;total_counter&apos;));
+
+vars.putObject(&apos;inner_counter&apos;, 0);
+vars.put(&apos;rescode&apos;, &quot;&quot;);
+
+SampleResult.setIgnore();</stringProp>
+            </JSR223Sampler>
+            <hashTree/>
+            <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="INNER" enabled="true">
+              <stringProp name="WhileController.condition">${__javaScript(${inner_counter} &lt; ${RETRY} &amp;&amp; &quot;${rescode}&quot; != &apos;200&apos;)}</stringProp>
+            </WhileController>
+            <hashTree>
+              <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get_Policy" enabled="true">
+                <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                  <collectionProp name="Arguments.arguments">
+                    <elementProp name="" elementType="HTTPArgument">
+                      <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                      <stringProp name="Argument.value">{&quot;policyName&quot;: &quot;oofCasablanca.*${resid}.*&quot;}</stringProp>
+                      <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </elementProp>
+                <stringProp name="HTTPSampler.domain">${PDP_HOST}</stringProp>
+                <stringProp name="HTTPSampler.port">8081</stringProp>
+                <stringProp name="HTTPSampler.protocol">https</stringProp>
+                <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                <stringProp name="HTTPSampler.path">/pdp/api/getConfig</stringProp>
+                <stringProp name="HTTPSampler.method">POST</stringProp>
+                <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              </HTTPSamplerProxy>
+              <hashTree>
+                <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="script">def idx=vars.getObject(&apos;idx&apos;);
+def data=vars.getObject(&apos;data&apos;);
+
+vars.put(&apos;resid&apos;, data[idx]);
+//log.error(data[idx]);
+</stringProp>
+                </JSR223PreProcessor>
+                <hashTree/>
+                <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="GET_POLICY_HTTP_HEADER" enabled="true">
+                  <collectionProp name="HeaderManager.headers">
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Content-Type</stringProp>
+                      <stringProp name="Header.value">application/json</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Accept</stringProp>
+                      <stringProp name="Header.value">application/json</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">ClientAuth</stringProp>
+                      <stringProp name="Header.value">cHl0aG9uOnRlc3Q=</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Authorization</stringProp>
+                      <stringProp name="Header.value">Basic dGVzdHBkcDphbHBoYTEyMw==</stringProp>
+                    </elementProp>
+                    <elementProp name="" elementType="Header">
+                      <stringProp name="Header.name">Environment</stringProp>
+                      <stringProp name="Header.value">TEST</stringProp>
+                    </elementProp>
+                  </collectionProp>
+                </HeaderManager>
+                <hashTree/>
+                <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+                  <stringProp name="cacheKey">true</stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="script">def rescode = prev.getResponseCode();
+def idx=vars.getObject(&apos;idx&apos;);
+def total=vars.getObject(&apos;total&apos;);
+def inner_counter=vars.getObject(&apos;inner_counter&apos;);
+
+vars.put(&apos;rescode&apos;, rescode);
+//log.info(&apos;inner_counter: &apos; + inner_counter);
+//log.info(&apos;idx: &apos;+ idx);
+
+inner_counter += 1;
+vars.putObject(&apos;inner_counter&apos;, inner_counter);
+
+if (rescode == &apos;200&apos;){
+    idx += 1;
+    vars.putObject(&apos;idx&apos;, idx);
+}else {
+    
+}
+</stringProp>
+                  <stringProp name="scriptLanguage">groovy</stringProp>
+                </JSR223PostProcessor>
+                <hashTree/>
+              </hashTree>
+              <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Counter" enabled="true">
+                <stringProp name="CounterConfig.start">1</stringProp>
+                <stringProp name="CounterConfig.end"></stringProp>
+                <stringProp name="CounterConfig.incr">1</stringProp>
+                <stringProp name="CounterConfig.name">counter</stringProp>
+                <stringProp name="CounterConfig.format"></stringProp>
+                <boolProp name="CounterConfig.per_user">true</boolProp>
+                <boolProp name="CounterConfig.reset_on_tg_iteration">true</boolProp>
+              </CounterConfig>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="final_check" enabled="true"/>
+        <hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="final_check" enabled="true">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">def idx=vars.getObject(&apos;idx&apos;);
+def total=vars.getObject(&apos;total&apos;);
+
+if (idx&lt;total) {
+	SampleResult.setSuccessful(false);
+	SampleResult.setResponseCode(&quot;410&quot;);
+	SampleResult.setResponseMessage(&quot;Fail at idx &quot; + idx);
+}else {
+	SampleResult.setSuccessful(true);
+	SampleResult.setResponseCode(&quot;200&quot;);
+	SampleResult.setResponseMessage(&quot;Success&quot;);
+}
+</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
