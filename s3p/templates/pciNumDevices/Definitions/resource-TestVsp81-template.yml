@@ -1,0 +1,200 @@
+tosca_definitions_version: tosca_simple_yaml_1_1
+metadata:
+  invariantUUID: 0a65ddb7-3cd5-470e-9e6b-bc3393f848e3
+  UUID: 11ff8429-be8c-4859-be7f-08a48ec4cad9
+  name: ##RANDOM_RESOURCE_NAME##
+  description: test vsp81
+  type: VF
+  category: Network L2-3
+  subcategory: Infrastructure
+  resourceVendor: test_vlm
+  resourceVendorRelease: '1.0'
+  resourceVendorModelNumber: ''
+imports:
+- nodes:
+    file: nodes.yml
+- datatypes:
+    file: data.yml
+- capabilities:
+    file: capabilities.yml
+- relationships:
+    file: relationships.yml
+- groups:
+    file: groups.yml
+- policies:
+    file: policies.yml
+- annotations:
+    file: annotations.yml
+- resource-test_vsp81-interface:
+    file: resource-TestVsp81-template-interface.yml
+- resource-VDU Cp:
+    file: resource-VduCp-template.yml
+- resource-VDU VirtualStorage:
+    file: resource-VduVirtualstorage-template.yml
+- resource-VDU Compute:
+    file: resource-VduCompute-template.yml
+topology_template:
+  inputs:
+    nf_naming:
+      default:
+        ecomp_generated_naming: true
+      type: org.openecomp.datatypes.Naming
+    multi_stage_design:
+      default: false
+      type: boolean
+    nf_function:
+      type: string
+    nf_naming_code:
+      type: string
+    availability_zone_max_count:
+      default: 1
+      type: integer
+    nf_role:
+      type: string
+    min_instances:
+      type: integer
+    max_instances:
+      type: integer
+    nf_type:
+      type: string
+  node_templates:
+    VDU_vnf_1:
+      type: tosca.nodes.nfv.Vdu.Compute
+      metadata:
+        invariantUUID: 1fa0139e-6958-4353-9f3f-2f267c2baa41
+        UUID: 54e15f93-6c9b-4424-94d8-e794dbaeaf42
+        customizationUUID: 4a50f07a-0919-4e67-8404-bc22b4bb3be2
+        version: '1.0'
+        name: VDU Compute
+        description: VDU Compute
+        type: VFC
+        category: Generic
+        subcategory: Infrastructure
+        resourceVendor: ATT (Tosca)
+        resourceVendorRelease: 1.0.0.wd03
+        resourceVendorModelNumber: ''
+      properties:
+        configurable_properties:
+          additional_vnfc_configurable_properties: {
+            }
+        inject_files:
+          source_path: ../Artifacts/keys/authorized_keys
+          dest_path: /home/ubuntu/.ssh/authorized_keys
+        name: vdu_vnf_1
+        description: vdu_vnf_1
+        vdu_profile:
+          watchdog: none
+          min_number_of_instances: 1
+          max_number_of_instances: 1
+      requirements:
+      - virtual_storage:
+          capability: virtual_storage
+          node: VirtualStorage_root_all
+      capabilities:
+        virtual_compute:
+          properties:
+            virtual_memory:
+              virtual_mem_size: 4096 MB
+            virtual_cpu:
+              cpu_architecture: generic
+              num_virtual_cpu: 2
+    VirtualStorage_root_all:
+      type: tosca.nodes.nfv.Vdu.VirtualStorage
+      metadata:
+        invariantUUID: 3d03e493-3032-4d3f-bdea-b78a89011dd6
+        UUID: 1f32900e-72ee-4842-81f7-b2c2fc3f1446
+        customizationUUID: 61ed1c48-e2ac-40e7-8c95-23244bff6775
+        version: '1.0'
+        name: VDU VirtualStorage
+        description: VDU VirtualStorage
+        type: VFC
+        category: Generic
+        subcategory: Infrastructure
+        resourceVendor: ATT (Tosca)
+        resourceVendorRelease: 1.0.0.wd03
+        resourceVendorModelNumber: ''
+      properties:
+        size_of_storage: 40 GB
+        type_of_storage: root
+
+    Cp_vdu1_public:
+      type: tosca.nodes.nfv.VduCp
+      metadata:
+        invariantUUID: 1570b95c-527f-439b-9989-2a2122df5a36
+        UUID: 20545746-97be-4952-8448-a3fcd0e0d3e3
+        customizationUUID: 24144aec-e8c3-4fe2-b294-75ad2654a521
+        version: '1.0'
+        name: VDU Cp
+        description: VDU Cp
+        type: CP
+        category: Generic
+        subcategory: Network Elements
+        resourceVendor: ATT (Tosca)
+        resourceVendorRelease: 1.0.0.wd03
+        resourceVendorModelNumber: ''
+      properties:
+        trunk_mode: false
+        protocol_data:
+        - asscociated_layer_protocol: ipv4
+          address_data:
+            address_type: ip_address
+            l3_address_data:
+              ip_address_assignment: false
+              floating_ip_activated: false
+        layer_protocol:
+        - ipv4
+        virtual_network_interface_requirements:
+        - name: "sriov-support"
+          support_mandatory: true
+          network_interface_requirements:
+            dataProcessingAccelerationLibrary: '{"schemaVersion": "0", "schemaSelector": "", "hardwarePlatform": "generic", "mandatory": "true", "configurationValue": "DPDK"}'
+          nic_io_requirements:
+            logical_node_requirements:
+              pciNumDevices: '{"schemaVersion": "0", "schemaSelector": "", "hardwarePlatform": "generic", "mandatory": "true", "configurationValue": "1"}'
+      requirements:
+      - virtual_binding:
+          capability: virtual_binding
+          node: VDU_vnf_1
+  substitution_mappings:
+    node_type: org.openecomp.resource.vf.TestVsp81
+    capabilities:
+      cp_vdu1_public.feature:
+      - cp_vdu1_public
+      - feature
+      vdu_vnf_1.monitoring_parameter:
+      - vdu_vnf_1
+      - monitoring_parameter
+      virtualstorage_root_all.virtual_storage:
+      - virtualstorage_root_all
+      - virtual_storage
+      vdu_vnf_1.virtual_binding:
+      - vdu_vnf_1
+      - virtual_binding
+      vdu_vnf_1.feature:
+      - vdu_vnf_1
+      - feature
+      vdu_vnf_1.virtual_compute:
+      - vdu_vnf_1
+      - virtual_compute
+      virtualstorage_root_all.feature:
+      - virtualstorage_root_all
+      - feature
+    requirements:
+      cp_vdu1_public.virtual_link:
+      - cp_vdu1_public
+      - virtual_link
+      virtualstorage_root_all.dependency:
+      - virtualstorage_root_all
+      - dependency
+      vdu_vnf_1.dependency:
+      - vdu_vnf_1
+      - dependency
+      cp_vdu1_public.virtual_binding:
+      - cp_vdu1_public
+      - virtual_binding
+      cp_vdu1_public.dependency:
+      - cp_vdu1_public
+      - dependency
+      vdu_vnf_1.virtual_storage:
+      - vdu_vnf_1
+      - virtual_storage

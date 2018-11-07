@@ -1,0 +1,228 @@
+tosca_definitions_version: tosca_simple_yaml_1_1
+metadata:
+  invariantUUID: 9b611c1a-8b81-458b-960c-c6ac3cf924ba
+  UUID: 5901cb31-c506-4217-ab24-522349f3d181
+  name: test_ns8
+  description: test ns8
+  type: Service
+  category: Network Service
+  serviceType: ''
+  serviceRole: ''
+  instantiationType: A-la-carte
+  serviceEcompNaming: true
+  ecompGeneratedNaming: true
+  namingPolicy: ''
+  environmentContext: General_Revenue-Bearing
+imports:
+- nodes:
+    file: nodes.yml
+- datatypes:
+    file: data.yml
+- capabilities:
+    file: capabilities.yml
+- relationships:
+    file: relationships.yml
+- groups:
+    file: groups.yml
+- policies:
+    file: policies.yml
+- annotations:
+    file: annotations.yml
+- service-test_ns8-interface:
+    file: service-TestNs8-template-interface.yml
+- resource-VnfVirtualLink:
+    file: resource-Vnfvirtuallink-template.yml
+- resource-test_vsp81:
+    file: resource-TestVsp81-template.yml
+- resource-test_vsp81-interface:
+    file: resource-TestVsp81-template-interface.yml
+- resource-test_vsp82:
+    file: resource-TestVsp82-template.yml
+- resource-test_vsp82-interface:
+    file: resource-TestVsp82-template-interface.yml
+topology_template:
+  node_templates:
+    VnfVirtualLink 1:
+      type: tosca.nodes.nfv.VnfVirtualLink
+      metadata:
+        invariantUUID: 55e22499-60b4-4a64-b4d6-14bb44ea3414
+        UUID: a73582eb-a6ab-44e2-8c27-248c42e978e2
+        customizationUUID: 91f72e8b-3ece-4375-9cf7-f8b0fa184b14
+        version: '1.0'
+        name: VnfVirtualLink
+        description: VnfVirtualLink
+        type: VL
+        category: Generic
+        subcategory: Infrastructure
+        resourceVendor: ATT (Tosca)
+        resourceVendorRelease: 1.0.0.wd03
+        resourceVendorModelNumber: ''
+      properties:
+        vl_profile:
+          min_bit_rate_requirements:
+            root: 12
+            leaf: 34
+          max_bit_rate_requirements:
+            root: 12
+            leaf: 34
+          networkName: public
+        connectivity_type:
+          layer_protocol: ipv4
+    test_vsp81 0:
+      type: org.openecomp.resource.vf.TestVsp81
+      metadata:
+        invariantUUID: 0a65ddb7-3cd5-470e-9e6b-bc3393f848e3
+        UUID: 11ff8429-be8c-4859-be7f-08a48ec4cad9
+        customizationUUID: 10423c81-c8ea-4f13-8363-9090eb582317
+        version: '1.0'
+        name: ##RANDOM_RESOURCE_NAME##
+        description: test vsp81
+        type: VF
+        category: Network L2-3
+        subcategory: Infrastructure
+        resourceVendor: test_vlm
+        resourceVendorRelease: '1.0'
+        resourceVendorModelNumber: ''
+      properties:
+        nf_naming:
+          ecomp_generated_naming: true
+        multi_stage_design: false
+        availability_zone_max_count: 1
+      requirements:
+      - cp_vdu1_public.virtual_link:
+          capability: virtual_linkable
+          node: VnfVirtualLink 1
+      capabilities:
+        vdu_vnf_1.virtual_compute:
+          properties:
+            virtual_memory:
+              virtual_mem_size: 4096 MB
+            virtual_cpu:
+              cpu_architecture: generic
+              num_virtual_cpu: 2
+    test_vsp82 0:
+      type: org.openecomp.resource.vf.TestVsp82
+      metadata:
+        invariantUUID: 559a32fd-d42a-4169-9995-d24d595f9515
+        UUID: cb890f4c-f5de-4d73-9066-b0f23993aec1
+        customizationUUID: 05a83eb9-f656-49e7-9039-589fab9df88e
+        version: '1.0'
+        name: test_vsp82
+        description: test vsp82
+        type: VF
+        category: Network L2-3
+        subcategory: Infrastructure
+        resourceVendor: test_vlm
+        resourceVendorRelease: '1.0'
+        resourceVendorModelNumber: ''
+      properties:
+        nf_naming:
+          ecomp_generated_naming: true
+        multi_stage_design: false
+        availability_zone_max_count: 1
+      requirements:
+      - cp_vdu2_public.virtual_link:
+          capability: virtual_linkable
+          node: VnfVirtualLink 1
+      capabilities:
+        vdu_vnf_2.virtual_compute:
+          properties:
+            virtual_memory:
+              virtual_mem_size: 4096 MB
+            virtual_cpu:
+              cpu_architecture: generic
+              num_virtual_cpu: 2
+  substitution_mappings:
+    node_type: org.openecomp.service.TestNs8
+    capabilities:
+      test_vsp820.vdu_vnf_2.monitoring_parameter:
+      - test_vsp820
+      - vdu_vnf_2.monitoring_parameter
+      test_vsp810.cp_vdu1_public.feature:
+      - test_vsp810
+      - cp_vdu1_public.feature
+      test_vsp820.cp_vdu2_public.feature:
+      - test_vsp820
+      - cp_vdu2_public.feature
+      vnfvirtuallink1.monitoring_parameter:
+      - vnfvirtuallink1
+      - monitoring_parameter
+      test_vsp820.virtualstorage_root_all.virtual_storage:
+      - test_vsp820
+      - virtualstorage_root_all.virtual_storage
+      test_vsp810.vdu_vnf_1.virtual_binding:
+      - test_vsp810
+      - vdu_vnf_1.virtual_binding
+      test_vsp810.vdu_vnf_1.feature:
+      - test_vsp810
+      - vdu_vnf_1.feature
+      test_vsp810.vdu_vnf_1.monitoring_parameter:
+      - test_vsp810
+      - vdu_vnf_1.monitoring_parameter
+      test_vsp810.virtualstorage_root_all.virtual_storage:
+      - test_vsp810
+      - virtualstorage_root_all.virtual_storage
+      vnfvirtuallink1.virtual_linkable:
+      - vnfvirtuallink1
+      - virtual_linkable
+      test_vsp820.vdu_vnf_2.virtual_binding:
+      - test_vsp820
+      - vdu_vnf_2.virtual_binding
+      test_vsp820.vdu_vnf_2.feature:
+      - test_vsp820
+      - vdu_vnf_2.feature
+      test_vsp820.vdu_vnf_2.virtual_compute:
+      - test_vsp820
+      - vdu_vnf_2.virtual_compute
+      vnfvirtuallink1.feature:
+      - vnfvirtuallink1
+      - feature
+      test_vsp810.virtualstorage_root_all.feature:
+      - test_vsp810
+      - virtualstorage_root_all.feature
+      test_vsp820.virtualstorage_root_all.feature:
+      - test_vsp820
+      - virtualstorage_root_all.feature
+      test_vsp810.vdu_vnf_1.virtual_compute:
+      - test_vsp810
+      - vdu_vnf_1.virtual_compute
+    requirements:
+      test_vsp810.vdu_vnf_1.virtual_storage:
+      - test_vsp810
+      - vdu_vnf_1.virtual_storage
+      test_vsp810.virtualstorage_root_all.dependency:
+      - test_vsp810
+      - virtualstorage_root_all.dependency
+      test_vsp820.vdu_vnf_2.virtual_storage:
+      - test_vsp820
+      - vdu_vnf_2.virtual_storage
+      test_vsp820.cp_vdu2_public.virtual_link:
+      - test_vsp820
+      - cp_vdu2_public.virtual_link
+      test_vsp810.cp_vdu1_public.virtual_binding:
+      - test_vsp810
+      - cp_vdu1_public.virtual_binding
+      test_vsp820.virtualstorage_root_all.dependency:
+      - test_vsp820
+      - virtualstorage_root_all.dependency
+      test_vsp820.cp_vdu2_public.virtual_binding:
+      - test_vsp820
+      - cp_vdu2_public.virtual_binding
+      test_vsp820.cp_vdu2_public.dependency:
+      - test_vsp820
+      - cp_vdu2_public.dependency
+      test_vsp820.vdu_vnf_2.dependency:
+      - test_vsp820
+      - vdu_vnf_2.dependency
+      test_vsp810.cp_vdu1_public.dependency:
+      - test_vsp810
+      - cp_vdu1_public.dependency
+      test_vsp810.vdu_vnf_1.dependency:
+      - test_vsp810
+      - vdu_vnf_1.dependency
+      vnfvirtuallink1.dependency:
+      - vnfvirtuallink1
+      - dependency
+      test_vsp810.cp_vdu1_public.virtual_link:
+      - test_vsp810
+      - cp_vdu1_public.virtual_link

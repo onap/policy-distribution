@@ -1,0 +1,59 @@
+tosca_definitions_version: tosca_simple_yaml_1_1
+metadata:
+  invariantUUID: 1570b95c-527f-439b-9989-2a2122df5a36
+  UUID: 20545746-97be-4952-8448-a3fcd0e0d3e3
+  name: VDU Cp
+  description: VDU Cp
+  type: CP
+  category: Generic
+  subcategory: Network Elements
+  resourceVendor: ATT (Tosca)
+  resourceVendorRelease: 1.0.0.wd03
+  resourceVendorModelNumber: ''
+imports:
+- nodes:
+    file: nodes.yml
+- datatypes:
+    file: data.yml
+- capabilities:
+    file: capabilities.yml
+- relationships:
+    file: relationships.yml
+- groups:
+    file: groups.yml
+- policies:
+    file: policies.yml
+- annotations:
+    file: annotations.yml
+node_types:
+  tosca.nodes.nfv.VduCp:
+    derived_from: tosca.nodes.nfv.Cp
+    description: VDU Cp
+    properties:
+      vnic_name:
+        type: string
+      virtual_network_interface_requirements:
+        type: list
+        entry_schema:
+          type: tosca.datatypes.nfv.VirtualNetworkInterfaceRequirements
+      bitrate_requirement:
+        type: integer
+      vnic_order:
+        type: integer
+      vnic_type:
+        type: string
+    requirements:
+    - virtual_link:
+        occurrences:
+        - 1
+        - UNBOUNDED
+        capability: tosca.capabilities.nfv.VirtualLinkable
+        node: tosca.nodes.nfv.VnfVirtualLink
+        relationship: tosca.relationships.nfv.VirtualLinksTo
+    - virtual_binding:
+        occurrences:
+        - 1
+        - UNBOUNDED
+        capability: tosca.capabilities.nfv.VirtualBindable
+        node: tosca.nodes.nfv.Vdu.Compute
+        relationship: tosca.relationships.nfv.VirtualBindsTo
