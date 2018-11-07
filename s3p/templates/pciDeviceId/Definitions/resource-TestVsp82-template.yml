@@ -1,0 +1,191 @@
+tosca_definitions_version: tosca_simple_yaml_1_1
+metadata:
+  invariantUUID: 559a32fd-d42a-4169-9995-d24d595f9515
+  UUID: cb890f4c-f5de-4d73-9066-b0f23993aec1
+  name: test_vsp82
+  description: test vsp82
+  type: VF
+  category: Network L2-3
+  subcategory: Infrastructure
+  resourceVendor: test_vlm
+  resourceVendorRelease: '1.0'
+  resourceVendorModelNumber: ''
+imports:
+- nodes:
+    file: nodes.yml
+- datatypes:
+    file: data.yml
+- capabilities:
+    file: capabilities.yml
+- relationships:
+    file: relationships.yml
+- groups:
+    file: groups.yml
+- policies:
+    file: policies.yml
+- annotations:
+    file: annotations.yml
+- resource-test_vsp82-interface:
+    file: resource-TestVsp82-template-interface.yml
+- resource-VDU VirtualStorage:
+    file: resource-VduVirtualstorage-template.yml
+- resource-VDU Cp:
+    file: resource-VduCp-template.yml
+- resource-VDU Compute:
+    file: resource-VduCompute-template.yml
+topology_template:
+  inputs:
+    nf_naming:
+      default:
+        ecomp_generated_naming: true
+      type: org.openecomp.datatypes.Naming
+    multi_stage_design:
+      default: false
+      type: boolean
+    nf_function:
+      type: string
+    nf_naming_code:
+      type: string
+    availability_zone_max_count:
+      default: 1
+      type: integer
+    nf_role:
+      type: string
+    min_instances:
+      type: integer
+    max_instances:
+      type: integer
+    nf_type:
+      type: string
+  node_templates:
+    VDU_vnf_2:
+      type: tosca.nodes.nfv.Vdu.Compute
+      metadata:
+        invariantUUID: 1fa0139e-6958-4353-9f3f-2f267c2baa41
+        UUID: 54e15f93-6c9b-4424-94d8-e794dbaeaf42
+        customizationUUID: f26c690b-275a-4066-8cef-b84a3de00eba
+        version: '1.0'
+        name: VDU Compute
+        description: VDU Compute
+        type: VFC
+        category: Generic
+        subcategory: Infrastructure
+        resourceVendor: ATT (Tosca)
+        resourceVendorRelease: 1.0.0.wd03
+        resourceVendorModelNumber: ''
+      properties:
+        configurable_properties:
+          additional_vnfc_configurable_properties: {
+            }
+        inject_files:
+          source_path: ../Artifacts/keys/authorized_keys
+          dest_path: /home/ubuntu/.ssh/authorized_keys
+        name: vdu_vnf_2
+        description: vdu_vnf_2
+        vdu_profile:
+          watchdog: none
+          min_number_of_instances: 1
+          max_number_of_instances: 1
+      requirements:
+      - virtual_storage:
+          capability: virtual_storage
+          node: VirtualStorage_root_all
+      capabilities:
+        virtual_compute:
+          properties:
+            virtual_memory:
+              virtual_mem_size: 4096 MB
+            virtual_cpu:
+              cpu_architecture: generic
+              num_virtual_cpu: 2
+    VirtualStorage_root_all:
+      type: tosca.nodes.nfv.Vdu.VirtualStorage
+      metadata:
+        invariantUUID: 3d03e493-3032-4d3f-bdea-b78a89011dd6
+        UUID: 1f32900e-72ee-4842-81f7-b2c2fc3f1446
+        customizationUUID: a7f1e229-43be-4392-aaa7-e50bd98dfbfc
+        version: '1.0'
+        name: VDU VirtualStorage
+        description: VDU VirtualStorage
+        type: VFC
+        category: Generic
+        subcategory: Infrastructure
+        resourceVendor: ATT (Tosca)
+        resourceVendorRelease: 1.0.0.wd03
+        resourceVendorModelNumber: ''
+      properties:
+        size_of_storage: 40 GB
+        type_of_storage: root
+    Cp_vdu2_public:
+      type: tosca.nodes.nfv.VduCp
+      metadata:
+        invariantUUID: 1570b95c-527f-439b-9989-2a2122df5a36
+        UUID: 20545746-97be-4952-8448-a3fcd0e0d3e3
+        customizationUUID: 07df1dd5-cc75-4ba2-9604-e0b68e0d353f
+        version: '1.0'
+        name: VDU Cp
+        description: VDU Cp
+        type: CP
+        category: Generic
+        subcategory: Network Elements
+        resourceVendor: ATT (Tosca)
+        resourceVendorRelease: 1.0.0.wd03
+        resourceVendorModelNumber: ''
+      properties:
+        trunk_mode: false
+        protocol_data:
+        - asscociated_layer_protocol: ipv4
+          address_data:
+            address_type: ip_address
+            l3_address_data:
+              ip_address_assignment: false
+              floating_ip_activated: false
+        layer_protocol:
+        - ipv4
+      requirements:
+      - virtual_binding:
+          capability: virtual_binding
+          node: VDU_vnf_2
+  substitution_mappings:
+    node_type: org.openecomp.resource.vf.TestVsp82
+    capabilities:
+      virtualstorage_root_all.virtual_storage:
+      - virtualstorage_root_all
+      - virtual_storage
+      vdu_vnf_2.monitoring_parameter:
+      - vdu_vnf_2
+      - monitoring_parameter
+      vdu_vnf_2.virtual_binding:
+      - vdu_vnf_2
+      - virtual_binding
+      cp_vdu2_public.feature:
+      - cp_vdu2_public
+      - feature
+      vdu_vnf_2.feature:
+      - vdu_vnf_2
+      - feature
+      virtualstorage_root_all.feature:
+      - virtualstorage_root_all
+      - feature
+      vdu_vnf_2.virtual_compute:
+      - vdu_vnf_2
+      - virtual_compute
+    requirements:
+      virtualstorage_root_all.dependency:
+      - virtualstorage_root_all
+      - dependency
+      cp_vdu2_public.virtual_binding:
+      - cp_vdu2_public
+      - virtual_binding
+      cp_vdu2_public.dependency:
+      - cp_vdu2_public
+      - dependency
+      vdu_vnf_2.dependency:
+      - vdu_vnf_2
+      - dependency
+      vdu_vnf_2.virtual_storage:
+      - vdu_vnf_2
+      - virtual_storage
+      cp_vdu2_public.virtual_link:
+      - cp_vdu2_public
+      - virtual_link

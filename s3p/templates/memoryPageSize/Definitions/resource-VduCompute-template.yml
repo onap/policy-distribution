@@ -1,0 +1,103 @@
+tosca_definitions_version: tosca_simple_yaml_1_1
+metadata:
+  invariantUUID: 1fa0139e-6958-4353-9f3f-2f267c2baa41
+  UUID: 54e15f93-6c9b-4424-94d8-e794dbaeaf42
+  name: VDU Compute
+  description: VDU Compute
+  type: VFC
+  category: Generic
+  subcategory: Infrastructure
+  resourceVendor: ATT (Tosca)
+  resourceVendorRelease: 1.0.0.wd03
+  resourceVendorModelNumber: ''
+imports:
+- nodes:
+    file: nodes.yml
+- datatypes:
+    file: data.yml
+- capabilities:
+    file: capabilities.yml
+- relationships:
+    file: relationships.yml
+- groups:
+    file: groups.yml
+- policies:
+    file: policies.yml
+- annotations:
+    file: annotations.yml
+node_types:
+  tosca.nodes.nfv.Vdu.Compute:
+    derived_from: tosca.nodes.Root
+    description: VDU Compute
+    properties:
+      configurable_properties:
+        type: map
+        entry_schema:
+          type: tosca.datatypes.nfv.VnfcConfigurableProperties
+      inject_files:
+        type: tosca.datatypes.nfv.injectFile
+      name:
+        type: string
+      nfvi_constraints:
+        type: map
+        entry_schema:
+          type: string
+      meta_data:
+        type: map
+        entry_schema:
+          type: string
+      description:
+        type: string
+      user_data:
+        type: string
+      boot_order:
+        type: map
+        entry_schema:
+          type: string
+      vdu_profile:
+        type: tosca.datatypes.nfv.VduProfile
+    capabilities:
+      virtual_compute:
+        type: tosca.capabilities.nfv.VirtualCompute
+        occurrences:
+        - 1
+        - UNBOUNDED
+        valid_source_types: [
+          ]
+        properties:
+          virtual_memory:
+            type: tosca.datatypes.nfv.VirtualMemory
+            required: true
+          requested_additional_capabilities:
+            type: map
+            required: false
+            entry_schema:
+              type: tosca.datatypes.nfv.RequestedAdditionalCapability
+          logical_node:
+            type: tosca.datatypes.nfv.LogicalNodeData
+            required: false
+          virtual_cpu:
+            type: tosca.datatypes.nfv.VirtualCpu
+            required: true
+      virtual_binding:
+        type: tosca.capabilities.nfv.VirtualBindable
+        occurrences:
+        - 1
+        - UNBOUNDED
+        valid_source_types: [
+          ]
+      monitoring_parameter:
+        type: tosca.capabilities.nfv.Metric
+        occurrences:
+        - 0
+        - UNBOUNDED
+        valid_source_types: [
+          ]
+    requirements:
+    - virtual_storage:
+        occurrences:
+        - 1
+        - UNBOUNDED
+        capability: tosca.capabilities.nfv.VirtualStorage
+        node: tosca.nodes.nfv.VDU.VirtualStorage
+        relationship: tosca.relationships.nfv.Vdu.AttachedTo

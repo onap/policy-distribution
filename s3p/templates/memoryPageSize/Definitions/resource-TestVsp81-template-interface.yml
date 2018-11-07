@@ -1,0 +1,150 @@
+tosca_definitions_version: tosca_simple_yaml_1_1
+imports:
+- nodes:
+    file: nodes.yml
+- datatypes:
+    file: data.yml
+- capabilities:
+    file: capabilities.yml
+- relationships:
+    file: relationships.yml
+- groups:
+    file: groups.yml
+- policies:
+    file: policies.yml
+- annotations:
+    file: annotations.yml
+node_types:
+  org.openecomp.resource.vf.TestVsp81:
+    derived_from: org.openecomp.resource.abstract.nodes.VF
+    properties:
+      nf_naming:
+        default:
+          ecomp_generated_naming: true
+        type: org.openecomp.datatypes.Naming
+      multi_stage_design:
+        default: false
+        type: boolean
+      nf_function:
+        type: string
+      nf_naming_code:
+        type: string
+      availability_zone_max_count:
+        default: 1
+        type: integer
+      nf_role:
+        type: string
+      min_instances:
+        type: integer
+      max_instances:
+        type: integer
+      nf_type:
+        type: string
+    capabilities:
+      cp_vdu1_public.feature:
+        type: tosca.capabilities.Node
+        occurrences:
+        - 1
+        - UNBOUNDED
+        valid_source_types: [
+          ]
+      vdu_vnf_1.monitoring_parameter:
+        type: tosca.capabilities.nfv.Metric
+        occurrences:
+        - 0
+        - UNBOUNDED
+        valid_source_types: [
+          ]
+      virtualstorage_root_all.virtual_storage:
+        type: tosca.capabilities.nfv.VirtualStorage
+        occurrences:
+        - 1
+        - UNBOUNDED
+        valid_source_types: [
+          ]
+      vdu_vnf_1.virtual_binding:
+        type: tosca.capabilities.nfv.VirtualBindable
+        occurrences:
+        - 1
+        - UNBOUNDED
+        valid_source_types: [
+          ]
+      vdu_vnf_1.feature:
+        type: tosca.capabilities.Node
+        occurrences:
+        - 1
+        - UNBOUNDED
+        valid_source_types: [
+          ]
+      vdu_vnf_1.virtual_compute:
+        type: tosca.capabilities.nfv.VirtualCompute
+        occurrences:
+        - 1
+        - UNBOUNDED
+        valid_source_types: [
+          ]
+        properties:
+          virtual_memory:
+            type: tosca.datatypes.nfv.VirtualMemory
+            required: true
+          requested_additional_capabilities:
+            type: map
+            required: false
+            entry_schema:
+              type: tosca.datatypes.nfv.RequestedAdditionalCapability
+          logical_node:
+            type: tosca.datatypes.nfv.LogicalNodeData
+            required: false
+          virtual_cpu:
+            type: tosca.datatypes.nfv.VirtualCpu
+            required: true
+      virtualstorage_root_all.feature:
+        type: tosca.capabilities.Node
+        occurrences:
+        - 1
+        - UNBOUNDED
+        valid_source_types: [
+          ]
+    requirements:
+    - cp_vdu1_public.dependency:
+        occurrences:
+        - 0
+        - UNBOUNDED
+        capability: tosca.capabilities.Node
+        node: tosca.nodes.Root
+        relationship: tosca.relationships.DependsOn
+    - virtualstorage_root_all.dependency:
+        occurrences:
+        - 0
+        - UNBOUNDED
+        capability: tosca.capabilities.Node
+        node: tosca.nodes.Root
+        relationship: tosca.relationships.DependsOn
+    - vdu_vnf_1.dependency:
+        occurrences:
+        - 0
+        - UNBOUNDED
+        capability: tosca.capabilities.Node
+        node: tosca.nodes.Root
+        relationship: tosca.relationships.DependsOn
+    - vdu_vnf_1.virtual_storage:
+        occurrences:
+        - 1
+        - UNBOUNDED
+        capability: tosca.capabilities.nfv.VirtualStorage
+        node: tosca.nodes.nfv.VDU.VirtualStorage
+        relationship: tosca.relationships.nfv.Vdu.AttachedTo
+    - cp_vdu1_public.virtual_link:
+        occurrences:
+        - 1
+        - UNBOUNDED
+        capability: tosca.capabilities.nfv.VirtualLinkable
+        node: tosca.nodes.nfv.VnfVirtualLink
+        relationship: tosca.relationships.nfv.VirtualLinksTo
+    - cp_vdu1_public.virtual_binding:
+        occurrences:
+        - 1
+        - UNBOUNDED
+        capability: tosca.capabilities.nfv.VirtualBindable
+        node: tosca.nodes.nfv.Vdu.Compute
+        relationship: tosca.relationships.nfv.VirtualBindsTo

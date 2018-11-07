@@ -1,0 +1,50 @@
+tosca_definitions_version: tosca_simple_yaml_1_1
+metadata:
+  invariantUUID: 3d03e493-3032-4d3f-bdea-b78a89011dd6
+  UUID: 1f32900e-72ee-4842-81f7-b2c2fc3f1446
+  name: VDU VirtualStorage
+  description: VDU VirtualStorage
+  type: VFC
+  category: Generic
+  subcategory: Infrastructure
+  resourceVendor: ATT (Tosca)
+  resourceVendorRelease: 1.0.0.wd03
+  resourceVendorModelNumber: ''
+imports:
+- nodes:
+    file: nodes.yml
+- datatypes:
+    file: data.yml
+- capabilities:
+    file: capabilities.yml
+- relationships:
+    file: relationships.yml
+- groups:
+    file: groups.yml
+- policies:
+    file: policies.yml
+- annotations:
+    file: annotations.yml
+node_types:
+  tosca.nodes.nfv.Vdu.VirtualStorage:
+    derived_from: tosca.nodes.Root
+    description: VDU VirtualStorage
+    properties:
+      vdu_storage_requirements:
+        type: map
+        entry_schema:
+          type: string
+      size_of_storage:
+        type: scalar-unit.size
+      rdma_enabled:
+        type: boolean
+      type_of_storage:
+        type: string
+    capabilities:
+      virtual_storage:
+        type: tosca.capabilities.nfv.VirtualStorage
+        occurrences:
+        - 1
+        - UNBOUNDED
+        valid_source_types: [
+          ]
