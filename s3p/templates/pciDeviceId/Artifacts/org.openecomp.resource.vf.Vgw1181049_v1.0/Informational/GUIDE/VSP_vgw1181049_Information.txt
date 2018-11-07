@@ -1,0 +1,29 @@
+Proprietary information (Restricted)
+For use only by authorized individuals and not for general distribution.
+
+
+1.    VSP Details: 
+    a.    Name: vgw1181049
+    b.    Description test
+    c.    Version: 0.0
+    d.    Vendor: vendor
+    e.    Category: resourceNewCategory.generic
+    f.    License Details: 
+        i.    License Model Version: 0.0
+        ii.    License Agreement Name: b24b9792f0ec4e72818387a230acec5a
+        iii    List of Feature Groups: 
+            1.    d3780d334c4c42d38c7ab1ec23a65cfd
+    g.    High Availability 
+    h.    Storage Data Back-up Details: 
+        i.    Data Replication Required?: false
+        ii.    	Data Size to replicate in GB: null
+        iii.    Data replication frequency: null
+        iv.    Replication Source: null
+        v.    Replication Destination: null
+    3.    List of VFCs 
+        a.    For each VFC: 
+
+
+
+Proprietary information (Restricted)
+For use only by authorized individuals and not for general distribution.

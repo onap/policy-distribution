@@ -1,0 +1,70 @@
+tosca_definitions_version: tosca_simple_yaml_1_1
+metadata:
+  invariantUUID: 7f6227f9-771a-4d25-86bb-2b3ba809e81c
+  UUID: d5c50615-de40-4a8a-a2a6-9eae9bd5b30f
+  name: VNF
+  description: VNF
+  type: VFC
+  category: Generic
+  subcategory: Infrastructure
+  resourceVendor: ATT (Tosca)
+  resourceVendorRelease: 1.0.0.wd03
+  resourceVendorModelNumber: ''
+imports:
+- nodes:
+    file: nodes.yml
+- datatypes:
+    file: data.yml
+- capabilities:
+    file: capabilities.yml
+- relationships:
+    file: relationships.yml
+- groups:
+    file: groups.yml
+- policies:
+    file: policies.yml
+- annotations:
+    file: annotations.yml
+node_types:
+  tosca.nodes.nfv.VNF:
+    derived_from: tosca.nodes.Root
+    description: VNF
+    properties:
+      configurable_properties:
+        type: tosca.datatypes.nfv.VnfConfigurableProperties
+      product_info_name:
+        type: string
+      default_localization_language:
+        type: string
+      flavour_id:
+        type: string
+      flavour_description:
+        type: string
+      product_name:
+        type: string
+      descriptor_id:
+        type: string
+      product_info_description:
+        type: string
+      provider:
+        type: string
+      descriptor_version:
+        type: string
+      vnfm_info:
+        type: list
+        entry_schema:
+          type: string
+      software_version:
+        type: string
+      localization_languages:
+        type: list
+        entry_schema:
+          type: string
+    requirements:
+    - virtual_link:
+        occurrences:
+        - 0
+        - UNBOUNDED
+        capability: tosca.capabilities.nfv.VirtualLinkable
+        node: tosca.nodes.nfv.VnfVirtualLink
+        relationship: tosca.relationships.nfv.VirtualLinksTo
