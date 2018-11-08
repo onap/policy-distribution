@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_60ac89ee",
+        "filename": "packages/policy-distribution-docker/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 309
+      },
+      "writtenOn": "2018-11-08T02:18:22Z",
+      "side": 1,
+      "message": "I need to bump the parent version here. Otherwise, the docker image I built here locally, won\u0027t include reception-plugin-2.1.0-SNAPSHOT.jar, but include the old reception-plugin-2.0.1-SNAPSHOT.jar which doesn\u0027t contains the FileSystemReceptionHandler we created here.\n\nI think we forgot to update the 2 pom files for package/policy-distribution-docker and package/policy-distrition-tarball in patch https://gerrit.onap.org/r/#/c/71576/",
+      "parentUuid": "9adffdf1_cd956ee5",
+      "range": {
+        "startLine": 29,
+        "startChar": 15,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "ea5b5217617dbef02a129498c60e98ec41139502",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_b0c164e6",
         "filename": "packages/policy-distribution-docker/src/main/docker/policy-dist.sh",
         "patchSetId": 1
