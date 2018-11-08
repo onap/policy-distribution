@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_43a38f9e",
+        "filename": "packages/policy-distribution-docker/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-08T10:37:47Z",
+      "side": 1,
+      "message": "Yes, I missed this one, in the earlier comments I checked the parent POM in distribution and not this one.\n\nThe one in Tarball was missed as well. The rest of the POMs are OK. I was using the maven versions plugin to do this and it missed these two modules, probably because they don\u0027t have a src/main/java directory, this is something we need watch for in the future.\n\nNice catch Lianhao",
+      "parentUuid": "9adffdf1_60ac89ee",
+      "range": {
+        "startLine": 29,
+        "startChar": 15,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "ea5b5217617dbef02a129498c60e98ec41139502",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_b0c164e6",
         "filename": "packages/policy-distribution-docker/src/main/docker/policy-dist.sh",
         "patchSetId": 1
@@ -308,6 +332,30 @@
       "side": 1,
       "message": "I modified this based on the file Ram sent to me. So I think I should keep his original copyright.",
       "parentUuid": "9adffdf1_904a2082",
+      "range": {
+        "startLine": 3,
+        "startChar": 23,
+        "endLine": 3,
+        "endChar": 31
+      },
+      "revId": "ea5b5217617dbef02a129498c60e98ec41139502",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_835897fb",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/FileSystemReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-08T10:37:47Z",
+      "side": 1,
+      "message": "OK, that\u0027s fine.",
+      "parentUuid": "9adffdf1_ed1dd274",
       "range": {
         "startLine": 3,
         "startChar": 23,
