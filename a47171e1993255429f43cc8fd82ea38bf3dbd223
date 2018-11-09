@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_4fdace79",
+        "filename": "s3p/templates/interfaceType/Artifacts/org.openecomp.resource.vf.Vgw1181049_v1.0/Deployment/OTHER/authorized_keys",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-11-09T00:26:28Z",
+      "side": 1,
+      "message": "I\u0027m guessing we don\u0027t have a choice in naming this org.openecomp\n\nopenecomp should no longer be used in ONAP unless this is an SDC model requirement.",
+      "revId": "a47171e1993255429f43cc8fd82ea38bf3dbd223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
