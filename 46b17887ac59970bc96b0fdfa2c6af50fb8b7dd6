@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_4b9c016a",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/FileSystemReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-09T11:22:10Z",
+      "side": 1,
+      "message": "This will cause a Sonar issue. The Sonar rule says you have to log all exceptions or rethrow them so it\u0027s better to log here.",
+      "range": {
+        "startLine": 57,
+        "startChar": 14,
+        "endLine": 57,
+        "endChar": 15
+      },
+      "revId": "46b17887ac59970bc96b0fdfa2c6af50fb8b7dd6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
