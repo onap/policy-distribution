@@ -1,0 +1,145 @@
+/*-
+ * ============LICENSE_START=======================================================
+ *  Copyright (C) 2018 Intel. All rights reserved.
+ * ================================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ * ============LICENSE_END=========================================================
+ */
+
+package org.onap.policy.distribution.reception.handling.sdc;
+
+import static org.junit.Assert.fail;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.onap.policy.common.logging.flexlogger.FlexLogger;
+import org.onap.policy.common.logging.flexlogger.Logger;
+import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.distribution.forwarding.PolicyForwarder;
+import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
+import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
+
+/**
+ * Class to perform unit test of {@link FileSystemReceptionHandler}.
+ */
+@RunWith(MockitoJUnitRunner.class)
+public class TestFileSystemReceptionHandler {
+
+    private static final Logger LOGGER = FlexLogger.getLogger(TestFileSystemReceptionHandler.class);
+    private static final String DUMMY_SERVICE_CSAR = "dummyService.csar";
+
+    @Rule
+    public TemporaryFolder tempFolder = new TemporaryFolder();
+
+    private FileSystemReceptionHandlerConfigurationParameterGroup pssdConfigParameters;
+    private FileSystemReceptionHandler fileSystemHandler;
+
+
+    /**
+     * Setup for the test cases.
+     *
+     * @throws IOException if it occurs
+     * @throws SecurityException if it occurs
+     * @throws NoSuchFieldException if it occurs
+     * @throws IllegalAccessException if it occurs
+     * @throws IllegalArgumentException if it occurs
+     */
+    @Before
+    public final void init() throws IOException, NoSuchFieldException, SecurityException, IllegalArgumentException,
+            IllegalAccessException {
+        DistributionStatisticsManager.resetAllStatistics();
+
+        final Gson gson = new GsonBuilder().create();
+        String json = "{ \"name\": \"parameterConfig9\", \"watchPath\": \"";
+        json += tempFolder.getRoot().getAbsolutePath() + "\"}";
+        pssdConfigParameters = gson.fromJson(json,
+                FileSystemReceptionHandlerConfigurationParameterGroup.class);
+        ParameterService.register(pssdConfigParameters);
+        fileSystemHandler = new FileSystemReceptionHandler();
+    }
+
+    @After
+    public void teardown() {
+        ParameterService.deregister(pssdConfigParameters);
+    }
+    
+    @Test
+    public final void testInit() {
+        final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
+        Mockito.doNothing().when(sypHandler).main(Mockito.isA(String.class));
+        sypHandler.initializeReception(pssdConfigParameters.getName());
+        Mockito.verify(sypHandler, Mockito.times(1)).main(Mockito.isA(String.class));
+    }
+
+    @Test
+    public final void testDestroy() {
+        try {
+            final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
+            Mockito.doNothing().when(sypHandler).main(Mockito.isA(String.class));
+            sypHandler.initializeReception(pssdConfigParameters.getName());
+            sypHandler.destroy();
+        } catch (final Exception exp) {
+            LOGGER.error(exp);
+            fail("Test should not throw any exception");
+        }
+
+    }
+
+    @Test
+    public void testMain() throws IOException, PolicyDecodingException {
+
+        final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
+        Mockito.doNothing().when(sypHandler).createPolicyInputAndCallHandler(Mockito.isA(String.class));
+
+        final String watchPath = tempFolder.getRoot().getAbsolutePath().toString();
+        Thread th = new Thread(() -> {
+            sypHandler.main(watchPath);
+        });
+
+        th.start();
+        try {
+            // yield to main thread
+            Thread.sleep(1000);
+            Files.copy(Paths.get("src/test/resources/hpaPolicyHugePage.csar"),
+                Paths.get(watchPath + File.separator + "hpaPolicyHugePage.csar"));
+            // wait enough time 
+            Thread.sleep(1000);
+            sypHandler.destroy();
+            th.interrupt();
+            th.join();
+        } catch (final InterruptedException ex) {
+            LOGGER.error(ex);
+        }
+        Mockito.verify(sypHandler, Mockito.times(1))
+            .createPolicyInputAndCallHandler(Mockito.isA(String.class));
+
+    }
+}
+
