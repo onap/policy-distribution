@@ -68,8 +68,14 @@ public class FileSystemReceptionHandlerConfigurationParameterGroup extends Recep
      */
     private void validatePathElement(final GroupValidationResult validationResult, final String element,
             final String elementName) {
-        File file = new File(element);
-        if (!(file.exists() && file.isDirectory())) {
+        boolean valid = false;
+        if (element != null) {
+            File file = new File(element);
+            if (file.exists() && file.isDirectory()) {
+                valid = true;
+            }
+        }
+        if (!valid) {
             validationResult.setResult(elementName, ValidationStatus.INVALID,
                     elementName + " must be a valid directory");
         }

@@ -23,6 +23,7 @@ package org.onap.policy.distribution.reception.handling.sdc;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -52,9 +53,10 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
             final FileSystemReceptionHandlerConfigurationParameterGroup handlerParameters =
                                     ParameterService.get(parameterGroupName);
             main(handlerParameters.getWatchPath());
-        } catch (final PolicyDecodingException ex) {
-            LOGGER.debug(ex);
+        } catch (final Exception ex) {
+            LOGGER.error(ex);
         }
+        LOGGER.debug("FileSystemReceptionHandler main loop exited...");
     }
 
     @Override
@@ -67,10 +69,9 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
      * Main entry point.
      * 
      * @param watchPath Path to watch
-     * @throws PolicyDecodingException Decoding exception
      */
     @SuppressWarnings("unchecked")
-    public void main(String watchPath) throws PolicyDecodingException {
+    public void main(String watchPath) {
         try (final WatchService watcher = FileSystems.getDefault().newWatchService()) {
             final Path dir = Paths.get(watchPath);
 
@@ -85,25 +86,31 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
                     Thread.currentThread().interrupt();
                     return;
                 }
+
                 for (final WatchEvent<?> event : key.pollEvents()) {
                     final WatchEvent.Kind<?> kind = event.kind();
                     final WatchEvent<Path> ev = (WatchEvent<Path>) event;
                     final Path fileName = ev.context();
-                    LOGGER.debug("new CSAR found: " + kind.name() + ": " + fileName);
-                    createPolicyInputAndCallHandler(dir.toString() + File.separator + fileName.toString());
-                    LOGGER.debug("CSAR complete: " + kind.name() + ": " + fileName);
+                    try {
+                        LOGGER.debug("new CSAR found: " + kind.name() + ": " + fileName);
+                        createPolicyInputAndCallHandler(dir.toString() + File.separator + fileName.toString());
+                        LOGGER.debug("CSAR complete: " + kind.name() + ": " + fileName);
+                    } catch (final PolicyDecodingException ex) {
+                        LOGGER.error(ex);
+                    }
                 }
                 final boolean valid = key.reset();
                 if (!valid) {
+                    LOGGER.error("Watch key no longer valid!");
                     break;
                 }
             }
-        } catch (final Exception ex) {
+        } catch (final IOException ex) {
             LOGGER.error(ex);
         }
     }
 
-    private void createPolicyInputAndCallHandler(final String fileName) throws PolicyDecodingException {
+    protected void createPolicyInputAndCallHandler(final String fileName) throws PolicyDecodingException {
         final Csar csarObject = new Csar(fileName);
         inputReceived(csarObject);
     }
