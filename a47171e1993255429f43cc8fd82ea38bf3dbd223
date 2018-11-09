@@ -16,6 +16,24 @@
       "revId": "a47171e1993255429f43cc8fd82ea38bf3dbd223",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_0fbb660f",
+        "filename": "s3p/templates/interfaceType/Artifacts/org.openecomp.resource.vf.Vgw1181049_v1.0/Deployment/OTHER/authorized_keys",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 309
+      },
+      "writtenOn": "2018-11-09T00:51:00Z",
+      "side": 1,
+      "message": "We created those templates based on the CSAR exported from SDC. Those kind of things are added by SDC, we don\u0027t have control over them.",
+      "parentUuid": "9adffdf1_4fdace79",
+      "revId": "a47171e1993255429f43cc8fd82ea38bf3dbd223",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
