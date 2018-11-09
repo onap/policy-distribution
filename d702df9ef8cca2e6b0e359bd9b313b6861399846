@@ -45,6 +45,30 @@
       "revId": "d702df9ef8cca2e6b0e359bd9b313b6861399846",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_cf3c7e96",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/FileSystemReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 309
+      },
+      "writtenOn": "2018-11-09T00:53:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_bebcce6d",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 32
+      },
+      "revId": "d702df9ef8cca2e6b0e359bd9b313b6861399846",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
