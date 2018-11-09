@@ -47,7 +47,7 @@ public abstract class AbstractReceptionHandler implements ReceptionHandler {
     private PluginHandler pluginHandler;
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void initialize(final String parameterGroupName) throws PluginInitializationException {

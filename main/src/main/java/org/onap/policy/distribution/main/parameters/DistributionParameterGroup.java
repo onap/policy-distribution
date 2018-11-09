@@ -200,16 +200,16 @@ public class DistributionParameterGroup implements ParameterGroup {
     }
 
     private void validateForwarderConfigurations(final GroupValidationResult validationResult) {
-        for (final Entry<String, PolicyForwarderConfigurationParameterGroup> configurationParameters : policyForwarderConfigurationParameters
-                .entrySet()) {
+        for (final Entry<String, PolicyForwarderConfigurationParameterGroup> configurationParameters : 
+                policyForwarderConfigurationParameters.entrySet()) {
             validationResult.setResult("policyForwarderConfigurationParameters", configurationParameters.getKey(),
                     configurationParameters.getValue().validate());
         }
     }
 
     private void validateDecoderConfigurations(final GroupValidationResult validationResult) {
-        for (final Entry<String, PolicyDecoderConfigurationParameterGroup> configurationParameters : policyDecoderConfigurationParameters
-                .entrySet()) {
+        for (final Entry<String, PolicyDecoderConfigurationParameterGroup> configurationParameters :
+                policyDecoderConfigurationParameters.entrySet()) {
             validationResult.setResult("policyDecoderConfigurationParameters", configurationParameters.getKey(),
                     configurationParameters.getValue().validate());
         }

@@ -36,8 +36,8 @@ public class ArtifactInstallerException extends Exception {
      *
      * @param message The message to dump
      */
-    public ArtifactInstallerException (final String message) {
-        super (message);
+    public ArtifactInstallerException(final String message) {
+        super(message);
        
     }
     
@@ -47,8 +47,8 @@ public class ArtifactInstallerException extends Exception {
      * @param message The message to dump
      * @param e the exception that caused this exception to be thrown
      */
-    public ArtifactInstallerException (final String message, final Exception e) {
-        super (message, e);
+    public ArtifactInstallerException(final String message, final Exception ex) {
+        super(message, ex);
        
     }
 }

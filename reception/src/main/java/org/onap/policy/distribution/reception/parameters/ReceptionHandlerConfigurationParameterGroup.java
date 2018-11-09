@@ -25,7 +25,7 @@ import org.onap.policy.distribution.reception.handling.ReceptionHandler;
 
 /**
  * Base class of all {@link ParameterGroup} classes for configuration parameters for
- * {@link ReceptionHandler} classes
+ * {@link ReceptionHandler} classes.
  */
 public abstract class ReceptionHandlerConfigurationParameterGroup implements ParameterGroup {
 

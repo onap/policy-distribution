@@ -28,7 +28,7 @@ import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurat
 
 /**
  * This class handles reading, parsing and validating of the paramaters for the
- * {@link PolicyDecoderCsarPdpx}
+ * {@link PolicyDecoderCsarPdpx}.
  */
 public class PolicyDecoderCsarPdpxConfigurationParameterGroup extends PolicyDecoderConfigurationParameterGroup {
 
@@ -80,7 +80,7 @@ public class PolicyDecoderCsarPdpxConfigurationParameterGroup extends PolicyDeco
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {

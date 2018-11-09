@@ -36,8 +36,8 @@ public class PssdControllerException extends Exception {
      *
      * @param message The message to dump
      */
-    public PssdControllerException (final String message) {
-        super (message);
+    public PssdControllerException(final String message) {
+        super(message);
        
     }
     
@@ -47,8 +47,8 @@ public class PssdControllerException extends Exception {
      * @param message The message to dump
      * @param e the exception that caused this exception to be thrown
      */
-    public PssdControllerException (final String message, final Exception e) {
-        super (message, e);
+    public PssdControllerException(final String message, final Exception ex) {
+        super(message, ex);
        
     }
 }

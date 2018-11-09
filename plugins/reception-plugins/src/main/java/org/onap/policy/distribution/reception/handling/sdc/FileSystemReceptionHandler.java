@@ -22,7 +22,6 @@ package org.onap.policy.distribution.reception.handling.sdc;
 
 import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 
-import java.io.IOException;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -54,7 +53,7 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
                                     ParameterService.get(parameterGroupName);
             main(handlerParameters.getWatchPath());
         } catch (final PolicyDecodingException ex) {
-            ex.printStackTrace();
+            LOGGER.debug(ex);
         }
     }
 
@@ -64,10 +63,15 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
         running = false;
     }
 
+    /**
+     * Main entry point.
+     * 
+     * @param watchPath Path to watch
+     * @throws PolicyDecodingException Decoding exception
+     */
     @SuppressWarnings("unchecked")
     public void main(String watchPath) throws PolicyDecodingException {
-        try {
-            final WatchService watcher = FileSystems.getDefault().newWatchService();
+        try (final WatchService watcher = FileSystems.getDefault().newWatchService()) {
             final Path dir = Paths.get(watchPath);
 
             dir.register(watcher, ENTRY_CREATE);
@@ -77,7 +81,8 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
                 try {
                     key = watcher.take();
                 } catch (final InterruptedException ex) {
-                    ex.printStackTrace();
+                    LOGGER.debug(ex);
+                    Thread.currentThread().interrupt();
                     return;
                 }
                 for (final WatchEvent<?> event : key.pollEvents()) {

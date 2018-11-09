@@ -81,7 +81,7 @@ public class PolicyDecoderParameters implements ParameterGroup {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public String getName() {
@@ -89,7 +89,7 @@ public class PolicyDecoderParameters implements ParameterGroup {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void setName(final String name) {
@@ -97,7 +97,7 @@ public class PolicyDecoderParameters implements ParameterGroup {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {
