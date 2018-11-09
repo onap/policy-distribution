@@ -53,9 +53,10 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
             final FileSystemReceptionHandlerConfigurationParameterGroup handlerParameters =
                                     ParameterService.get(parameterGroupName);
             main(handlerParameters.getWatchPath());
-        } catch (final PolicyDecodingException ex) {
+        } catch (final Exception ex) {
             ex.printStackTrace();
         }
+        LOGGER.debug("FileSystemReceptionHandler main loop exited...");
     }
 
     @Override
@@ -65,7 +66,7 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
     }
 
     @SuppressWarnings("unchecked")
-    public void main(String watchPath) throws PolicyDecodingException {
+    public void main(String watchPath) {
         try {
             final WatchService watcher = FileSystems.getDefault().newWatchService();
             final Path dir = Paths.get(watchPath);
@@ -80,20 +81,26 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
                     ex.printStackTrace();
                     return;
                 }
+
                 for (final WatchEvent<?> event : key.pollEvents()) {
                     final WatchEvent.Kind<?> kind = event.kind();
                     final WatchEvent<Path> ev = (WatchEvent<Path>) event;
                     final Path fileName = ev.context();
-                    LOGGER.debug("new CSAR found: " + kind.name() + ": " + fileName);
-                    createPolicyInputAndCallHandler(dir.toString() + File.separator + fileName.toString());
-                    LOGGER.debug("CSAR complete: " + kind.name() + ": " + fileName);
+                    try {
+                        LOGGER.debug("new CSAR found: " + kind.name() + ": " + fileName);
+                        createPolicyInputAndCallHandler(dir.toString() + File.separator + fileName.toString());
+                        LOGGER.debug("CSAR complete: " + kind.name() + ": " + fileName);
+                    } catch (final PolicyDecodingException ex) {
+                        LOGGER.error(ex);
+                    }
                 }
                 final boolean valid = key.reset();
                 if (!valid) {
+                    LOGGER.error("Watch key no longer valid!");
                     break;
                 }
             }
-        } catch (final Exception ex) {
+        } catch (final IOException ex) {
             LOGGER.error(ex);
         }
     }
