@@ -24,23 +24,21 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.sdc.tosca.parser.api.ISdcCsarHelper;
 import org.onap.sdc.toscaparser.api.CapabilityAssignment;
 import org.onap.sdc.toscaparser.api.CapabilityAssignments;
-import org.onap.sdc.toscaparser.api.elements.Metadata;
 import org.onap.sdc.toscaparser.api.NodeTemplate;
 import org.onap.sdc.toscaparser.api.RequirementAssignment;
+import org.onap.sdc.toscaparser.api.elements.Metadata;
 
 /**
  * Extract concerned info from NodeTemplate, currently ONLY HPA Feature.

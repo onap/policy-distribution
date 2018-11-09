@@ -55,7 +55,7 @@ public class DistributionRestServer implements Startable {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public boolean start() {
@@ -95,7 +95,7 @@ public class DistributionRestServer implements Startable {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public boolean stop() {
@@ -110,7 +110,7 @@ public class DistributionRestServer implements Startable {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void shutdown() {
@@ -118,7 +118,7 @@ public class DistributionRestServer implements Startable {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public boolean isAlive() {
@@ -126,7 +126,7 @@ public class DistributionRestServer implements Startable {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public String toString() {

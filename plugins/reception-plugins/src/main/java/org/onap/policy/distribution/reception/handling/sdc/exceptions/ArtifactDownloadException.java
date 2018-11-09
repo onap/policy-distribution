@@ -36,8 +36,8 @@ public class ArtifactDownloadException extends Exception {
      *
      * @param message The message to dump
      */
-    public ArtifactDownloadException (final String message) {
-        super (message);
+    public ArtifactDownloadException(final String message) {
+        super(message);
        
     }
     
@@ -47,8 +47,8 @@ public class ArtifactDownloadException extends Exception {
      * @param message The message to dump
      * @param e the exception that caused this exception to be thrown
      */
-    public ArtifactDownloadException (final String message, final Exception e) {
-        super (message, e);
+    public ArtifactDownloadException(final String message, final Exception ex) {
+        super(message, ex);
        
     }
 }

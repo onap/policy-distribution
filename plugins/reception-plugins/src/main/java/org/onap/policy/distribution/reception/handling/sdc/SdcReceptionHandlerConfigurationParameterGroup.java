@@ -141,7 +141,7 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {

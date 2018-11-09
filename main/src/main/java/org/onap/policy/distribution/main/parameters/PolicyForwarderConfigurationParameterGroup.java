@@ -25,7 +25,7 @@ import org.onap.policy.distribution.forwarding.PolicyForwarder;
 
 /**
  * Base class of all {@link ParameterGroup} classes for configuration parameters for
- * {@link PolicyForwarder} classes
+ * {@link PolicyForwarder} classes.
  */
 public abstract class PolicyForwarderConfigurationParameterGroup implements ParameterGroup {
 

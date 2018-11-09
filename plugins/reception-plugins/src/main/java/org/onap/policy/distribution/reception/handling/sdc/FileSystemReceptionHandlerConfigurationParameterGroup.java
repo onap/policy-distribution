@@ -49,7 +49,7 @@ public class FileSystemReceptionHandlerConfigurationParameterGroup extends Recep
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public GroupValidationResult validate() {
@@ -68,8 +68,8 @@ public class FileSystemReceptionHandlerConfigurationParameterGroup extends Recep
      */
     private void validatePathElement(final GroupValidationResult validationResult, final String element,
             final String elementName) {
-        File f = new File(element);
-        if (!(f.exists() && f.isDirectory())) {
+        File file = new File(element);
+        if (!(file.exists() && file.isDirectory())) {
             validationResult.setResult(elementName, ValidationStatus.INVALID,
                     elementName + " must be a valid directory");
         }
