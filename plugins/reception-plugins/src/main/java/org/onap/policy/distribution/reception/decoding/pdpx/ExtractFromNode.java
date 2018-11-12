@@ -38,6 +38,7 @@ import org.onap.sdc.toscaparser.api.CapabilityAssignment;
 import org.onap.sdc.toscaparser.api.CapabilityAssignments;
 import org.onap.sdc.toscaparser.api.NodeTemplate;
 import org.onap.sdc.toscaparser.api.RequirementAssignment;
+import org.onap.sdc.toscaparser.api.RequirementAssignments;
 import org.onap.sdc.toscaparser.api.elements.Metadata;
 
 /**
@@ -57,7 +58,8 @@ public class ExtractFromNode {
     private static final String MEMORY_PAGE_SIZE_PATH = "virtual_memory#vdu_memory_requirements#memoryPageSize";
     private static final String NETWORK_INTERFACE_TYPE_PATH =
             "virtual_network_interface_requirements#network_interface_requirements#interfaceType";
-    private static final String NETWORK_PCI_PATH = "virtual_network_interface_requirements#nic_io_requirements";
+    private static final String NETWORK_PCI_PATH = 
+            "virtual_network_interface_requirements#nic_io_requirements#logical_node_requirements";
     private static final String BASIC_CAPABILITIES_HPA_FEATURE = "BasicCapabilities";
     private static final String HUGE_PAGES_HPA_FEATURE = "hugePages";
     private static final Map<String, String> NETWORK_HPA_FEATURE_MAP =
@@ -132,7 +134,8 @@ public class ExtractFromNode {
             flavorDirective.setType("flavor_directives");
             flavorDirective.getAttributes().add(flavorAttribute);
             final FlavorFeature flavorFeature = new FlavorFeature();
-            flavorFeature.setId(sdcCsarHelper.getNodeTemplatePropertyLeafValue(node, "name"));
+            flavorFeature.setId(node.toString());
+            LOGGER.debug("the name of node =" + node.toString());
             flavorFeature.getDirectives().add(flavorDirective);
 
             final CapabilityAssignments capabilityAssignments = sdcCsarHelper.getCapabilitiesOf(node);
@@ -291,8 +294,10 @@ public class ExtractFromNode {
                 return;
             }
 
-            for (final RequirementAssignment requriement : sdcCsarHelper.getRequirementsOf(node).getAll()) {
-                final String nodeTemplateName = requriement.getNodeTemplateName().toLowerCase();
+            final RequirementAssignments requriements =
+                sdcCsarHelper.getRequirementsOf(node).getRequirementsByName("virtual_binding");
+            for (final RequirementAssignment requriement : requriements.getAll()) {
+                final String nodeTemplateName = requriement.getNodeTemplateName();
                 LOGGER.debug("getNodeTemplateName =" + nodeTemplateName);
                 if (nodeTemplateName == null) {
                     continue;
