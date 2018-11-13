@@ -75,7 +75,6 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
      * 
      * @param watchPath Path to watch
      */
-    @SuppressWarnings("unchecked")
     public void main(String watchPath) throws IOException {
         try (final WatchService watcher = FileSystems.getDefault().newWatchService()) {
             final Path dir = Paths.get(watchPath);
@@ -96,7 +95,10 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
             key = watcher.take();
 
             for (final WatchEvent<?> event : key.pollEvents()) {
-                final WatchEvent.Kind<?> kind = event.kind();
+                if ( ! (event.kind() instanceof Path) ) {
+                    LOGGER.debug("Unsupported watch event object " + event.kind().getClass().getCanonicalName());
+                    continue;
+                }
                 final WatchEvent<Path> ev = (WatchEvent<Path>) event;
                 final Path fileName = ev.context();
                 LOGGER.debug("new CSAR found: " + fileName);
