@@ -213,10 +213,9 @@ topology_template:
         layer_protocol:
         - ipv4
       requirements:
-      # Uncomment when POLICY-1254 fixed
-      #- virtual_link:
-      #    capability: virtual_linkable
-      #    node: VL_mux_gw_private_net
+      - virtual_link:
+          capability: virtual_linkable
+          node: VL_mux_gw_private_net
       - virtual_binding:
           capability: virtual_binding
           node: VDU_vgw_0
