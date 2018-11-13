@@ -89,9 +89,9 @@ public class TestFileSystemReceptionHandler {
     public void teardown() {
         ParameterService.deregister(pssdConfigParameters);
     }
-    
+
     @Test
-    public final void testInit() {
+    public final void testInit() throws IOException {
         final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
         Mockito.doNothing().when(sypHandler).main(Mockito.isA(String.class));
         sypHandler.initializeReception(pssdConfigParameters.getName());
@@ -99,7 +99,7 @@ public class TestFileSystemReceptionHandler {
     }
 
     @Test
-    public final void testDestroy() {
+    public final void testDestroy() throws IOException {
         try {
             final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
             Mockito.doNothing().when(sypHandler).main(Mockito.isA(String.class));
@@ -118,19 +118,40 @@ public class TestFileSystemReceptionHandler {
         final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
         Mockito.doNothing().when(sypHandler).createPolicyInputAndCallHandler(Mockito.isA(String.class));
 
+        final Object startLock = new Object();
+        final Object endLock = new Object();
         final String watchPath = tempFolder.getRoot().getAbsolutePath().toString();
         Thread th = new Thread(() -> {
-            sypHandler.main(watchPath);
+            synchronized (startLock) {
+                startLock.notifyAll();
+            }
+            try {
+                sypHandler.main(watchPath);
+            } catch (IOException ex) {
+                LOGGER.error(ex);
+            }
+            synchronized (endLock) {
+                endLock.notifyAll();
+            }
         });
+
 
         th.start();
         try {
-            // yield to main thread
-            Thread.sleep(1000);
+            //wait until thread started
+            synchronized (startLock) {
+                startLock.wait();
+            }
+            //wait more time so the internal watchService started
+            synchronized (endLock) {
+                endLock.wait(1000);
+            }
             Files.copy(Paths.get("src/test/resources/hpaPolicyHugePage.csar"),
                 Paths.get(watchPath + File.separator + "hpaPolicyHugePage.csar"));
-            // wait enough time 
-            Thread.sleep(1000);
+            //wait some time before we stop the thread
+            synchronized (endLock) {
+                endLock.wait(1000);
+            }
             sypHandler.destroy();
             th.interrupt();
             th.join();

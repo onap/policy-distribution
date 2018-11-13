@@ -71,47 +71,51 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
      * @param watchPath Path to watch
      */
     @SuppressWarnings("unchecked")
-    public void main(String watchPath) {
-        try (final WatchService watcher = FileSystems.getDefault().newWatchService()) {
-            final Path dir = Paths.get(watchPath);
+    public void main(String watchPath) throws IOException {
+        final WatchService watcher = FileSystems.getDefault().newWatchService();
+        final Path dir = Paths.get(watchPath);
+        dir.register(watcher, ENTRY_CREATE);
+        LOGGER.debug("Watch Service registered for dir: " + dir.getFileName());
 
-            dir.register(watcher, ENTRY_CREATE);
-            LOGGER.debug("Watch Service registered for dir: " + dir.getFileName());
-            while (running) {
-                WatchKey key;
-                try {
-                    key = watcher.take();
-                } catch (final InterruptedException ex) {
-                    LOGGER.debug(ex);
-                    Thread.currentThread().interrupt();
-                    return;
-                }
-
-                for (final WatchEvent<?> event : key.pollEvents()) {
-                    final WatchEvent.Kind<?> kind = event.kind();
-                    final WatchEvent<Path> ev = (WatchEvent<Path>) event;
-                    final Path fileName = ev.context();
-                    try {
-                        LOGGER.debug("new CSAR found: " + kind.name() + ": " + fileName);
-                        createPolicyInputAndCallHandler(dir.toString() + File.separator + fileName.toString());
-                        LOGGER.debug("CSAR complete: " + kind.name() + ": " + fileName);
-                    } catch (final PolicyDecodingException ex) {
-                        LOGGER.error(ex);
-                    }
-                }
-                final boolean valid = key.reset();
-                if (!valid) {
-                    LOGGER.error("Watch key no longer valid!");
-                    break;
-                }
-            }
-        } catch (final IOException ex) {
-            LOGGER.error(ex);
+        try {
+            monitor_loop(watcher, dir);
+        } catch (final InterruptedException ex) {
+            LOGGER.debug(ex);
+            Thread.currentThread().interrupt();
+        } finally {
+            watcher.close();
         }
     }
 
-    protected void createPolicyInputAndCallHandler(final String fileName) throws PolicyDecodingException {
-        final Csar csarObject = new Csar(fileName);
-        inputReceived(csarObject);
+    @SuppressWarnings("unchecked")
+    protected void monitor_loop(WatchService watcher, Path dir) throws InterruptedException {
+        WatchKey key;
+
+        while (running) {
+            key = watcher.take();
+
+            for (final WatchEvent<?> event : key.pollEvents()) {
+                final WatchEvent.Kind<?> kind = event.kind();
+                final WatchEvent<Path> ev = (WatchEvent<Path>) event;
+                final Path fileName = ev.context();
+                LOGGER.debug("new CSAR found: " + fileName);
+                createPolicyInputAndCallHandler(dir.toString() + File.separator + fileName.toString());
+                LOGGER.debug("CSAR complete: " + fileName);
+            }
+            final boolean valid = key.reset();
+            if (!valid) {
+                LOGGER.error("Watch key no longer valid!");
+                break;
+            }
+        }
+    }
+
+    protected void createPolicyInputAndCallHandler(final String fileName) {
+        try {
+            final Csar csarObject = new Csar(fileName);
+            inputReceived(csarObject);
+        } catch (final PolicyDecodingException ex) {
+            LOGGER.error(ex);
+        }
     }
 }
