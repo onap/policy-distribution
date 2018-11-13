@@ -20,8 +20,6 @@
 
 package org.onap.policy.distribution.reception.handling.sdc;
 
-import java.util.List;
-
 /**
  * This class builds an instance of {@link FileSystemReceptionHandlerConfigurationParameterGroup} class.
  *

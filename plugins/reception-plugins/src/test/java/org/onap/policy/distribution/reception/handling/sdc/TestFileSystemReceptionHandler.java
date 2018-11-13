@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.After;
 import org.junit.Before;
@@ -38,7 +39,9 @@ import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
@@ -89,9 +92,9 @@ public class TestFileSystemReceptionHandler {
     public void teardown() {
         ParameterService.deregister(pssdConfigParameters);
     }
-    
+
     @Test
-    public final void testInit() {
+    public final void testInit() throws IOException {
         final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
         Mockito.doNothing().when(sypHandler).main(Mockito.isA(String.class));
         sypHandler.initializeReception(pssdConfigParameters.getName());
@@ -99,7 +102,7 @@ public class TestFileSystemReceptionHandler {
     }
 
     @Test
-    public final void testDestroy() {
+    public final void testDestroy() throws IOException {
         try {
             final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
             Mockito.doNothing().when(sypHandler).main(Mockito.isA(String.class));
@@ -114,23 +117,53 @@ public class TestFileSystemReceptionHandler {
 
     @Test
     public void testMain() throws IOException, PolicyDecodingException {
+        final Object lock = new Object();
+        final String watchPath = tempFolder.getRoot().getAbsolutePath().toString();
+
+        class Processed {
+            public boolean processed = false;
+        }
+
+        Processed cond = new Processed();
 
         final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
-        Mockito.doNothing().when(sypHandler).createPolicyInputAndCallHandler(Mockito.isA(String.class));
+        Mockito.doAnswer(new Answer() {
+            public Object answer(InvocationOnMock invocation) {
+                synchronized (lock) {
+                    cond.processed = true;
+                    lock.notifyAll();
+                }
+                return null;
+            }
+        }).when(sypHandler).createPolicyInputAndCallHandler(Mockito.isA(String.class));
 
-        final String watchPath = tempFolder.getRoot().getAbsolutePath().toString();
         Thread th = new Thread(() -> {
-            sypHandler.main(watchPath);
+            try {
+                sypHandler.main(watchPath);
+            } catch (IOException ex) {
+                LOGGER.error(ex);
+            }
         });
 
         th.start();
         try {
-            // yield to main thread
-            Thread.sleep(1000);
+            //wait until internal watch service started or counter reached
+            AtomicInteger counter = new AtomicInteger();
+            counter.set(0);
+            synchronized (lock) {
+                while (!sypHandler.isRunning() && counter.getAndIncrement() < 10) {
+                    lock.wait(1000);
+                }
+            }
             Files.copy(Paths.get("src/test/resources/hpaPolicyHugePage.csar"),
                 Paths.get(watchPath + File.separator + "hpaPolicyHugePage.csar"));
-            // wait enough time 
-            Thread.sleep(1000);
+            //wait until mock method triggered or counter reached
+            counter.set(0);
+            synchronized (lock) {
+                while (!cond.processed && counter.getAndIncrement() < 10) {
+                    lock.wait(1000);
+                }
+            }
             sypHandler.destroy();
             th.interrupt();
             th.join();
