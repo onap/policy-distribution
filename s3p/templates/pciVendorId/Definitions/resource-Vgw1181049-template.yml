@@ -143,7 +143,7 @@ topology_template:
         configurable_properties:
           additional_vnfc_configurable_properties: {
             }
-        name: vdu_vgw_0
+        name: vdu_vgw
         description: vgw
         vdu_profile:
           watchdog: none
@@ -210,9 +210,8 @@ topology_template:
         virtual_network_interface_requirements:
         - name: "sriov-support"
           support_mandatory: true
-          # Uncomment when POLICY-1254 fixed
-          #network_interface_requirements:
-          #  interfaceType: '{"schemaVersion": "0", "schemaSelector": "", "hardwarePlatform":"generic", "mandatory": "true", "configurationValue": "PCI-Passthrough"}'
+          network_interface_requirements:
+            interfaceType: '{"schemaVersion": "0", "schemaSelector": "", "hardwarePlatform":"generic", "mandatory": "true", "configurationValue": "PCI-Passthrough"}'
           nic_io_requirements:
             logical_node_requirements:
               pciVendorId: '{"schemaVersion": "0", "schemaSelector": "", "hardwarePlatform": "generic", "mandatory": "true", "configurationValue": "1234"}'
