@@ -37,7 +37,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -45,7 +44,6 @@ import org.mockito.stubbing.Answer;
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
-import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
 
@@ -56,7 +54,6 @@ import org.onap.policy.distribution.reception.statistics.DistributionStatisticsM
 public class TestFileSystemReceptionHandler {
 
     private static final Logger LOGGER = FlexLogger.getLogger(TestFileSystemReceptionHandler.class);
-    private static final String DUMMY_SERVICE_CSAR = "dummyService.csar";
 
     @Rule
     public TemporaryFolder tempFolder = new TemporaryFolder();
@@ -80,9 +77,7 @@ public class TestFileSystemReceptionHandler {
         DistributionStatisticsManager.resetAllStatistics();
 
         final Gson gson = new GsonBuilder().create();
-        String json = "{ \"name\": \"parameterConfig9\", \"watchPath\": \"";
-        json += tempFolder.getRoot().getAbsolutePath() + "\"}";
-        pssdConfigParameters = gson.fromJson(json,
+        pssdConfigParameters = gson.fromJson(new FileReader("src/test/resources/handling-filesystem.json"),
                 FileSystemReceptionHandlerConfigurationParameterGroup.class);
         ParameterService.register(pssdConfigParameters);
         fileSystemHandler = new FileSystemReceptionHandler();
@@ -127,7 +122,7 @@ public class TestFileSystemReceptionHandler {
         Processed cond = new Processed();
 
         final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
-        Mockito.doAnswer(new Answer() {
+        Mockito.doAnswer(new Answer<Object>() {
             public Object answer(InvocationOnMock invocation) {
                 synchronized (lock) {
                     cond.processed = true;

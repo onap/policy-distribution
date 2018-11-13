@@ -30,7 +30,6 @@ import com.google.gson.GsonBuilder;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -49,16 +48,19 @@ public class TestFileSystemReceptionHandlerConfigurationParameterGroup {
     @Test
     public void testFileSystemConfiguration() throws IOException {
         FileSystemReceptionHandlerConfigurationParameterGroup configParameters = null;
+        String validPath = null;
         try {
-            final Gson gson = new GsonBuilder().create();
-            configParameters = gson.fromJson(new FileReader("src/test/resources/handling-filesystem.json"),
-                    FileSystemReceptionHandlerConfigurationParameterGroup.class);
+            validPath = tempFolder.getRoot().getAbsolutePath();
+
+            final FileSystemReceptionHandlerConfigurationParameterBuilder builder =
+                    new FileSystemReceptionHandlerConfigurationParameterBuilder().setWatchPath(validPath);
+            configParameters = new FileSystemReceptionHandlerConfigurationParameterGroup(builder);
         } catch (final Exception e) {
             fail("test should not thrown an exception here: " + e.getMessage());
         }
         final GroupValidationResult validationResult = configParameters.validate();
         assertTrue(validationResult.isValid());
-        assertEquals("/tmp", configParameters.getWatchPath());
+        assertEquals(validPath, configParameters.getWatchPath());
     }
 
     @Test
