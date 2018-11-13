@@ -39,6 +39,30 @@
       "revId": "34a66b3fa7eff27cea89cfb5fb1b3934d83898ca",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_48315aeb",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/TestFileSystemReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-13T16:24:50Z",
+      "side": 1,
+      "message": "Unless it\u0027s this:\nhttps://stackoverflow.com/questions/10195128/junit-rule-temporaryfolder-arbitrarily-throws-an-ioexception",
+      "parentUuid": "9adffdf1_481aba6f",
+      "range": {
+        "startLine": 81,
+        "startChar": 16,
+        "endLine": 81,
+        "endChar": 54
+      },
+      "revId": "34a66b3fa7eff27cea89cfb5fb1b3934d83898ca",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
