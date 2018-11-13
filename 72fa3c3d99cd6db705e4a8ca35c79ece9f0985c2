@@ -22,6 +22,30 @@
       "revId": "72fa3c3d99cd6db705e4a8ca35c79ece9f0985c2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_cd631c19",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/FileSystemReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-11-13T15:58:47Z",
+      "side": 1,
+      "message": "The problem is that the next statement makes a big assumption that the object is what is expected. The SuppressWarnings should only be added if there is a check in place. which I added. I don\u0027t think the IF statement hurts anything if the object will always be that same object.",
+      "parentUuid": "9adffdf1_6dd8f0ef",
+      "range": {
+        "startLine": 98,
+        "startChar": 15,
+        "endLine": 101,
+        "endChar": 17
+      },
+      "revId": "72fa3c3d99cd6db705e4a8ca35c79ece9f0985c2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
