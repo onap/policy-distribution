@@ -1,0 +1,9 @@
+Code-Review+1: Liam Fallon <liam.fallon@est.tech>
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Rich Bennett <rb2745@att.com>
+Code-Review+2: Pamela Dragosh <pdragosh@research.att.com>
+Submitted-by: Pamela Dragosh <pdragosh@research.att.com>
+Submitted-at: Sun, 25 Nov 2018 23:28:02 +0000
+Reviewed-on: https://gerrit.onap.org/r/73424
+Project: policy/distribution
+Branch: refs/heads/casablanca
