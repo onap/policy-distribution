@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_2db4ffcf",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 2363
+      },
+      "writtenOn": "2018-11-26T12:45:26Z",
+      "side": 1,
+      "message": "please delete the blank.",
+      "range": {
+        "startLine": 217,
+        "startChar": 20,
+        "endLine": 217,
+        "endChar": 21
+      },
+      "revId": "f031e6fd1d9ca001d489d81b31c5af67f116087d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_edc5973d",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2363
+      },
+      "writtenOn": "2018-11-26T12:45:26Z",
+      "side": 1,
+      "message": "I think HPA Scope is not necessary. can you explain why we need to add \"HPA\" Scope?",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 52
+      },
+      "revId": "f031e6fd1d9ca001d489d81b31c5af67f116087d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
