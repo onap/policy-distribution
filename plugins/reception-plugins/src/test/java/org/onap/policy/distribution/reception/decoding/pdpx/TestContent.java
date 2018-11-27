@@ -32,21 +32,18 @@ public class TestContent {
 
     @Test
     public void testContent() {
-        final String resources = "dummyresource";
         final String identity = "dummyidentity";
         final String policyType = "optimization";
 
         final Content content = new Content();
-        content.setResources(resources);
         content.setIdentity(identity);
         content.setPolicyType(policyType);
 
-        validateReport(resources, identity, policyType, content);
+        validateReport(identity, policyType, content);
     }
 
-    private void validateReport(final String resources, final String identity, final String policyType,
+    private void validateReport(final String identity, final String policyType,
             final Content content) {
-        assertEquals(resources, content.getResources());
         assertEquals(identity, content.getIdentity());
         assertEquals(policyType, content.getPolicyType());
         assertEquals(0, content.getPolicyScope().size());
@@ -60,5 +57,10 @@ public class TestContent {
         assertEquals(1, content.getFlavorFeatures().size());
         content.getFlavorFeatures().remove(flavorFeature);
         assertEquals(0, content.getFlavorFeatures().size());
+        assertEquals(0, content.getResources().size());
+        content.getResources().add("vGW");
+        assertEquals(1, content.getResources().size());
+        content.getResources().remove("vGW");
+        assertEquals(0, content.getResources().size());
     }
 }
