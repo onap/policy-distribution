@@ -23,7 +23,9 @@ package org.onap.policy.distribution.reception.decoding.pdpx;
 public class ConfigBody {
 
     private String service;
+    private String policyName;
     private String description;
+    private String templateVersion;
     private String version;
     private String priority;
     private String riskType;
@@ -39,12 +41,28 @@ public class ConfigBody {
         this.service = service;
     }
 
+    public String getPolicyName() {
+        return policyName;
+    }
+
+    public void setPolicyName(String policyName) {
+        this.policyName = policyName;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTemplateVersion() {
+        return templateVersion;
+    }
+
+    public void setTemplateVersion(String templateVersion) {
+        this.templateVersion = templateVersion;
     }
 
     public String getVersion() {
