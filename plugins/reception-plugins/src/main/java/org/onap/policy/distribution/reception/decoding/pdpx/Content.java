@@ -29,17 +29,13 @@ import java.util.List;
  * @author Libo Zhu (libo.zhu@intel.com)
  */
 class Content {
-    private String resources;
+    private List<String> resources = new ArrayList<>();
     private String identity;
     private List<String> policyScope = new ArrayList<>();
     private String policyType = "Optimization";
     private List<FlavorFeature> flavorFeatures = new ArrayList<>();
 
-    public void setResources(final String resources) {
-        this.resources = resources;
-    }
-
-    public String getResources() {
+    public List<String> getResources() {
         return resources;
     }
 

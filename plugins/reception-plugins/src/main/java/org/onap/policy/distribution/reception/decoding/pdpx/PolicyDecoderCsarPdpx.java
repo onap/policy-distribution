@@ -61,16 +61,20 @@ public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, OptimizationPo
             final Content content = extractFromNode.extractInfo(node);
             if (content != null) {
                 final OptimizationPolicy policy = new OptimizationPolicy();
+                final String policyName = decoderParameters.getPolicyNamePrefix() + "." + content.getIdentity();
                 policy.setOnapName(decoderParameters.getOnapName());
-                policy.setPolicyName(decoderParameters.getPolicyNamePrefix() + "." + content.getIdentity());
+                policy.setPolicyName(policyName);
                 ConfigBody configBody = new ConfigBody();
                 configBody.setService("hpaPolicy");
+                configBody.setPolicyName(policyName);
                 configBody.setDescription("OOF Policy");
+                configBody.setTemplateVersion("OpenSource.version.1");
                 configBody.setVersion(decoderParameters.getVersion());
                 configBody.setPriority(decoderParameters.getPriority());
                 configBody.setRiskLevel(decoderParameters.getRiskLevel());
                 configBody.setRiskType(decoderParameters.getRiskType());
-                configBody.setGuard("false");
+                configBody.setGuard("False");
+                content.setPolicyType("hpa");
                 content.getPolicyScope().add("HPA");
                 content.getPolicyScope().add(serviceName);
                 configBody.setContent(content);
