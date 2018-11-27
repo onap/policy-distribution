@@ -33,7 +33,7 @@ import java.util.List;
 class FlavorProperty {
     @SerializedName(value = "hpa-feature")
     private String hpaFeature;
-    private String mandatory = "true";
+    private String mandatory = "True";
     private String architecture = "generic";
     @SerializedName(value = "hpa-version")
     private String hpaVersion = "v1";

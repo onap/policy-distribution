@@ -24,12 +24,14 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
@@ -60,11 +62,11 @@ public class ExtractFromNode {
             "virtual_network_interface_requirements#network_interface_requirements#interfaceType";
     private static final String NETWORK_PCI_PATH = 
             "virtual_network_interface_requirements#nic_io_requirements#logical_node_requirements";
-    private static final String BASIC_CAPABILITIES_HPA_FEATURE = "BasicCapabilities";
+    private static final String BASIC_CAPABILITIES_HPA_FEATURE = "basicCapabilities";
     private static final String HUGE_PAGES_HPA_FEATURE = "hugePages";
     private static final Map<String, String> NETWORK_HPA_FEATURE_MAP =
-            ImmutableMap.of("SR-IOV", "SriovNICNetwork", "PCI-Passthrough", "pciePassthrough");
-
+            ImmutableMap.of("SR-IOV", "sriovNICNetwork", "PCI-Passthrough", "pciePassthrough");
+    private static final Pattern PATTERN = Pattern.compile("(\\D*)(\\d+)(\\D*)");
     private ISdcCsarHelper sdcCsarHelper;
     final Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().disableHtmlEscaping().create();
 
@@ -106,8 +108,8 @@ public class ExtractFromNode {
         LOGGER.debug("the size of cp is =" + lnodeVduCp.size());
 
         final Content content = new Content();
-        content.setResources(metaData.getValue("name"));
-        content.setIdentity(content.getPolicyType() + "_" + content.getResources());
+        content.getResources().add(metaData.getValue("name"));
+        content.setIdentity(content.getPolicyType() + "_" + metaData.getValue("name"));
         extractInfoVdu(lnodeVdu, content);
         extractInfoVduCp(lnodeVduCp, content);
         if (content.getFlavorFeatures().isEmpty()) {
@@ -202,17 +204,18 @@ public class ExtractFromNode {
         // based on input featureValue, return back a suitable hpaFeatureAttribute
         final HpaFeatureAttribute hpaFeatureAttribute = new HpaFeatureAttribute();
         hpaFeatureAttribute.setHpaAttributeKey(hpaAttributeKey);
-        final String tmp = featureValue.replace(" ", "");
-        final String pattern = "(\\D*)(\\d+)(\\D*)";
-        final Pattern r = Pattern.compile(pattern);
-        final Matcher m = r.matcher(tmp);
-        if (m.find()) {
-            LOGGER.debug("operator = " + m.group(1));
-            LOGGER.debug("value = " + m.group(2));
-            LOGGER.debug("unit = " + m.group(3));
-            hpaFeatureAttribute.setOperator(m.group(1));
-            hpaFeatureAttribute.setHpaAttributeValue(m.group(2));
-            hpaFeatureAttribute.setUnit(m.group(3));
+        final String modifiedValue = featureValue.replace(" ", "");
+        final Matcher matcher = PATTERN.matcher(modifiedValue);
+        if (matcher.find()) {
+            LOGGER.debug("operator " + matcher.group(1) + ", value = " + matcher.group(2)
+                    + ", unit = " + matcher.group(3));
+            if ( matcher.group(1).length() == 0 ) {
+                hpaFeatureAttribute.setOperator("=");
+            } else {
+                hpaFeatureAttribute.setOperator(matcher.group(1));
+            }
+            hpaFeatureAttribute.setHpaAttributeValue(matcher.group(2));
+            hpaFeatureAttribute.setUnit(matcher.group(3));
         }
         return hpaFeatureAttribute;
     }
@@ -279,24 +282,19 @@ public class ExtractFromNode {
             }
 
             String networkHpaFeature;
-            if (retMap.containsKey(CONFIGURATION_VALUE)) {
+            if (retMap.containsKey(CONFIGURATION_VALUE)
+                && NETWORK_HPA_FEATURE_MAP.containsKey(retMap.get(CONFIGURATION_VALUE).toString())) {
                 final String interfaceTypeValue = retMap.get(CONFIGURATION_VALUE).toString();
-                LOGGER.debug(" the interfacetype value is =" + interfaceTypeValue);
-                if (NETWORK_HPA_FEATURE_MAP.containsKey(interfaceTypeValue)) {
-                    networkHpaFeature = NETWORK_HPA_FEATURE_MAP.get(interfaceTypeValue);
-                    LOGGER.debug(" the networkHpaFeature is =" + networkHpaFeature);
-                } else {
-                    LOGGER.debug(" unspported network interface ");
-                    return;
-                }
+                networkHpaFeature = NETWORK_HPA_FEATURE_MAP.get(interfaceTypeValue);
+                LOGGER.debug(" the networkHpaFeature is =" + networkHpaFeature);
             } else {
-                LOGGER.debug(" no configurationValue defined in interfaceType");
-                return;
+                LOGGER.debug(" no networkHpaFeature defined in interfaceType");
+                continue;
             }
 
             final RequirementAssignments requriements =
                 sdcCsarHelper.getRequirementsOf(node).getRequirementsByName("virtual_binding");
-            for (final RequirementAssignment requriement : requriements.getAll()) {
+            for (final RequirementAssignment requriement: requriements.getAll()) {
                 final String nodeTemplateName = requriement.getNodeTemplateName();
                 LOGGER.debug("getNodeTemplateName =" + nodeTemplateName);
                 if (nodeTemplateName == null) {
