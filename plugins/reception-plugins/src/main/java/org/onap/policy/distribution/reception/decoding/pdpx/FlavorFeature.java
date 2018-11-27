@@ -30,7 +30,7 @@ import java.util.List;
  */
 class FlavorFeature {
     private String id;
-    private String type = "tosca.node.nfv.Vdu.Compute";
+    private String type = "tosca.nodes.nfv.Vdu.Compute";
     private List<Directive> directives = new ArrayList<>();
     private List<FlavorProperty> flavorProperties = new ArrayList<>();
 
