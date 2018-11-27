@@ -24,12 +24,14 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
@@ -60,10 +62,10 @@ public class ExtractFromNode {
             "virtual_network_interface_requirements#network_interface_requirements#interfaceType";
     private static final String NETWORK_PCI_PATH = 
             "virtual_network_interface_requirements#nic_io_requirements#logical_node_requirements";
-    private static final String BASIC_CAPABILITIES_HPA_FEATURE = "BasicCapabilities";
+    private static final String BASIC_CAPABILITIES_HPA_FEATURE = "basicCapabilities";
     private static final String HUGE_PAGES_HPA_FEATURE = "hugePages";
     private static final Map<String, String> NETWORK_HPA_FEATURE_MAP =
-            ImmutableMap.of("SR-IOV", "SriovNICNetwork", "PCI-Passthrough", "pciePassthrough");
+            ImmutableMap.of("SR-IOV", "sriovNICNetwork", "PCI-Passthrough", "pciePassthrough");
 
     private ISdcCsarHelper sdcCsarHelper;
     final Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().disableHtmlEscaping().create();
@@ -210,7 +212,11 @@ public class ExtractFromNode {
             LOGGER.debug("operator = " + m.group(1));
             LOGGER.debug("value = " + m.group(2));
             LOGGER.debug("unit = " + m.group(3));
-            hpaFeatureAttribute.setOperator(m.group(1));
+            if ( m.group(1).equalsIgnoreCase("")) {
+                hpaFeatureAttribute.setOperator("=");
+            } else { 
+                hpaFeatureAttribute.setOperator(m.group(1));
+            }
             hpaFeatureAttribute.setHpaAttributeValue(m.group(2));
             hpaFeatureAttribute.setUnit(m.group(3));
         }
@@ -287,16 +293,16 @@ public class ExtractFromNode {
                     LOGGER.debug(" the networkHpaFeature is =" + networkHpaFeature);
                 } else {
                     LOGGER.debug(" unspported network interface ");
-                    return;
+                    continue;
                 }
             } else {
                 LOGGER.debug(" no configurationValue defined in interfaceType");
-                return;
+                continue;
             }
 
             final RequirementAssignments requriements =
                 sdcCsarHelper.getRequirementsOf(node).getRequirementsByName("virtual_binding");
-            for (final RequirementAssignment requriement : requriements.getAll()) {
+            for (final RequirementAssignment requriement: requriements.getAll()) {
                 final String nodeTemplateName = requriement.getNodeTemplateName();
                 LOGGER.debug("getNodeTemplateName =" + nodeTemplateName);
                 if (nodeTemplateName == null) {
