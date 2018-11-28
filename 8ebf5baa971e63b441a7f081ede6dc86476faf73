@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_636d2e98",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2018-11-28T15:40:41Z",
+      "side": 1,
+      "message": "The recommendation (at least used to be) for \"Pattern.compile\" was to use only once (performance expensive operation).   In any way, I don\u0027t see a reason for not making them class members, and only do the compile once at initialization, instead of every time the method is called.",
+      "revId": "8ebf5baa971e63b441a7f081ede6dc86476faf73",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_6c7a00f3",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
         "patchSetId": 3
@@ -65,6 +82,23 @@
         "endLine": 210,
         "endChar": 24
       },
+      "revId": "8ebf5baa971e63b441a7f081ede6dc86476faf73",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_83685288",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2018-11-28T15:40:41Z",
+      "side": 1,
+      "message": "Why not the debug statement in one single line?",
       "revId": "8ebf5baa971e63b441a7f081ede6dc86476faf73",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
