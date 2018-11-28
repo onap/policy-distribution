@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_cc1becc8",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-28T10:39:50Z",
+      "side": 1,
+      "message": "Please use a descriptive name for this variable.",
+      "range": {
+        "startLine": 207,
+        "startChar": 21,
+        "endLine": 207,
+        "endChar": 24
+      },
+      "revId": "8ebf5baa971e63b441a7f081ede6dc86476faf73",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_6c7a00f3",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-28T10:39:50Z",
+      "side": 1,
+      "message": "Also here.",
+      "range": {
+        "startLine": 209,
+        "startChar": 22,
+        "endLine": 209,
+        "endChar": 23
+      },
+      "revId": "8ebf5baa971e63b441a7f081ede6dc86476faf73",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_8c7de4e9",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-28T10:39:50Z",
+      "side": 1,
+      "message": "and here",
+      "range": {
+        "startLine": 210,
+        "startChar": 22,
+        "endLine": 210,
+        "endChar": 24
+      },
+      "revId": "8ebf5baa971e63b441a7f081ede6dc86476faf73",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_8ccba41d",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-28T10:39:50Z",
+      "side": 1,
+      "message": "On Sonar in my Eclipse, this gives an issue, move the \"\" to the LHS",
+      "revId": "8ebf5baa971e63b441a7f081ede6dc86476faf73",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_4c5e1c78",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-28T10:39:50Z",
+      "side": 1,
+      "message": "This is OK as long as the input values are always exactly in the expected format. If you are not absolutely sure that the input is in the correct format you may wish to consider a more robust implementation.",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 1
+      },
+      "revId": "8ebf5baa971e63b441a7f081ede6dc86476faf73",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_ac4ea8bf",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-28T10:39:50Z",
+      "side": 1,
+      "message": "On SOnar on my eclipse, this give an issue, two continue statements in a method.",
+      "range": {
+        "startLine": 296,
+        "startChar": 1,
+        "endLine": 300,
+        "endChar": 25
+      },
+      "revId": "8ebf5baa971e63b441a7f081ede6dc86476faf73",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}

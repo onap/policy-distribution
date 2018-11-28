@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_4c105ca8",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Content.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-11-28T10:39:50Z",
+      "side": 0,
+      "message": "setResources(0 not needed?",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 40,
+        "endChar": 5
+      },
+      "revId": "cf2a21536bd30ebb8b4544f51ad3024dae310842",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
