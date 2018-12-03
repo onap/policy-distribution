@@ -22,6 +22,30 @@
       "revId": "cf2a21536bd30ebb8b4544f51ad3024dae310842",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_b1502f5f",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Content.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-12-03T09:00:24Z",
+      "side": 0,
+      "message": "it is a list, initialized at the very beginning so that do not need such function just as flavorFeatures. and ONLY allow users to add/delete items in this list instead of the listself.",
+      "parentUuid": "9adffdf1_4c105ca8",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 40,
+        "endChar": 5
+      },
+      "revId": "cf2a21536bd30ebb8b4544f51ad3024dae310842",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
