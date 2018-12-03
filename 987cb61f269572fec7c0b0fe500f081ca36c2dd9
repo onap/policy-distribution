@@ -22,6 +22,30 @@
       "revId": "987cb61f269572fec7c0b0fe500f081ca36c2dd9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_55a9ae79",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2018-12-03T12:23:10Z",
+      "side": 1,
+      "message": "hello, Liam, \nthe outside of {if} is a {for}, so that we need such continue. \nthe case is: some CP does NOT have network requirement, that\u0027s why we need such continue.\nand need it since no network requirement means no need to go through the rest of this loop like getRequreimentsByName(\"virtual_binding\").\n\ndoes it make sense?",
+      "parentUuid": "9adffdf1_b521faa0",
+      "range": {
+        "startLine": 292,
+        "startChar": 16,
+        "endLine": 292,
+        "endChar": 24
+      },
+      "revId": "987cb61f269572fec7c0b0fe500f081ca36c2dd9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
