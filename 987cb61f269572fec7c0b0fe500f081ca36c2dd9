@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_b521faa0",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-12-03T09:12:55Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this continue either because you are at the end of the loop anyway.",
+      "range": {
+        "startLine": 292,
+        "startChar": 16,
+        "endLine": 292,
+        "endChar": 24
+      },
+      "revId": "987cb61f269572fec7c0b0fe500f081ca36c2dd9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
