@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_77d61bf3",
+        "filename": "packages/policy-distribution-docker/src/main/docker/policy-dist.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2018-12-17T16:02:41Z",
+      "side": 1,
+      "message": "You may want to add \"javax.net.ssl.trustStore..\" to make sure that it covers to support https client usage against aaf certified servers in the future.\n\nAs a note, for your consideration, in the other policy components, we have the keystores under $POLICY_HOME/etc/ssl .. you may want to to place them there, just for consistency ?",
+      "revId": "08460fb3d315b8574e5ad1335e05dd7c2afb6cc9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
