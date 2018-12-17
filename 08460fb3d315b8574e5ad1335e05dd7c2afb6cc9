@@ -16,6 +16,24 @@
       "revId": "08460fb3d315b8574e5ad1335e05dd7c2afb6cc9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_3733b364",
+        "filename": "packages/policy-distribution-docker/src/main/docker/policy-dist.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2018-12-17T16:04:26Z",
+      "side": 1,
+      "message": "Ok yes - consistency would be good.",
+      "parentUuid": "9adffdf1_77d61bf3",
+      "revId": "08460fb3d315b8574e5ad1335e05dd7c2afb6cc9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
