@@ -36,6 +36,7 @@ public class RestServerParameters implements ParameterGroup {
     private int port;
     private String userName;
     private String password;
+    private boolean https;
 
     /**
      * Constructor for instantiating RestServerParameters.
@@ -44,13 +45,16 @@ public class RestServerParameters implements ParameterGroup {
      * @param port the port
      * @param userName the user name
      * @param password the password
+     * @param https the https
      */
-    public RestServerParameters(final String host, final int port, final String userName, final String password) {
+    public RestServerParameters(final String host, final int port, final String userName, final String password,
+                                final boolean https) {
         super();
         this.host = host;
         this.port = port;
         this.userName = userName;
         this.password = password;
+        this.https = https;
     }
 
     /**
@@ -97,6 +101,15 @@ public class RestServerParameters implements ParameterGroup {
      */
     public String getPassword() {
         return password;
+    }
+
+    /**
+     * Return the https of this RestServerParameters instance.
+     *
+     * @return the password
+     */
+    public boolean isHttps() {
+        return https;
     }
 
     /**

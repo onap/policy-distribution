@@ -21,6 +21,11 @@
 
 JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 POLICY_DISTRIBUTION_HOME=/opt/app/policy/distribution
+KEYSTORE="$POLICY_DISTRIBUTION_HOME/etc/policy-keystore"
+KEYSTORE_PASSWD="Pol1cy_0nap"
+TRUSTSTORE="$POLICY_DISTRIBUTION_HOME/etc/policy-truststore"
+TRUSTSTORE_PASSWD="Pol1cy_0nap"
+
 
 if [ "$#" -eq 1 ]; then
     CONFIG_FILE=$1
@@ -35,4 +40,4 @@ fi
 
 echo "Policy distribution config file: $CONFIG_FILE"
 
-$JAVA_HOME/bin/java -cp "$POLICY_DISTRIBUTION_HOME/etc:$POLICY_DISTRIBUTION_HOME/lib/*" org.onap.policy.distribution.main.startstop.Main -c $CONFIG_FILE
+$JAVA_HOME/bin/java -cp "$POLICY_DISTRIBUTION_HOME/etc:$POLICY_DISTRIBUTION_HOME/lib/*" -Djavax.net.ssl.keyStore="$KEYSTORE" -Djavax.net.ssl.keyStorePassword="$KEYSTORE_PASSWD"  org.onap.policy.distribution.main.startstop.Main -c $CONFIG_FILE

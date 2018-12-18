@@ -91,6 +91,8 @@ public class DistributionRestServer implements Startable {
                 restServerParameters.getUserName());
         props.setProperty(HTTP_SERVER_SERVICES + SEPARATOR + restServerParameters.getName() + ".password",
                 restServerParameters.getPassword());
+        props.setProperty(HTTP_SERVER_SERVICES + SEPARATOR + restServerParameters.getName() + ".https",
+                String.valueOf(restServerParameters.isHttps()));
         return props;
     }
 
