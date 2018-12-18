@@ -48,6 +48,7 @@ public class CommonTestData {
     private static final String REST_SERVER_USER = "healthcheck";
     private static final int REST_SERVER_PORT = 6969;
     private static final String REST_SERVER_HOST = "0.0.0.0";
+    private static final boolean REST_SERVER_HTTPS = false;
     public static final String DISTRIBUTION_GROUP_NAME = "SDCDistributionGroup";
     public static final String DECODER_TYPE = "DummyDecoder";
     public static final String DECODER_CLASS_NAME = "org.onap.policy.distribution.main.testclasses.DummyDecoder";
@@ -82,9 +83,9 @@ public class CommonTestData {
         final RestServerParameters restServerParameters;
         if (!isEmpty) {
             restServerParameters = new RestServerParameters(REST_SERVER_HOST, REST_SERVER_PORT, REST_SERVER_USER,
-                    REST_SERVER_PASSWORD);
+                    REST_SERVER_PASSWORD, REST_SERVER_HTTPS);
         } else {
-            restServerParameters = new RestServerParameters(null, 0, null, null);
+            restServerParameters = new RestServerParameters(null, 0, null, null, false);
         }
         return restServerParameters;
     }
