@@ -28,8 +28,8 @@ RUN \
 RUN groupadd policy 
 RUN useradd --create-home --shell /bin/bash -g policy policy
 
-RUN mkdir -p ${POLICY_DISTRIBUTION_HOME} ${POLICY_LOGS} && \ 
-    chown  policy:policy ${POLICY_HOME} ${POLICY_DISTRIBUTION_HOME} ${POLICY_LOGS}
+RUN mkdir -p ${POLICY_DISTRIBUTION_HOME} ${POLICY_LOGS} ${POLICY_HOME}/etc/ssl && \
+    chown  -R policy:policy ${POLICY_HOME} ${POLICY_DISTRIBUTION_HOME} ${POLICY_LOGS}
 
 RUN mkdir /packages
 COPY /maven/* /packages
@@ -39,6 +39,7 @@ RUN rm /packages/policy-distribution.tar.gz
 WORKDIR ${POLICY_DISTRIBUTION_HOME}
 COPY policy-dist.sh  bin/.
 RUN chown -R policy:policy * && chmod +x bin/*.sh
+RUN cp ${POLICY_DISTRIBUTION_HOME}/etc/ssl/* ${POLICY_HOME}/etc/ssl && chown policy:policy ${POLICY_HOME}/etc/ssl/*
 
 USER policy
 WORKDIR ${POLICY_DISTRIBUTION_HOME}/bin
