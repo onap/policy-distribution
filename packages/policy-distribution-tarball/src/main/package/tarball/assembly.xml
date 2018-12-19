@@ -48,13 +48,23 @@
             <directory>${project.basedir}/src/main/resources/etc
             </directory>
             <includes>
-                <include>**/*</include>
+                <include>*.json</include>
+                <include>*.xml</include>
             </includes>
             <outputDirectory>/etc</outputDirectory>
             <lineEnding>unix</lineEnding>
             <excludes>
                 <exclude>*.formatted</exclude>
             </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/main/resources/etc/ssl
+            </directory>
+            <includes>
+                <include>policy*</include>
+            </includes>
+            <outputDirectory>/etc/ssl</outputDirectory>
+            <lineEnding>keep</lineEnding>
         </fileSet>
     </fileSets>
 </assembly>
