@@ -21,7 +21,6 @@
 package org.onap.policy.distribution.main.rest;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -45,8 +44,6 @@ import org.onap.policy.common.endpoints.report.HealthCheckReport;
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.distribution.main.PolicyDistributionException;
-import org.onap.policy.distribution.main.parameters.CommonTestData;
-import org.onap.policy.distribution.main.parameters.RestServerParameters;
 import org.onap.policy.distribution.main.startstop.Main;
 
 /**
@@ -57,15 +54,14 @@ import org.onap.policy.distribution.main.startstop.Main;
 public class TestHttpsDistributionRestServer {
 
     private static final Logger LOGGER = FlexLogger.getLogger(TestDistributionRestServer.class);
-    private static final String NOT_ALIVE = "not alive";
     private static final String ALIVE = "alive";
     private static final String SELF = "self";
     private static final String NAME = "Policy SSD";
     private static String KEYSTORE = System.getProperty("user.dir") + "/src/test/resources/ssl/policy-keystore";
 
     @Test
-    public void testHealthCheckSuccess() throws PolicyDistributionException, InterruptedException,
-        KeyManagementException, NoSuchAlgorithmException {
+    public void testHealthCheckSuccess()
+        throws PolicyDistributionException, InterruptedException, KeyManagementException, NoSuchAlgorithmException {
         final String reportString = "Report [name=Policy SSD, url=self, healthy=true, code=200, message=alive]";
         final Main main = startDistributionService();
         final HealthCheckReport report = performHealthCheck();
@@ -87,32 +83,30 @@ public class TestHttpsDistributionRestServer {
         main.shutdown();
     }
 
-    private HealthCheckReport performHealthCheck() throws InterruptedException, KeyManagementException,
-        NoSuchAlgorithmException {
+    private HealthCheckReport performHealthCheck()
+        throws InterruptedException, KeyManagementException, NoSuchAlgorithmException {
         HealthCheckReport response = null;
 
-        TrustManager[] noopTrustManager = new TrustManager[]{
-            new X509TrustManager() {
+        TrustManager[] noopTrustManager = new TrustManager[] { new X509TrustManager() {
 
-                @Override
-                public X509Certificate[] getAcceptedIssuers() {
-                    return new X509Certificate[0];
-                }
-
-                @Override
-                public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                }
-
-                @Override
-                public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                }
+            @Override
+            public X509Certificate[] getAcceptedIssuers() {
+                return new X509Certificate[0];
             }
-        };
+
+            @Override
+            public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {
+            }
+
+            @Override
+            public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
+            }
+        } };
 
         SSLContext sc = SSLContext.getInstance("TLSv1.2");
         sc.init(null, noopTrustManager, new SecureRandom());
-        final ClientBuilder clientBuilder =
-            ClientBuilder.newBuilder().sslContext(sc).hostnameVerifier((host, session) -> true);
+        final ClientBuilder clientBuilder = ClientBuilder.newBuilder().sslContext(sc)
+            .hostnameVerifier((host, session) -> true);
         final Client client = clientBuilder.build();
         final HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("healthcheck", "zb!XztG34");
         client.register(feature);
@@ -132,7 +126,7 @@ public class TestHttpsDistributionRestServer {
     }
 
     private void validateReport(final String name, final String url, final boolean healthy, final int code,
-            final String message, final String reportString, final HealthCheckReport report) {
+        final String message, final String reportString, final HealthCheckReport report) {
         assertEquals(name, report.getName());
         assertEquals(url, report.getUrl());
         assertEquals(healthy, report.isHealthy());
