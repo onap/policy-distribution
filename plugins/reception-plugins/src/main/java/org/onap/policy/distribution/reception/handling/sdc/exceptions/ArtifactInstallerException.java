@@ -20,7 +20,6 @@
 
 package org.onap.policy.distribution.reception.handling.sdc.exceptions;
 
-
 /**
  * Exception during artifact installation.
  */
@@ -38,17 +37,17 @@ public class ArtifactInstallerException extends Exception {
      */
     public ArtifactInstallerException(final String message) {
         super(message);
-       
+
     }
-    
+
     /**
      * Constructor for creating ArtifactInstallerException using message and exception.
      *
      * @param message The message to dump
-     * @param e the exception that caused this exception to be thrown
+     * @param ex the exception that caused this exception to be thrown
      */
     public ArtifactInstallerException(final String message, final Exception ex) {
         super(message, ex);
-       
+
     }
 }

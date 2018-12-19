@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Class to perform unit test of {@link PluginTerminationException}
+ * Class to perform unit test of {@link PluginTerminationException}.
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
@@ -40,8 +40,8 @@ public class PluginTerminationExceptionTest {
     @Test
     public void testPluginTerminationExceptionStringThrowable() {
         final Exception cause = new IllegalArgumentException();
-        final PluginTerminationException pluginTerminationException =
-                new PluginTerminationException("error message", cause);
+        final PluginTerminationException pluginTerminationException = new PluginTerminationException("error message",
+            cause);
         assertEquals("error message", pluginTerminationException.getMessage());
         assertEquals(cause, pluginTerminationException.getCause());
     }
