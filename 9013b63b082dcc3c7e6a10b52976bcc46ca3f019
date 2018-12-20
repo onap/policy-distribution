@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_c64ab225",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/DistributionParameterGroup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2018-12-20T14:42:25Z",
+      "side": 1,
+      "message": "Liam is there any way to avoid this \"// @formatter\".   Isn\u0027t it just an IDE thing, just for eclipse?   You may also get sonars for commented lines of code (not sure).",
+      "revId": "9013b63b082dcc3c7e6a10b52976bcc46ca3f019",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
