@@ -16,6 +16,24 @@
       "revId": "9013b63b082dcc3c7e6a10b52976bcc46ca3f019",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_fa88a6c6",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/DistributionParameterGroup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2018-12-21T10:27:35Z",
+      "side": 1,
+      "message": "It turns off the formatter for this block of code because the formatter insisted on making the line longer that 120 characters by pulling the right hand side of the \u0027\u003d\u0027 up onto the previous line. I\u0027ll check if there\u0027s some setting in Eclipse that does this so that I don\u0027t have to turn off the formatter.\n\nI wonder does this directive work in Intellij as well?",
+      "parentUuid": "9adffdf1_c64ab225",
+      "revId": "9013b63b082dcc3c7e6a10b52976bcc46ca3f019",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
