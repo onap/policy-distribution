@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_01289ae0",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/CommonTestData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2019-01-04T13:47:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_a4f76158",
+      "range": {
+        "startLine": 88,
+        "startChar": 81,
+        "endLine": 88,
+        "endChar": 86
+      },
+      "revId": "fc32c230809a051bc1c17e8a2a447210822eebe7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_4498f51b",
         "filename": "main/src/test/java/org/onap/policy/distribution/main/rest/TestHttpsStatisticDistributionRestServer.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-02T10:30:08Z",
       "side": 1,
       "message": "Must be renamed to testDistributionStatistics or similar.",
+      "range": {
+        "startLine": 62,
+        "startChar": 16,
+        "endLine": 62,
+        "endChar": 38
+      },
+      "revId": "fc32c230809a051bc1c17e8a2a447210822eebe7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_21259e08",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/rest/TestHttpsStatisticDistributionRestServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2019-01-04T13:47:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_4498f51b",
       "range": {
         "startLine": 62,
         "startChar": 16,
