@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_a4a2fcfa",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/rest/TestHttpsDistributionRestServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-01-04T15:43:51Z",
+      "side": 1,
+      "message": "I think this will result in new sonar issue. Exception has to be either logged or re-thrown in the catch block.\nIn this case, you can simply log the exception.",
+      "range": {
+        "startLine": 120,
+        "startChar": 14,
+        "endLine": 122,
+        "endChar": 13
+      },
+      "revId": "af2806ddb072548f1c66ca8d8968a5bf0ed85e32",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_64a894db",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/rest/TestHttpsStatisticDistributionRestServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-01-04T15:43:51Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 117,
+        "startChar": 14,
+        "endLine": 119,
+        "endChar": 13
+      },
+      "revId": "af2806ddb072548f1c66ca8d8968a5bf0ed85e32",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
