@@ -56,7 +56,7 @@ public class TestHttpsStatisticDistributionRestServer {
     private static String KEYSTORE = System.getProperty("user.dir") + "/src/test/resources/ssl/policy-keystore";
 
     @Test
-    public void testHealthCheckSuccess()
+    public void testDistributionStatistic()
         throws PolicyDistributionException, InterruptedException, KeyManagementException, NoSuchAlgorithmException {
         final String reportString = "StatisticsReport [code=200, totalDistributionCount=0, distributionSuccessCount=0, "
             + "distributionFailureCount=0, totalDownloadCount=0, " + "downloadSuccessCount=0, downloadFailureCount=0]";
@@ -116,7 +116,6 @@ public class TestHttpsStatisticDistributionRestServer {
                 response = invocationBuilder.get(StatisticsReport.class);
             } catch (final Exception exp) {
                 LOGGER.info("the server is not started yet. We will retry again");
-                Thread.sleep(1000);
             }
         }
         return response;
