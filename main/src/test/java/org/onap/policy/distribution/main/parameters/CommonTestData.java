@@ -85,7 +85,7 @@ public class CommonTestData {
             restServerParameters = new RestServerParameters(REST_SERVER_HOST, REST_SERVER_PORT, REST_SERVER_USER,
                     REST_SERVER_PASSWORD, REST_SERVER_HTTPS);
         } else {
-            restServerParameters = new RestServerParameters(null, 0, null, null, false);
+            restServerParameters = new RestServerParameters(null, 0, null, null, REST_SERVER_HTTPS);
         }
         return restServerParameters;
     }
