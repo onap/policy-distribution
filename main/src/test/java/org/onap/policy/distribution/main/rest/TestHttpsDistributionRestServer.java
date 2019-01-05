@@ -118,8 +118,7 @@ public class TestHttpsDistributionRestServer {
             try {
                 response = invocationBuilder.get(HealthCheckReport.class);
             } catch (final Exception exp) {
-                LOGGER.info("the server is not started yet. We will retry again");
-                Thread.sleep(1000);
+                LOGGER.error("the server is not started yet. We will retry again", exp);
             }
         }
         return response;
