@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9adffdf1_8a97bfeb",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/rest/TestHttpsDistributionRestServer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 2905
+      },
+      "writtenOn": "2019-01-07T13:03:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adffdf1_a4a2fcfa",
+      "range": {
+        "startLine": 120,
+        "startChar": 14,
+        "endLine": 122,
+        "endChar": 13
+      },
+      "revId": "af2806ddb072548f1c66ca8d8968a5bf0ed85e32",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_64a894db",
         "filename": "main/src/test/java/org/onap/policy/distribution/main/rest/TestHttpsStatisticDistributionRestServer.java",
         "patchSetId": 1
