@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_644c0f9f",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/rest/TestHttpsDistributionRestServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-01-08T10:35:39Z",
+      "side": 1,
+      "message": "It will be more appropriate to use error instead of info for logging exceptions. For example -\nLOGGER.error(\"the server is not started yet. We will retry again\", exp);",
+      "range": {
+        "startLine": 121,
+        "startChar": 16,
+        "endLine": 121,
+        "endChar": 101
+      },
+      "revId": "da6f3340c6c0b9ef4a90519ca16cec8c59471040",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_8451f337",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/rest/TestHttpsStatisticDistributionRestServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-01-08T10:35:39Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 118,
+        "startChar": 16,
+        "endLine": 118,
+        "endChar": 101
+      },
+      "revId": "da6f3340c6c0b9ef4a90519ca16cec8c59471040",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
