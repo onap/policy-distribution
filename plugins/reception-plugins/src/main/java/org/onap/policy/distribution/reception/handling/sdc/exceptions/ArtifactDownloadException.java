@@ -20,7 +20,6 @@
 
 package org.onap.policy.distribution.reception.handling.sdc.exceptions;
 
-
 /**
  * Exception during download from Pssd.
  */
@@ -38,17 +37,17 @@ public class ArtifactDownloadException extends Exception {
      */
     public ArtifactDownloadException(final String message) {
         super(message);
-       
+
     }
-    
+
     /**
      * Constructor for creating PssdDownloadException using message and exception.
      *
      * @param message The message to dump
-     * @param e the exception that caused this exception to be thrown
+     * @param ex the exception that caused this exception to be thrown
      */
     public ArtifactDownloadException(final String message, final Exception ex) {
         super(message, ex);
-       
+
     }
 }

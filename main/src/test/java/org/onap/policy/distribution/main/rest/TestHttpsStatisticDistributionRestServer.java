@@ -21,7 +21,6 @@
 package org.onap.policy.distribution.main.rest;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -44,8 +43,6 @@ import org.junit.Test;
 import org.onap.policy.common.logging.flexlogger.FlexLogger;
 import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.distribution.main.PolicyDistributionException;
-import org.onap.policy.distribution.main.parameters.CommonTestData;
-import org.onap.policy.distribution.main.parameters.RestServerParameters;
 import org.onap.policy.distribution.main.startstop.Main;
 
 /**
@@ -59,11 +56,10 @@ public class TestHttpsStatisticDistributionRestServer {
     private static String KEYSTORE = System.getProperty("user.dir") + "/src/test/resources/ssl/policy-keystore";
 
     @Test
-    public void testHealthCheckSuccess() throws PolicyDistributionException, InterruptedException,
-        KeyManagementException, NoSuchAlgorithmException {
+    public void testHealthCheckSuccess()
+        throws PolicyDistributionException, InterruptedException, KeyManagementException, NoSuchAlgorithmException {
         final String reportString = "StatisticsReport [code=200, totalDistributionCount=0, distributionSuccessCount=0, "
-                                    + "distributionFailureCount=0, totalDownloadCount=0, "
-                                    + "downloadSuccessCount=0, downloadFailureCount=0]";
+            + "distributionFailureCount=0, totalDownloadCount=0, " + "downloadSuccessCount=0, downloadFailureCount=0]";
         final Main main = startDistributionService();
         final StatisticsReport report = performStatisticCheck();
         validateReport(200, 0, 0, 0, 0, 0, 0, reportString, report);
@@ -84,32 +80,30 @@ public class TestHttpsStatisticDistributionRestServer {
         main.shutdown();
     }
 
-    private StatisticsReport performStatisticCheck() throws InterruptedException, KeyManagementException,
-        NoSuchAlgorithmException {
+    private StatisticsReport performStatisticCheck()
+        throws InterruptedException, KeyManagementException, NoSuchAlgorithmException {
         StatisticsReport response = null;
 
-        TrustManager[] noopTrustManager = new TrustManager[]{
-            new X509TrustManager() {
+        TrustManager[] noopTrustManager = new TrustManager[] { new X509TrustManager() {
 
-                @Override
-                public X509Certificate[] getAcceptedIssuers() {
-                    return new X509Certificate[0];
-                }
-
-                @Override
-                public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                }
-
-                @Override
-                public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
-                }
+            @Override
+            public X509Certificate[] getAcceptedIssuers() {
+                return new X509Certificate[0];
             }
-        };
+
+            @Override
+            public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {
+            }
+
+            @Override
+            public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
+            }
+        } };
 
         SSLContext sc = SSLContext.getInstance("TLSv1.2");
         sc.init(null, noopTrustManager, new SecureRandom());
-        final ClientBuilder clientBuilder =
-            ClientBuilder.newBuilder().sslContext(sc).hostnameVerifier((host, session) -> true);
+        final ClientBuilder clientBuilder = ClientBuilder.newBuilder().sslContext(sc)
+            .hostnameVerifier((host, session) -> true);
         final Client client = clientBuilder.build();
         final HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("healthcheck", "zb!XztG34");
         client.register(feature);
@@ -129,8 +123,8 @@ public class TestHttpsStatisticDistributionRestServer {
     }
 
     private void validateReport(final int code, final int total, final int successCount, final int failureCount,
-            final int download, final int downloadSuccess, final int downloadFailure, final String reportString, 
-            final StatisticsReport report) {
+        final int download, final int downloadSuccess, final int downloadFailure, final String reportString,
+        final StatisticsReport report) {
         assertEquals(code, report.getCode());
         assertEquals(total, report.getTotalDistributionCount());
         assertEquals(successCount, report.getDistributionSuccessCount());
