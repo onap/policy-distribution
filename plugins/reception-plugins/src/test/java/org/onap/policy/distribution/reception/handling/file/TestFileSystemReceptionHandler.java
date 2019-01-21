@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +19,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.reception.handling.sdc;
+package org.onap.policy.distribution.reception.handling.file;
 
 import static org.junit.Assert.fail;
 
@@ -120,11 +121,12 @@ public class TestFileSystemReceptionHandler {
             public boolean processed = false;
         }
 
-        Processed cond = new Processed();
+        final Processed cond = new Processed();
 
         final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
         Mockito.doAnswer(new Answer<Object>() {
-            public Object answer(InvocationOnMock invocation) {
+            @Override
+            public Object answer(final InvocationOnMock invocation) {
                 synchronized (lock) {
                     cond.processed = true;
                     lock.notifyAll();
@@ -133,18 +135,18 @@ public class TestFileSystemReceptionHandler {
             }
         }).when(sypHandler).createPolicyInputAndCallHandler(Mockito.isA(String.class));
 
-        Thread th = new Thread(() -> {
+        final Thread th = new Thread(() -> {
             try {
                 sypHandler.main(watchPath);
-            } catch (IOException ex) {
+            } catch (final IOException ex) {
                 LOGGER.error(ex);
             }
         });
 
         th.start();
         try {
-            //wait until internal watch service started or counter reached
-            AtomicInteger counter = new AtomicInteger();
+            // wait until internal watch service started or counter reached
+            final AtomicInteger counter = new AtomicInteger();
             counter.set(0);
             synchronized (lock) {
                 while (!sypHandler.isRunning() && counter.getAndIncrement() < 10) {
@@ -152,8 +154,8 @@ public class TestFileSystemReceptionHandler {
                 }
             }
             Files.copy(Paths.get("src/test/resources/hpaPolicyHugePage.csar"),
-                Paths.get(watchPath + File.separator + "hpaPolicyHugePage.csar"));
-            //wait until mock method triggered or counter reached
+                    Paths.get(watchPath + File.separator + "hpaPolicyHugePage.csar"));
+            // wait until mock method triggered or counter reached
             counter.set(0);
             synchronized (lock) {
                 while (!cond.processed && counter.getAndIncrement() < 10) {
@@ -166,8 +168,7 @@ public class TestFileSystemReceptionHandler {
         } catch (final InterruptedException ex) {
             LOGGER.error(ex);
         }
-        Mockito.verify(sypHandler, Mockito.times(1))
-            .createPolicyInputAndCallHandler(Mockito.isA(String.class));
+        Mockito.verify(sypHandler, Mockito.times(1)).createPolicyInputAndCallHandler(Mockito.isA(String.class));
 
     }
 }
