@@ -9,7 +9,7 @@
     "receptionHandlerParameters":{
         "S3PReceptionHandler":{
             "receptionHandlerType":"S3P",
-            "receptionHandlerClassName":"org.onap.policy.distribution.reception.handling.sdc.FileSystemReceptionHandler",
+            "receptionHandlerClassName":"org.onap.policy.distribution.reception.handling.file.FileSystemReceptionHandler",
             "receptionHandlerConfigurationName":"fileConfiguration",
             "pluginHandlerParameters":{
                 "policyDecoders":{
@@ -31,7 +31,7 @@
     },
     "receptionHandlerConfigurationParameters":{
         "fileConfiguration":{
-            "parameterClassName":"org.onap.policy.distribution.reception.handling.sdc.FileSystemReceptionHandlerConfigurationParameterGroup",
+            "parameterClassName":"org.onap.policy.distribution.reception.handling.file.FileSystemReceptionHandlerConfigurationParameterGroup",
             "parameters":{
                 "watchPath": "/tmp/policy_distribution/csar/"
             }

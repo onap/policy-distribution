@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.reception.handling.sdc;
+package org.onap.policy.distribution.reception.handling.file;
 
 /**
  * This class builds an instance of {@link FileSystemReceptionHandlerConfigurationParameterGroup} class.
