@@ -107,7 +107,7 @@ public class XacmlPdpPolicyForwarder implements PolicyForwarder {
                                 + response.getStatus() + ", Response status info: " + response.getStatusInfo());
                 return false;
             }
-        } catch (KeyManagementException | NoSuchAlgorithmException exception) {
+        } catch (KeyManagementException | NoSuchAlgorithmException | ClassNotFoundException exception) {
             LOGGER.error("Invocation of method " + method + " failed for policy " + policyName
                     + " due to error opening Http client", exception);
             return false;
@@ -115,7 +115,8 @@ public class XacmlPdpPolicyForwarder implements PolicyForwarder {
         return true;
     }
 
-    private HttpClient getHttpClient() throws KeyManagementException, NoSuchAlgorithmException {
+    private HttpClient getHttpClient() 
+            throws KeyManagementException, NoSuchAlgorithmException, ClassNotFoundException {
         boolean useHttps = configurationParameters.isUseHttps();
         String hostname = configurationParameters.getHostname();
         int port = configurationParameters.getPort();

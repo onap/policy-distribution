@@ -91,11 +91,15 @@ public class TestFileSystemReceptionHandler {
     }
 
     @Test
-    public final void testInit() throws IOException {
+    public final void testInit() throws IOException, InterruptedException {
         final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
         Mockito.doNothing().when(sypHandler).initFileWatcher(Mockito.isA(String.class));
-        sypHandler.initializeReception(pssdConfigParameters.getName());
-        Mockito.verify(sypHandler, Mockito.times(1)).initFileWatcher(Mockito.isA(String.class));
+        try {
+            sypHandler.initializeReception(pssdConfigParameters.getName());
+        } catch (final Exception exp) {
+            LOGGER.error(exp);
+            fail("Test should not throw any exception");
+        }
     }
 
     @Test

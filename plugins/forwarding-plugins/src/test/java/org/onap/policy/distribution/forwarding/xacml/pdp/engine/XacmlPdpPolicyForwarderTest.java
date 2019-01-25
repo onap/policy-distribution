@@ -79,8 +79,9 @@ public class XacmlPdpPolicyForwarderTest {
     }
 
     @Test
-    public void testForwardPolicy() throws KeyManagementException, NoSuchAlgorithmException, NoSuchFieldException,
-            SecurityException, IllegalArgumentException, IllegalAccessException, PolicyDistributionException {
+    public void testForwardPolicy()
+            throws KeyManagementException, NoSuchAlgorithmException, NoSuchFieldException,SecurityException,
+            IllegalArgumentException, IllegalAccessException, PolicyDistributionException, ClassNotFoundException {
 
         HttpClient httpClientMock = mock(HttpClient.class);
         headers.put(CLIENT_AUTH, CLIENT_AUTH_VALUE);
@@ -123,7 +124,7 @@ public class XacmlPdpPolicyForwarderTest {
     @Test
     public void testForwardPolicy_CreateFailsPushNotInvoked()
             throws KeyManagementException, NoSuchAlgorithmException, NoSuchFieldException, SecurityException,
-            IllegalArgumentException, IllegalAccessException, PolicyDistributionException {
+            IllegalArgumentException, IllegalAccessException, PolicyDistributionException, ClassNotFoundException {
 
         HttpClient httpClientMock = mock(HttpClient.class);
         headers.put(CLIENT_AUTH, CLIENT_AUTH_VALUE);
@@ -151,7 +152,7 @@ public class XacmlPdpPolicyForwarderTest {
     @Test
     public void testForwardPolicy_PushFails()
             throws KeyManagementException, NoSuchAlgorithmException, NoSuchFieldException, SecurityException,
-            IllegalArgumentException, IllegalAccessException, PolicyDistributionException {
+            IllegalArgumentException, IllegalAccessException, PolicyDistributionException, ClassNotFoundException {
 
         HttpClient httpClientMock = mock(HttpClient.class);
         headers.put(CLIENT_AUTH, CLIENT_AUTH_VALUE);
@@ -180,7 +181,7 @@ public class XacmlPdpPolicyForwarderTest {
     @Test
     public void testForwardPolicy_HttpClientInitFailureForPolicyCreate()
             throws KeyManagementException, NoSuchAlgorithmException, NoSuchFieldException, SecurityException,
-            IllegalArgumentException, IllegalAccessException, PolicyDistributionException {
+            IllegalArgumentException, IllegalAccessException, PolicyDistributionException, ClassNotFoundException {
 
         HttpClient httpClientMock = mock(HttpClient.class);
         headers.put(CLIENT_AUTH, CLIENT_AUTH_VALUE);
@@ -208,7 +209,7 @@ public class XacmlPdpPolicyForwarderTest {
     @Test
     public void testForwardPolicy_HttpClientInitFailureForPolicyPush()
             throws KeyManagementException, NoSuchAlgorithmException, NoSuchFieldException, SecurityException,
-            IllegalArgumentException, IllegalAccessException, PolicyDistributionException {
+            IllegalArgumentException, IllegalAccessException, PolicyDistributionException, ClassNotFoundException {
 
         HttpClient httpClientMock = mock(HttpClient.class);
         headers.put(CLIENT_AUTH, CLIENT_AUTH_VALUE);
