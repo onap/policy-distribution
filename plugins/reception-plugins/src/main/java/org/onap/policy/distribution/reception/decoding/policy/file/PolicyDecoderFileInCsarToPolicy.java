@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,14 +30,14 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import org.apache.commons.io.IOUtils;
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.model.PolicyAsString;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class extracts policy files from a CSAR file.
@@ -45,7 +46,7 @@ import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
  */
 public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, PolicyAsString> {
 
-    private static final Logger LOGGER = FlexLogger.getLogger(PolicyDecoderFileInCsarToPolicy.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PolicyDecoderFileInCsarToPolicy.class);
     PolicyDecoderFileInCsarToPolicyParameterGroup decoderParameters;
 
     /**

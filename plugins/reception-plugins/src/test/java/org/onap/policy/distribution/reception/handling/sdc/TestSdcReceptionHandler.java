@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,8 +45,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
@@ -63,6 +62,8 @@ import org.onap.sdc.api.results.IDistributionClientDownloadResult;
 import org.onap.sdc.api.results.IDistributionClientResult;
 import org.onap.sdc.impl.mock.DistributionClientStubImpl;
 import org.onap.sdc.utils.DistributionActionResultEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class to perform unit test of {@link SdcReceptionHandler}.
@@ -72,7 +73,7 @@ import org.onap.sdc.utils.DistributionActionResultEnum;
 @RunWith(MockitoJUnitRunner.class)
 public class TestSdcReceptionHandler {
 
-    private static final Logger LOGGER = FlexLogger.getLogger(TestSdcReceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestSdcReceptionHandler.class);
     private static final String DUMMY_SERVICE_CSAR = "dummyService.csar";
 
     @Mock
@@ -145,7 +146,7 @@ public class TestSdcReceptionHandler {
         try {
             sypHandler.initializeReception(pssdConfigParameters.getName());
         } catch (final Exception exp) {
-            LOGGER.error(exp);
+            LOGGER.error("testInitializeSdcClient failed", exp);
             fail("Test should not throw any exception");
         }
     }
@@ -158,7 +159,7 @@ public class TestSdcReceptionHandler {
         try {
             sypHandler.initializeReception(pssdConfigParameters.getName());
         } catch (final Exception exp) {
-            LOGGER.error(exp);
+            LOGGER.error("testInitializeSdcClient_Failure failed", exp);
             fail("Test should not throw any exception");
         }
     }
@@ -170,7 +171,7 @@ public class TestSdcReceptionHandler {
                     .thenReturn(successfulClientInitResult);
             sypHandler.initializeReception(pssdConfigParameters.getName());
         } catch (final Exception exp) {
-            LOGGER.error(exp);
+            LOGGER.error("testStartSdcClient_Failure failed", exp);
             fail("Test should not throw any exception");
         }
     }
@@ -181,7 +182,7 @@ public class TestSdcReceptionHandler {
             sypHandler.initializeReception(pssdConfigParameters.getName());
             sypHandler.destroy();
         } catch (final Exception exp) {
-            LOGGER.error(exp);
+            LOGGER.error("testStopSdcClient failed", exp);
             fail("Test should not throw any exception");
         }
 
@@ -196,7 +197,7 @@ public class TestSdcReceptionHandler {
         try {
             sypHandler.destroy();
         } catch (final Exception exp) {
-            LOGGER.error(exp);
+            LOGGER.error("testStopSdcClient_Failure failed", exp);
             fail("Test should not throw any exception");
         }
     }
@@ -206,7 +207,7 @@ public class TestSdcReceptionHandler {
         try {
             sypHandler.destroy();
         } catch (final Exception exp) {
-            LOGGER.error(exp);
+            LOGGER.error("testStopSdcClientWithoutStart", exp);
             fail("Test should not throw any exception");
         }
 

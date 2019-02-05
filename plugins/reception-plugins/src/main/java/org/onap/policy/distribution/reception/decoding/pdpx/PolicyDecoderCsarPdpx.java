@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,12 +23,12 @@ package org.onap.policy.distribution.reception.decoding.pdpx;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
+
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.model.OptimizationPolicy;
@@ -37,13 +38,15 @@ import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.sdc.tosca.parser.api.ISdcCsarHelper;
 import org.onap.sdc.tosca.parser.impl.SdcToscaParserFactory;
 import org.onap.sdc.toscaparser.api.NodeTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Decodes PDP-X policies from a CSAR file.
  */
 public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, OptimizationPolicy> {
 
-    private static final Logger LOGGER = FlexLogger.getLogger(PolicyDecoderCsarPdpx.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PolicyDecoderCsarPdpx.class);
     private final Gson gson = new GsonBuilder().serializeNulls().disableHtmlEscaping().create();
     private PolicyDecoderCsarPdpxConfigurationParameterGroup decoderParameters;
 
@@ -52,11 +55,11 @@ public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, OptimizationPo
         final List<OptimizationPolicy> policys = new ArrayList<>();
         final ISdcCsarHelper sdcCsarHelper = parseCsar(csar);
         final List<NodeTemplate> lnodeVf = sdcCsarHelper.getServiceVfList();
-        LOGGER.debug("the size of Vf = " + lnodeVf.size());
+        LOGGER.debug("the size of Vf = {}", lnodeVf.size());
         final ExtractFromNode extractFromNode = new ExtractFromNode();
         extractFromNode.setSdcCsarHelper(sdcCsarHelper);
         final String serviceName = sdcCsarHelper.getServiceMetadata().getValue("name");
-        LOGGER.debug("the name of the service = " + serviceName);
+        LOGGER.debug("the name of the service = {}", serviceName);
         for (final NodeTemplate node : lnodeVf) {
             final Content content = extractFromNode.extractInfo(node);
             if (content != null) {
@@ -64,7 +67,7 @@ public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, OptimizationPo
                 final String policyName = decoderParameters.getPolicyNamePrefix() + "." + content.getIdentity();
                 policy.setOnapName(decoderParameters.getOnapName());
                 policy.setPolicyName(policyName);
-                ConfigBody configBody = new ConfigBody();
+                final ConfigBody configBody = new ConfigBody();
                 configBody.setService("hpaPolicy");
                 configBody.setPolicyName(policyName);
                 configBody.setDescription("OOF Policy");
@@ -101,7 +104,7 @@ public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, OptimizationPo
         ISdcCsarHelper sdcCsarHelper;
         try {
             final SdcToscaParserFactory factory = SdcToscaParserFactory.getInstance();
-            LOGGER.debug("Csar File Path = " + csar.getCsarPath());
+            LOGGER.debug("Csar File Path = {}", csar.getCsarPath());
             final File csarFile = new File(csar.getCsarPath());
             sdcCsarHelper = factory.getSdcCsarHelper(csarFile.getAbsolutePath());
         } catch (final Exception exp) {

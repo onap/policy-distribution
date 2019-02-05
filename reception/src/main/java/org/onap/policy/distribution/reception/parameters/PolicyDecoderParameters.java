@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +21,11 @@
 
 package org.onap.policy.distribution.reception.parameters;
 
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class to hold all the policy decoder parameters.
@@ -33,7 +34,7 @@ import org.onap.policy.common.parameters.ValidationStatus;
  */
 public class PolicyDecoderParameters implements ParameterGroup {
 
-    private static final Logger LOGGER = FlexLogger.getLogger(PolicyDecoderParameters.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PolicyDecoderParameters.class);
 
     private String decoderType;
     private String decoderClassName;
@@ -85,7 +86,7 @@ public class PolicyDecoderParameters implements ParameterGroup {
      */
     @Override
     public String getName() {
-        return decoderType;
+        return getDecoderType();
     }
 
     /**

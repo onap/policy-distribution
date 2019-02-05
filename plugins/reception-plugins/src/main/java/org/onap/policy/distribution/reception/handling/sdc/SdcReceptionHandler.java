@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +27,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
@@ -46,13 +45,15 @@ import org.onap.sdc.api.results.IDistributionClientResult;
 import org.onap.sdc.impl.DistributionClientFactory;
 import org.onap.sdc.utils.DistributionActionResultEnum;
 import org.onap.sdc.utils.DistributionStatusEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handles reception of inputs from ONAP Service Design and Creation (SDC) from which policies may be decoded.
  */
 public class SdcReceptionHandler extends AbstractReceptionHandler implements INotificationCallback {
 
-    private static final Logger LOGGER = FlexLogger.getLogger(SdcReceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SdcReceptionHandler.class);
     private static final String SECONDS = "Seconds";
 
     private SdcReceptionHandlerStatus sdcReceptionHandlerStatus = SdcReceptionHandlerStatus.STOPPED;
@@ -85,11 +86,11 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
 
     @Override
     public void activateCallback(final INotificationData notificationData) {
-        LOGGER.debug("Receieved the notification from SDC with ID: " + notificationData.getDistributionID());
+        LOGGER.debug("Receieved the notification from SDC with ID: {}", notificationData.getDistributionID());
         changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.BUSY);
         processCsarServiceArtifacts(notificationData);
         changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.IDLE);
-        LOGGER.debug("Processed the notification from SDC with ID: " + notificationData.getDistributionID());
+        LOGGER.debug("Processed the notification from SDC with ID: {}", notificationData.getDistributionID());
     }
 
     /**
@@ -137,8 +138,8 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
         }
         final IDistributionClientResult clientResult = distributionClient.init(sdcConfig, this);
         if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
-            LOGGER.error("SDC client initialization failed with reason:" + clientResult.getDistributionMessageResult()
-                    + ". Initialization will be retried after " + retryDelay + SECONDS);
+            LOGGER.error("SDC client initialization failed with reason: {}. Initialization will be retried after {} {}",
+                    clientResult.getDistributionMessageResult(), retryDelay, SECONDS);
             return;
         }
         LOGGER.debug("SDC Client is initialized successfully");
@@ -158,8 +159,8 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
         }
         final IDistributionClientResult clientResult = distributionClient.start();
         if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
-            LOGGER.error("SDC client start failed with reason:" + clientResult.getDistributionMessageResult()
-                    + ". Start will be retried after " + retryDelay + SECONDS);
+            LOGGER.error("SDC client start failed with reason: {}. Start will be retried after {} {}",
+                    clientResult.getDistributionMessageResult(), retryDelay, SECONDS);
             return;
         }
         LOGGER.debug("SDC Client is started successfully");
@@ -175,8 +176,8 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
         LOGGER.debug("Going to stop the SDC Client...");
         final IDistributionClientResult clientResult = distributionClient.stop();
         if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
-            LOGGER.error("SDC client stop failed with reason:" + clientResult.getDistributionMessageResult()
-                    + ". Stop will be retried after " + retryDelay + SECONDS);
+            LOGGER.error("SDC client stop failed with reason: {}. Stop will be retried after {} {}",
+                    clientResult.getDistributionMessageResult(), retryDelay, SECONDS);
             return;
         }
         LOGGER.debug("SDC Client is stopped successfully");
@@ -324,10 +325,10 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
         }
         if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
             loggerMessage.insert(0, "Failed sending ");
-            LOGGER.debug(loggerMessage);
+            LOGGER.debug("Failed sending {}", loggerMessage);
         } else {
             loggerMessage.insert(0, "Successfully Sent ");
-            LOGGER.debug(loggerMessage);
+            LOGGER.debug("Successfully Sent {}", loggerMessage);
         }
     }
 
@@ -358,11 +359,9 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
             loggerMessage.append(" ErrorReason: ").append(errorReason);
         }
         if (!clientResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
-            loggerMessage.insert(0, "Failed sending ");
-            LOGGER.debug(loggerMessage);
+            LOGGER.debug("Failed sending {}", loggerMessage);
         } else {
-            loggerMessage.insert(0, "Successfully Sent ");
-            LOGGER.debug(loggerMessage);
+            LOGGER.debug("Successfully Sent {}", loggerMessage);
         }
     }
 

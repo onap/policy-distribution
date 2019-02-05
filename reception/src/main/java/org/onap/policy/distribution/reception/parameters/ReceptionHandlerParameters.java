@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +21,11 @@
 
 package org.onap.policy.distribution.reception.parameters;
 
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class to hold all the reception handler parameters.
@@ -33,7 +34,7 @@ import org.onap.policy.common.parameters.ValidationStatus;
  */
 public class ReceptionHandlerParameters implements ParameterGroup {
 
-    private static final Logger LOGGER = FlexLogger.getLogger(ReceptionHandlerParameters.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReceptionHandlerParameters.class);
 
     private String name;
     private String receptionHandlerType;
@@ -46,8 +47,7 @@ public class ReceptionHandlerParameters implements ParameterGroup {
      *
      * @param receptionHandlerType the reception handler type
      * @param receptionHandlerClassName the reception handler class name
-     * @param receptionHandlerConfigurationName the name of the configuration for the reception
-     *        handler
+     * @param receptionHandlerConfigurationName the name of the configuration for the reception handler
      * @param pluginHandlerParameters the plugin handler parameters
      */
     public ReceptionHandlerParameters(final String receptionHandlerType, final String receptionHandlerClassName,
@@ -77,8 +77,7 @@ public class ReceptionHandlerParameters implements ParameterGroup {
     }
 
     /**
-     * Return the name of the reception handler configuration for this ReceptionHandlerParameters
-     * instance.
+     * Return the name of the reception handler configuration for this ReceptionHandlerParameters instance.
      *
      * @return the PssdConfigurationParametersGroup
      */

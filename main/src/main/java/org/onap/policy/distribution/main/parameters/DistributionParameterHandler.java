@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +26,6 @@ import com.google.gson.GsonBuilder;
 
 import java.io.FileReader;
 
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.startstop.DistributionCommandLineArguments;
@@ -34,12 +33,14 @@ import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurat
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParametersJsonAdapter;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParametersJsonAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class handles reading, parsing and validating of policy distribution parameters from JSON files.
  */
 public class DistributionParameterHandler {
-    private static final Logger LOGGER = FlexLogger.getLogger(DistributionParameterHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DistributionParameterHandler.class);
 
     /**
      * Read the parameters from the parameter file.

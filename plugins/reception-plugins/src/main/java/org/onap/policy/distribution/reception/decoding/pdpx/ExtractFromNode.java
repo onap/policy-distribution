@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,8 +33,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.sdc.tosca.parser.api.ISdcCsarHelper;
 import org.onap.sdc.toscaparser.api.CapabilityAssignment;
@@ -42,6 +41,8 @@ import org.onap.sdc.toscaparser.api.NodeTemplate;
 import org.onap.sdc.toscaparser.api.RequirementAssignment;
 import org.onap.sdc.toscaparser.api.RequirementAssignments;
 import org.onap.sdc.toscaparser.api.elements.Metadata;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Extract concerned info from NodeTemplate, currently ONLY HPA Feature.
@@ -50,8 +51,9 @@ import org.onap.sdc.toscaparser.api.elements.Metadata;
  */
 public class ExtractFromNode {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExtractFromNode.class);
+
     private static final String CONFIGURATION_VALUE = "configurationValue";
-    private static final Logger LOGGER = FlexLogger.getLogger(ExtractFromNode.class);
     private static final String VDU_TYPE = "tosca.nodes.nfv.Vdu.Compute";
     private static final String VDU_CP_TYPE = "tosca.nodes.nfv.VduCp";
     private static final String VIRTUAL_MEM_SIZE_PATH = "virtual_memory#virtual_mem_size";
@@ -60,7 +62,7 @@ public class ExtractFromNode {
     private static final String MEMORY_PAGE_SIZE_PATH = "virtual_memory#vdu_memory_requirements#memoryPageSize";
     private static final String NETWORK_INTERFACE_TYPE_PATH =
             "virtual_network_interface_requirements#network_interface_requirements#interfaceType";
-    private static final String NETWORK_PCI_PATH = 
+    private static final String NETWORK_PCI_PATH =
             "virtual_network_interface_requirements#nic_io_requirements#logical_node_requirements";
     private static final String BASIC_CAPABILITIES_HPA_FEATURE = "basicCapabilities";
     private static final String HUGE_PAGES_HPA_FEATURE = "hugePages";
@@ -85,10 +87,10 @@ public class ExtractFromNode {
      * @throws PolicyDecodingException if extract fails
      */
     public Content extractInfo(final NodeTemplate node) throws PolicyDecodingException {
-        Metadata metaData = sdcCsarHelper.getNodeTemplateMetadata(node);
-        LOGGER.debug("the meta data of this nodetemplate = " + metaData);
+        final Metadata metaData = sdcCsarHelper.getNodeTemplateMetadata(node);
+        LOGGER.debug("the meta data of this nodetemplate = {}", metaData);
         final List<NodeTemplate> lnodeChild = sdcCsarHelper.getNodeTemplateChildren(node);
-        LOGGER.debug("the size of lnodeChild = " + lnodeChild.size());
+        LOGGER.debug("the size of lnodeChild = {}", lnodeChild.size());
 
         // Store all the VDUs under one VNF
         final List<NodeTemplate> lnodeVdu = new ArrayList<>();
@@ -96,16 +98,16 @@ public class ExtractFromNode {
         final List<NodeTemplate> lnodeVduCp = new ArrayList<>();
         for (final NodeTemplate nodeChild : lnodeChild) {
             final String type = sdcCsarHelper.getTypeOfNodeTemplate(nodeChild);
-            LOGGER.debug("the type of this nodeChild = " + type);
-            LOGGER.debug("the meta data of this nodeChild = " + sdcCsarHelper.getNodeTemplateMetadata(nodeChild));
+            LOGGER.debug("the type of this nodeChild = {}", type);
+            LOGGER.debug("the meta data of this nodeChild = {}", sdcCsarHelper.getNodeTemplateMetadata(nodeChild));
             if (type.equalsIgnoreCase(VDU_TYPE)) {
                 lnodeVdu.add(nodeChild);
             } else if (type.equalsIgnoreCase(VDU_CP_TYPE)) {
                 lnodeVduCp.add(nodeChild);
             }
         }
-        LOGGER.debug("the size of vdu is =" + lnodeVdu.size());
-        LOGGER.debug("the size of cp is =" + lnodeVduCp.size());
+        LOGGER.debug("the size of vdu is = {}", lnodeVdu.size());
+        LOGGER.debug("the size of cp is = {}", lnodeVduCp.size());
 
         final Content content = new Content();
         content.getResources().add(metaData.getValue("name"));
@@ -137,7 +139,7 @@ public class ExtractFromNode {
             flavorDirective.getAttributes().add(flavorAttribute);
             final FlavorFeature flavorFeature = new FlavorFeature();
             flavorFeature.setId(node.toString());
-            LOGGER.debug("the name of node =" + node.toString());
+            LOGGER.debug("the name of node = {}", node);
             flavorFeature.getDirectives().add(flavorDirective);
 
             final CapabilityAssignments capabilityAssignments = sdcCsarHelper.getCapabilitiesOf(node);
@@ -164,7 +166,7 @@ public class ExtractFromNode {
         final String virtualMemSize =
                 sdcCsarHelper.getCapabilityPropertyLeafValue(capabilityAssignment, VIRTUAL_MEM_SIZE_PATH);
         if (virtualMemSize != null) {
-            LOGGER.debug("the virtualMemSize = " + virtualMemSize);
+            LOGGER.debug("the virtualMemSize = {}", virtualMemSize);
             final HpaFeatureAttribute hpaFeatureAttribute =
                     generateHpaFeatureAttribute("virtualMemSize", virtualMemSize);
             final FlavorProperty flavorProperty = new FlavorProperty();
@@ -177,7 +179,7 @@ public class ExtractFromNode {
         final String numVirtualCpu =
                 sdcCsarHelper.getCapabilityPropertyLeafValue(capabilityAssignment, NUM_VIRTUAL_CPU_PATH);
         if (numVirtualCpu != null) {
-            LOGGER.debug("the numVirtualCpu = " + numVirtualCpu);
+            LOGGER.debug("the numVirtualCpu = {}", numVirtualCpu);
             final HpaFeatureAttribute hpaFeatureAttribute = generateHpaFeatureAttribute("numVirtualCpu", numVirtualCpu);
             final String cpuArchitecture =
                     sdcCsarHelper.getCapabilityPropertyLeafValue(capabilityAssignment, CPU_ARCHITECTURE_PATH);
@@ -207,15 +209,17 @@ public class ExtractFromNode {
         final String modifiedValue = featureValue.replace(" ", "");
         final Matcher matcher = PATTERN.matcher(modifiedValue);
         if (matcher.find()) {
-            LOGGER.debug("operator " + matcher.group(1) + ", value = " + matcher.group(2)
-                    + ", unit = " + matcher.group(3));
-            if ( matcher.group(1).length() == 0 ) {
+            final String matcher1 = matcher.group(1);
+            final String matcher2 = matcher.group(2);
+            final String matcher3 = matcher.group(3);
+            LOGGER.debug("operator {} , value = {} , unit = {}", matcher1, matcher2, matcher3);
+            if (matcher.group(1).length() == 0) {
                 hpaFeatureAttribute.setOperator("=");
             } else {
-                hpaFeatureAttribute.setOperator(matcher.group(1));
+                hpaFeatureAttribute.setOperator(matcher1);
             }
-            hpaFeatureAttribute.setHpaAttributeValue(matcher.group(2));
-            hpaFeatureAttribute.setUnit(matcher.group(3));
+            hpaFeatureAttribute.setHpaAttributeValue(matcher2);
+            hpaFeatureAttribute.setUnit(matcher3);
         }
         return hpaFeatureAttribute;
     }
@@ -232,11 +236,11 @@ public class ExtractFromNode {
     private void generateHugePages(final CapabilityAssignment capabilityAssignment, final FlavorFeature flavorFeature) {
         final String memoryPageSize =
                 sdcCsarHelper.getCapabilityPropertyLeafValue(capabilityAssignment, MEMORY_PAGE_SIZE_PATH);
-        LOGGER.debug("the memoryPageSize = " + memoryPageSize);
+        LOGGER.debug("the memoryPageSize = {}", memoryPageSize);
         if (memoryPageSize != null) {
             final Map<String, String> retMap =
                     gson.fromJson(memoryPageSize, new TypeToken<HashMap<String, String>>() {}.getType());
-            LOGGER.debug("the retMap = " + retMap);
+            LOGGER.debug("the retMap = {}", retMap);
             final String memoryPageSizeValue = retMap.get(CONFIGURATION_VALUE);
             final String mandatory = retMap.get("mandatory");
             if (memoryPageSizeValue == null) {
@@ -268,35 +272,47 @@ public class ExtractFromNode {
         // each CP will binds to a VDU so need the vdu flavor map info.
         final Map<String, FlavorFeature> vduFlavorMap = new HashMap<>();
         for (final FlavorFeature flavorFeature : content.getFlavorFeatures()) {
-            LOGGER.debug("the id = " + flavorFeature.getId());
+            LOGGER.debug("the id = {}", flavorFeature.getId());
             vduFlavorMap.put(flavorFeature.getId(), flavorFeature);
         }
+        parseNodeVduCp(lnodeVduCp, vduFlavorMap);
+    }
+
+    /**
+     * Parse the VduCp list.
+     *
+     * @param lnodeVduCp the lnodeVduCp
+     * @param vduFlavorMap the vduFlavorMap
+     * @throws PolicyDecodingException if any error occurs
+     */
+    private void parseNodeVduCp(final List<NodeTemplate> lnodeVduCp, final Map<String, FlavorFeature> vduFlavorMap)
+            throws PolicyDecodingException {
         for (final NodeTemplate node : lnodeVduCp) {
             final String interfaceType =
                     sdcCsarHelper.getNodeTemplatePropertyLeafValue(node, NETWORK_INTERFACE_TYPE_PATH);
-            LOGGER.debug("the interfaceType = " + interfaceType);
+            LOGGER.debug("the interfaceType = {}", interfaceType);
             Map<String, Object> retMap = new HashMap<>();
             if (interfaceType != null) {
                 retMap = gson.fromJson(interfaceType, new TypeToken<HashMap<String, Object>>() {}.getType());
-                LOGGER.debug("the retMap = " + retMap);
+                LOGGER.debug("the retMap = {}", retMap);
             }
 
             String networkHpaFeature;
             if (retMap.containsKey(CONFIGURATION_VALUE)
-                && NETWORK_HPA_FEATURE_MAP.containsKey(retMap.get(CONFIGURATION_VALUE).toString())) {
+                    && NETWORK_HPA_FEATURE_MAP.containsKey(retMap.get(CONFIGURATION_VALUE).toString())) {
                 final String interfaceTypeValue = retMap.get(CONFIGURATION_VALUE).toString();
                 networkHpaFeature = NETWORK_HPA_FEATURE_MAP.get(interfaceTypeValue);
-                LOGGER.debug(" the networkHpaFeature is =" + networkHpaFeature);
+                LOGGER.debug(" the networkHpaFeature is = {}", networkHpaFeature);
             } else {
                 LOGGER.debug(" no networkHpaFeature defined in interfaceType");
                 continue;
             }
 
             final RequirementAssignments requriements =
-                sdcCsarHelper.getRequirementsOf(node).getRequirementsByName("virtual_binding");
-            for (final RequirementAssignment requriement: requriements.getAll()) {
+                    sdcCsarHelper.getRequirementsOf(node).getRequirementsByName("virtual_binding");
+            for (final RequirementAssignment requriement : requriements.getAll()) {
                 final String nodeTemplateName = requriement.getNodeTemplateName();
-                LOGGER.debug("getNodeTemplateName =" + nodeTemplateName);
+                LOGGER.debug("getNodeTemplateName = {}", nodeTemplateName);
                 if (nodeTemplateName == null) {
                     continue;
                 }
@@ -323,11 +339,11 @@ public class ExtractFromNode {
         flavorProperty.setHpaFeature(networkHpaFeature);
         final String[] pciKeys = { "pciVendorId", "pciDeviceId", "pciNumDevices", "physicalNetwork" };
         for (final String pciKey : pciKeys) {
-            LOGGER.debug("the pciKey = " + pciKey);
+            LOGGER.debug("the pciKey = {}", pciKey);
             final String pciKeyPath = NETWORK_PCI_PATH + "#" + pciKey;
             final String pciValue = sdcCsarHelper.getNodeTemplatePropertyLeafValue(node, pciKeyPath);
             if (pciValue != null) {
-                LOGGER.debug("the pciValue = " + pciValue);
+                LOGGER.debug("the pciValue = {}", pciValue);
                 final Map<String, String> retMap =
                         gson.fromJson(pciValue, new TypeToken<HashMap<String, String>>() {}.getType());
                 final String pciConfigValue = retMap.get(CONFIGURATION_VALUE);

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,8 +29,8 @@ import com.google.gson.JsonPrimitive;
 
 import java.lang.reflect.Type;
 
-import org.slf4j.ext.XLogger;
-import org.slf4j.ext.XLoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class deserialises policy decoder parameters from JSON.
@@ -38,8 +39,7 @@ import org.slf4j.ext.XLoggerFactory;
  */
 public class PolicyDecoderConfigurationParametersJsonAdapter
         implements JsonDeserializer<PolicyDecoderConfigurationParameterGroup> {
-    private static final XLogger LOGGER =
-            XLoggerFactory.getXLogger(PolicyDecoderConfigurationParametersJsonAdapter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PolicyDecoderConfigurationParametersJsonAdapter.class);
 
     private static final String PARAMETER_CLASS_NAME = "parameterClassName";
     private static final String POLICY_DECODER_PARAMETERS = "parameters";

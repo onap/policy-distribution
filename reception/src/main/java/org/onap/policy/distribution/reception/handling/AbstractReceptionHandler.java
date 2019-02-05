@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +24,6 @@ package org.onap.policy.distribution.reception.handling;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
@@ -34,6 +33,8 @@ import org.onap.policy.distribution.reception.decoding.PluginInitializationExcep
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Base implementation of {@link ReceptionHandler}. All reception handlers should extend this base class by implementing
@@ -42,7 +43,7 @@ import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParamet
  */
 public abstract class AbstractReceptionHandler implements ReceptionHandler {
 
-    private static final Logger LOGGER = FlexLogger.getLogger(AbstractReceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractReceptionHandler.class);
 
     private PluginHandler pluginHandler;
 

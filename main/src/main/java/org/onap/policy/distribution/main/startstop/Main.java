@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +23,11 @@ package org.onap.policy.distribution.main.startstop;
 
 import java.util.Arrays;
 
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.DistributionParameterGroup;
 import org.onap.policy.distribution.main.parameters.DistributionParameterHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class initiates ONAP Policy Framework policy distribution.
@@ -34,7 +35,7 @@ import org.onap.policy.distribution.main.parameters.DistributionParameterHandler
  * @author Liam Fallon (liam.fallon@ericsson.com)
  */
 public class Main {
-    private static final Logger LOGGER = FlexLogger.getLogger(Main.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     // The policy distribution Activator that activates the policy distribution service
     private DistributionActivator activator;
@@ -49,7 +50,7 @@ public class Main {
      */
     public Main(final String[] args) {
         final String argumentString = Arrays.toString(args);
-        LOGGER.info("Starting policy distribution service with arguments - " + argumentString);
+        LOGGER.info("Starting policy distribution service with arguments - {}", argumentString);
 
         // Check the arguments
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();

@@ -34,20 +34,20 @@ import java.nio.file.WatchService;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipFile;
 
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
 import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handles reception of inputs from File System which can be used to decode policies.
  */
 public class FileSystemReceptionHandler extends AbstractReceptionHandler {
 
-    private static final Logger LOGGER = FlexLogger.getLogger(FileSystemReceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileSystemReceptionHandler.class);
     private boolean running = false;
 
     /**
@@ -63,7 +63,7 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
             final Thread fileWatcherThread = new Thread(fileClientHandler);
             fileWatcherThread.start();
         } catch (final Exception ex) {
-            LOGGER.error(ex);
+            LOGGER.error("FileSystemReceptionHandler initialization failed", ex);
         }
     }
 
@@ -93,10 +93,10 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
         try (final WatchService watcher = FileSystems.getDefault().newWatchService()) {
             final Path dir = Paths.get(watchPath);
             dir.register(watcher, ENTRY_CREATE);
-            LOGGER.debug("Watch Service registered for dir: " + dir.getFileName());
+            LOGGER.debug("Watch Service registered for dir: {}", dir.getFileName());
             startWatchService(watcher, dir);
         } catch (final InterruptedException ex) {
-            LOGGER.debug(ex);
+            LOGGER.error("FileWatcher initialization failed", ex);
             Thread.currentThread().interrupt();
         }
     }
@@ -118,12 +118,12 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
             for (final WatchEvent<?> event : key.pollEvents()) {
                 final WatchEvent<Path> ev = (WatchEvent<Path>) event;
                 final Path fileName = ev.context();
-                LOGGER.debug("new CSAR found: " + fileName);
+                LOGGER.debug("new CSAR found: {}", fileName);
                 DistributionStatisticsManager.updateTotalDistributionCount();
                 final String fullFilePath = dir.toString() + File.separator + fileName.toString();
                 waitForFileToBeReady(fullFilePath);
                 createPolicyInputAndCallHandler(fullFilePath);
-                LOGGER.debug("CSAR complete: " + fileName);
+                LOGGER.debug("CSAR complete: {}", fileName);
             }
             final boolean valid = key.reset();
             if (!valid) {
@@ -148,7 +148,7 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
         } catch (final PolicyDecodingException ex) {
             DistributionStatisticsManager.updateDownloadFailureCount();
             DistributionStatisticsManager.updateDistributionFailureCount();
-            LOGGER.error(ex);
+            LOGGER.error("Policy creation failed", ex);
         }
     }
 

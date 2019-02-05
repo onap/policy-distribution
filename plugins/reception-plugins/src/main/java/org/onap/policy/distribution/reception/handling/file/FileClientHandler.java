@@ -22,8 +22,8 @@ package org.onap.policy.distribution.reception.handling.file;
 
 import java.io.IOException;
 
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class implements Runnable interface for creating new thread which will be used as file watcher.
@@ -32,7 +32,7 @@ import org.onap.policy.common.logging.flexlogger.Logger;
  */
 public class FileClientHandler implements Runnable {
 
-    private static final Logger LOGGER = FlexLogger.getLogger(FileClientHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileClientHandler.class);
 
     private FileSystemReceptionHandler fileReceptionHandler;
     private String watchPath;
@@ -55,7 +55,7 @@ public class FileClientHandler implements Runnable {
         try {
             fileReceptionHandler.initFileWatcher(watchPath);
         } catch (final IOException ex) {
-            LOGGER.error(ex);
+            LOGGER.error("Failed initializing file watcher thread", ex);
         }
     }
 }

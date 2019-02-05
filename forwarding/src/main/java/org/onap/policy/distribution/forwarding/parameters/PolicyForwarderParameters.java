@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +21,11 @@
 
 package org.onap.policy.distribution.forwarding.parameters;
 
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class to hold all the policy forwarder parameters.
@@ -33,7 +34,7 @@ import org.onap.policy.common.parameters.ValidationStatus;
  */
 public class PolicyForwarderParameters implements ParameterGroup {
 
-    private static final Logger LOGGER = FlexLogger.getLogger(PolicyForwarderParameters.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PolicyForwarderParameters.class);
 
     private String forwarderType;
     private String forwarderClassName;

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,9 +27,9 @@ import java.util.Properties;
 
 import org.onap.policy.common.capabilities.Startable;
 import org.onap.policy.common.endpoints.http.server.HttpServletServer;
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.distribution.main.parameters.RestServerParameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class to manage life cycle of distribution rest server.
@@ -37,9 +38,9 @@ import org.onap.policy.distribution.main.parameters.RestServerParameters;
  */
 public class DistributionRestServer implements Startable {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DistributionRestServer.class);
     private static final String SEPARATOR = ".";
     private static final String HTTP_SERVER_SERVICES = "http.server.services";
-    private static final Logger LOGGER = FlexLogger.getLogger(DistributionRestServer.class);
 
     private List<HttpServletServer> servers = new ArrayList<>();
 

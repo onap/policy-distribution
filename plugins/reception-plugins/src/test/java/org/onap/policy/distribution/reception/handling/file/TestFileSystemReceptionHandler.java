@@ -43,11 +43,11 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class to perform unit test of {@link FileSystemReceptionHandler}.
@@ -55,7 +55,7 @@ import org.onap.policy.distribution.reception.statistics.DistributionStatisticsM
 @RunWith(MockitoJUnitRunner.class)
 public class TestFileSystemReceptionHandler {
 
-    private static final Logger LOGGER = FlexLogger.getLogger(TestFileSystemReceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestFileSystemReceptionHandler.class);
 
     @Rule
     public TemporaryFolder tempFolder = new TemporaryFolder();
@@ -97,7 +97,7 @@ public class TestFileSystemReceptionHandler {
         try {
             sypHandler.initializeReception(pssdConfigParameters.getName());
         } catch (final Exception exp) {
-            LOGGER.error(exp);
+            LOGGER.error("testInit failed", exp);
             fail("Test should not throw any exception");
         }
     }
@@ -110,7 +110,7 @@ public class TestFileSystemReceptionHandler {
             sypHandler.initializeReception(pssdConfigParameters.getName());
             sypHandler.destroy();
         } catch (final Exception exp) {
-            LOGGER.error(exp);
+            LOGGER.error("testDestroy failed", exp);
             fail("Test should not throw any exception");
         }
 
@@ -143,7 +143,7 @@ public class TestFileSystemReceptionHandler {
             try {
                 sypHandler.initFileWatcher(watchPath);
             } catch (final IOException ex) {
-                LOGGER.error(ex);
+                LOGGER.error("testMain failed", ex);
             }
         });
 
@@ -170,7 +170,7 @@ public class TestFileSystemReceptionHandler {
             th.interrupt();
             th.join();
         } catch (final InterruptedException ex) {
-            LOGGER.error(ex);
+            LOGGER.error("testMain failed", ex);
         }
         Mockito.verify(sypHandler, Mockito.times(1)).createPolicyInputAndCallHandler(Mockito.isA(String.class));
 
