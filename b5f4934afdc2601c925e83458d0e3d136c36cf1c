@@ -1,0 +1,11 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+1: Jorge Hernandez <jorge.hernandez-herrero@att.com>
+Code-Review+1: Chenfei Gao <cgao@research.att.com>
+Code-Review+1: Liam Fallon <liam.fallon@est.tech>
+Code-Review+1: Robert Bogacki <r.bogacki@samsung.com>
+Code-Review+2: Pamela Dragosh <pdragosh@research.att.com>
+Submitted-by: Pamela Dragosh <pdragosh@research.att.com>
+Submitted-at: Wed, 06 Feb 2019 17:50:15 +0000
+Reviewed-on: https://gerrit.onap.org/r/77880
+Project: policy/distribution
+Branch: refs/heads/master
