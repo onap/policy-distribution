@@ -28,7 +28,7 @@ RUN \
 RUN groupadd policy 
 RUN useradd --create-home --shell /bin/bash -g policy policy
 
-RUN mkdir -p ${POLICY_DISTRIBUTION_HOME} ${POLICY_LOGS} ${POLICY_HOME}/etc/ssl && \
+RUN mkdir -p ${POLICY_DISTRIBUTION_HOME} ${POLICY_LOGS} ${POLICY_HOME}/etc/ssl ${POLICY_DISTRIBUTION_HOME}/bin && \
     chown  -R policy:policy ${POLICY_HOME} ${POLICY_DISTRIBUTION_HOME} ${POLICY_LOGS}
 
 RUN mkdir /packages
