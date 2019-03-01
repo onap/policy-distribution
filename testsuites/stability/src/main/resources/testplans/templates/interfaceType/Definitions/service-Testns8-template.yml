@@ -1,0 +1,135 @@
+tosca_definitions_version: tosca_simple_yaml_1_1
+metadata:
+  invariantUUID: 5be056bd-1ecd-4c14-9465-3bbc994190ee
+  UUID: 188ed3c6-1573-4b2d-9d3f-a03693bed79b
+  name: TestNs8
+  description: test
+  type: Service
+  category: Network Service
+  serviceType: ''
+  serviceRole: ''
+  instantiationType: A-la-carte
+  serviceEcompNaming: true
+  ecompGeneratedNaming: true
+  namingPolicy: ''
+  environmentContext: General_Revenue-Bearing
+imports:
+- nodes:
+    file: nodes.yml
+- datatypes:
+    file: data.yml
+- capabilities:
+    file: capabilities.yml
+- relationships:
+    file: relationships.yml
+- groups:
+    file: groups.yml
+- policies:
+    file: policies.yml
+- annotations:
+    file: annotations.yml
+- service-TestNs8-interface:
+    file: service-Testns8-template-interface.yml
+- resource-vgw1181049:
+    file: resource-Vgw1181049-template.yml
+- resource-vgw1181049-interface:
+    file: resource-Vgw1181049-template-interface.yml
+topology_template:
+  node_templates:
+    vgw1181049 0:
+      type: org.openecomp.resource.vf.Vgw1181049
+      metadata:
+        invariantUUID: b233407f-fe4e-474e-af23-5ddca98639b2
+        UUID: 9119a7bd-859b-46ae-825f-47aa7570220d
+        customizationUUID: 32efc3ac-6fd2-4cda-9f15-592e54f41560
+        version: '1.0'
+        name: ##RANDOM_RESOURCE_NAME##
+        description: test
+        type: VF
+        category: Generic
+        subcategory: Infrastructure
+        resourceVendor: vendor
+        resourceVendorRelease: '1.0'
+        resourceVendorModelNumber: ''
+      properties:
+        nf_naming:
+          ecomp_generated_naming: true
+        multi_stage_design: false
+        availability_zone_max_count: 1
+      capabilities:
+        vdu_vgw_0.virtual_compute:
+          properties:
+            virtual_memory:
+              virtual_mem_size: 4096 MB
+              vdu_memory_requirements:
+                numberOfPages: '{"schemaVersion": "0","schemaSelector": "","hardwarePlatform":
+                  "generic","mandatory": "true", "configurationValue": "1024"}'
+                memoryPageSize: '{"schemaVersion": "0", "schemaSelector": "", "hardwarePlatform":
+                  "generic", "mandatory": "true", "configurationValue": "2 MB"}'
+            virtual_cpu:
+              cpu_architecture: generic
+              num_virtual_cpu: 2
+  substitution_mappings:
+    node_type: org.openecomp.service.Testns8
+    capabilities:
+      vgw11810490.virtualstorage_root_all.virtual_storage:
+      - vgw11810490
+      - virtualstorage_root_all.virtual_storage
+      vgw11810490.llu_vnf.feature:
+      - vgw11810490
+      - llu_vnf.feature
+      vgw11810490.vdu_vgw_0.monitoring_parameter:
+      - vgw11810490
+      - vdu_vgw_0.monitoring_parameter
+      vgw11810490.vl_mux_gw_private_net.monitoring_parameter:
+      - vgw11810490
+      - vl_mux_gw_private_net.monitoring_parameter
+      vgw11810490.cp_vgw_mux_gw_private_net.feature:
+      - vgw11810490
+      - cp_vgw_mux_gw_private_net.feature
+      vgw11810490.vl_mux_gw_private_net.feature:
+      - vgw11810490
+      - vl_mux_gw_private_net.feature
+      vgw11810490.vdu_vgw_0.feature:
+      - vgw11810490
+      - vdu_vgw_0.feature
+      vgw11810490.vl_mux_gw_private_net.virtual_linkable:
+      - vgw11810490
+      - vl_mux_gw_private_net.virtual_linkable
+      vgw11810490.vdu_vgw_0.virtual_binding:
+      - vgw11810490
+      - vdu_vgw_0.virtual_binding
+      vgw11810490.virtualstorage_root_all.feature:
+      - vgw11810490
+      - virtualstorage_root_all.feature
+      vgw11810490.vdu_vgw_0.virtual_compute:
+      - vgw11810490
+      - vdu_vgw_0.virtual_compute
+    requirements:
+      vgw11810490.vdu_vgw_0.virtual_storage:
+      - vgw11810490
+      - vdu_vgw_0.virtual_storage
+      vgw11810490.cp_vgw_mux_gw_private_net.virtual_link:
+      - vgw11810490
+      - cp_vgw_mux_gw_private_net.virtual_link
+      vgw11810490.llu_vnf.dependency:
+      - vgw11810490
+      - llu_vnf.dependency
+      vgw11810490.virtualstorage_root_all.dependency:
+      - vgw11810490
+      - virtualstorage_root_all.dependency
+      vgw11810490.cp_vgw_mux_gw_private_net.dependency:
+      - vgw11810490
+      - cp_vgw_mux_gw_private_net.dependency
+      vgw11810490.llu_vnf.virtual_link:
+      - vgw11810490
+      - llu_vnf.virtual_link
+      vgw11810490.vl_mux_gw_private_net.dependency:
+      - vgw11810490
+      - vl_mux_gw_private_net.dependency
+      vgw11810490.vdu_vgw_0.dependency:
+      - vgw11810490
+      - vdu_vgw_0.dependency
+      vgw11810490.cp_vgw_mux_gw_private_net.virtual_binding:
+      - vgw11810490
+      - cp_vgw_mux_gw_private_net.virtual_binding
