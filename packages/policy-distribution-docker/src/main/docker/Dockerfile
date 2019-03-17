@@ -13,7 +13,8 @@ ENV POLICY_LOGS ${POLICY_LOGS}
 ENV POLICY_HOME=/opt/app/policy
 ENV POLICY_DISTRIBUTION_HOME=${POLICY_HOME}/distribution
 
-RUN apk add --no-cache --update busybox-extras bash zip unzip curl wget openssh openjdk8 maven jq httpie py-pip
+RUN apk add --no-cache --update busybox-extras bash nss procps coreutils findutils grep zip unzip \
+                                curl wget openssh openjdk8 maven jq httpie py-pip
 
 RUN addgroup -S policy && \
     adduser -S --shell /bin/bash -G policy policy
