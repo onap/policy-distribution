@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "c8b96ae6_ed28398e",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/file/FilePolicyForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-04-10T12:30:10Z",
+      "side": 1,
+      "message": "We should not be using FlexLogger - slf4j instead. We need to weed that out of this repo if its in there elsewhere.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 56
+      },
+      "revId": "42370a06ea7681b6e422b1d5739ec4d6c1287103",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f373757_669bfc9d",
         "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/file/FilePolicyForwarderParameterGroup.java",
         "patchSetId": 1
