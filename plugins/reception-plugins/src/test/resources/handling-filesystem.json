@@ -1,5 +1,6 @@
 {
     "name": "parameterConfig1",
-    "watchPath": "/tmp"
+    "watchPath": "/tmp",
+    "maxThread": 2
 }
 

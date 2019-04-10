@@ -27,6 +27,7 @@ package org.onap.policy.distribution.reception.handling.file;
 public class FileSystemReceptionHandlerConfigurationParameterBuilder {
 
     private String watchPath;
+    private int maxThread = 1;
 
     /**
      * Set watchPath to this {@link FileSystemReceptionHandlerConfigurationParameterBuilder} instance.
@@ -38,6 +39,15 @@ public class FileSystemReceptionHandlerConfigurationParameterBuilder {
         return this;
     }
 
+    /**
+     * Set maxThread to this {@link FileSystemReceptionHandlerConfigurationParameterBuilder} instance.
+     *
+     * @param maxThread the max thread number in the thread pool
+     */
+    public FileSystemReceptionHandlerConfigurationParameterBuilder setMaxThread(final int maxThread) {
+        this.maxThread = maxThread;
+        return this;
+    }
 
     /**
      * Returns the watchPath of this {@link FileSystemReceptionHandlerConfigurationParameterBuilder} instance.
@@ -46,6 +56,15 @@ public class FileSystemReceptionHandlerConfigurationParameterBuilder {
      */
     public String getWatchPath() {
         return watchPath;
+    }
+
+    /**
+     * Returns the maxThread of this {@link FileSystemReceptionHandlerConfigurationParameterBuilder} instance.
+     *
+     * @return the maxThread
+     */
+    public int getMaxThread() {
+        return maxThread;
     }
 }
 

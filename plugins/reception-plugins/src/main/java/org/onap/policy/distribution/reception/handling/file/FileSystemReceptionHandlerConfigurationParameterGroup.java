@@ -24,6 +24,7 @@ import java.io.File;
 
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.common.utils.validation.ParameterValidationUtils;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 
 /**
@@ -33,6 +34,7 @@ import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigu
 public class FileSystemReceptionHandlerConfigurationParameterGroup extends ReceptionHandlerConfigurationParameterGroup {
 
     private String watchPath;
+    private int maxThread;
 
     /**
      * The constructor for instantiating {@link FileSystemReceptionHandlerConfigurationParameterGroup} class.
@@ -42,10 +44,15 @@ public class FileSystemReceptionHandlerConfigurationParameterGroup extends Recep
     public FileSystemReceptionHandlerConfigurationParameterGroup(
             final FileSystemReceptionHandlerConfigurationParameterBuilder builder) {
         watchPath = builder.getWatchPath();
+        maxThread = builder.getMaxThread();
     }
 
     public String getWatchPath() {
         return watchPath;
+    }
+
+    public int getMaxThread() {
+        return maxThread;
     }
 
     /**
@@ -55,6 +62,9 @@ public class FileSystemReceptionHandlerConfigurationParameterGroup extends Recep
     public GroupValidationResult validate() {
         final GroupValidationResult validationResult = new GroupValidationResult(this);
         validatePathElement(validationResult, watchPath, "watchPath");
+        if (!ParameterValidationUtils.validateIntParameter(maxThread)) {
+            validationResult.setResult("maxThread", ValidationStatus.INVALID, "must be a positive integer");
+        }
         return validationResult;
     }
 

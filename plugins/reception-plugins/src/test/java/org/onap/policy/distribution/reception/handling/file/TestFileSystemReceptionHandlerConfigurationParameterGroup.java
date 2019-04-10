@@ -53,7 +53,7 @@ public class TestFileSystemReceptionHandlerConfigurationParameterGroup {
             validPath = tempFolder.getRoot().getAbsolutePath();
 
             final FileSystemReceptionHandlerConfigurationParameterBuilder builder =
-                    new FileSystemReceptionHandlerConfigurationParameterBuilder().setWatchPath(validPath);
+                new FileSystemReceptionHandlerConfigurationParameterBuilder().setWatchPath(validPath).setMaxThread(2);
             configParameters = new FileSystemReceptionHandlerConfigurationParameterGroup(builder);
         } catch (final Exception e) {
             fail("test should not thrown an exception here: " + e.getMessage());
@@ -61,6 +61,7 @@ public class TestFileSystemReceptionHandlerConfigurationParameterGroup {
         final GroupValidationResult validationResult = configParameters.validate();
         assertTrue(validationResult.isValid());
         assertEquals(validPath, configParameters.getWatchPath());
+        assertEquals(2, configParameters.getMaxThread());
     }
 
     @Test

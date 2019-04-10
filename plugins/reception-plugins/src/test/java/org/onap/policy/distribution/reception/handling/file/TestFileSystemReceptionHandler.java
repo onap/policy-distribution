@@ -93,7 +93,8 @@ public class TestFileSystemReceptionHandler {
     @Test
     public final void testInit() throws IOException, InterruptedException {
         final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
-        Mockito.doNothing().when(sypHandler).initFileWatcher(Mockito.isA(String.class));
+        Mockito.doNothing().when(sypHandler).initFileWatcher(Mockito.isA(String.class),
+                Mockito.anyInt());
         try {
             sypHandler.initializeReception(pssdConfigParameters.getName());
         } catch (final Exception exp) {
@@ -106,7 +107,8 @@ public class TestFileSystemReceptionHandler {
     public final void testDestroy() throws IOException {
         try {
             final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
-            Mockito.doNothing().when(sypHandler).initFileWatcher(Mockito.isA(String.class));
+            Mockito.doNothing().when(sypHandler).initFileWatcher(Mockito.isA(String.class),
+                    Mockito.anyInt());
             sypHandler.initializeReception(pssdConfigParameters.getName());
             sypHandler.destroy();
         } catch (final Exception exp) {
@@ -141,7 +143,7 @@ public class TestFileSystemReceptionHandler {
 
         final Thread th = new Thread(() -> {
             try {
-                sypHandler.initFileWatcher(watchPath);
+                sypHandler.initFileWatcher(watchPath, 2);
             } catch (final IOException ex) {
                 LOGGER.error("testMain failed", ex);
             }

@@ -36,15 +36,18 @@ public class FileClientHandler implements Runnable {
 
     private FileSystemReceptionHandler fileReceptionHandler;
     private String watchPath;
+    private int maxThread;
 
     /**
      * Constructs an instance of {@link FileClientHandler} class.
      *
      * @param fileReceptionHandler the fileReceptionHandler
      */
-    public FileClientHandler(final FileSystemReceptionHandler fileReceptionHandler, final String watchPath) {
+    public FileClientHandler(final FileSystemReceptionHandler fileReceptionHandler, final String watchPath,
+            final int maxThread) {
         this.fileReceptionHandler = fileReceptionHandler;
         this.watchPath = watchPath;
+        this.maxThread = maxThread;
     }
 
     /**
@@ -53,7 +56,7 @@ public class FileClientHandler implements Runnable {
     @Override
     public void run() {
         try {
-            fileReceptionHandler.initFileWatcher(watchPath);
+            fileReceptionHandler.initFileWatcher(watchPath, maxThread);
         } catch (final IOException ex) {
             LOGGER.error("Failed initializing file watcher thread", ex);
         }

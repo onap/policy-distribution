@@ -31,6 +31,8 @@ import java.nio.file.Paths;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipFile;
 
@@ -59,7 +61,9 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
         try {
             final FileSystemReceptionHandlerConfigurationParameterGroup handlerParameters =
                     ParameterService.get(parameterGroupName);
-            final FileClientHandler fileClientHandler = new FileClientHandler(this, handlerParameters.getWatchPath());
+            final FileClientHandler fileClientHandler = new FileClientHandler(this,
+                    handlerParameters.getWatchPath(),
+                    handlerParameters.getMaxThread());
             final Thread fileWatcherThread = new Thread(fileClientHandler);
             fileWatcherThread.start();
         } catch (final Exception ex) {
@@ -89,13 +93,13 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
      *
      * @param watchPath Path to watch
      */
-    public void initFileWatcher(final String watchPath) throws IOException {
+    public void initFileWatcher(final String watchPath, final int maxThread) throws IOException {
         try (final WatchService watcher = FileSystems.getDefault().newWatchService()) {
             final Path dir = Paths.get(watchPath);
             dir.register(watcher, ENTRY_CREATE);
             LOGGER.debug("Watch Service registered for dir: {}", dir.getFileName());
-            startWatchService(watcher, dir);
-        } catch (final InterruptedException ex) {
+            startWatchService(watcher, dir, maxThread);
+        } catch (final Exception ex) {
             LOGGER.error("FileWatcher initialization failed", ex);
             Thread.currentThread().interrupt();
         }
@@ -106,11 +110,16 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
      *
      * @param watcher the watcher
      * @param dir the watch directory
+     * @param maxThread the max thread number
      * @throws InterruptedException if it occurs
      */
     @SuppressWarnings("unchecked")
-    protected void startWatchService(final WatchService watcher, final Path dir) throws InterruptedException {
+    protected void startWatchService(final WatchService watcher,
+            final Path dir,
+            int maxThread) throws InterruptedException, NullPointerException, IllegalArgumentException {
         WatchKey key;
+        ExecutorService pool = Executors.newFixedThreadPool(maxThread);
+
         running = true;
         while (running) {
             key = watcher.take();
@@ -118,12 +127,20 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
             for (final WatchEvent<?> event : key.pollEvents()) {
                 final WatchEvent<Path> ev = (WatchEvent<Path>) event;
                 final Path fileName = ev.context();
-                LOGGER.debug("new CSAR found: {}", fileName);
-                DistributionStatisticsManager.updateTotalDistributionCount();
-                final String fullFilePath = dir.toString() + File.separator + fileName.toString();
-                waitForFileToBeReady(fullFilePath);
-                createPolicyInputAndCallHandler(fullFilePath);
-                LOGGER.debug("CSAR complete: {}", fileName);
+                pool.execute(new Runnable() {
+                    public void run() {
+                        LOGGER.debug("new CSAR found: {}", fileName);
+                        DistributionStatisticsManager.updateTotalDistributionCount();
+                        final String fullFilePath = dir.toString() + File.separator + fileName.toString();
+                        try {
+                            waitForFileToBeReady(fullFilePath);
+                            createPolicyInputAndCallHandler(fullFilePath);
+                            LOGGER.debug("CSAR complete: {}", fileName);
+                        } catch (InterruptedException e) {
+                            LOGGER.error("waitForFileToBeReady interrupted", e);
+                        }
+                    }
+                });
             }
             final boolean valid = key.reset();
             if (!valid) {
@@ -131,6 +148,7 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
                 break;
             }
         }
+        pool.shutdown();
     }
 
     /**
