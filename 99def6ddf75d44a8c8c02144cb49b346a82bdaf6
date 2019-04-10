@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "906f4577_1a4e34c7",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/file/FileSystemReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 309
+      },
+      "writtenOn": "2019-04-10T13:40:12Z",
+      "side": 1,
+      "message": "The listen for csar file should be handled in the central place, and when a new csar file is detected, we then start a new thread to do the processing. \n\nIn the current implementation, we have the fileWatcherThread acting as the central place to listen for csar files changes.",
+      "parentUuid": "09a1311a_959ecfd7",
+      "range": {
+        "startLine": 67,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 38
+      },
+      "revId": "99def6ddf75d44a8c8c02144cb49b346a82bdaf6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69a8a4a9_f1df16ad",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/file/FileSystemReceptionHandler.java",
         "patchSetId": 1
