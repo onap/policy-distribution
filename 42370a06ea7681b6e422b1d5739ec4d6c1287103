@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "12bff31b_e82d1b8f",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/file/FilePolicyForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 309
+      },
+      "writtenOn": "2019-04-10T13:12:07Z",
+      "side": 1,
+      "message": "@Pam, it seems all the forwarder plugins are using FlexLogger. I\u0027ll fix this and create a bug to fix other forward plugin tomorrow.",
+      "parentUuid": "c8b96ae6_ed28398e",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 56
+      },
+      "revId": "42370a06ea7681b6e422b1d5739ec4d6c1287103",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f373757_669bfc9d",
         "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/file/FilePolicyForwarderParameterGroup.java",
         "patchSetId": 1
