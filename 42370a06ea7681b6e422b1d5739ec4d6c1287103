@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f373757_669bfc9d",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/file/FilePolicyForwarderParameterGroup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-04-10T09:20:13Z",
+      "side": 1,
+      "message": "This is fine!\nBut in general if there are more than 4 parameters then it is beneficial to go for another builder class. Otherwise just a constructor should be fine.\nCheck this sonar rule - squid:S00107",
+      "range": {
+        "startLine": 42,
+        "startChar": 51,
+        "endLine": 42,
+        "endChar": 86
+      },
+      "revId": "42370a06ea7681b6e422b1d5739ec4d6c1287103",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
