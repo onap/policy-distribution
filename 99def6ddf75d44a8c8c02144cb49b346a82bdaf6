@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "7f5a40ca_63c9d327",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/file/FileSystemReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-04-10T16:07:52Z",
+      "side": 1,
+      "message": "okay",
+      "parentUuid": "906f4577_1a4e34c7",
+      "range": {
+        "startLine": 67,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 38
+      },
+      "revId": "99def6ddf75d44a8c8c02144cb49b346a82bdaf6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69a8a4a9_f1df16ad",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/file/FileSystemReceptionHandler.java",
         "patchSetId": 1
