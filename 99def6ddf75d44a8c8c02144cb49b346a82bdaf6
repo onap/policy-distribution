@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a2c138b_a56db217",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/file/FileSystemReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-04-10T09:48:45Z",
+      "side": 1,
+      "message": "The current implementation will also work.\nBut we could have done it better by putting ExecutorService here and starting multiple FileClientHandler to listen for files.\nIn current approach, we are creating a fileWatcherThread which then creates multiple threads using ExecutorService. So the current flow is DistributionMainThread -\u003e fileWatcherThread -\u003e ExecutorService(with inline run method)\n\nWith my suggestion the flow will be DistributionMainThread -\u003e ExecutorService(FileClientHandler)",
+      "range": {
+        "startLine": 67,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 38
+      },
+      "revId": "99def6ddf75d44a8c8c02144cb49b346a82bdaf6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69a8a4a9_f1df16ad",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/file/FileSystemReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-04-10T09:48:45Z",
+      "side": 1,
+      "message": "Doing this in finally clause may be better.",
+      "range": {
+        "startLine": 151,
+        "startChar": 8,
+        "endLine": 151,
+        "endChar": 24
+      },
+      "revId": "99def6ddf75d44a8c8c02144cb49b346a82bdaf6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07119255_9f42a471",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/file/FileSystemReceptionHandlerConfigurationParameterGroup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-04-10T09:48:45Z",
+      "side": 1,
+      "message": "Same comment applies to this builder as well.",
+      "range": {
+        "startLine": 45,
+        "startChar": 18,
+        "endLine": 45,
+        "endChar": 73
+      },
+      "revId": "99def6ddf75d44a8c8c02144cb49b346a82bdaf6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
