@@ -120,35 +120,38 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
         WatchKey key;
         ExecutorService pool = Executors.newFixedThreadPool(maxThread);
 
-        running = true;
-        while (running) {
-            key = watcher.take();
+        try {
+            running = true;
+            while (running) {
+                key = watcher.take();
 
-            for (final WatchEvent<?> event : key.pollEvents()) {
-                final WatchEvent<Path> ev = (WatchEvent<Path>) event;
-                final Path fileName = ev.context();
-                pool.execute(new Runnable() {
-                    public void run() {
-                        LOGGER.debug("new CSAR found: {}", fileName);
-                        DistributionStatisticsManager.updateTotalDistributionCount();
-                        final String fullFilePath = dir.toString() + File.separator + fileName.toString();
-                        try {
-                            waitForFileToBeReady(fullFilePath);
-                            createPolicyInputAndCallHandler(fullFilePath);
-                            LOGGER.debug("CSAR complete: {}", fileName);
-                        } catch (InterruptedException e) {
-                            LOGGER.error("waitForFileToBeReady interrupted", e);
+                for (final WatchEvent<?> event : key.pollEvents()) {
+                    final WatchEvent<Path> ev = (WatchEvent<Path>) event;
+                    final Path fileName = ev.context();
+                    pool.execute(new Runnable() {
+                        public void run() {
+                            LOGGER.debug("new CSAR found: {}", fileName);
+                            DistributionStatisticsManager.updateTotalDistributionCount();
+                            final String fullFilePath = dir.toString() + File.separator + fileName.toString();
+                            try {
+                                waitForFileToBeReady(fullFilePath);
+                                createPolicyInputAndCallHandler(fullFilePath);
+                                LOGGER.debug("CSAR complete: {}", fileName);
+                            } catch (InterruptedException e) {
+                                LOGGER.error("waitForFileToBeReady interrupted", e);
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                final boolean valid = key.reset();
+                if (!valid) {
+                    LOGGER.error("Watch key no longer valid!");
+                    break;
+                }
             }
-            final boolean valid = key.reset();
-            if (!valid) {
-                LOGGER.error("Watch key no longer valid!");
-                break;
-            }
+        } finally {
+            pool.shutdown();
         }
-        pool.shutdown();
     }
 
     /**
