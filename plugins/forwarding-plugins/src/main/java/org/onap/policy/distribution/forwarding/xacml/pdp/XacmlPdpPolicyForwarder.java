@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Copyright (C) 2019 Intel Corp. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,13 +32,14 @@ import org.onap.policy.api.PolicyParameters;
 import org.onap.policy.api.PushPolicyParameters;
 import org.onap.policy.common.endpoints.event.comm.bus.internal.BusTopicParams;
 import org.onap.policy.common.endpoints.http.client.HttpClient;
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.xacml.pdp.adapters.XacmlPdpOptimizationPolicyAdapter;
 import org.onap.policy.distribution.model.OptimizationPolicy;
 import org.onap.policy.distribution.model.Policy;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -45,7 +47,7 @@ import org.springframework.http.HttpStatus;
  */
 public class XacmlPdpPolicyForwarder implements PolicyForwarder {
 
-    private static final Logger LOGGER = FlexLogger.getLogger(XacmlPdpPolicyForwarder.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(XacmlPdpPolicyForwarder.class);
     private static final String BASE_PATH = "pdp/api/";
 
     private XacmlPdpPolicyForwarderParameterGroup configurationParameters = null;
@@ -62,8 +64,8 @@ public class XacmlPdpPolicyForwarder implements PolicyForwarder {
         XacmlPdpPolicyAdapter<?> policyAdapter = getXacmlPdpPolicyAdapter(policy);
 
         if (policyAdapter == null) {
-            LOGGER.error("Cannot forward policy " + policy + ". Unsupported policy type "
-                    + policy.getClass().getSimpleName());
+            LOGGER.error("Cannot forward policy {}. Unsupported policy type {}",
+                    policy, policy.getClass().getSimpleName());
             return;
         }
 
@@ -103,8 +105,8 @@ public class XacmlPdpPolicyForwarder implements PolicyForwarder {
 
             if (response.getStatus() != HttpStatus.OK.value()) {
                 LOGGER.error(
-                        "Invocation of method " + method + " failed for policy " + policyName + ". Response status: "
-                                + response.getStatus() + ", Response status info: " + response.getStatusInfo());
+                        "Invocation of method {} failed for policy {}. Response status: {}, Response status info: {}",
+                        method, policyName, response.getStatus(), response.getStatusInfo());
                 return false;
             }
         } catch (KeyManagementException | NoSuchAlgorithmException | ClassNotFoundException exception) {

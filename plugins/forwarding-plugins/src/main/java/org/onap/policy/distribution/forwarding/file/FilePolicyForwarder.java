@@ -29,13 +29,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
 
-import org.onap.policy.common.logging.flexlogger.FlexLogger;
-import org.onap.policy.common.logging.flexlogger.Logger;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.distribution.model.OptimizationPolicy;
 import org.onap.policy.distribution.model.Policy;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class provides an implementation of {@link PolicyForwarder} interface for forwarding the given policies to
@@ -43,7 +44,7 @@ import org.onap.policy.distribution.model.Policy;
  */
 public class FilePolicyForwarder implements PolicyForwarder {
 
-    private static final Logger LOGGER = FlexLogger.getLogger(FilePolicyForwarder.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FilePolicyForwarder.class);
     private FilePolicyForwarderParameterGroup fileForwarderParameters;
 
     /**
@@ -58,7 +59,7 @@ public class FilePolicyForwarder implements PolicyForwarder {
                 Files.createDirectories(path);
             }
         } catch (final InvalidPathException | IOException e) {
-            LOGGER.error(e.toString());
+            LOGGER.error("Configuring FilePolicyForwarder failed!", e);
         }
     }
 
@@ -112,7 +113,7 @@ public class FilePolicyForwarder implements PolicyForwarder {
                 writer.write("riskType: " + pol.getRiskType());
             }
             writer.close();
-            LOGGER.debug("Sucessfully forwarded the policy to store into file: " + path.toString());
+            LOGGER.debug("Sucessfully forwarded the policy to store into file {}.", path);
         } catch (final InvalidPathException | IOException exp) {
             final String message = "Error sending policy to file under path:" + fileForwarderParameters.getPath();
             LOGGER.error(message, exp);
