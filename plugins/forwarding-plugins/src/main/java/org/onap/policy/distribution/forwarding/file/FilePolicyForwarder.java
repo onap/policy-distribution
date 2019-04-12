@@ -88,9 +88,8 @@ public class FilePolicyForwarder implements PolicyForwarder {
      */
     private void forwardPolicy(final OptimizationPolicy pol) throws PolicyForwardingException {
         final String name = pol.getPolicyName();
-        try {
-            Path path = Paths.get(fileForwarderParameters.getPath(), name);
-            BufferedWriter writer = new BufferedWriter(new FileWriter(path.toString()));
+        Path path = Paths.get(fileForwarderParameters.getPath(), name);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toString()))) {
             writer.write("policyName: " + name);
             if (fileForwarderParameters.isVerbose()) {
                 writer.newLine();
@@ -112,7 +111,6 @@ public class FilePolicyForwarder implements PolicyForwarder {
                 writer.newLine();
                 writer.write("riskType: " + pol.getRiskType());
             }
-            writer.close();
             LOGGER.debug("Sucessfully forwarded the policy to store into file {}.", path);
         } catch (final InvalidPathException | IOException exp) {
             final String message = "Error sending policy to file under path:" + fileForwarderParameters.getPath();
