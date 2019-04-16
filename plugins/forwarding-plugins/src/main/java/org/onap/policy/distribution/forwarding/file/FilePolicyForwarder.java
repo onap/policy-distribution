@@ -55,7 +55,7 @@ public class FilePolicyForwarder implements PolicyForwarder {
         fileForwarderParameters = ParameterService.get(parameterGroupName);
         try {
             Path path = Paths.get(fileForwarderParameters.getPath());
-            if (!Files.exists(path)) {
+            if (!path.toFile().exists()) {
                 Files.createDirectories(path);
             }
         } catch (final InvalidPathException | IOException e) {
@@ -72,8 +72,8 @@ public class FilePolicyForwarder implements PolicyForwarder {
             if (policy instanceof OptimizationPolicy) {
                 forwardPolicy((OptimizationPolicy) policy);
             } else {
-                final String message = new String("Cannot forward policy " + policy
-                        + ". Unsupported policy type " + policy.getClass().getSimpleName());
+                final String message = "Cannot forward policy " + policy
+                     + ". Unsupported policy type " + policy.getClass().getSimpleName();
                 LOGGER.error(message);
                 throw new PolicyForwardingException(message);
             }

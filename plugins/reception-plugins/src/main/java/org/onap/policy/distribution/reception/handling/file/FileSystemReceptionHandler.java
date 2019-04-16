@@ -123,24 +123,7 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
             running = true;
             while (running) {
                 key = watcher.take();
-
-                for (final WatchEvent<?> event : key.pollEvents()) {
-                    final WatchEvent<Path> ev = (WatchEvent<Path>) event;
-                    final Path fileName = ev.context();
-                    pool.execute(() -> {
-                        LOGGER.debug("new CSAR found: {}", fileName);
-                        DistributionStatisticsManager.updateTotalDistributionCount();
-                        final String fullFilePath = dir.toString() + File.separator + fileName.toString();
-                        try {
-                            waitForFileToBeReady(fullFilePath);
-                            createPolicyInputAndCallHandler(fullFilePath);
-                            LOGGER.debug("CSAR complete: {}", fileName);
-                        } catch (InterruptedException e) {
-                            LOGGER.error("waitForFileToBeReady interrupted", e);
-                            Thread.currentThread().interrupt();
-                        }
-                    });
-                }
+                processFileEvents(dir, key, pool);
                 final boolean valid = key.reset();
                 if (!valid) {
                     LOGGER.error("Watch key no longer valid!");
@@ -149,6 +132,26 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
             }
         } finally {
             pool.shutdown();
+        }
+    }
+
+    private void processFileEvents(Path dir, WatchKey key, ExecutorService pool) {
+        for (final WatchEvent<?> event : key.pollEvents()) {
+            final WatchEvent<Path> ev = (WatchEvent<Path>) event;
+            final Path fileName = ev.context();
+            pool.execute(() -> {
+                LOGGER.debug("new CSAR found: {}", fileName);
+                DistributionStatisticsManager.updateTotalDistributionCount();
+                final String fullFilePath = dir.toString() + File.separator + fileName.toString();
+                try {
+                    waitForFileToBeReady(fullFilePath);
+                    createPolicyInputAndCallHandler(fullFilePath);
+                    LOGGER.debug("CSAR complete: {}", fileName);
+                } catch (InterruptedException e) {
+                    LOGGER.error("waitForFileToBeReady interrupted", e);
+                    Thread.currentThread().interrupt();
+                }
+            });
         }
     }
 
