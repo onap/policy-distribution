@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdf900c7_a8dd136a",
+        "filename": "packages/policy-distribution-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-04-23T20:50:34Z",
+      "side": 1,
+      "message": "Fixing the version to 1.4.0\n\nThis is how I would like to have the \"application\" images with no OS stuff.  Even potentially the \"USER\" directive could be moved up, and just work with policy user.",
+      "revId": "864c73ef571a11f0d26d012f630328827a29f34e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
