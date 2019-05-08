@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "56d7f22f_95692f5c",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/pdpx/TestPolicyDecoderCsarPdpx.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-05-08T13:51:23Z",
+      "side": 1,
+      "message": "But if we upgrade Tosca parser without the fix then we make the functionality to fail in Dublin release.",
+      "parentUuid": "241ed4fc_7235ead8",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 37
+      },
+      "revId": "aaa90b51f56e670c129e8b9a7ba481e5a4f46437",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63d1ed68_9b985a45",
         "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/pdpx/TestPolicyDecoderCsarPdpx.java",
         "patchSetId": 1
