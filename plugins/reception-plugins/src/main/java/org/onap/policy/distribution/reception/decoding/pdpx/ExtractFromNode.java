@@ -59,7 +59,7 @@ public class ExtractFromNode {
     private static final String VIRTUAL_MEM_SIZE_PATH = "virtual_memory#virtual_mem_size";
     private static final String NUM_VIRTUAL_CPU_PATH = "virtual_cpu#num_virtual_cpu";
     private static final String CPU_ARCHITECTURE_PATH = "virtual_cpu#cpu_architecture";
-    private static final String MEMORY_PAGE_SIZE_PATH = "virtual_memory#vdu_memory_requirements#memoryPageSize";
+    private static final String MEMORY_PAGE_SIZE_PATH = "virtual_memory#vdu_mem_requirements#memoryPageSize";
     private static final String NETWORK_INTERFACE_TYPE_PATH =
             "virtual_network_interface_requirements#network_interface_requirements#interfaceType";
     private static final String NETWORK_PCI_PATH =
