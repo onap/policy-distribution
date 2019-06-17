@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 AT&T Intellectual Property.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +30,7 @@ import org.onap.policy.distribution.main.parameters.PolicyForwarderConfiguration
  * Holds the parameters for the{@link ApexPdpPolicyForwarder}.
  */
 public class ApexPdpPolicyForwarderParameterGroup extends PolicyForwarderConfigurationParameterGroup {
-    public static final String POLICY_FORWARDER_PLUGIN_CLASS = ApexPdpPolicyForwarder.class.getCanonicalName();
+    public static final String POLICY_FORWARDER_PLUGIN_CLASS = ApexPdpPolicyForwarder.class.getName();
 
     private String hostname;
     private int port;
