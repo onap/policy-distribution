@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel Corp. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019 AT&T Intellectual Property.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -113,7 +114,6 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
      * @param maxThread the max thread number
      * @throws InterruptedException if it occurs
      */
-    @SuppressWarnings("unchecked")
     protected void startWatchService(final WatchService watcher,
             final Path dir, int maxThread) throws InterruptedException {
         WatchKey key;
@@ -137,6 +137,7 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
 
     private void processFileEvents(Path dir, WatchKey key, ExecutorService pool) {
         for (final WatchEvent<?> event : key.pollEvents()) {
+            @SuppressWarnings("unchecked")
             final WatchEvent<Path> ev = (WatchEvent<Path>) event;
             final Path fileName = ev.context();
             pool.execute(() -> {

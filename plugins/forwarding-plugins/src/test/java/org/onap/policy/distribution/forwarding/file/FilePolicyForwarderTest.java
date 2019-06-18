@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Intel Corp. All rights reserved.
+ *  Modifications Copyright (C) 2019 AT&T Intellectual Property.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,19 +31,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ParameterService;
-import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.distribution.model.OptimizationPolicy;
 import org.onap.policy.distribution.model.Policy;
 
@@ -107,6 +105,7 @@ public class FilePolicyForwarderTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testForwardPolicyError() {
         final Collection<Policy> policies = new ArrayList<>();
         OptimizationPolicy policy = new OptimizationPolicy();
