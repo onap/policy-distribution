@@ -4,23 +4,21 @@ LABEL maintainer="Policy Team"
 
 ARG POLICY_LOGS=/var/log/onap/policy/distribution
 
-ENV POLICY_LOGS ${POLICY_LOGS}
-ENV POLICY_DISTRIBUTION_HOME=${POLICY_HOME}/distribution
+ENV POLICY_LOGS=$POLICY_LOGS
+ENV POLICY_HOME=$POLICY_HOME/distribution
 
-RUN mkdir -p ${POLICY_DISTRIBUTION_HOME} ${POLICY_LOGS} ${POLICY_DISTRIBUTION_HOME}/bin && \
-    chown -R policy:policy ${POLICY_DISTRIBUTION_HOME} ${POLICY_LOGS}
+RUN mkdir -p $POLICY_HOME $POLICY_LOGS $POLICY_HOME/bin && \
+    chown -R policy:policy $POLICY_HOME $POLICY_LOGS
 
 RUN mkdir /packages
 COPY /maven/* /packages
-RUN tar xvfz /packages/policy-distribution.tar.gz --directory ${POLICY_DISTRIBUTION_HOME} \
+RUN tar xvfz /packages/policy-distribution.tar.gz --directory $POLICY_HOME \
      && rm /packages/policy-distribution.tar.gz
 
-WORKDIR ${POLICY_DISTRIBUTION_HOME}
+WORKDIR $POLICY_HOME
 COPY policy-dist.sh  bin/.
-RUN chown -R policy:policy * && chmod +x bin/*.sh \
-   && cp ${POLICY_DISTRIBUTION_HOME}/etc/ssl/* ${POLICY_HOME}/etc/ssl \
-   && chown policy:policy ${POLICY_HOME}/etc/ssl/*
+RUN chown -R policy:policy * && chmod 755 bin/*.sh
 
 USER policy
-WORKDIR ${POLICY_DISTRIBUTION_HOME}/bin
+WORKDIR $POLICY_HOME/bin
 ENTRYPOINT [ "bash", "./policy-dist.sh" ]
