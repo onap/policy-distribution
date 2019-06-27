@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32217a9c_3ef128c3",
+        "filename": "packages/policy-distribution-docker/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-06-27T08:06:39Z",
+      "side": 1,
+      "message": "Didn\u0027t know this could be done!",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 76,
+        "endChar": 33
+      },
+      "revId": "b2f1e97eaa7d3e7f115c358caa0bbf49a46d737b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
