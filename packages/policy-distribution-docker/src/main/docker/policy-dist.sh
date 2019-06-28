@@ -35,9 +35,9 @@ fi
 
 if [ -z "$CONFIG_FILE" ]
   then
-    CONFIG_FILE="$POLICY_HOME/etc/defaultConfig.json"
+    CONFIG_FILE="${POLICY_HOME}/etc/defaultConfig.json"
 fi
 
 echo "Policy distribution config file: $CONFIG_FILE"
 
-$JAVA_HOME/bin/java -cp "$POLICY_HOME/etc:$POLICY_HOME/lib/*" -Djavax.net.ssl.keyStore="$KEYSTORE" -Djavax.net.ssl.keyStorePassword="$KEYSTORE_PASSWD" -Djavax.net.ssl.trustStore="$TRUSTSTORE" -Djavax.net.ssl.trustStorePassword="$TRUSTSTORE_PASSWD" org.onap.policy.distribution.main.startstop.Main -c $CONFIG_FILE
+$JAVA_HOME/bin/java -cp "${POLICY_HOME}/etc:${POLICY_HOME}/lib/*" -Djavax.net.ssl.keyStore="$KEYSTORE" -Djavax.net.ssl.keyStorePassword="$KEYSTORE_PASSWD" -Djavax.net.ssl.trustStore="$TRUSTSTORE" -Djavax.net.ssl.trustStorePassword="$TRUSTSTORE_PASSWD" org.onap.policy.distribution.main.startstop.Main -c $CONFIG_FILE
