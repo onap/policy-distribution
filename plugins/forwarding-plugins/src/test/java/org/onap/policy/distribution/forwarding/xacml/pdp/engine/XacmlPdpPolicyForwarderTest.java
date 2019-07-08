@@ -1,19 +1,20 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * SPDX-License-Identifier: Apache-2.0
  * ============LICENSE_END=========================================================
  */
@@ -28,10 +29,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -45,12 +42,12 @@ import org.onap.policy.api.PolicyParameters;
 import org.onap.policy.api.PushPolicyParameters;
 import org.onap.policy.common.endpoints.event.comm.bus.internal.BusTopicParams;
 import org.onap.policy.common.endpoints.http.client.HttpClient;
+import org.onap.policy.common.endpoints.http.client.HttpClientConfigException;
 import org.onap.policy.common.endpoints.http.client.HttpClientFactory;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarder;
 import org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarderParameterGroup.XacmlPdpPolicyForwarderParameterGroupBuilder;
-import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.model.OptimizationPolicy;
 import org.onap.policy.distribution.model.Policy;
 
@@ -79,9 +76,7 @@ public class XacmlPdpPolicyForwarderTest {
     }
 
     @Test
-    public void testForwardPolicy()
-            throws KeyManagementException, NoSuchAlgorithmException, NoSuchFieldException,SecurityException,
-            IllegalArgumentException, IllegalAccessException, PolicyDistributionException, ClassNotFoundException {
+    public void testForwardPolicy() throws Exception {
 
         HttpClient httpClientMock = mock(HttpClient.class);
         headers.put(CLIENT_AUTH, CLIENT_AUTH_VALUE);
@@ -91,9 +86,7 @@ public class XacmlPdpPolicyForwarderTest {
         HttpClientFactory httpClientFactoryMock = mock(HttpClientFactory.class);
         when(httpClientFactoryMock.build(argThat(matcher))).thenReturn(httpClientMock);
 
-        overwriteField(HttpClient.class, "factory", null, httpClientFactoryMock);
-
-        XacmlPdpPolicyForwarder forwarder = new XacmlPdpPolicyForwarder();
+        XacmlPdpPolicyForwarder forwarder = new MyXacmlPdpPolicyForwarder(httpClientFactoryMock);
         forwarder.configure("xacmlPdpConfiguration");
 
         Collection<Policy> policies = new ArrayList<>();
@@ -122,9 +115,7 @@ public class XacmlPdpPolicyForwarderTest {
     }
 
     @Test
-    public void testForwardPolicy_CreateFailsPushNotInvoked()
-            throws KeyManagementException, NoSuchAlgorithmException, NoSuchFieldException, SecurityException,
-            IllegalArgumentException, IllegalAccessException, PolicyDistributionException, ClassNotFoundException {
+    public void testForwardPolicy_CreateFailsPushNotInvoked() throws Exception {
 
         HttpClient httpClientMock = mock(HttpClient.class);
         headers.put(CLIENT_AUTH, CLIENT_AUTH_VALUE);
@@ -134,9 +125,7 @@ public class XacmlPdpPolicyForwarderTest {
         HttpClientFactory httpClientFactoryMock = mock(HttpClientFactory.class);
         when(httpClientFactoryMock.build(argThat(matcher))).thenReturn(httpClientMock);
 
-        overwriteField(HttpClient.class, "factory", null, httpClientFactoryMock);
-
-        XacmlPdpPolicyForwarder forwarder = new XacmlPdpPolicyForwarder();
+        XacmlPdpPolicyForwarder forwarder = new MyXacmlPdpPolicyForwarder(httpClientFactoryMock);
         forwarder.configure("xacmlPdpConfiguration");
 
         Collection<Policy> policies = new ArrayList<>();
@@ -150,9 +139,7 @@ public class XacmlPdpPolicyForwarderTest {
     }
 
     @Test
-    public void testForwardPolicy_PushFails()
-            throws KeyManagementException, NoSuchAlgorithmException, NoSuchFieldException, SecurityException,
-            IllegalArgumentException, IllegalAccessException, PolicyDistributionException, ClassNotFoundException {
+    public void testForwardPolicy_PushFails() throws Exception {
 
         HttpClient httpClientMock = mock(HttpClient.class);
         headers.put(CLIENT_AUTH, CLIENT_AUTH_VALUE);
@@ -162,9 +149,7 @@ public class XacmlPdpPolicyForwarderTest {
         HttpClientFactory httpClientFactoryMock = mock(HttpClientFactory.class);
         when(httpClientFactoryMock.build(argThat(matcher))).thenReturn(httpClientMock);
 
-        overwriteField(HttpClient.class, "factory", null, httpClientFactoryMock);
-
-        XacmlPdpPolicyForwarder forwarder = new XacmlPdpPolicyForwarder();
+        XacmlPdpPolicyForwarder forwarder = new MyXacmlPdpPolicyForwarder(httpClientFactoryMock);
         forwarder.configure("xacmlPdpConfiguration");
 
         Collection<Policy> policies = new ArrayList<>();
@@ -179,9 +164,7 @@ public class XacmlPdpPolicyForwarderTest {
     }
 
     @Test
-    public void testForwardPolicy_HttpClientInitFailureForPolicyCreate()
-            throws KeyManagementException, NoSuchAlgorithmException, NoSuchFieldException, SecurityException,
-            IllegalArgumentException, IllegalAccessException, PolicyDistributionException, ClassNotFoundException {
+    public void testForwardPolicy_HttpClientInitFailureForPolicyCreate() throws Exception {
 
         HttpClient httpClientMock = mock(HttpClient.class);
         headers.put(CLIENT_AUTH, CLIENT_AUTH_VALUE);
@@ -189,11 +172,9 @@ public class XacmlPdpPolicyForwarderTest {
         when(httpClientMock.put(eq("pushPolicy"), anyObject(), eq(headers))).thenReturn(Response.status(400).build());
 
         HttpClientFactory httpClientFactoryMock = mock(HttpClientFactory.class);
-        when(httpClientFactoryMock.build(argThat(matcher))).thenThrow(new KeyManagementException());
+        when(httpClientFactoryMock.build(argThat(matcher))).thenThrow(new HttpClientConfigException());
 
-        overwriteField(HttpClient.class, "factory", null, httpClientFactoryMock);
-
-        XacmlPdpPolicyForwarder forwarder = new XacmlPdpPolicyForwarder();
+        XacmlPdpPolicyForwarder forwarder = new MyXacmlPdpPolicyForwarder(httpClientFactoryMock);
         forwarder.configure("xacmlPdpConfiguration");
 
         Collection<Policy> policies = new ArrayList<>();
@@ -207,9 +188,7 @@ public class XacmlPdpPolicyForwarderTest {
     }
 
     @Test
-    public void testForwardPolicy_HttpClientInitFailureForPolicyPush()
-            throws KeyManagementException, NoSuchAlgorithmException, NoSuchFieldException, SecurityException,
-            IllegalArgumentException, IllegalAccessException, PolicyDistributionException, ClassNotFoundException {
+    public void testForwardPolicy_HttpClientInitFailureForPolicyPush() throws Exception {
 
         HttpClient httpClientMock = mock(HttpClient.class);
         headers.put(CLIENT_AUTH, CLIENT_AUTH_VALUE);
@@ -218,11 +197,9 @@ public class XacmlPdpPolicyForwarderTest {
 
         HttpClientFactory httpClientFactoryMock = mock(HttpClientFactory.class);
         when(httpClientFactoryMock.build(argThat(matcher))).thenReturn(httpClientMock)
-                .thenThrow(new KeyManagementException());
+                .thenThrow(new HttpClientConfigException());
 
-        overwriteField(HttpClient.class, "factory", null, httpClientFactoryMock);
-
-        XacmlPdpPolicyForwarder forwarder = new XacmlPdpPolicyForwarder();
+        XacmlPdpPolicyForwarder forwarder = new MyXacmlPdpPolicyForwarder(httpClientFactoryMock);
         forwarder.configure("xacmlPdpConfiguration");
 
         Collection<Policy> policies = new ArrayList<>();
@@ -233,16 +210,6 @@ public class XacmlPdpPolicyForwarderTest {
 
         verify(httpClientMock).put(eq("createPolicy"), argThat(new PolicyParametersEntityMatcher(policy)), eq(headers));
         verify(httpClientMock, times(0)).put(eq("pushPolicy"), anyObject(), anyObject());
-    }
-
-    private void overwriteField(final Class<?> clazz, final String fieldName, final Object object, final Object value)
-            throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-        Field field = clazz.getField(fieldName);
-        field.setAccessible(true);
-        Field modifiersField = Field.class.getDeclaredField("modifiers");
-        modifiersField.setAccessible(true);
-        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-        field.set(object, value);
     }
 
     class BusTopicParamsMatcher extends BaseMatcher<BusTopicParams> {
@@ -328,6 +295,19 @@ public class XacmlPdpPolicyForwarderTest {
         @Override
         public String getPolicyType() {
             return "unsupported";
+        }
+    }
+
+    private class MyXacmlPdpPolicyForwarder extends XacmlPdpPolicyForwarder {
+        private HttpClientFactory factory;
+
+        public MyXacmlPdpPolicyForwarder(HttpClientFactory httpClientFactory) {
+            this.factory = httpClientFactory;
+        }
+
+        @Override
+        protected HttpClientFactory getHttpClientFactory() {
+            return this.factory;
         }
     }
 }

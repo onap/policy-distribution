@@ -28,6 +28,7 @@ import java.util.Properties;
 
 import org.onap.policy.common.capabilities.Startable;
 import org.onap.policy.common.endpoints.http.server.HttpServletServer;
+import org.onap.policy.common.endpoints.http.server.HttpServletServerFactoryInstance;
 import org.onap.policy.common.gson.JacksonHandler;
 import org.onap.policy.distribution.main.parameters.RestServerParameters;
 import org.slf4j.Logger;
@@ -63,7 +64,7 @@ public class DistributionRestServer implements Startable {
     @Override
     public boolean start() {
         try {
-            servers = HttpServletServer.factory.build(getServerProperties());
+            servers = HttpServletServerFactoryInstance.getServerFactory().build(getServerProperties());
             for (final HttpServletServer server : servers) {
                 server.start();
             }
