@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Intel Corp. All rights reserved.
+ *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +22,6 @@
 
 package org.onap.policy.distribution.forwarding.xacml.pdp;
 
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.Collections;
 import javax.ws.rs.client.Entity;
@@ -32,12 +31,13 @@ import org.onap.policy.api.PolicyParameters;
 import org.onap.policy.api.PushPolicyParameters;
 import org.onap.policy.common.endpoints.event.comm.bus.internal.BusTopicParams;
 import org.onap.policy.common.endpoints.http.client.HttpClient;
+import org.onap.policy.common.endpoints.http.client.HttpClientConfigException;
+import org.onap.policy.common.endpoints.http.client.HttpClientFactoryInstance;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.xacml.pdp.adapters.XacmlPdpOptimizationPolicyAdapter;
 import org.onap.policy.distribution.model.OptimizationPolicy;
 import org.onap.policy.distribution.model.Policy;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -109,7 +109,7 @@ public class XacmlPdpPolicyForwarder implements PolicyForwarder {
                         method, policyName, response.getStatus(), response.getStatusInfo());
                 return false;
             }
-        } catch (KeyManagementException | NoSuchAlgorithmException | ClassNotFoundException exception) {
+        } catch (HttpClientConfigException exception) {
             LOGGER.error("Invocation of method " + method + " failed for policy " + policyName
                     + " due to error opening Http client", exception);
             return false;
@@ -117,8 +117,7 @@ public class XacmlPdpPolicyForwarder implements PolicyForwarder {
         return true;
     }
 
-    private HttpClient getHttpClient() 
-            throws KeyManagementException, NoSuchAlgorithmException, ClassNotFoundException {
+    private HttpClient getHttpClient() throws HttpClientConfigException {
         boolean useHttps = configurationParameters.isUseHttps();
         String hostname = configurationParameters.getHostname();
         int port = configurationParameters.getPort();
@@ -127,7 +126,7 @@ public class XacmlPdpPolicyForwarder implements PolicyForwarder {
         boolean managed = configurationParameters.isManaged();
         BusTopicParams params = BusTopicParams.builder().clientName("SDC Dist").useHttps(useHttps).hostname(hostname)
                 .port(port).userName(userName).password(password).basePath(BASE_PATH).managed(managed).build();
-        return HttpClient.factory.build(params);
+        return HttpClientFactoryInstance.getClientFactory().build(params);
     }
 
     @Override
