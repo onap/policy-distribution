@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "d47f54b3_8c75323b",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/apex/pdp/ApexPdpPolicyForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-16T19:13:42Z",
+      "side": 1,
+      "message": "I believe this test is backwards.  Better yet, just use \"instanceof\".",
+      "revId": "ddee6c208f30b40a014d4a3bed1e31c6ae166c5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f275279_fe529a29",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/apex/pdp/ApexPdpPolicyForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-16T19:13:42Z",
+      "side": 1,
+      "message": "put the string constant on the left of equals()",
+      "revId": "ddee6c208f30b40a014d4a3bed1e31c6ae166c5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2555aae_1e6b7f22",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/file/FilePolicyForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-07-16T19:13:42Z",
+      "side": 1,
+      "message": "need to specify utf-8 encoding?",
+      "revId": "ddee6c208f30b40a014d4a3bed1e31c6ae166c5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0701873a_3773e364",
         "filename": "pom.xml",
         "patchSetId": 1
