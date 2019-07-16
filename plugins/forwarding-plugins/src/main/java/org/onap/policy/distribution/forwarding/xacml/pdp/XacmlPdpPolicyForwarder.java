@@ -24,9 +24,11 @@ package org.onap.policy.distribution.forwarding.xacml.pdp;
 
 import java.util.Collection;
 import java.util.Collections;
+
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import org.onap.policy.api.PolicyParameters;
 import org.onap.policy.api.PushPolicyParameters;
 import org.onap.policy.common.endpoints.event.comm.bus.internal.BusTopicParams;
@@ -37,8 +39,8 @@ import org.onap.policy.common.endpoints.http.client.HttpClientFactoryInstance;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.xacml.pdp.adapters.XacmlPdpOptimizationPolicyAdapter;
-import org.onap.policy.distribution.model.OptimizationPolicy;
-import org.onap.policy.distribution.model.Policy;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -55,53 +57,53 @@ public class XacmlPdpPolicyForwarder implements PolicyForwarder {
 
 
     @Override
-    public void forward(final Collection<Policy> policies) {
-        for (Policy policy : policies) {
+    public void forward(final Collection<ToscaEntity> policies) {
+        for (final ToscaEntity policy : policies) {
             forward(policy);
         }
     }
 
-    private void forward(Policy policy) {
-        XacmlPdpPolicyAdapter<?> policyAdapter = getXacmlPdpPolicyAdapter(policy);
+    private void forward(final ToscaEntity policy) {
+        final XacmlPdpPolicyAdapter<?> policyAdapter = getXacmlPdpPolicyAdapter(policy);
 
         if (policyAdapter == null) {
-            LOGGER.error("Cannot forward policy {}. Unsupported policy type {}",
-                    policy, policy.getClass().getSimpleName());
+            LOGGER.error("Cannot forward policy {}. Unsupported policy type {}", policy,
+                    policy.getClass().getSimpleName());
             return;
         }
 
-        boolean policyCreated = createPolicy(policyAdapter);
+        final boolean policyCreated = createPolicy(policyAdapter);
         if (policyCreated) {
             pushPolicy(policyAdapter);
         }
     }
 
-    private XacmlPdpPolicyAdapter<?> getXacmlPdpPolicyAdapter(Policy policy) {
-        if (policy instanceof OptimizationPolicy) {
-            return new XacmlPdpOptimizationPolicyAdapter((OptimizationPolicy) policy);
+    private XacmlPdpPolicyAdapter<?> getXacmlPdpPolicyAdapter(final ToscaEntity policy) {
+        if (policy instanceof ToscaPolicy) {
+            return new XacmlPdpOptimizationPolicyAdapter((ToscaPolicy) policy);
         }
         return null;
     }
 
-    private boolean createPolicy(XacmlPdpPolicyAdapter<?> policyAdapter) {
-        PolicyParameters policyParameters = policyAdapter.getAsPolicyParameters();
-        Entity<PolicyParameters> entity = Entity.entity(policyParameters, MediaType.APPLICATION_JSON);
+    private boolean createPolicy(final XacmlPdpPolicyAdapter<?> policyAdapter) {
+        final PolicyParameters policyParameters = policyAdapter.getAsPolicyParameters();
+        final Entity<PolicyParameters> entity = Entity.entity(policyParameters, MediaType.APPLICATION_JSON);
 
-        return invokeHttpClient(entity, "createPolicy", policyAdapter.getPolicy().getPolicyName());
+        return invokeHttpClient(entity, "createPolicy", policyAdapter.getPolicy().getName());
     }
 
-    private boolean pushPolicy(XacmlPdpPolicyAdapter<?> policyAdapter) {
-        PushPolicyParameters pushPolicyParameters =
+    private boolean pushPolicy(final XacmlPdpPolicyAdapter<?> policyAdapter) {
+        final PushPolicyParameters pushPolicyParameters =
                 policyAdapter.getAsPushPolicyParameters(configurationParameters.getPdpGroup());
-        Entity<PushPolicyParameters> entity = Entity.entity(pushPolicyParameters, MediaType.APPLICATION_JSON);
+        final Entity<PushPolicyParameters> entity = Entity.entity(pushPolicyParameters, MediaType.APPLICATION_JSON);
 
-        return invokeHttpClient(entity, "pushPolicy", policyAdapter.getPolicy().getPolicyName());
+        return invokeHttpClient(entity, "pushPolicy", policyAdapter.getPolicy().getName());
     }
 
     private boolean invokeHttpClient(final Entity<?> entity, final String method, final String policyName) {
 
         try {
-            Response response = getHttpClient().put(method, entity,
+            final Response response = getHttpClient().put(method, entity,
                     Collections.singletonMap("ClientAuth", configurationParameters.getClientAuth()));
 
             if (response.getStatus() != HttpStatus.OK.value()) {
@@ -110,7 +112,7 @@ public class XacmlPdpPolicyForwarder implements PolicyForwarder {
                         method, policyName, response.getStatus(), response.getStatusInfo());
                 return false;
             }
-        } catch (HttpClientConfigException exception) {
+        } catch (final HttpClientConfigException exception) {
             LOGGER.error("Invocation of method " + method + " failed for policy " + policyName
                     + " due to error opening Http client", exception);
             return false;
@@ -119,19 +121,20 @@ public class XacmlPdpPolicyForwarder implements PolicyForwarder {
     }
 
     private HttpClient getHttpClient() throws HttpClientConfigException {
-        boolean useHttps = configurationParameters.isUseHttps();
-        String hostname = configurationParameters.getHostname();
-        int port = configurationParameters.getPort();
-        String userName = configurationParameters.getUserName();
-        String password = configurationParameters.getPassword();
-        boolean managed = configurationParameters.isManaged();
-        BusTopicParams params = BusTopicParams.builder().clientName("SDC Dist").useHttps(useHttps).hostname(hostname)
-                .port(port).userName(userName).password(password).basePath(BASE_PATH).managed(managed).build();
+        final boolean useHttps = configurationParameters.isUseHttps();
+        final String hostname = configurationParameters.getHostname();
+        final int port = configurationParameters.getPort();
+        final String userName = configurationParameters.getUserName();
+        final String password = configurationParameters.getPassword();
+        final boolean managed = configurationParameters.isManaged();
+        final BusTopicParams params =
+                BusTopicParams.builder().clientName("SDC Dist").useHttps(useHttps).hostname(hostname).port(port)
+                        .userName(userName).password(password).basePath(BASE_PATH).managed(managed).build();
         return getHttpClientFactory().build(params);
     }
 
     @Override
-    public void configure(String parameterGroupName) {
+    public void configure(final String parameterGroupName) {
         configurationParameters = ParameterService.get(parameterGroupName);
     }
 

@@ -45,8 +45,8 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
-import org.onap.policy.distribution.model.Policy;
-import org.onap.policy.distribution.model.PolicyAsString;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 
 /**
  * Class to perform unit test of {@link ApexPdpPolicyForwarder}.
@@ -89,7 +89,7 @@ public class ApexPdpPolicyForwarderTest {
     public void testForwardPolicy() throws ApexException, FileNotFoundException, IOException, PolicyForwardingException,
             NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 
-        final Collection<Policy> policies = new ArrayList<>();
+        final Collection<ToscaEntity> policies = new ArrayList<>();
         final ApexPdpPolicyForwarder forwarder = new ApexPdpPolicyForwarder();
         forwarder.configure(GROUP_NAME);
 
@@ -97,8 +97,7 @@ public class ApexPdpPolicyForwarderTest {
         forwarderField.setAccessible(true);
         forwarderField.set(forwarder, engineServiceFacade);
 
-        final PolicyAsString policy = new PolicyAsString("policy", "APEX", "Sample Policy of apex");
-        policies.add(policy);
+        createPolicy(policies, "policy", "APEX", "Sample Policy of apex");
 
         try {
             forwarder.forward(policies);
@@ -115,7 +114,7 @@ public class ApexPdpPolicyForwarderTest {
             throws ApexException, FileNotFoundException, IOException, PolicyForwardingException, NoSuchFieldException,
             SecurityException, IllegalArgumentException, IllegalAccessException {
 
-        final Collection<Policy> policies = new ArrayList<>();
+        final Collection<ToscaEntity> policies = new ArrayList<>();
         final ApexPdpPolicyForwarder forwarder = new ApexPdpPolicyForwarder();
         forwarder.configure(GROUP_NAME);
 
@@ -126,8 +125,7 @@ public class ApexPdpPolicyForwarderTest {
         decodersField.setAccessible(true);
         decodersField.set(forwarder, engineServiceFacade);
 
-        final PolicyAsString policy1 = new PolicyAsString("policy1", "APEX", "Sample Policy of apex");
-        policies.add(policy1);
+        createPolicy(policies, "policy1", "APEX", "Sample Policy of apex");
 
         try {
             forwarder.forward(policies);
@@ -143,7 +141,7 @@ public class ApexPdpPolicyForwarderTest {
             throws ApexException, FileNotFoundException, IOException, PolicyForwardingException, NoSuchFieldException,
             SecurityException, IllegalArgumentException, IllegalAccessException {
 
-        final Collection<Policy> policies = new ArrayList<>();
+        final Collection<ToscaEntity> policies = new ArrayList<>();
         final ApexPdpPolicyForwarder forwarder = new ApexPdpPolicyForwarder();
         forwarder.configure(GROUP_NAME);
 
@@ -151,11 +149,8 @@ public class ApexPdpPolicyForwarderTest {
         forwarderField.setAccessible(true);
         forwarderField.set(forwarder, engineServiceFacade);
 
-        final PolicyAsString policy1 = new PolicyAsString("policy1", "APEX", "Sample Policy of apex");
-        policies.add(policy1);
-
-        final PolicyAsString policy2 = new PolicyAsString("policy2", "APEX", "Sample Policy of apex");
-        policies.add(policy2);
+        createPolicy(policies, "policy1", "APEX", "Sample Policy of apex");
+        createPolicy(policies, "policy2", "APEX", "Sample Policy of apex");
 
         try {
             forwarder.forward(policies);
@@ -170,7 +165,7 @@ public class ApexPdpPolicyForwarderTest {
             throws ApexException, FileNotFoundException, IOException, PolicyForwardingException, NoSuchFieldException,
             SecurityException, IllegalArgumentException, IllegalAccessException {
 
-        final Collection<Policy> policies = new ArrayList<>();
+        final Collection<ToscaEntity> policies = new ArrayList<>();
         final ApexPdpPolicyForwarder forwarder = new ApexPdpPolicyForwarder();
         forwarder.configure(GROUP_NAME);
 
@@ -178,27 +173,31 @@ public class ApexPdpPolicyForwarderTest {
         forwarderField.setAccessible(true);
         forwarderField.set(forwarder, engineServiceFacade);
 
-        final Policy policy = new UnsupportedPolicy();
+        final ToscaEntity policy = new UnsupportedPolicy();
         policies.add(policy);
 
         try {
             forwarder.forward(policies);
             fail("Test must throw an exception");
         } catch (final Exception exp) {
-            assertTrue(exp.getMessage().contains("Ignoring the policy as it is not an apex-pdp policy"));
+            assertTrue(exp.getMessage().contains("Ignoring the policy as it is not of type ToscaPolicy"));
         }
     }
 
-    class UnsupportedPolicy implements Policy {
+    class UnsupportedPolicy extends ToscaEntity {
 
         @Override
-        public String getPolicyName() {
+        public String getName() {
             return "unsupported";
         }
+    }
 
-        @Override
-        public String getPolicyType() {
-            return "unsupported";
-        }
+    private void createPolicy(final Collection<ToscaEntity> policies, final String name, final String type,
+            final String description) {
+        final ToscaPolicy policy = new ToscaPolicy();
+        policy.setName(name);
+        policy.setType(type);
+        policy.setDescription(description);
+        policies.add(policy);
     }
 }

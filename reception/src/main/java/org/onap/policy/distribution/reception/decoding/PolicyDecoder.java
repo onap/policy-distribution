@@ -22,8 +22,8 @@ package org.onap.policy.distribution.reception.decoding;
 
 import java.util.Collection;
 
-import org.onap.policy.distribution.model.Policy;
 import org.onap.policy.distribution.model.PolicyInput;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
  * Decodes polices from a given input.
@@ -31,7 +31,7 @@ import org.onap.policy.distribution.model.PolicyInput;
  * @param <T> the type of policy that will be created
  * @param <S> the type of input to be decoded
  */
-public interface PolicyDecoder<S extends PolicyInput, T extends Policy> {
+public interface PolicyDecoder<S extends PolicyInput, T extends ToscaEntity> {
 
     /**
      * Configure the policy decoder. This method will be invoked immediately after instantiation in order for the policy

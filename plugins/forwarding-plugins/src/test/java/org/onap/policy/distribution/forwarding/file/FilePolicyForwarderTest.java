@@ -30,7 +30,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
@@ -41,8 +41,8 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ParameterService;
-import org.onap.policy.distribution.model.OptimizationPolicy;
-import org.onap.policy.distribution.model.Policy;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 
 /**
  * Class to perform unit test of {@link FilePolicyForwarder}.
@@ -78,26 +78,15 @@ public class FilePolicyForwarderTest {
 
     @Test
     public void testForwardPolicy() {
-        final Collection<Policy> policies = new ArrayList<>();
-        final OptimizationPolicy policy = new OptimizationPolicy();
-
-        policy.setPolicyName("test");
-        policy.setPolicyDescription("test");
-        policy.setOnapName("");
-        policy.setConfigBody("");
-        policy.setConfigBodyType("");
-        policy.setTimetolive(new Date());
-        policy.setGuard("");
-        policy.setRiskLevel("");
-        policy.setRiskType("");
-        policies.add(policy);
+        final Collection<ToscaEntity> policies = new ArrayList<>();
+        final ToscaPolicy policy = createPolicy(policies, "test", "test");
 
         final FilePolicyForwarder forwarder = new FilePolicyForwarder();
         forwarder.configure(GROUP_NAME);
 
         try {
             forwarder.forward(policies);
-            Path path = Paths.get(tempFolder.getRoot().getAbsolutePath().toString(), policy.getPolicyName());
+            final Path path = Paths.get(tempFolder.getRoot().getAbsolutePath().toString(), policy.getName());
             assertTrue(Files.exists(path));
         } catch (final Exception exp) {
             fail("Test must not throw an exception");
@@ -107,20 +96,11 @@ public class FilePolicyForwarderTest {
     @Test
     @SuppressWarnings("unchecked")
     public void testForwardPolicyError() {
-        final Collection<Policy> policies = new ArrayList<>();
-        OptimizationPolicy policy = new OptimizationPolicy();
-        policy.setPolicyName("test");
-        policy.setPolicyDescription("test");
-        policy.setOnapName("");
-        policy.setConfigBody("");
-        policy.setConfigBodyType("");
-        policy.setTimetolive(new Date());
-        policy.setGuard("");
-        policy.setRiskLevel("");
-        policy.setRiskType("");
+        final Collection<ToscaEntity> policies = new ArrayList<>();
+        final ToscaPolicy policy = createPolicy(policies, "test", "test");
 
-        OptimizationPolicy spy = Mockito.spy(policy);
-        Mockito.when(spy.getRiskType()).thenThrow(IOException.class);
+        final ToscaPolicy spy = Mockito.spy(policy);
+        Mockito.when(spy.toString()).thenThrow(IOException.class);
         policies.add(spy);
 
         final FilePolicyForwarder forwarder = new FilePolicyForwarder();
@@ -136,11 +116,11 @@ public class FilePolicyForwarderTest {
 
     @Test
     public void testForwardUnsupportedPolicy() {
-        final Collection<Policy> policies = new ArrayList<>();
+        final Collection<ToscaEntity> policies = new ArrayList<>();
         final FilePolicyForwarder forwarder = new FilePolicyForwarder();
         forwarder.configure(GROUP_NAME);
 
-        final Policy policy = new UnsupportedPolicy();
+        final ToscaEntity policy = new UnsupportedPolicy();
         policies.add(policy);
 
         try {
@@ -151,16 +131,20 @@ public class FilePolicyForwarderTest {
         }
     }
 
-    class UnsupportedPolicy implements Policy {
+    class UnsupportedPolicy extends ToscaEntity {
 
         @Override
-        public String getPolicyName() {
+        public String getName() {
             return "unsupported";
         }
+    }
 
-        @Override
-        public String getPolicyType() {
-            return "unsupported";
-        }
+    private ToscaPolicy createPolicy(final Collection<ToscaEntity> policies, final String name,
+            final String description) {
+        final ToscaPolicy policy = new ToscaPolicy();
+        policy.setName("test");
+        policy.setDescription("test");
+        policies.add(policy);
+        return policy;
     }
 }

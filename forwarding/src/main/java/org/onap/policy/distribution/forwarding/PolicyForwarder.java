@@ -21,7 +21,8 @@
 package org.onap.policy.distribution.forwarding;
 
 import java.util.Collection;
-import org.onap.policy.distribution.model.Policy;
+
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
  * Forwards polices.
@@ -49,6 +50,6 @@ public interface PolicyForwarder {
      * @param policies the policies to forward
      * @throws PolicyForwardingException if an error occurs when forwarding the given policy
      */
-    void forward(Collection<Policy> policies) throws PolicyForwardingException;
+    void forward(Collection<ToscaEntity> policies) throws PolicyForwardingException;
 
 }

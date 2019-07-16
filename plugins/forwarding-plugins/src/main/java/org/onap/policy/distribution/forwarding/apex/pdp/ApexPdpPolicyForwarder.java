@@ -31,10 +31,8 @@ import org.onap.policy.apex.model.basicmodel.concepts.ApexException;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
-import org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarder;
-import org.onap.policy.distribution.model.Policy;
-import org.onap.policy.distribution.model.PolicyAsString;
-
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +44,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ApexPdpPolicyForwarder implements PolicyForwarder {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(XacmlPdpPolicyForwarder.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApexPdpPolicyForwarder.class);
     private static final String POLICY_TYPE = "APEX";
 
     private ApexPdpPolicyForwarderParameterGroup apexForwarderParameters;
@@ -67,7 +65,7 @@ public class ApexPdpPolicyForwarder implements PolicyForwarder {
      * {@inheritDoc}.
      */
     @Override
-    public void forward(final Collection<Policy> policies) throws PolicyForwardingException {
+    public void forward(final Collection<ToscaEntity> policies) throws PolicyForwardingException {
         if (policies.isEmpty()) {
             final String message = "No apex policy to be forwarded to an apex engine";
             LOGGER.debug(message);
@@ -77,12 +75,18 @@ public class ApexPdpPolicyForwarder implements PolicyForwarder {
             LOGGER.debug(message);
             throw new PolicyForwardingException(message);
         } else {
-            final Policy policy = (Policy) policies.toArray()[0];
-            if (policy.getClass().isAssignableFrom(PolicyAsString.class)
-                    && policy.getPolicyType().equalsIgnoreCase(POLICY_TYPE)) {
-                forwardPolicy((PolicyAsString) policy);
+            final ToscaEntity policy = (ToscaEntity) policies.toArray()[0];
+            if (policy.getClass().isAssignableFrom(ToscaPolicy.class)) {
+                final ToscaPolicy toscaPolicy = (ToscaPolicy) policy;
+                if (toscaPolicy.getType().equalsIgnoreCase(POLICY_TYPE)) {
+                    forwardPolicy(toscaPolicy);
+                } else {
+                    final String message = "Ignoring the policy as it is not an apex-pdp policy";
+                    LOGGER.debug(message);
+                    throw new PolicyForwardingException(message);
+                }
             } else {
-                final String message = "Ignoring the policy as it is not an apex-pdp policy";
+                final String message = "Ignoring the policy as it is not of type ToscaPolicy";
                 LOGGER.debug(message);
                 throw new PolicyForwardingException(message);
             }
@@ -95,11 +99,11 @@ public class ApexPdpPolicyForwarder implements PolicyForwarder {
      * @param apexPolicy the apex policy
      * @throws PolicyForwardingException if any exception occurs while forwarding policy
      */
-    private void forwardPolicy(final PolicyAsString apexPolicy) throws PolicyForwardingException {
+    private void forwardPolicy(final ToscaPolicy apexPolicy) throws PolicyForwardingException {
         try {
             engineServiceFacade.init();
-            final InputStream policyInputStream = IOUtils.toInputStream(apexPolicy.getPolicy(), "UTF-8");
-            engineServiceFacade.deployModel(apexPolicy.getPolicyName(), policyInputStream,
+            final InputStream policyInputStream = IOUtils.toInputStream(apexPolicy.toString(), "UTF-8");
+            engineServiceFacade.deployModel(apexPolicy.getName(), policyInputStream,
                     apexForwarderParameters.isIgnoreConflicts(), apexForwarderParameters.isForceUpdate());
 
             LOGGER.debug("Sucessfully forwarded the policy to apex-pdp egine at {}:{}",

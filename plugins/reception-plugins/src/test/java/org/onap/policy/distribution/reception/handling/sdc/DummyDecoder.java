@@ -35,7 +35,6 @@ import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
  */
 public class DummyDecoder implements PolicyDecoder<Csar, DummyPolicy> {
 
-    public static final String DUMMY_POLICY = "DummyPolicy";
     private DummyPolicy decodedPolicy;
 
     /**
@@ -51,7 +50,7 @@ public class DummyDecoder implements PolicyDecoder<Csar, DummyPolicy> {
      */
     @Override
     public Collection<DummyPolicy> decode(final Csar input) throws PolicyDecodingException {
-        final DummyPolicy dummyPolicy = new DummyPolicy(input.getCsarPath(), DUMMY_POLICY);
+        final DummyPolicy dummyPolicy = new DummyPolicy(input.getCsarPath());
         decodedPolicy = dummyPolicy;
         return Arrays.asList(dummyPolicy);
     }

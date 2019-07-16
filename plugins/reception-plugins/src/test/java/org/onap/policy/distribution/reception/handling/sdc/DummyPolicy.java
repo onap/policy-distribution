@@ -20,43 +20,32 @@
 
 package org.onap.policy.distribution.reception.handling.sdc;
 
-import org.onap.policy.distribution.model.Policy;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
  * Class to create a dummy policy for test cases.
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class DummyPolicy implements Policy {
+public class DummyPolicy extends ToscaEntity {
 
     private String policyName;
-    private String policyType;
 
     /**
      * Constructor for instantiating {@link DummyPolicy} class.
      *
      * @param policyName the policy name
-     * @param policyType the policy type
      */
-    public DummyPolicy(final String policyName, final String policyType) {
+    public DummyPolicy(final String policyName) {
         super();
         this.policyName = policyName;
-        this.policyType = policyType;
     }
 
     /**
      * {@inheritDoc}.
      */
     @Override
-    public String getPolicyName() {
+    public String getName() {
         return policyName;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String getPolicyType() {
-        return policyType;
     }
 }

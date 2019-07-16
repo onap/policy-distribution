@@ -38,6 +38,6 @@ public class TestModels {
     @Test
     public void testAllModels() {
         final Validator validator = ValidatorBuilder.create().with(new SetterTester()).with(new GetterTester()).build();
-        validator.validate(Policy.class.getPackage().getName(), new FilterPackageInfo());
+        validator.validate(PolicyInput.class.getPackage().getName(), new FilterPackageInfo());
     }
 }

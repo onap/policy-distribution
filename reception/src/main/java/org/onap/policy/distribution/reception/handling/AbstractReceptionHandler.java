@@ -27,12 +27,12 @@ import java.util.Collection;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
-import org.onap.policy.distribution.model.Policy;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,8 +76,8 @@ public abstract class AbstractReceptionHandler implements ReceptionHandler {
      */
     protected void inputReceived(final PolicyInput policyInput) throws PolicyDecodingException {
 
-        final Collection<Policy> policies = new ArrayList<>();
-        for (final PolicyDecoder<PolicyInput, Policy> policyDecoder : getRelevantPolicyDecoders(policyInput)) {
+        final Collection<ToscaEntity> policies = new ArrayList<>();
+        for (final PolicyDecoder<PolicyInput, ToscaEntity> policyDecoder : getRelevantPolicyDecoders(policyInput)) {
             policies.addAll(policyDecoder.decode(policyInput));
         }
 
@@ -90,10 +90,10 @@ public abstract class AbstractReceptionHandler implements ReceptionHandler {
         }
     }
 
-    private Collection<PolicyDecoder<PolicyInput, Policy>> getRelevantPolicyDecoders(final PolicyInput policyInput)
+    private Collection<PolicyDecoder<PolicyInput, ToscaEntity>> getRelevantPolicyDecoders(final PolicyInput policyInput)
             throws PolicyDecodingException {
-        final Collection<PolicyDecoder<PolicyInput, Policy>> relevantPolicyDecoders = new ArrayList<>();
-        for (final PolicyDecoder<PolicyInput, Policy> policyDecoder : pluginHandler.getPolicyDecoders()) {
+        final Collection<PolicyDecoder<PolicyInput, ToscaEntity>> relevantPolicyDecoders = new ArrayList<>();
+        for (final PolicyDecoder<PolicyInput, ToscaEntity> policyDecoder : pluginHandler.getPolicyDecoders()) {
             if (policyDecoder.canHandle(policyInput)) {
                 relevantPolicyDecoders.add(policyDecoder);
             }

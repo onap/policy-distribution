@@ -26,14 +26,15 @@ import java.util.Collections;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.model.Tosca;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 
 /**
  * Decodes PDP-X policies from a TOSCA file.
  */
-public class PolicyDecoderToscaPdpx implements PolicyDecoder<Tosca, PdpxPolicy> {
+public class PolicyDecoderToscaPdpx implements PolicyDecoder<Tosca, ToscaPolicy> {
 
     @Override
-    public Collection<PdpxPolicy> decode(final Tosca tosca) {
+    public Collection<ToscaPolicy> decode(final Tosca tosca) {
         // Add logic for generating the policies from the TOSCA
         return Collections.emptySet();
     }
