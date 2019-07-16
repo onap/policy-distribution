@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0701873a_3773e364",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-07-16T17:36:22Z",
+      "side": 1,
+      "message": "Just checking, are we ready to remove these 2 repos? Or does more work need to be done first?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 0
+      },
+      "revId": "ddee6c208f30b40a014d4a3bed1e31c6ae166c5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
