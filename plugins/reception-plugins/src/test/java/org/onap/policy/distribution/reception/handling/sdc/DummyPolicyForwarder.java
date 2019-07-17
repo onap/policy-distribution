@@ -25,7 +25,7 @@ import java.util.Collection;
 
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
-import org.onap.policy.distribution.model.Policy;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
  * Class to create a dummy forwarder for test cases.
@@ -34,13 +34,13 @@ import org.onap.policy.distribution.model.Policy;
  */
 public class DummyPolicyForwarder implements PolicyForwarder {
     private int numberOfPoliciesReceived = 0;
-    private Collection<Policy> policiesReceived = new ArrayList<>();
+    private Collection<ToscaEntity> policiesReceived = new ArrayList<>();
 
     /**
      * {@inheritDoc}.
      */
     @Override
-    public void forward(final Collection<Policy> policies) throws PolicyForwardingException {
+    public void forward(final Collection<ToscaEntity> policies) throws PolicyForwardingException {
         numberOfPoliciesReceived += policies.size();
         policiesReceived.addAll(policies);
     }
@@ -61,8 +61,8 @@ public class DummyPolicyForwarder implements PolicyForwarder {
      * @return the boolean result
      */
     public boolean receivedPolicyWithGivenType(final String policyType) {
-        for (final Policy policy : policiesReceived) {
-            if (policy.getPolicyType().equals(policyType)) {
+        for (final ToscaEntity policy : policiesReceived) {
+            if (policy.getName().contains(policyType)) {
                 return true;
             }
         }

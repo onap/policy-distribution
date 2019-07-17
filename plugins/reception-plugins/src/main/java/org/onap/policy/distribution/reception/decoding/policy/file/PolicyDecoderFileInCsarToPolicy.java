@@ -32,10 +32,10 @@ import java.util.zip.ZipFile;
 import org.apache.commons.io.IOUtils;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
-import org.onap.policy.distribution.model.PolicyAsString;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, PolicyAsString> {
+public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, ToscaPolicy> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PolicyDecoderFileInCsarToPolicy.class);
     PolicyDecoderFileInCsarToPolicyParameterGroup decoderParameters;
@@ -69,8 +69,8 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Poli
      * {@inheritDoc}.
      */
     @Override
-    public Collection<PolicyAsString> decode(final Csar csar) throws PolicyDecodingException {
-        final Collection<PolicyAsString> policyList = new ArrayList<>();
+    public Collection<ToscaPolicy> decode(final Csar csar) throws PolicyDecodingException {
+        final Collection<ToscaPolicy> policyList = new ArrayList<>();
 
         try (ZipFile zipFile = new ZipFile(csar.getCsarPath())) {
             final Enumeration<? extends ZipEntry> entries = zipFile.entries();
@@ -79,8 +79,10 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Poli
                 if (entry.getName().contains(decoderParameters.getPolicyFileName())) {
                     final StringWriter writer = new StringWriter();
                     IOUtils.copy(zipFile.getInputStream(entry), writer, "UTF-8");
-                    final PolicyAsString policy = new PolicyAsString(decoderParameters.getPolicyFileName(),
-                            decoderParameters.getPolicyType(), writer.toString());
+                    final ToscaPolicy policy = new ToscaPolicy();
+                    policy.setName(decoderParameters.getPolicyFileName());
+                    policy.setType(decoderParameters.getPolicyType());
+                    policy.setDescription(writer.toString());
                     policyList.add(policy);
                 }
             }

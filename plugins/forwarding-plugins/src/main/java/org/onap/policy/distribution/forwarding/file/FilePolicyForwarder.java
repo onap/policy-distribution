@@ -21,8 +21,8 @@
 package org.onap.policy.distribution.forwarding.file;
 
 import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
@@ -32,15 +32,14 @@ import java.util.Collection;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
-import org.onap.policy.distribution.model.OptimizationPolicy;
-import org.onap.policy.distribution.model.Policy;
-
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class provides an implementation of {@link PolicyForwarder} interface for forwarding the given policies to
- * a file directory.
+ * This class provides an implementation of {@link PolicyForwarder} interface for forwarding the given policies to a
+ * file directory.
  */
 public class FilePolicyForwarder implements PolicyForwarder {
 
@@ -54,7 +53,7 @@ public class FilePolicyForwarder implements PolicyForwarder {
     public void configure(final String parameterGroupName) {
         fileForwarderParameters = ParameterService.get(parameterGroupName);
         try {
-            Path path = Paths.get(fileForwarderParameters.getPath());
+            final Path path = Paths.get(fileForwarderParameters.getPath());
             if (!path.toFile().exists()) {
                 Files.createDirectories(path);
             }
@@ -67,13 +66,13 @@ public class FilePolicyForwarder implements PolicyForwarder {
      * {@inheritDoc}.
      */
     @Override
-    public void forward(final Collection<Policy> policies) throws PolicyForwardingException {
-        for (Policy policy : policies) {
-            if (policy instanceof OptimizationPolicy) {
-                forwardPolicy((OptimizationPolicy) policy);
+    public void forward(final Collection<ToscaEntity> policies) throws PolicyForwardingException {
+        for (final ToscaEntity policy : policies) {
+            if (policy instanceof ToscaPolicy) {
+                forwardPolicy((ToscaPolicy) policy);
             } else {
-                final String message = "Cannot forward policy " + policy
-                     + ". Unsupported policy type " + policy.getClass().getSimpleName();
+                final String message = "Cannot forward policy " + policy + ". Unsupported policy type "
+                        + policy.getClass().getSimpleName();
                 LOGGER.error(message);
                 throw new PolicyForwardingException(message);
             }
@@ -86,30 +85,14 @@ public class FilePolicyForwarder implements PolicyForwarder {
      * @param pol the policy
      * @throws PolicyForwardingException if any exception occurs while forwarding policy
      */
-    private void forwardPolicy(final OptimizationPolicy pol) throws PolicyForwardingException {
-        final String name = pol.getPolicyName();
-        Path path = Paths.get(fileForwarderParameters.getPath(), name);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toString()))) {
+    private void forwardPolicy(final ToscaPolicy pol) throws PolicyForwardingException {
+        final String name = pol.getName();
+        final Path path = Paths.get(fileForwarderParameters.getPath(), name);
+        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
             writer.write("policyName: " + name);
             if (fileForwarderParameters.isVerbose()) {
                 writer.newLine();
-                writer.write("policyType: " + pol.getPolicyType());
-                writer.newLine();
-                writer.write("policyDescription: " + pol.getPolicyDescription());
-                writer.newLine();
-                writer.write("onapName: " + pol.getOnapName());
-                writer.newLine();
-                writer.write("configBodyType: " + pol.getConfigBodyType());
-                writer.newLine();
-                writer.write("configBody: " + pol.getConfigBody());
-                writer.newLine();
-                writer.write("timetolive: " + pol.getTimetolive().toString());
-                writer.newLine();
-                writer.write("guard: " + pol.getGuard());
-                writer.newLine();
-                writer.write("riskLevel: " + pol.getRiskLevel());
-                writer.newLine();
-                writer.write("riskType: " + pol.getRiskType());
+                writer.write("policy: " + pol.toString());
             }
             LOGGER.debug("Sucessfully forwarded the policy to store into file {}.", path);
         } catch (final InvalidPathException | IOException exp) {

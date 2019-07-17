@@ -22,27 +22,27 @@ package org.onap.policy.distribution.main.testclasses;
 
 import java.util.Collection;
 
-import org.onap.policy.distribution.model.Policy;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
  * Class to create a dummy decoder for test cases.
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class DummyDecoder implements PolicyDecoder<PolicyInput, Policy> {
+public class DummyDecoder implements PolicyDecoder<PolicyInput, ToscaEntity> {
 
     private boolean canHandleValue;
-    private Collection<Policy> policesToReturn;
+    private Collection<ToscaEntity> policesToReturn;
 
     public DummyDecoder() {
         this.canHandleValue = false;
         this.policesToReturn = null;
     }
 
-    public DummyDecoder(final boolean canHandleValue, final Collection<Policy> policesToReturn) {
+    public DummyDecoder(final boolean canHandleValue, final Collection<ToscaEntity> policesToReturn) {
         this.canHandleValue = canHandleValue;
         this.policesToReturn = policesToReturn;
     }
@@ -53,7 +53,7 @@ public class DummyDecoder implements PolicyDecoder<PolicyInput, Policy> {
     }
 
     @Override
-    public Collection<Policy> decode(final PolicyInput input) throws PolicyDecodingException {
+    public Collection<ToscaEntity> decode(final PolicyInput input) throws PolicyDecodingException {
         return policesToReturn;
     }
 

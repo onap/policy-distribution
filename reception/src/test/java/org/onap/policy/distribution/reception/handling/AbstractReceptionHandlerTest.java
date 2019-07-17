@@ -34,13 +34,13 @@ import org.junit.Test;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
-import org.onap.policy.distribution.model.Policy;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
  * Class to perform unit test of AbstractReceptionHandler.
@@ -65,15 +65,15 @@ public class AbstractReceptionHandlerTest {
             IllegalArgumentException, IllegalAccessException, PluginInitializationException {
         final AbstractReceptionHandler handler = new DummyReceptionHandler();
 
-        final Policy generatedPolicy1 = new DummyPolicy1();
-        final Policy generatedPolicy2 = new DummyPolicy2();
+        final ToscaEntity generatedPolicy1 = new DummyPolicy1();
+        final ToscaEntity generatedPolicy2 = new DummyPolicy2();
 
-        final PolicyDecoder<PolicyInput, Policy> policyDecoder1 =
+        final PolicyDecoder<PolicyInput, ToscaEntity> policyDecoder1 =
                 new DummyDecoder(true, Collections.singletonList(generatedPolicy1));
-        final PolicyDecoder<PolicyInput, Policy> policyDecoder2 =
+        final PolicyDecoder<PolicyInput, ToscaEntity> policyDecoder2 =
                 new DummyDecoder(true, Collections.singletonList(generatedPolicy2));
 
-        final Collection<PolicyDecoder<PolicyInput, Policy>> policyDecoders = new ArrayList<>();
+        final Collection<PolicyDecoder<PolicyInput, ToscaEntity>> policyDecoders = new ArrayList<>();
         policyDecoders.add(policyDecoder1);
         policyDecoders.add(policyDecoder2);
 
@@ -101,7 +101,7 @@ public class AbstractReceptionHandlerTest {
             SecurityException, IllegalArgumentException, IllegalAccessException, PluginInitializationException {
         final AbstractReceptionHandler handler = new DummyReceptionHandler();
 
-        final PolicyDecoder<PolicyInput, Policy> policyDecoder = new DummyDecoder(false, Collections.emptyList());
+        final PolicyDecoder<PolicyInput, ToscaEntity> policyDecoder = new DummyDecoder(false, Collections.emptyList());
         final DummyPolicyForwarder policyForwarder = new DummyPolicyForwarder();
         setUpPlugins(handler, Collections.singleton(policyDecoder), Collections.singleton(policyForwarder));
 
@@ -122,36 +122,26 @@ public class AbstractReceptionHandlerTest {
     class DummyPolicyInput implements PolicyInput {
     }
 
-    class DummyPolicy1 implements Policy {
+    class DummyPolicy1 extends ToscaEntity {
 
         @Override
-        public String getPolicyName() {
-            return null;
-        }
-
-        @Override
-        public String getPolicyType() {
+        public String getName() {
             return null;
         }
     }
 
-    class DummyPolicy2 implements Policy {
+    class DummyPolicy2 extends ToscaEntity {
 
         @Override
-        public String getPolicyName() {
-            return null;
-        }
-
-        @Override
-        public String getPolicyType() {
+        public String getName() {
             return null;
         }
     }
 
     private void setUpPlugins(final AbstractReceptionHandler receptionHandler,
-            final Collection<PolicyDecoder<PolicyInput, Policy>> decoders, final Collection<PolicyForwarder> forwarders)
-            throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException,
-            PluginInitializationException {
+            final Collection<PolicyDecoder<PolicyInput, ToscaEntity>> decoders,
+            final Collection<PolicyForwarder> forwarders) throws NoSuchFieldException, SecurityException,
+            IllegalArgumentException, IllegalAccessException, PluginInitializationException {
         final PluginHandlerParameters pluginParameters = getPluginHandlerParameters();
         pluginParameters.setName(DISTRIBUTION_GROUP);
         ParameterService.register(pluginParameters);

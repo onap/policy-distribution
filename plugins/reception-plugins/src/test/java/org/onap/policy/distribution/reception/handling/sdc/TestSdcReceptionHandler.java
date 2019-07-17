@@ -229,10 +229,9 @@ public class TestSdcReceptionHandler {
         sypHandler.initializeReception(pssdConfigParameters.getName());
         sypHandler.activateCallback(notificationData);
 
-        assertEquals(DummyDecoder.DUMMY_POLICY, policyDecoder.getDecodedPolicy().getPolicyType());
-        assertTrue(policyDecoder.getDecodedPolicy().getPolicyName().contains(DUMMY_SERVICE_CSAR));
+        assertTrue(policyDecoder.getDecodedPolicy().getName().contains(DUMMY_SERVICE_CSAR));
         assertEquals(1, policyForwarder.getNumberOfPoliciesReceived());
-        assertTrue(policyForwarder.receivedPolicyWithGivenType(DummyDecoder.DUMMY_POLICY));
+        assertTrue(policyForwarder.receivedPolicyWithGivenType(DUMMY_SERVICE_CSAR));
         assertEquals(1, DistributionStatisticsManager.getTotalDistributionCount());
         assertEquals(1, DistributionStatisticsManager.getDistributionSuccessCount());
         assertEquals(0, DistributionStatisticsManager.getDistributionFailureCount());

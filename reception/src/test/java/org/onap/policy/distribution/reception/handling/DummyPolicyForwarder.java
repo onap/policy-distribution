@@ -22,9 +22,10 @@ package org.onap.policy.distribution.reception.handling;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
-import org.onap.policy.distribution.model.Policy;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
  * Class to create a dummy forwarder for test cases in AbstractReceptionHandlerTest.
@@ -33,10 +34,10 @@ import org.onap.policy.distribution.model.Policy;
  */
 public class DummyPolicyForwarder implements PolicyForwarder {
     private int numberOfPoliciesReceived = 0;
-    private Collection<Policy> policiesReceived = new ArrayList<>();
+    private Collection<ToscaEntity> policiesReceived = new ArrayList<>();
 
     @Override
-    public void forward(final Collection<Policy> policies) throws PolicyForwardingException {
+    public void forward(final Collection<ToscaEntity> policies) throws PolicyForwardingException {
         numberOfPoliciesReceived += policies.size();
         policiesReceived.addAll(policies);
     }
@@ -45,10 +46,10 @@ public class DummyPolicyForwarder implements PolicyForwarder {
         return numberOfPoliciesReceived;
     }
 
-    public boolean receivedPolicy(final Policy policy) {
+    public boolean receivedPolicy(final ToscaEntity policy) {
         return policiesReceived.contains(policy);
     }
 
     @Override
-    public void configure(String parameterGroupName) {}
+    public void configure(final String parameterGroupName) {}
 }

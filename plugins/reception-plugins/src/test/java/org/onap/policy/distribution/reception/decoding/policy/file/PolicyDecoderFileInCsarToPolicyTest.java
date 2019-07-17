@@ -35,7 +35,7 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
-import org.onap.policy.distribution.model.PolicyAsString;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 
 /**
  * Class to perform unit test of {@link PolicyDecoderFileInCsarToPolicy}.
@@ -79,10 +79,10 @@ public class PolicyDecoderFileInCsarToPolicyTest {
 
         try {
             decoder.canHandle(csar);
-            final Collection<PolicyAsString> policyHolders = decoder.decode(csar);
-            for (final PolicyAsString policy : policyHolders) {
-                assertEquals(POLICY_FILE_NAME, policy.getPolicyName());
-                assertEquals(POLICY_TYPE, policy.getPolicyType());
+            final Collection<ToscaPolicy> policyHolders = decoder.decode(csar);
+            for (final ToscaPolicy policy : policyHolders) {
+                assertEquals(POLICY_FILE_NAME, policy.getName());
+                assertEquals(POLICY_TYPE, policy.getType());
             }
         } catch (final Exception exp) {
             fail("Test must not throw an exception");

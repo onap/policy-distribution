@@ -28,12 +28,12 @@ import java.util.Map;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
-import org.onap.policy.distribution.model.Policy;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +44,7 @@ public class PluginHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PluginHandler.class);
 
-    private Collection<PolicyDecoder<PolicyInput, Policy>> policyDecoders;
+    private Collection<PolicyDecoder<PolicyInput, ToscaEntity>> policyDecoders;
     private Collection<PolicyForwarder> policyForwarders;
 
     /**
@@ -64,7 +64,7 @@ public class PluginHandler {
      *
      * @return the policy decoders
      */
-    public Collection<PolicyDecoder<PolicyInput, Policy>> getPolicyDecoders() {
+    public Collection<PolicyDecoder<PolicyInput, ToscaEntity>> getPolicyDecoders() {
         return policyDecoders;
     }
 
@@ -89,10 +89,10 @@ public class PluginHandler {
         policyDecoders = new ArrayList<>();
         for (final PolicyDecoderParameters decoderParameters : policyDecoderParameters.values()) {
             try {
-                final Class<PolicyDecoder<PolicyInput, Policy>> policyDecoderClass =
-                        (Class<PolicyDecoder<PolicyInput, Policy>>) Class
+                final Class<PolicyDecoder<PolicyInput, ToscaEntity>> policyDecoderClass =
+                        (Class<PolicyDecoder<PolicyInput, ToscaEntity>>) Class
                                 .forName(decoderParameters.getDecoderClassName());
-                final PolicyDecoder<PolicyInput, Policy> decoder = policyDecoderClass.newInstance();
+                final PolicyDecoder<PolicyInput, ToscaEntity> decoder = policyDecoderClass.newInstance();
                 decoder.configure(decoderParameters.getDecoderConfigurationName());
                 policyDecoders.add(decoder);
             } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException exp) {
