@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7c1c3d6c_f8bbc962",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/apex/pdp/ApexPdpPolicyForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-07-17T11:08:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d47f54b3_8c75323b",
+      "revId": "ddee6c208f30b40a014d4a3bed1e31c6ae166c5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f275279_fe529a29",
         "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/apex/pdp/ApexPdpPolicyForwarder.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-07-16T19:13:42Z",
       "side": 1,
       "message": "put the string constant on the left of equals()",
+      "revId": "ddee6c208f30b40a014d4a3bed1e31c6ae166c5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e3adf5c_a6e27f49",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/apex/pdp/ApexPdpPolicyForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-07-17T11:08:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f275279_fe529a29",
       "revId": "ddee6c208f30b40a014d4a3bed1e31c6ae166c5e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9970aa70_26412e2a",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/file/FilePolicyForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-07-17T11:08:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2555aae_1e6b7f22",
+      "revId": "ddee6c208f30b40a014d4a3bed1e31c6ae166c5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0701873a_3773e364",
         "filename": "pom.xml",
         "patchSetId": 1
@@ -64,6 +118,30 @@
       "writtenOn": "2019-07-16T17:36:22Z",
       "side": 1,
       "message": "Just checking, are we ready to remove these 2 repos? Or does more work need to be done first?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 0
+      },
+      "revId": "ddee6c208f30b40a014d4a3bed1e31c6ae166c5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ade68f4_5878c10e",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-07-17T11:08:01Z",
+      "side": 1,
+      "message": "Not yet Pam, we will need to remove the existing forwarders and create the new one for API/PAP communication. So I think removing them will be the last task after we are able to create/deploy policies using the new architecture.\n\nAlso, better to have them if by chance we will need to support the old policy engine in El Alto release.\nIs that ok?",
+      "parentUuid": "0701873a_3773e364",
       "range": {
         "startLine": 51,
         "startChar": 0,
