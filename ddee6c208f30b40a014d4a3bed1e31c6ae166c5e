@@ -175,6 +175,30 @@
       "revId": "ddee6c208f30b40a014d4a3bed1e31c6ae166c5e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c54b45e_a4d07ab6",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-07-17T12:55:31Z",
+      "side": 1,
+      "message": "Agree, and if OOF is able to finish the changes towards EL Alto end also we may remove the dependency in final El Alto drop.",
+      "parentUuid": "b6b05b82_b0709699",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 0
+      },
+      "revId": "ddee6c208f30b40a014d4a3bed1e31c6ae166c5e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
