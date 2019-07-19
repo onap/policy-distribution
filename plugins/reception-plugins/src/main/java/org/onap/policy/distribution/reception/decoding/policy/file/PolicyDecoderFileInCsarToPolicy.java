@@ -22,20 +22,21 @@
 package org.onap.policy.distribution.reception.decoding.policy.file;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import org.apache.commons.io.IOUtils;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.common.utils.coder.CoderException;
+import org.onap.policy.common.utils.coder.StandardCoder;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,10 +45,11 @@ import org.slf4j.LoggerFactory;
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, ToscaPolicy> {
+public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, ToscaEntity> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PolicyDecoderFileInCsarToPolicy.class);
-    PolicyDecoderFileInCsarToPolicyParameterGroup decoderParameters;
+    private PolicyDecoderFileInCsarToPolicyParameterGroup decoderParameters;
+    private StandardCoder coder;
 
     /**
      * {@inheritDoc}.
@@ -55,6 +57,7 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
     @Override
     public void configure(final String parameterGroupName) {
         decoderParameters = ParameterService.get(parameterGroupName);
+        coder = new StandardCoder();
     }
 
     /**
@@ -69,24 +72,21 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
      * {@inheritDoc}.
      */
     @Override
-    public Collection<ToscaPolicy> decode(final Csar csar) throws PolicyDecodingException {
-        final Collection<ToscaPolicy> policyList = new ArrayList<>();
+    public Collection<ToscaEntity> decode(final Csar csar) throws PolicyDecodingException {
+        final Collection<ToscaEntity> policyList = new ArrayList<>();
 
         try (ZipFile zipFile = new ZipFile(csar.getCsarPath())) {
             final Enumeration<? extends ZipEntry> entries = zipFile.entries();
             while (entries.hasMoreElements()) {
                 final ZipEntry entry = entries.nextElement();
-                if (entry.getName().contains(decoderParameters.getPolicyFileName())) {
-                    final StringWriter writer = new StringWriter();
-                    IOUtils.copy(zipFile.getInputStream(entry), writer, "UTF-8");
-                    final ToscaPolicy policy = new ToscaPolicy();
-                    policy.setName(decoderParameters.getPolicyFileName());
-                    policy.setType(decoderParameters.getPolicyType());
-                    policy.setDescription(writer.toString());
+                if (entry.getName().contains(decoderParameters.getPolicyTypeFileName())
+                        || entry.getName().contains(decoderParameters.getPolicyFileName())) {
+                    final ToscaServiceTemplate policy =
+                            coder.decode(zipFile.getInputStream(entry), ToscaServiceTemplate.class);
                     policyList.add(policy);
                 }
             }
-        } catch (final IOException exp) {
+        } catch (final IOException | CoderException exp) {
             final String message = "Failed decoding the policy";
             LOGGER.error(message, exp);
             throw new PolicyDecodingException(message, exp);
