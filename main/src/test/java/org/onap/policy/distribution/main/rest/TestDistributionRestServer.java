@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,11 +37,12 @@ import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.Test;
+import org.onap.policy.common.endpoints.http.server.RestServer;
+import org.onap.policy.common.endpoints.parameters.RestServerParameters;
 import org.onap.policy.common.endpoints.report.HealthCheckReport;
 import org.onap.policy.common.utils.network.NetworkUtil;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.CommonTestData;
-import org.onap.policy.distribution.main.parameters.RestServerParameters;
 import org.onap.policy.distribution.main.startstop.Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,13 +79,13 @@ public class TestDistributionRestServer {
         final String reportString = "Report [name=Policy SSD, url=self, healthy=false, code=500, message=not alive]";
         final RestServerParameters restServerParams = new CommonTestData().getRestServerParameters(false);
         restServerParams.setName(CommonTestData.DISTRIBUTION_GROUP_NAME);
-        final DistributionRestServer restServer = new DistributionRestServer(restServerParams);
+        final RestServer restServer = new RestServer(restServerParams, null, DistributionRestController.class);
         try {
             restServer.start();
             final HealthCheckReport report = performHealthCheck();
             validateReport(NAME, SELF, false, 500, NOT_ALIVE, reportString, report);
             assertTrue(restServer.isAlive());
-            assertTrue(restServer.toString().startsWith("DistributionRestServer [servers="));
+            assertTrue(restServer.toString().startsWith("RestServer [servers="));
             restServer.shutdown();
         } catch (final Exception exp) {
             LOGGER.error("testHealthCheckFailure failed", exp);

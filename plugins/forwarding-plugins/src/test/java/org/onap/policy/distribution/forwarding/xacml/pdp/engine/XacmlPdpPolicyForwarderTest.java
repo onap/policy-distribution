@@ -21,6 +21,7 @@
 
 package org.onap.policy.distribution.forwarding.xacml.pdp.engine;
 
+import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Matchers.eq;
@@ -174,6 +175,8 @@ public class XacmlPdpPolicyForwarderTest {
         final Collection<ToscaEntity> policies = new ArrayList<>();
         final ToscaPolicy policy = createPolicy(policies, "policy", "optimization");
         forwarder.forward(policies);
+
+        assertSame(policy, policies.iterator().next());
 
         verify(httpClientMock, times(0)).put(eq("createPolicy"), anyObject(), anyObject());
         verify(httpClientMock, times(0)).put(eq("pushPolicy"), anyObject(), anyObject());
