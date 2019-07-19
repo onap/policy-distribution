@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +25,13 @@ package org.onap.policy.distribution.main.startstop;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
+import org.onap.policy.common.endpoints.http.server.RestServer;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.DistributionParameterGroup;
 import org.onap.policy.distribution.main.parameters.PolicyForwarderConfigurationParameterGroup;
-import org.onap.policy.distribution.main.rest.DistributionRestServer;
+import org.onap.policy.distribution.main.rest.DistributionRestController;
+import org.onap.policy.distribution.main.rest.aaf.AafDistributionFilter;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;
@@ -54,7 +56,7 @@ public class DistributionActivator {
 
     private static boolean alive = false;
 
-    private DistributionRestServer restServer;
+    private RestServer restServer;
 
     /**
      * Instantiate the activator for policy distribution as a complete service.
@@ -99,7 +101,8 @@ public class DistributionActivator {
      */
     private void startDistributionRestServer() throws PolicyDistributionException {
         distributionParameterGroup.getRestServerParameters().setName(distributionParameterGroup.getName());
-        restServer = new DistributionRestServer(distributionParameterGroup.getRestServerParameters());
+        restServer = new RestServer(distributionParameterGroup.getRestServerParameters(), AafDistributionFilter.class,
+                        DistributionRestController.class);
         if (!restServer.start()) {
             throw new PolicyDistributionException(
                     "Failed to start distribution rest server. Check log for more details...");

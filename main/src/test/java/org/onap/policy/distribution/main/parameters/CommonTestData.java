@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +21,18 @@
 
 package org.onap.policy.distribution.main.parameters;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import org.onap.policy.common.endpoints.parameters.RestServerParameters;
+import org.onap.policy.common.utils.coder.Coder;
+import org.onap.policy.common.utils.coder.CoderException;
+import org.onap.policy.common.utils.coder.StandardCoder;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyDecoderParameterGroup;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup;
@@ -44,11 +52,6 @@ import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParamet
  */
 public class CommonTestData {
 
-    private static final String REST_SERVER_PASSWORD = "zb!XztG34";
-    private static final String REST_SERVER_USER = "healthcheck";
-    private static final int REST_SERVER_PORT = 6969;
-    private static final String REST_SERVER_HOST = "0.0.0.0";
-    private static final boolean REST_SERVER_HTTPS = false;
     public static final String DISTRIBUTION_GROUP_NAME = "SDCDistributionGroup";
     public static final String DECODER_TYPE = "DummyDecoder";
     public static final String DECODER_CLASS_NAME = "org.onap.policy.distribution.main.testclasses.DummyDecoder";
@@ -73,6 +76,8 @@ public class CommonTestData {
     public static final String POLICY_NAME = "SamplePolicy";
     public static final String DECODER_CONFIGURATION_PARAMETERS = "dummyDecoderConfiguration";
 
+    private Coder coder = new StandardCoder();
+
     /**
      * Returns an instance of ReceptionHandlerParameters for test cases.
      *
@@ -80,14 +85,14 @@ public class CommonTestData {
      * @return the restServerParameters object
      */
     public RestServerParameters getRestServerParameters(final boolean isEmpty) {
-        final RestServerParameters restServerParameters;
-        if (!isEmpty) {
-            restServerParameters = new RestServerParameters(REST_SERVER_HOST, REST_SERVER_PORT, REST_SERVER_USER,
-                    REST_SERVER_PASSWORD, REST_SERVER_HTTPS);
-        } else {
-            restServerParameters = new RestServerParameters(null, 0, null, null, REST_SERVER_HTTPS);
+        String fileName = "src/test/resources/parameters/"
+                        + (isEmpty ? "RestServerParametersEmpty" : "RestServerParameters") + ".json";
+        try {
+            String text = new String(Files.readAllBytes(new File(fileName).toPath()), StandardCharsets.UTF_8);
+            return coder.decode(text, RestServerParameters.class);
+        } catch (CoderException | IOException e) {
+            throw new RuntimeException("cannot read/decode " + fileName, e);
         }
-        return restServerParameters;
     }
 
     /**
