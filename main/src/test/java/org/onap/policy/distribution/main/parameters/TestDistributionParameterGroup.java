@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +29,7 @@ import static org.junit.Assert.fail;
 import java.util.Map;
 
 import org.junit.Test;
+import org.onap.policy.common.endpoints.parameters.RestServerParameters;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup;
 import org.onap.policy.distribution.main.testclasses.DummyReceptionHandlerParameterGroup;
@@ -226,7 +228,7 @@ public class TestDistributionParameterGroup {
         final GroupValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
         assertTrue(validationResult.getResult()
-                .contains("\"org.onap.policy.distribution.main.parameters.RestServerParameters\" INVALID, "
+                .contains("\"org.onap.policy.common.endpoints.parameters.RestServerParameters\" INVALID, "
                         + "parameter group has status INVALID"));
     }
 }

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,10 +36,11 @@ import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.Test;
+import org.onap.policy.common.endpoints.http.server.RestServer;
+import org.onap.policy.common.endpoints.parameters.RestServerParameters;
 import org.onap.policy.common.utils.network.NetworkUtil;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.CommonTestData;
-import org.onap.policy.distribution.main.parameters.RestServerParameters;
 import org.onap.policy.distribution.main.startstop.Main;
 import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
 import org.slf4j.Logger;
@@ -75,7 +77,7 @@ public class TestDistributionStatistics {
     public void testDistributionStatistics_500() throws InterruptedException {
         final RestServerParameters restServerParams = new CommonTestData().getRestServerParameters(false);
         restServerParams.setName(CommonTestData.DISTRIBUTION_GROUP_NAME);
-        final DistributionRestServer restServer = new DistributionRestServer(restServerParams);
+        final RestServer restServer = new RestServer(restServerParams, null, DistributionRestController.class);
         try {
             restServer.start();
             final StatisticsReport report = getDistributionStatistics();
