@@ -33,25 +33,25 @@ import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurat
 public class PolicyDecoderFileInCsarToPolicyParameterGroup extends PolicyDecoderConfigurationParameterGroup {
 
     private String policyFileName;
-    private String policyType;
+    private String policyTypeFileName;
 
     /**
      * Constructor for instantiating {@link PolicyDecoderFileInCsarToPolicyParameterGroup} class.
      *
      * @param policyFileName the policy file name
-     * @param policyType the policy type
+     * @param policyTypeFileName the policy type file name
      */
-    public PolicyDecoderFileInCsarToPolicyParameterGroup(final String policyFileName, final String policyType) {
+    public PolicyDecoderFileInCsarToPolicyParameterGroup(final String policyFileName, final String policyTypeFileName) {
         this.policyFileName = policyFileName;
-        this.policyType = policyType;
+        this.policyTypeFileName = policyTypeFileName;
     }
 
     public String getPolicyFileName() {
         return policyFileName;
     }
 
-    public String getPolicyType() {
-        return policyType;
+    public String getPolicyTypeFileName() {
+        return policyTypeFileName;
     }
 
     @Override
@@ -60,10 +60,6 @@ public class PolicyDecoderFileInCsarToPolicyParameterGroup extends PolicyDecoder
         if (!ParameterValidationUtils.validateStringParameter(policyFileName)) {
             validationResult.setResult("policyFileName", ValidationStatus.INVALID,
                     "must be a non-blank string containing the policy file name");
-        }
-        if (!ParameterValidationUtils.validateStringParameter(policyType)) {
-            validationResult.setResult("policyType", ValidationStatus.INVALID,
-                    "must be a non-blank string containing the policy type");
         }
         return validationResult;
     }

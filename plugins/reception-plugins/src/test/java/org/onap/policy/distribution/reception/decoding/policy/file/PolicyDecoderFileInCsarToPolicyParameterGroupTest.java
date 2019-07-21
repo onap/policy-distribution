@@ -24,7 +24,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.onap.policy.common.parameters.ValidationStatus;
-import org.onap.policy.distribution.reception.decoding.policy.file.PolicyDecoderFileInCsarToPolicyParameterGroup;
 
 /**
  * Class to perform unit test of {@link PolicyDecoderFileInCsarToPolicyParameterGroup}.
@@ -36,30 +35,30 @@ public class PolicyDecoderFileInCsarToPolicyParameterGroupTest {
     @Test
     public void testConstructorAndGetters() {
         final PolicyDecoderFileInCsarToPolicyParameterGroup configurationParameters =
-                new PolicyDecoderFileInCsarToPolicyParameterGroup("SamplePolicy", "APEX");
+                new PolicyDecoderFileInCsarToPolicyParameterGroup("SamplePolicy", "SamplePolicyType");
         configurationParameters.setName("myConfiguration");
 
         assertEquals("myConfiguration", configurationParameters.getName());
         assertEquals("SamplePolicy", configurationParameters.getPolicyFileName());
-        assertEquals("APEX", configurationParameters.getPolicyType());
+        assertEquals("SamplePolicyType", configurationParameters.getPolicyTypeFileName());
         assertEquals(ValidationStatus.CLEAN, configurationParameters.validate().getStatus());
     }
 
     @Test
     public void testInvalidPolicyFileName() {
         final PolicyDecoderFileInCsarToPolicyParameterGroup configurationParameters =
-                new PolicyDecoderFileInCsarToPolicyParameterGroup("", "APEX");
+                new PolicyDecoderFileInCsarToPolicyParameterGroup("", "SamplePolicyType");
         configurationParameters.setName("myConfiguration");
 
         assertEquals(ValidationStatus.INVALID, configurationParameters.validate().getStatus());
     }
 
     @Test
-    public void testInvalidPolicyType() {
+    public void testEmptyPolicyType() {
         final PolicyDecoderFileInCsarToPolicyParameterGroup configurationParameters =
                 new PolicyDecoderFileInCsarToPolicyParameterGroup("SamplePolicy", "");
         configurationParameters.setName("myConfiguration");
 
-        assertEquals(ValidationStatus.INVALID, configurationParameters.validate().getStatus());
+        assertEquals(ValidationStatus.CLEAN, configurationParameters.validate().getStatus());
     }
 }

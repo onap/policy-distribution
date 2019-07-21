@@ -34,8 +34,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.distribution.model.Csar;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
  * Class to perform unit test of {@link PolicyDecoderFileInCsarToPolicy}.
@@ -45,8 +46,8 @@ import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 @RunWith(MockitoJUnitRunner.class)
 public class PolicyDecoderFileInCsarToPolicyTest {
 
-    private static final String POLICY_FILE_NAME = "SamplePolicyModelJAVASCRIPT";
-    private static final String POLICY_TYPE = "APEX";
+    private static final String POLICY_FILE_NAME = "apex_ddf_policy";
+    private static final String POLICY_TYPE_FILE_NAME = "apex_ddf_policy_type";
     private static final String GROUP_NAME = "apexPdpDecoderConfiguration";
 
     /**
@@ -55,7 +56,7 @@ public class PolicyDecoderFileInCsarToPolicyTest {
     @BeforeClass
     public static void setUp() {
         final PolicyDecoderFileInCsarToPolicyParameterGroup configurationParameters =
-                new PolicyDecoderFileInCsarToPolicyParameterGroup(POLICY_FILE_NAME, POLICY_TYPE);
+                new PolicyDecoderFileInCsarToPolicyParameterGroup(POLICY_FILE_NAME, POLICY_TYPE_FILE_NAME);
         configurationParameters.setName(GROUP_NAME);
         ParameterService.register(configurationParameters);
     }
@@ -74,23 +75,20 @@ public class PolicyDecoderFileInCsarToPolicyTest {
         final PolicyDecoderFileInCsarToPolicy decoder = new PolicyDecoderFileInCsarToPolicy();
         decoder.configure(GROUP_NAME);
 
-        final File file = new File("src/test/resources/sampleTestService.csar");
+        final File file = new File("src/test/resources/service-Sampleservice.csar");
         final Csar csar = new Csar(file.getAbsolutePath());
 
         try {
-            decoder.canHandle(csar);
-            final Collection<ToscaPolicy> policyHolders = decoder.decode(csar);
-            for (final ToscaPolicy policy : policyHolders) {
-                assertEquals(POLICY_FILE_NAME, policy.getName());
-                assertEquals(POLICY_TYPE, policy.getType());
-            }
+            assertTrue(decoder.canHandle(csar));
+            final Collection<ToscaEntity> policyHolders = decoder.decode(csar);
+            assertEquals(2, policyHolders.size());
         } catch (final Exception exp) {
             fail("Test must not throw an exception");
         }
     }
 
     @Test
-    public void testDecodePolicyError() throws IOException {
+    public void testDecodePolicyZipError() {
 
         final PolicyDecoderFileInCsarToPolicy decoder = new PolicyDecoderFileInCsarToPolicy();
         decoder.configure(GROUP_NAME);
@@ -99,10 +97,31 @@ public class PolicyDecoderFileInCsarToPolicyTest {
         final Csar csar = new Csar(file.getAbsolutePath());
 
         try {
-            decoder.canHandle(csar);
+            assertTrue(decoder.canHandle(csar));
             decoder.decode(csar);
             fail("Test must throw an exception");
         } catch (final Exception exp) {
+            assertTrue(exp.getCause() instanceof IOException);
+            assertTrue(exp.getMessage().contains("Failed decoding the policy"));
+        }
+    }
+
+
+    @Test
+    public void testDecodePolicyCoderError() {
+
+        final PolicyDecoderFileInCsarToPolicy decoder = new PolicyDecoderFileInCsarToPolicy();
+        decoder.configure(GROUP_NAME);
+
+        final File file = new File("src/test/resources/service-Sampleservice-test.csar");
+        final Csar csar = new Csar(file.getAbsolutePath());
+
+        try {
+            assertTrue(decoder.canHandle(csar));
+            decoder.decode(csar);
+            fail("Test must throw an exception");
+        } catch (final Exception exp) {
+            assertTrue(exp.getCause() instanceof CoderException);
             assertTrue(exp.getMessage().contains("Failed decoding the policy"));
         }
     }
