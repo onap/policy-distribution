@@ -16,6 +16,24 @@
       "revId": "5c3149b31ac9ded63d072f314ea9ae3f2c538a63",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1485bac_32351755",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicyTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-07-21T13:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "122109ad_dfedb63a",
+      "revId": "5c3149b31ac9ded63d072f314ea9ae3f2c538a63",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
