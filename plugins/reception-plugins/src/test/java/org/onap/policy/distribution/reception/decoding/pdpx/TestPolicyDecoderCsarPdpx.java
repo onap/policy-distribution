@@ -33,7 +33,7 @@ import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
 
 /**
  * Class to perform unit test of {@link PolicyDecoderCsarPdpx}.
@@ -69,10 +69,10 @@ public class TestPolicyDecoderCsarPdpx {
         final PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
         policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
 
-        final Collection<ToscaPolicy> ret = policyDecoderCsarPdpx.decode(csar);
+        final Collection<ToscaServiceTemplate> ret = policyDecoderCsarPdpx.decode(csar);
 
         assertEquals(2, ret.size());
-        final ToscaPolicy policy = (ToscaPolicy) ret.toArray()[0];
+        final ToscaServiceTemplate policy = (ToscaServiceTemplate) ret.toArray()[0];
 
         // assertEquals("onapName", policy.getOnapName());
         assertTrue(policy.getName().startsWith("OOF."));
@@ -100,8 +100,8 @@ public class TestPolicyDecoderCsarPdpx {
         final PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
         policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
 
-        final Collection<ToscaPolicy> policies = policyDecoderCsarPdpx.decode(csar);
-        final ToscaPolicy policy = (ToscaPolicy) policies.toArray()[0];
+        final Collection<ToscaServiceTemplate> policies = policyDecoderCsarPdpx.decode(csar);
+        final ToscaServiceTemplate policy = (ToscaServiceTemplate) policies.toArray()[0];
 
         // assertEquals("onapName", policy.getOnapName());
         assertTrue(policy.getName().startsWith("OOF."));
@@ -140,9 +140,9 @@ public class TestPolicyDecoderCsarPdpx {
         final PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
         policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
 
-        final Collection<ToscaPolicy> policies = policyDecoderCsarPdpx.decode(csar);
+        final Collection<ToscaServiceTemplate> policies = policyDecoderCsarPdpx.decode(csar);
         assertEquals(2, policies.size());
-        final ToscaPolicy policy = (ToscaPolicy) policies.toArray()[0];
+        final ToscaServiceTemplate policy = (ToscaServiceTemplate) policies.toArray()[0];
 
         // assertEquals("onapName", policy.getOnapName());
         assertTrue(policy.getName().startsWith("OOF."));
@@ -183,9 +183,9 @@ public class TestPolicyDecoderCsarPdpx {
         final PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
         policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
 
-        final Collection<ToscaPolicy> policies = policyDecoderCsarPdpx.decode(csar);
+        final Collection<ToscaServiceTemplate> policies = policyDecoderCsarPdpx.decode(csar);
         assertEquals(2, policies.size());
-        final ToscaPolicy policy = (ToscaPolicy) policies.toArray()[0];
+        final ToscaServiceTemplate policy = (ToscaServiceTemplate) policies.toArray()[0];
 
         // assertEquals("onapName", policy.getOnapName());
         assertTrue(policy.getName().startsWith("OOF."));
@@ -216,9 +216,9 @@ public class TestPolicyDecoderCsarPdpx {
         final PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
         policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
 
-        final Collection<ToscaPolicy> policies = policyDecoderCsarPdpx.decode(csar);
+        final Collection<ToscaServiceTemplate> policies = policyDecoderCsarPdpx.decode(csar);
         assertEquals(1, policies.size());
-        final ToscaPolicy policy = (ToscaPolicy) policies.toArray()[0];
+        final ToscaServiceTemplate policy = (ToscaServiceTemplate) policies.toArray()[0];
 
         // assertEquals("onapName", policy.getOnapName());
         assertTrue(policy.getName().startsWith("OOF."));
@@ -250,9 +250,9 @@ public class TestPolicyDecoderCsarPdpx {
         final PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
         policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
 
-        final Collection<ToscaPolicy> policies = policyDecoderCsarPdpx.decode(csar);
+        final Collection<ToscaServiceTemplate> policies = policyDecoderCsarPdpx.decode(csar);
         assertEquals(5, policies.size());
-        final ToscaPolicy policy = (ToscaPolicy) policies.toArray()[0];
+        final ToscaServiceTemplate policy = (ToscaServiceTemplate) policies.toArray()[0];
 
         // assertEquals("onapName", policy.getOnapName());
         assertTrue(policy.getName().startsWith("OOF."));
