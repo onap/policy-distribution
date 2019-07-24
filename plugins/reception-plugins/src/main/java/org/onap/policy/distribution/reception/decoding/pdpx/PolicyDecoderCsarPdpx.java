@@ -28,6 +28,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
@@ -65,23 +66,22 @@ public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, ToscaPolicy> {
             if (content != null) {
                 final ToscaPolicy policy = new ToscaPolicy();
                 final String policyName = decoderParameters.getPolicyNamePrefix() + "." + content.getIdentity();
-                // policy.setOnapName(decoderParameters.getOnapName());
-                policy.setName(policyName);
-                final ConfigBody configBody = new ConfigBody();
-                configBody.setService("hpaPolicy");
-                configBody.setPolicyName(policyName);
-                configBody.setDescription("OOF Policy");
-                configBody.setTemplateVersion("OpenSource.version.1");
-                configBody.setVersion(decoderParameters.getVersion());
-                configBody.setPriority(decoderParameters.getPriority());
-                configBody.setRiskLevel(decoderParameters.getRiskLevel());
-                configBody.setRiskType(decoderParameters.getRiskType());
-                configBody.setGuard("False");
+                Map<String, Object> prop = policy.getProperties();
+                prop.put(ToscaPolicy.TOSCA_POLICY_ONAP_NAME, decoderParameters.getOnapName());
+                prop.put(ToscaPolicy.TOSCA_POLICY_NAME, policyName);
+                prop.put(ToscaPolicy.TOSCA_POLICY_SERVICE, "hpaPolicy");
+                prop.put(ToscaPolicy.TOSCA_POLICY_DESCRIPTION, "OOF Policy");
+                prop.put(ToscaPolicy.TOSCA_POLICY_SERVICE, "hpaPolicy");
+                prop.put(ToscaPolicy.TOSCA_POLICY_TEMPLATE_VERSION, "OpenSource.version.1");
+                prop.put(ToscaPolicy.TOSCA_POLICY_VERSION, decoderParameters.getVersion());
+                prop.put(ToscaPolicy.TOSCA_POLICY_PRIORITY, decoderParameters.getPriority());
+                prop.put(ToscaPolicy.TOSCA_POLICY_RISK_LEVEL, decoderParameters.getRiskLevel());
+                prop.put(ToscaPolicy.TOSCA_POLICY_RISK_TYPE, decoderParameters.getRiskType());
+                prop.put(ToscaPolicy.TOSCA_POLICY_GUARD, "False");
                 content.setPolicyType("hpa");
                 content.getPolicyScope().add("HPA");
                 content.getPolicyScope().add(serviceName);
-                configBody.setContent(content);
-                // policy.setConfigBody(gson.toJson(configBody));
+                prop.put(ToscaPolicy.TOSCA_POLICY_CONTENT, gson.toJson(content));
                 policies.add(policy);
             }
         }
