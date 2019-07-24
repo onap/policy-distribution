@@ -28,6 +28,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
@@ -35,6 +37,9 @@ import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntityKey;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyType;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaProperty;
 import org.onap.sdc.tosca.parser.api.ISdcCsarHelper;
 import org.onap.sdc.tosca.parser.impl.SdcToscaParserFactory;
 import org.onap.sdc.toscaparser.api.NodeTemplate;
@@ -64,24 +69,61 @@ public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, ToscaServiceTe
             final Content content = extractFromNode.extractInfo(node);
             if (content != null) {
                 final ToscaServiceTemplate policy = new ToscaServiceTemplate();
-                final String policyName = decoderParameters.getPolicyNamePrefix() + "." + content.getIdentity();
-                // policy.setOnapName(decoderParameters.getOnapName());
-                policy.setName(policyName);
-                final ConfigBody configBody = new ConfigBody();
-                configBody.setService("hpaPolicy");
-                configBody.setPolicyName(policyName);
-                configBody.setDescription("OOF Policy");
-                configBody.setTemplateVersion("OpenSource.version.1");
-                configBody.setVersion(decoderParameters.getVersion());
-                configBody.setPriority(decoderParameters.getPriority());
-                configBody.setRiskLevel(decoderParameters.getRiskLevel());
-                configBody.setRiskType(decoderParameters.getRiskType());
-                configBody.setGuard("False");
+                List<Map<String, ToscaPolicyType>>  policyTypes = new ArrayList<>();
+                Map<String, ToscaPolicyType> map = new LinkedHashMap<>();
+                ToscaPolicyType type = new ToscaPolicyType();
+                Map<String, ToscaProperty> props = new LinkedHashMap<>();
+
+                ToscaProperty policyName = new ToscaProperty();
+                policyName.setDefaultValue(decoderParameters.getPolicyNamePrefix() + "." + content.getIdentity());
+                props.put(ToscaPolicyType.TOSCA_POLICY_NAME, policyName);
+
+                ToscaProperty onapName = new ToscaProperty();
+                onapName.setDefaultValue(decoderParameters.getOnapName());
+                props.put(ToscaPolicyType.TOSCA_POLICY_ONAP_NAME, onapName);
+
+                ToscaProperty service = new ToscaProperty();
+                service.setDefaultValue("hpaPolicy");
+                props.put(ToscaPolicyType.TOSCA_POLICY_SERVICE, service);
+
+                ToscaProperty description = new ToscaProperty();
+                description.setDefaultValue("OOF Policy");
+                props.put(ToscaPolicyType.TOSCA_POLICY_DESCRIPTION, description);
+
+                ToscaProperty templateVersion = new ToscaProperty();
+                templateVersion.setDefaultValue("OpenSource.version.1");
+                props.put(ToscaPolicyType.TOSCA_POLICY_TEMPLATE_VERSION, templateVersion);
+
+                ToscaProperty version = new ToscaProperty();
+                version.setDefaultValue(decoderParameters.getVersion());
+                props.put(ToscaPolicyType.TOSCA_POLICY_VERSION, version);
+
+                ToscaProperty priority = new ToscaProperty();
+                priority.setDefaultValue(decoderParameters.getPriority());
+                props.put(ToscaPolicyType.TOSCA_POLICY_PRIORITY, priority);
+
+                ToscaProperty riskLevel = new ToscaProperty();
+                riskLevel.setDefaultValue(decoderParameters.getRiskLevel());
+                props.put(ToscaPolicyType.TOSCA_POLICY_RISK_LEVEL, riskLevel);
+
+                ToscaProperty riskType = new ToscaProperty();
+                riskType.setDefaultValue(decoderParameters.getRiskType());
+                props.put(ToscaPolicyType.TOSCA_POLICY_RISK_TYPE, riskType);
+
+                ToscaProperty guard = new ToscaProperty();
+                guard.setDefaultValue("False");
+                props.put(ToscaPolicyType.TOSCA_POLICY_GUARD, guard);
+
+                ToscaProperty c = new ToscaProperty();
                 content.setPolicyType("hpa");
                 content.getPolicyScope().add("HPA");
                 content.getPolicyScope().add(serviceName);
-                configBody.setContent(content);
-                // policy.setConfigBody(gson.toJson(configBody));
+                c.setDefaultValue(gson.toJson(content));
+                props.put(ToscaPolicyType.TOSCA_POLICY_CONTENT, c);
+                type.setProperties(props);
+                map.put(ToscaPolicyType.TOSCA_POLICY_TYPE, type);
+                policyTypes.add(map);
+                policy.setPolicyTypes(policyTypes);
                 policies.add(policy);
             }
         }
