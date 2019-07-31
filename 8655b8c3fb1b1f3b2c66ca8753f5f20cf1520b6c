@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e91b3e1_ca6cd523",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-07-31T10:19:05Z",
+      "side": 1,
+      "message": "This review still needs change as we cannot add specific keys to the generic tosca models in policy/models repo. \n\nThose generic models are designed in a way to handle policies defined for any use-case belonging to any domain.",
+      "range": {
+        "startLine": 79,
+        "startChar": 26,
+        "endLine": 79,
+        "endChar": 59
+      },
+      "revId": "8655b8c3fb1b1f3b2c66ca8753f5f20cf1520b6c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
