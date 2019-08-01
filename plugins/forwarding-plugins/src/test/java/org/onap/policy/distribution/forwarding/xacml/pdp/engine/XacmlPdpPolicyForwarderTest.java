@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,14 +51,15 @@ import org.onap.policy.common.endpoints.http.client.HttpClientFactory;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarder;
-import org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarderParameterGroup.XacmlPdpPolicyForwarderParameterGroupBuilder;
+import org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarderParameterGroup;
+import org.onap.policy.distribution.forwarding.xacml.pdp.testclasses.CommonTestData;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 
 public class XacmlPdpPolicyForwarderTest {
 
-    private static final BusTopicParams BUS_TOPIC_PARAMS = BusTopicParams.builder().useHttps(false).hostname("myHost")
-            .port(1234).userName("myUser").password("myPassword").managed(true).build();
+    private static final BusTopicParams BUS_TOPIC_PARAMS = BusTopicParams.builder().useHttps(true)
+            .hostname("10.10.10.10").port(1234).userName("myUser").password("myPassword").managed(false).build();
     private static final String CLIENT_AUTH = "ClientAuth";
     private static final String CLIENT_AUTH_VALUE = "myClientAuth";
     private static final String PDP_GROUP_VALUE = "myPdpGroup";
@@ -69,11 +71,9 @@ public class XacmlPdpPolicyForwarderTest {
      */
     @BeforeClass
     public static void setUp() {
-        final ParameterGroup parameterGroup = new XacmlPdpPolicyForwarderParameterGroupBuilder()
-                .setUseHttps(BUS_TOPIC_PARAMS.isUseHttps()).setHostname(BUS_TOPIC_PARAMS.getHostname())
-                .setPort(BUS_TOPIC_PARAMS.getPort()).setUserName(BUS_TOPIC_PARAMS.getUserName())
-                .setPassword(BUS_TOPIC_PARAMS.getPassword()).setClientAuth(CLIENT_AUTH_VALUE)
-                .setIsManaged(BUS_TOPIC_PARAMS.isManaged()).setPdpGroup(PDP_GROUP_VALUE).build();
+        final ParameterGroup parameterGroup = CommonTestData.getPolicyForwarderParameters(
+                "src/test/resources/parameters/XacmlPdpPolicyForwarderParameters.json",
+                XacmlPdpPolicyForwarderParameterGroup.class);
         parameterGroup.setName("xacmlPdpConfiguration");
         ParameterService.register(parameterGroup);
     }

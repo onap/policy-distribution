@@ -1,0 +1,10 @@
+{
+    "useHttps": true,
+    "hostname": "",
+    "port": -2,
+    "userName": "",
+    "password": "",
+    "clientAuth": "myClientAuth",
+    "isManaged": false,
+    "pdpGroup": "default"
+}

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,60 +22,29 @@
 
 package org.onap.policy.distribution.forwarding.apex.pdp;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ValidationStatus;
-import org.onap.policy.common.utils.validation.ParameterValidationUtils;
+import lombok.Getter;
+
+import org.onap.policy.common.parameters.annotations.Min;
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
 import org.onap.policy.distribution.main.parameters.PolicyForwarderConfigurationParameterGroup;
 
 /**
  * Holds the parameters for the{@link ApexPdpPolicyForwarder}.
  */
+@Getter
+@NotNull
+@NotBlank
 public class ApexPdpPolicyForwarderParameterGroup extends PolicyForwarderConfigurationParameterGroup {
     public static final String POLICY_FORWARDER_PLUGIN_CLASS = ApexPdpPolicyForwarder.class.getName();
 
     private String hostname;
+    @Min(value = 1)
     private int port;
     private boolean ignoreConflicts;
     private boolean forceUpdate;
 
-    /**
-     * Constructor for instantiating {@link ApexPdpPolicyForwarderParameterGroup} class.
-     *
-     * @param builder the apex forwarder parameter builder
-     */
-    public ApexPdpPolicyForwarderParameterGroup(final ApexPdpPolicyForwarderParameterBuilder builder) {
-        this.hostname = builder.getHostname();
-        this.port = builder.getPort();
-        this.ignoreConflicts = builder.isIgnoreConflicts();
-        this.forceUpdate = builder.isForceUpdate();
-    }
-
-    public String getHostname() {
-        return hostname;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public boolean isIgnoreConflicts() {
-        return ignoreConflicts;
-    }
-
-    public boolean isForceUpdate() {
-        return forceUpdate;
-    }
-
-    @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult validationResult = new GroupValidationResult(this);
-        if (!ParameterValidationUtils.validateStringParameter(hostname)) {
-            validationResult.setResult("hostname", ValidationStatus.INVALID,
-                    "must be a non-blank string containing hostname/ipaddress");
-        }
-        if (!ParameterValidationUtils.validateIntParameter(port)) {
-            validationResult.setResult("port", ValidationStatus.INVALID, "must be a positive integer containing port");
-        }
-        return validationResult;
+    public ApexPdpPolicyForwarderParameterGroup() {
+        super(ApexPdpPolicyForwarderParameterGroup.class.getSimpleName());
     }
 }
