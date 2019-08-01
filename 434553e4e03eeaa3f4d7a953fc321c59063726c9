@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe5c933b_3057d4b2",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/CommonTestData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-01T17:45:27Z",
+      "side": 1,
+      "message": "fyi: could eliminate this line and just invoke:\n  coder.decode(new File(...), xxx.class)",
+      "revId": "434553e4e03eeaa3f4d7a953fc321c59063726c9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd034989_c34a6333",
+        "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/xacml/pdp/engine/XacmlPdpPolicyForwarderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-01T17:45:27Z",
+      "side": 1,
+      "message": "I assume the host name isn\u0027t really used",
+      "revId": "434553e4e03eeaa3f4d7a953fc321c59063726c9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83a706e0_fdb8e329",
+        "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/xacml/pdp/testclasses/CommonTestData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-01T17:45:27Z",
+      "side": 1,
+      "message": "could combine these lines using decode(File, Class)",
+      "revId": "434553e4e03eeaa3f4d7a953fc321c59063726c9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
