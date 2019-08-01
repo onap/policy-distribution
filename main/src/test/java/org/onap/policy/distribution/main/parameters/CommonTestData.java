@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.onap.policy.common.endpoints.parameters.RestServerParameters;
 import org.onap.policy.common.utils.coder.Coder;
 import org.onap.policy.common.utils.coder.CoderException;
@@ -36,7 +37,6 @@ import org.onap.policy.common.utils.coder.StandardCoder;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyDecoderParameterGroup;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup;
-import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup.DummyPolicyForwarderParameterGroupBuilder;
 import org.onap.policy.distribution.main.testclasses.DummyReceptionHandlerParameterGroup;
 import org.onap.policy.distribution.main.testclasses.DummyReceptionHandlerParameterGroup.DummyReceptionHandlerParameterGroupBuilder;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
@@ -85,10 +85,10 @@ public class CommonTestData {
      * @return the restServerParameters object
      */
     public RestServerParameters getRestServerParameters(final boolean isEmpty) {
-        String fileName = "src/test/resources/parameters/"
-                        + (isEmpty ? "RestServerParametersEmpty" : "RestServerParameters") + ".json";
+        final String fileName = "src/test/resources/parameters/"
+                + (isEmpty ? "RestServerParametersEmpty" : "RestServerParameters") + ".json";
         try {
-            String text = new String(Files.readAllBytes(new File(fileName).toPath()), StandardCharsets.UTF_8);
+            final String text = new String(Files.readAllBytes(new File(fileName).toPath()), StandardCharsets.UTF_8);
             return coder.decode(text, RestServerParameters.class);
         } catch (CoderException | IOException e) {
             throw new RuntimeException("cannot read/decode " + fileName, e);
@@ -198,11 +198,14 @@ public class CommonTestData {
         final Map<String, PolicyForwarderConfigurationParameterGroup> policyForwarderConfigurationParameters =
                 new HashMap<String, PolicyForwarderConfigurationParameterGroup>();
         if (!isEmpty) {
-            final DummyPolicyForwarderParameterGroup dummyPolicyForwarderParameterGroup =
-                    new DummyPolicyForwarderParameterGroupBuilder().setUseHttps(true).setHostname(FORWARDER_HOST)
-                            .setPort(1234).setUserName("myUser").setPassword("myPassword").setIsManaged(true).build();
-            policyForwarderConfigurationParameters.put(FORWARDER_CONFIGURATION_PARAMETERS,
-                    dummyPolicyForwarderParameterGroup);
+            final String fileName = "src/test/resources/parameters/DummyPolicyForwarderParameters.json";
+            try {
+                final String text = new String(Files.readAllBytes(new File(fileName).toPath()), StandardCharsets.UTF_8);
+                policyForwarderConfigurationParameters.put(FORWARDER_CONFIGURATION_PARAMETERS,
+                        coder.decode(text, DummyPolicyForwarderParameterGroup.class));
+            } catch (CoderException | IOException e) {
+                throw new RuntimeException("cannot read/decode " + fileName, e);
+            }
         }
         return policyForwarderConfigurationParameters;
     }

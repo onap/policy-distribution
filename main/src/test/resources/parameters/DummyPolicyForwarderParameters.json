@@ -1,0 +1,8 @@
+{
+    "useHttps": true,
+    "hostname": "192.168.99.100",
+    "port": 1234,
+    "userName": "myUser",
+    "password": "myPassword",
+    "isManaged": true
+}

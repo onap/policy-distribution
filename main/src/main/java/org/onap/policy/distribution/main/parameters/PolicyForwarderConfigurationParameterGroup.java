@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,21 +22,24 @@
 package org.onap.policy.distribution.main.parameters;
 
 import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.ParameterGroupImpl;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 
 /**
- * Base class of all {@link ParameterGroup} classes for configuration parameters for
- * {@link PolicyForwarder} classes.
+ * Base class of all {@link ParameterGroup} classes for configuration parameters for {@link PolicyForwarder} classes.
  */
-public abstract class PolicyForwarderConfigurationParameterGroup implements ParameterGroup {
+public abstract class PolicyForwarderConfigurationParameterGroup extends ParameterGroupImpl {
 
-    private String name;
+    public PolicyForwarderConfigurationParameterGroup(final String name) {
+        super(name);
+    }
 
     @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(final String name) {
         this.name = name;
     }

@@ -1,8 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 AT&T Intellectual Property.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.forwarding.xacml.pdp;
+package org.onap.policy.distribution.forwarding.lifecycle.api;
 
 import lombok.Getter;
 
@@ -30,25 +28,28 @@ import org.onap.policy.common.parameters.annotations.NotNull;
 import org.onap.policy.distribution.main.parameters.PolicyForwarderConfigurationParameterGroup;
 
 /**
- * Holds the parameters for the{@link XacmlPdpPolicyForwarder}.
+ * Holds the parameters for the{@link LifecycleApiPolicyForwarder}.
  */
 @Getter
 @NotNull
 @NotBlank
-public class XacmlPdpPolicyForwarderParameterGroup extends PolicyForwarderConfigurationParameterGroup {
-    public static final String POLICY_FORWARDER_PLUGIN_CLASS = XacmlPdpPolicyForwarder.class.getName();
+public class LifecycleApiPolicyForwarderParameterGroup extends PolicyForwarderConfigurationParameterGroup {
+    public static final String POLICY_FORWARDER_PLUGIN_CLASS = LifecycleApiPolicyForwarder.class.getName();
 
-    private boolean useHttps;
-    private String hostname;
+    private String policyApiHostName;
     @Min(value = 1)
-    private int port;
-    private String userName;
-    private String password;
-    private String clientAuth;
-    private boolean isManaged;
-    private String pdpGroup;
+    private int policyApiPort;
+    private String policyApiUserName;
+    private String policyApiPassword;
+    private String policyPapHostName;
+    @Min(value = 1)
+    private int policyPapPort;
+    private String policyPapUserName;
+    private String policyPapPassword;
+    private boolean isHttps;
+    private boolean deployPolicies = true;
 
-    public XacmlPdpPolicyForwarderParameterGroup() {
-        super(XacmlPdpPolicyForwarderParameterGroup.class.getSimpleName());
+    public LifecycleApiPolicyForwarderParameterGroup() {
+        super(LifecycleApiPolicyForwarderParameterGroup.class.getSimpleName());
     }
 }

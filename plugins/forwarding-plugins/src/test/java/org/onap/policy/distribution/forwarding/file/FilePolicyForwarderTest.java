@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Intel Corp. All rights reserved.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +40,6 @@ import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
@@ -61,11 +61,11 @@ public class FilePolicyForwarderTest {
      */
     @BeforeClass
     public static void setUp() {
-        final FilePolicyForwarderParameterBuilder builder = new FilePolicyForwarderParameterBuilder();
-        builder.setPath(tempFolder.getRoot().getAbsolutePath().toString()).setVerbose(VERBOSE);
-        final ParameterGroup parameterGroup = new FilePolicyForwarderParameterGroup(builder);
-        parameterGroup.setName(GROUP_NAME);
-        ParameterService.register(parameterGroup);
+        final FilePolicyForwarderParameterGroup configurationParameters = new FilePolicyForwarderParameterGroup();
+        configurationParameters.setPath(tempFolder.getRoot().getAbsolutePath().toString());
+        configurationParameters.setVerbose(VERBOSE);
+        configurationParameters.setName(GROUP_NAME);
+        ParameterService.register(configurationParameters);
     }
 
     /**
