@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +23,11 @@
 package org.onap.policy.distribution.main.parameters;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.onap.policy.common.endpoints.parameters.RestServerParameters;
 import org.onap.policy.common.utils.coder.Coder;
 import org.onap.policy.common.utils.coder.CoderException;
@@ -36,7 +35,6 @@ import org.onap.policy.common.utils.coder.StandardCoder;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyDecoderParameterGroup;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup;
-import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup.DummyPolicyForwarderParameterGroupBuilder;
 import org.onap.policy.distribution.main.testclasses.DummyReceptionHandlerParameterGroup;
 import org.onap.policy.distribution.main.testclasses.DummyReceptionHandlerParameterGroup.DummyReceptionHandlerParameterGroupBuilder;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
@@ -85,13 +83,12 @@ public class CommonTestData {
      * @return the restServerParameters object
      */
     public RestServerParameters getRestServerParameters(final boolean isEmpty) {
-        String fileName = "src/test/resources/parameters/"
-                        + (isEmpty ? "RestServerParametersEmpty" : "RestServerParameters") + ".json";
+        final String fileName = "src/test/resources/parameters/"
+                + (isEmpty ? "RestServerParametersEmpty" : "RestServerParameters") + ".json";
         try {
-            String text = new String(Files.readAllBytes(new File(fileName).toPath()), StandardCharsets.UTF_8);
-            return coder.decode(text, RestServerParameters.class);
-        } catch (CoderException | IOException e) {
-            throw new RuntimeException("cannot read/decode " + fileName, e);
+            return coder.decode(new File(fileName), RestServerParameters.class);
+        } catch (final CoderException exp) {
+            throw new RuntimeException("cannot read/decode " + fileName, exp);
         }
     }
 
@@ -198,11 +195,13 @@ public class CommonTestData {
         final Map<String, PolicyForwarderConfigurationParameterGroup> policyForwarderConfigurationParameters =
                 new HashMap<String, PolicyForwarderConfigurationParameterGroup>();
         if (!isEmpty) {
-            final DummyPolicyForwarderParameterGroup dummyPolicyForwarderParameterGroup =
-                    new DummyPolicyForwarderParameterGroupBuilder().setUseHttps(true).setHostname(FORWARDER_HOST)
-                            .setPort(1234).setUserName("myUser").setPassword("myPassword").setIsManaged(true).build();
-            policyForwarderConfigurationParameters.put(FORWARDER_CONFIGURATION_PARAMETERS,
-                    dummyPolicyForwarderParameterGroup);
+            final String fileName = "src/test/resources/parameters/DummyPolicyForwarderParameters.json";
+            try {
+                policyForwarderConfigurationParameters.put(FORWARDER_CONFIGURATION_PARAMETERS,
+                        coder.decode(new File(fileName), DummyPolicyForwarderParameterGroup.class));
+            } catch (final CoderException exp) {
+                throw new RuntimeException("cannot read/decode " + fileName, exp);
+            }
         }
         return policyForwarderConfigurationParameters;
     }

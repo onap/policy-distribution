@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +27,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.distribution.forwarding.xacml.pdp.testclasses.CommonTestData;
 
 /**
  * Class to perform unit test of {@link ApexPdpPolicyForwarderParameterGroup}.
@@ -35,14 +37,11 @@ import org.onap.policy.common.parameters.ValidationStatus;
 public class ApexPdpPolicyForwarderParameterGroupTest {
 
     @Test
-    public void testBuilderAndGetters() {
-        final ApexPdpPolicyForwarderParameterBuilder builder = new ApexPdpPolicyForwarderParameterBuilder();
-        builder.setHostname("10.10.10.10").setPort(1234).setIgnoreConflicts(false).setForceUpdate(true);
-        final ApexPdpPolicyForwarderParameterGroup configurationParameters =
-                new ApexPdpPolicyForwarderParameterGroup(builder);
-        configurationParameters.setName("myConfiguration");
-
-        assertEquals("myConfiguration", configurationParameters.getName());
+    public void testValidParameters() {
+        final ApexPdpPolicyForwarderParameterGroup configurationParameters = CommonTestData
+                .getPolicyForwarderParameters("src/test/resources/parameters/ApexPdpPolicyForwarderParameters.json",
+                        ApexPdpPolicyForwarderParameterGroup.class);
+        assertEquals(ApexPdpPolicyForwarderParameterGroup.class.getSimpleName(), configurationParameters.getName());
         assertTrue(configurationParameters.isForceUpdate());
         assertEquals("10.10.10.10", configurationParameters.getHostname());
         assertEquals(1234, configurationParameters.getPort());
@@ -51,23 +50,20 @@ public class ApexPdpPolicyForwarderParameterGroupTest {
     }
 
     @Test
-    public void testInvalidHostName() {
-        final ApexPdpPolicyForwarderParameterBuilder builder = new ApexPdpPolicyForwarderParameterBuilder();
-        builder.setHostname("").setPort(1234).setIgnoreConflicts(false).setForceUpdate(true);
+    public void testInvalidParameters() {
         final ApexPdpPolicyForwarderParameterGroup configurationParameters =
-                new ApexPdpPolicyForwarderParameterGroup(builder);
-        configurationParameters.setName("myConfiguration");
+                CommonTestData.getPolicyForwarderParameters(
+                        "src/test/resources/parameters/ApexPdpPolicyForwarderParametersInvalid.json",
+                        ApexPdpPolicyForwarderParameterGroup.class);
 
         assertEquals(ValidationStatus.INVALID, configurationParameters.validate().getStatus());
     }
 
     @Test
-    public void testInvalidPort() {
-        final ApexPdpPolicyForwarderParameterBuilder builder = new ApexPdpPolicyForwarderParameterBuilder();
-        builder.setHostname("10.10.10.10").setPort(-1).setIgnoreConflicts(false).setForceUpdate(true);
+    public void testEmptyParameters() {
         final ApexPdpPolicyForwarderParameterGroup configurationParameters =
-                new ApexPdpPolicyForwarderParameterGroup(builder);
-        configurationParameters.setName("myConfiguration");
+                CommonTestData.getPolicyForwarderParameters("src/test/resources/parameters/EmptyParameters.json",
+                        ApexPdpPolicyForwarderParameterGroup.class);
 
         assertEquals(ValidationStatus.INVALID, configurationParameters.validate().getStatus());
     }

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Intel Corp. All rights reserved.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,10 +35,9 @@ public class FilePolicyForwarderParameterGroupTest {
 
     @Test
     public void testBuilderAndGetters() {
-        final FilePolicyForwarderParameterBuilder builder = new FilePolicyForwarderParameterBuilder();
-        builder.setPath("/tmp").setVerbose(true);
-        final FilePolicyForwarderParameterGroup configurationParameters =
-                new FilePolicyForwarderParameterGroup(builder);
+        final FilePolicyForwarderParameterGroup configurationParameters = new FilePolicyForwarderParameterGroup();
+        configurationParameters.setPath("/tmp");
+        configurationParameters.setVerbose(true);
         configurationParameters.setName("myConfiguration");
 
         assertEquals("myConfiguration", configurationParameters.getName());
@@ -48,10 +48,9 @@ public class FilePolicyForwarderParameterGroupTest {
 
     @Test
     public void testInvalidPath() {
-        final FilePolicyForwarderParameterBuilder builder = new FilePolicyForwarderParameterBuilder();
-        builder.setPath("").setVerbose(false);
-        final FilePolicyForwarderParameterGroup configurationParameters =
-                new FilePolicyForwarderParameterGroup(builder);
+        final FilePolicyForwarderParameterGroup configurationParameters = new FilePolicyForwarderParameterGroup();
+        configurationParameters.setPath("");
+        configurationParameters.setVerbose(false);
         configurationParameters.setName("myConfiguration");
 
         assertEquals(ValidationStatus.INVALID, configurationParameters.validate().getStatus());
