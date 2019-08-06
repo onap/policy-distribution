@@ -23,9 +23,7 @@
 package org.onap.policy.distribution.main.parameters;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.onap.policy.common.endpoints.parameters.RestServerParameters;
@@ -36,7 +34,6 @@ import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParamet
 import org.onap.policy.distribution.main.testclasses.DummyPolicyDecoderParameterGroup;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup;
 import org.onap.policy.distribution.main.testclasses.DummyReceptionHandlerParameterGroup;
-import org.onap.policy.distribution.main.testclasses.DummyReceptionHandlerParameterGroup.DummyReceptionHandlerParameterGroupBuilder;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
@@ -123,14 +120,11 @@ public class CommonTestData {
         final Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurationParameters =
                 new HashMap<String, ReceptionHandlerConfigurationParameterGroup>();
         if (!isEmpty) {
-            final List<String> messageBusAddress = new ArrayList<>();
-            messageBusAddress.add("localhost");
-            final List<String> artifactTypes = new ArrayList<>();
-            artifactTypes.add("TOSCA_CSAR");
             final DummyReceptionHandlerParameterGroup dummyReceptionHandlerParameterGroup =
-                    new DummyReceptionHandlerParameterGroupBuilder().setMyStringParameter(MY_STRING_PARAMETER_VALUE)
-                            .setMyIntegerParameter(MY_INTEGER_PARAMETER_VALUE)
-                            .setMyBooleanParameter(MY_BOOLEAN_PARAMETER_VALUE).build();
+                    new DummyReceptionHandlerParameterGroup();
+            dummyReceptionHandlerParameterGroup.setMyStringParameter(MY_STRING_PARAMETER_VALUE);
+            dummyReceptionHandlerParameterGroup.setMyIntegerParameter(MY_INTEGER_PARAMETER_VALUE);
+            dummyReceptionHandlerParameterGroup.setMyBooleanParameter(MY_BOOLEAN_PARAMETER_VALUE);
             receptionHandlerConfigurationParameters.put(RECEPTION_CONFIGURATION_PARAMETERS,
                     dummyReceptionHandlerParameterGroup);
         }
@@ -195,13 +189,14 @@ public class CommonTestData {
         final Map<String, PolicyForwarderConfigurationParameterGroup> policyForwarderConfigurationParameters =
                 new HashMap<String, PolicyForwarderConfigurationParameterGroup>();
         if (!isEmpty) {
-            final String fileName = "src/test/resources/parameters/DummyPolicyForwarderParameters.json";
-            try {
-                policyForwarderConfigurationParameters.put(FORWARDER_CONFIGURATION_PARAMETERS,
-                        coder.decode(new File(fileName), DummyPolicyForwarderParameterGroup.class));
-            } catch (final CoderException exp) {
-                throw new RuntimeException("cannot read/decode " + fileName, exp);
-            }
+            final DummyPolicyForwarderParameterGroup parameters = new DummyPolicyForwarderParameterGroup();
+            parameters.setHostname(FORWARDER_HOST);
+            parameters.setManaged(true);
+            parameters.setUserName("myUser");
+            parameters.setPassword("myPassword");
+            parameters.setPort(1234);
+            parameters.setUseHttps(true);
+            policyForwarderConfigurationParameters.put(FORWARDER_CONFIGURATION_PARAMETERS, parameters);
         }
         return policyForwarderConfigurationParameters;
     }
@@ -218,7 +213,9 @@ public class CommonTestData {
                 new HashMap<String, PolicyDecoderConfigurationParameterGroup>();
         if (!isEmpty) {
             final DummyPolicyDecoderParameterGroup dummyPolicyForwarderParameterGroup =
-                    new DummyPolicyDecoderParameterGroup(POLICY_NAME, POLICY_TYPE);
+                    new DummyPolicyDecoderParameterGroup();
+            dummyPolicyForwarderParameterGroup.setPolicyName(POLICY_NAME);
+            dummyPolicyForwarderParameterGroup.setPolicyType(POLICY_TYPE);
             policyDecoderConfigurationParameters.put(DECODER_CONFIGURATION_PARAMETERS,
                     dummyPolicyForwarderParameterGroup);
         }

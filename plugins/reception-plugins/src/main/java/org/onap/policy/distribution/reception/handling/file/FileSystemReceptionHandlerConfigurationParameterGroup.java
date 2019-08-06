@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,37 +23,30 @@ package org.onap.policy.distribution.reception.handling.file;
 
 import java.io.File;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
-import org.onap.policy.common.utils.validation.ParameterValidationUtils;
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 
 /**
  * This class handles reading, parsing and validating of the Policy SDC Service Distribution parameters from Json
  * format, which strictly adheres to the interface:IConfiguration, defined by SDC SDK.
  */
+@Getter
+@Setter
+@NotNull
+@NotBlank
 public class FileSystemReceptionHandlerConfigurationParameterGroup extends ReceptionHandlerConfigurationParameterGroup {
 
     private String watchPath;
     private int maxThread;
 
-    /**
-     * The constructor for instantiating {@link FileSystemReceptionHandlerConfigurationParameterGroup} class.
-     *
-     * @param builder the SDC configuration builder
-     */
-    public FileSystemReceptionHandlerConfigurationParameterGroup(
-            final FileSystemReceptionHandlerConfigurationParameterBuilder builder) {
-        watchPath = builder.getWatchPath();
-        maxThread = builder.getMaxThread();
-    }
-
-    public String getWatchPath() {
-        return watchPath;
-    }
-
-    public int getMaxThread() {
-        return maxThread;
+    public FileSystemReceptionHandlerConfigurationParameterGroup() {
+        super(FileSystemReceptionHandlerConfigurationParameterGroup.class.getSimpleName());
     }
 
     /**
@@ -62,9 +56,6 @@ public class FileSystemReceptionHandlerConfigurationParameterGroup extends Recep
     public GroupValidationResult validate() {
         final GroupValidationResult validationResult = new GroupValidationResult(this);
         validatePathElement(validationResult, watchPath, "watchPath");
-        if (!ParameterValidationUtils.validateIntParameter(maxThread)) {
-            validationResult.setResult("maxThread", ValidationStatus.INVALID, "must be a positive integer");
-        }
         return validationResult;
     }
 
@@ -80,7 +71,7 @@ public class FileSystemReceptionHandlerConfigurationParameterGroup extends Recep
             final String elementName) {
         boolean valid = false;
         if (element != null) {
-            File file = new File(element);
+            final File file = new File(element);
             if (file.exists() && file.isDirectory()) {
                 valid = true;
             }
