@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7a4d315a_a4d8b8f7",
+        "filename": "reception/src/main/java/org/onap/policy/distribution/reception/parameters/PolicyDecoderConfigurationParameterGroup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-08-06T14:15:35Z",
+      "side": 1,
+      "message": "Deleted them",
+      "parentUuid": "535132cd_19d4bea4",
+      "revId": "845e3537c9c2fc8e17be6d52970e816d97f55348",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cabf0f2e_af0c5b1b",
         "filename": "reception/src/main/java/org/onap/policy/distribution/reception/parameters/ReceptionHandlerConfigurationParameterGroup.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2019-08-06T13:21:28Z",
       "side": 1,
       "message": "are these methods still needed?",
+      "revId": "845e3537c9c2fc8e17be6d52970e816d97f55348",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a10132d8_cdbbbb08",
+        "filename": "reception/src/main/java/org/onap/policy/distribution/reception/parameters/ReceptionHandlerConfigurationParameterGroup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-08-06T14:15:35Z",
+      "side": 1,
+      "message": "Deleted them",
+      "parentUuid": "cabf0f2e_af0c5b1b",
       "revId": "845e3537c9c2fc8e17be6d52970e816d97f55348",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
