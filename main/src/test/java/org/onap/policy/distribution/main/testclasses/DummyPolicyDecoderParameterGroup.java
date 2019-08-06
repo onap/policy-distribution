@@ -20,7 +20,11 @@
 
 package org.onap.policy.distribution.main.testclasses;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
+import lombok.Getter;
+import lombok.Setter;
+
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;
 
 /**
@@ -28,37 +32,16 @@ import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurat
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
+@Getter
+@Setter
+@NotNull
+@NotBlank
 public class DummyPolicyDecoderParameterGroup extends PolicyDecoderConfigurationParameterGroup {
 
     private String policyName;
     private String policyType;
 
-    /**
-     * Constructor for instantiating the {@link DummyPolicyDecoderParameterGroup} class.
-     *
-     * @param policyName the policy name
-     * @param policyType the policy type
-     */
-    public DummyPolicyDecoderParameterGroup(final String policyName, final String policyType) {
-        super();
-        this.policyName = policyName;
-        this.policyType = policyType;
+    public DummyPolicyDecoderParameterGroup() {
+        super(DummyPolicyDecoderParameterGroup.class.getSimpleName());
     }
-
-
-    public String getPolicyName() {
-        return policyName;
-    }
-
-
-    public String getPolicyType() {
-        return policyType;
-    }
-
-    @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult validationResult = new GroupValidationResult(this);
-        return validationResult;
-    }
-
 }

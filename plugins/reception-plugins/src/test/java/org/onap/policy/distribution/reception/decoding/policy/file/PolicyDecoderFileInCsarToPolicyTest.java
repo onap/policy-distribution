@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +37,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.distribution.model.Csar;
+import org.onap.policy.distribution.reception.decoding.pdpx.CommonTestData;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
@@ -46,18 +48,15 @@ import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 @RunWith(MockitoJUnitRunner.class)
 public class PolicyDecoderFileInCsarToPolicyTest {
 
-    private static final String POLICY_FILE_NAME = "apex_ddf_policy";
-    private static final String POLICY_TYPE_FILE_NAME = "apex_ddf_policy_type";
-    private static final String GROUP_NAME = "apexPdpDecoderConfiguration";
-
     /**
      * Set up.
      */
     @BeforeClass
     public static void setUp() {
-        final PolicyDecoderFileInCsarToPolicyParameterGroup configurationParameters =
-                new PolicyDecoderFileInCsarToPolicyParameterGroup(POLICY_FILE_NAME, POLICY_TYPE_FILE_NAME);
-        configurationParameters.setName(GROUP_NAME);
+        final PolicyDecoderFileInCsarToPolicyParameterGroup configurationParameters = CommonTestData
+                .getPolicyDecoderParameters("src/test/resources/parameters/FileInCsarPolicyDecoderParameters.json",
+                        PolicyDecoderFileInCsarToPolicyParameterGroup.class);
+        configurationParameters.setName(PolicyDecoderFileInCsarToPolicyParameterGroup.class.getSimpleName());
         ParameterService.register(configurationParameters);
     }
 
@@ -66,14 +65,14 @@ public class PolicyDecoderFileInCsarToPolicyTest {
      */
     @AfterClass
     public static void tearDown() {
-        ParameterService.deregister(GROUP_NAME);
+        ParameterService.deregister(PolicyDecoderFileInCsarToPolicyParameterGroup.class.getSimpleName());
     }
 
     @Test
     public void testDecodePolicy() {
 
         final PolicyDecoderFileInCsarToPolicy decoder = new PolicyDecoderFileInCsarToPolicy();
-        decoder.configure(GROUP_NAME);
+        decoder.configure(PolicyDecoderFileInCsarToPolicyParameterGroup.class.getSimpleName());
 
         final File file = new File("src/test/resources/service-Sampleservice.csar");
         final Csar csar = new Csar(file.getAbsolutePath());
@@ -91,7 +90,7 @@ public class PolicyDecoderFileInCsarToPolicyTest {
     public void testDecodePolicyZipError() {
 
         final PolicyDecoderFileInCsarToPolicy decoder = new PolicyDecoderFileInCsarToPolicy();
-        decoder.configure(GROUP_NAME);
+        decoder.configure(PolicyDecoderFileInCsarToPolicyParameterGroup.class.getSimpleName());
 
         final File file = new File("unknown.csar");
         final Csar csar = new Csar(file.getAbsolutePath());
@@ -111,7 +110,7 @@ public class PolicyDecoderFileInCsarToPolicyTest {
     public void testDecodePolicyCoderError() {
 
         final PolicyDecoderFileInCsarToPolicy decoder = new PolicyDecoderFileInCsarToPolicy();
-        decoder.configure(GROUP_NAME);
+        decoder.configure(PolicyDecoderFileInCsarToPolicyParameterGroup.class.getSimpleName());
 
         final File file = new File("src/test/resources/service-Sampleservice-test.csar");
         final Csar csar = new Csar(file.getAbsolutePath());

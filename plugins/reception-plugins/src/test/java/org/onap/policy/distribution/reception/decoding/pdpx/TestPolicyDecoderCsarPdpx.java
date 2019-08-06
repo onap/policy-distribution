@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,17 +42,15 @@ import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
  */
 public class TestPolicyDecoderCsarPdpx {
 
-    private static final String CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION = "csarToOptimizationPolicyConfiguration";
-
     /**
      * Set up for test cases.
      */
     @BeforeClass
     public static void setUp() {
-        final ParameterGroup parameterGroup = new PolicyDecoderCsarPdpxConfigurationParameterBuilder()
-                .setOnapName("onapName").setPolicyNamePrefix("OOF").setPriority("5").setRiskLevel("2")
-                .setRiskType("Test").setVersion("1.0").build();
-        parameterGroup.setName(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
+        final ParameterGroup parameterGroup = CommonTestData.getPolicyDecoderParameters(
+                "src/test/resources/parameters/PdpxPolicyDecoderParameters.json",
+                PolicyDecoderCsarPdpxConfigurationParameterGroup.class);
+        parameterGroup.setName(PolicyDecoderCsarPdpxConfigurationParameterGroup.class.getSimpleName());
         ParameterService.register(parameterGroup);
     }
 
@@ -60,14 +59,14 @@ public class TestPolicyDecoderCsarPdpx {
      */
     @AfterClass
     public static void tearDown() {
-        ParameterService.deregister(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
+        ParameterService.deregister(PolicyDecoderCsarPdpxConfigurationParameterGroup.class.getSimpleName());
     }
 
     @Test
     public void testHpaPolicy2Vnf() throws IOException, PolicyDecodingException {
         final Csar csar = new Csar("src/test/resources/service-TestNs8-csar.csar");
         final PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
-        policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
+        policyDecoderCsarPdpx.configure(PolicyDecoderCsarPdpxConfigurationParameterGroup.class.getSimpleName());
 
         final Collection<ToscaServiceTemplate> ret = policyDecoderCsarPdpx.decode(csar);
 
@@ -98,7 +97,7 @@ public class TestPolicyDecoderCsarPdpx {
     public void testHpaPolicySriov() throws IOException, PolicyDecodingException {
         final Csar csar = new Csar("src/test/resources/hpaPolicySriov.csar");
         final PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
-        policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
+        policyDecoderCsarPdpx.configure(PolicyDecoderCsarPdpxConfigurationParameterGroup.class.getSimpleName());
 
         final Collection<ToscaServiceTemplate> policies = policyDecoderCsarPdpx.decode(csar);
         final ToscaServiceTemplate policy = (ToscaServiceTemplate) policies.toArray()[0];
@@ -138,7 +137,7 @@ public class TestPolicyDecoderCsarPdpx {
     public void testHpaPolicyPciePassthrough() throws IOException, PolicyDecodingException {
         final Csar csar = new Csar("src/test/resources/hpaPolicyPciePassthrough.csar");
         final PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
-        policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
+        policyDecoderCsarPdpx.configure(PolicyDecoderCsarPdpxConfigurationParameterGroup.class.getSimpleName());
 
         final Collection<ToscaServiceTemplate> policies = policyDecoderCsarPdpx.decode(csar);
         assertEquals(2, policies.size());
@@ -181,7 +180,7 @@ public class TestPolicyDecoderCsarPdpx {
     public void testHpaPolicyHugePage() throws IOException, PolicyDecodingException {
         final Csar csar = new Csar("src/test/resources/hpaPolicyHugePage.csar");
         final PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
-        policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
+        policyDecoderCsarPdpx.configure(PolicyDecoderCsarPdpxConfigurationParameterGroup.class.getSimpleName());
 
         final Collection<ToscaServiceTemplate> policies = policyDecoderCsarPdpx.decode(csar);
         assertEquals(2, policies.size());
@@ -214,7 +213,7 @@ public class TestPolicyDecoderCsarPdpx {
     public void testS3p0PciVendorId() throws IOException, PolicyDecodingException {
         final Csar csar = new Csar("src/test/resources/s3p_0_pciVendorId.csar");
         final PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
-        policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
+        policyDecoderCsarPdpx.configure(PolicyDecoderCsarPdpxConfigurationParameterGroup.class.getSimpleName());
 
         final Collection<ToscaServiceTemplate> policies = policyDecoderCsarPdpx.decode(csar);
         assertEquals(1, policies.size());
@@ -248,7 +247,7 @@ public class TestPolicyDecoderCsarPdpx {
     public void testserviceVcpeWithAll() throws IOException, PolicyDecodingException {
         final Csar csar = new Csar("src/test/resources/service-VcpeWithAll-csar.csar");
         final PolicyDecoderCsarPdpx policyDecoderCsarPdpx = new PolicyDecoderCsarPdpx();
-        policyDecoderCsarPdpx.configure(CSAR_TO_OPTIMIZATION_POLICY_CONFIGURATION);
+        policyDecoderCsarPdpx.configure(PolicyDecoderCsarPdpxConfigurationParameterGroup.class.getSimpleName());
 
         final Collection<ToscaServiceTemplate> policies = policyDecoderCsarPdpx.decode(csar);
         assertEquals(5, policies.size());

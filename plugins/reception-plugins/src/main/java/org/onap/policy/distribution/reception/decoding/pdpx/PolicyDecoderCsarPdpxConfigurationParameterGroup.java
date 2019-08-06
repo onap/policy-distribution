@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,16 +21,18 @@
 
 package org.onap.policy.distribution.reception.decoding.pdpx;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ValidationStatus;
-import org.onap.policy.common.utils.validation.ParameterValidationUtils;
-import org.onap.policy.distribution.reception.handling.sdc.SdcReceptionHandlerConfigurationParameterGroup;
+import lombok.Getter;
+
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;
 
 /**
- * This class handles reading, parsing and validating of the paramaters for the
- * {@link PolicyDecoderCsarPdpx}.
+ * This class handles reading, parsing and validating of the paramaters for the {@link PolicyDecoderCsarPdpx}.
  */
+@Getter
+@NotNull
+@NotBlank
 public class PolicyDecoderCsarPdpxConfigurationParameterGroup extends PolicyDecoderConfigurationParameterGroup {
 
     private String policyNamePrefix;
@@ -39,74 +42,8 @@ public class PolicyDecoderCsarPdpxConfigurationParameterGroup extends PolicyDeco
     private String riskType;
     private String riskLevel;
 
-    /**
-     * The constructor for instantiating {@link SdcReceptionHandlerConfigurationParameterGroup}
-     * class.
-     *
-     * @param builder the SDC configuration builder
-     */
-    public PolicyDecoderCsarPdpxConfigurationParameterGroup(
-            final PolicyDecoderCsarPdpxConfigurationParameterBuilder builder) {
-        policyNamePrefix = builder.getPolicyNamePrefix();
-        onapName = builder.getOnapName();
-        version = builder.getVersion();
-        priority = builder.getPriority();
-        riskType = builder.getRiskType();
-        riskLevel = builder.getRiskLevel();
-    }
-
-    public String getPolicyNamePrefix() {
-        return policyNamePrefix;
-    }
-
-    public String getOnapName() {
-        return onapName;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public String getPriority() {
-        return priority;
-    }
-
-    public String getRiskType() {
-        return riskType;
-    }
-
-    public String getRiskLevel() {
-        return riskLevel;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult validationResult = new GroupValidationResult(this);
-        validateStringElement(validationResult, policyNamePrefix, "policyNamePrefix");
-        validateStringElement(validationResult, onapName, "onapName");
-        validateStringElement(validationResult, version, "version");
-        validateStringElement(validationResult, priority, "priority");
-        validateStringElement(validationResult, riskType, "riskType");
-        validateStringElement(validationResult, riskLevel, "riskLevel");
-        return validationResult;
-    }
-
-    /**
-     * Validate the string element.
-     *
-     * @param validationResult the result object
-     * @param element the element to validate
-     * @param elementName the element name for error message
-     */
-    private void validateStringElement(final GroupValidationResult validationResult, final String element,
-            final String elementName) {
-        if (!ParameterValidationUtils.validateStringParameter(element)) {
-            validationResult.setResult(elementName, ValidationStatus.INVALID,
-                    elementName + " must be a non-blank string");
-        }
+    public PolicyDecoderCsarPdpxConfigurationParameterGroup() {
+        super(PolicyDecoderCsarPdpxConfigurationParameterGroup.class.getSimpleName());
     }
 }
 

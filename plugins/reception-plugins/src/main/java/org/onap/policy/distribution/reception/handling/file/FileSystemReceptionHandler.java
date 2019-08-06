@@ -62,9 +62,8 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
         try {
             final FileSystemReceptionHandlerConfigurationParameterGroup handlerParameters =
                     ParameterService.get(parameterGroupName);
-            final FileClientHandler fileClientHandler = new FileClientHandler(this,
-                    handlerParameters.getWatchPath(),
-                    handlerParameters.getMaxThread());
+            final FileClientHandler fileClientHandler =
+                    new FileClientHandler(this, handlerParameters.getWatchPath(), handlerParameters.getMaxThread());
             final Thread fileWatcherThread = new Thread(fileClientHandler);
             fileWatcherThread.start();
         } catch (final Exception ex) {
@@ -114,10 +113,10 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
      * @param maxThread the max thread number
      * @throws InterruptedException if it occurs
      */
-    protected void startWatchService(final WatchService watcher,
-            final Path dir, int maxThread) throws InterruptedException {
+    protected void startWatchService(final WatchService watcher, final Path dir, final int maxThread)
+            throws InterruptedException {
         WatchKey key;
-        ExecutorService pool = Executors.newFixedThreadPool(maxThread);
+        final ExecutorService pool = Executors.newFixedThreadPool(maxThread);
 
         try {
             running = true;
@@ -135,7 +134,7 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
         }
     }
 
-    private void processFileEvents(Path dir, WatchKey key, ExecutorService pool) {
+    private void processFileEvents(final Path dir, final WatchKey key, final ExecutorService pool) {
         for (final WatchEvent<?> event : key.pollEvents()) {
             @SuppressWarnings("unchecked")
             final WatchEvent<Path> ev = (WatchEvent<Path>) event;
@@ -148,7 +147,7 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
                     waitForFileToBeReady(fullFilePath);
                     createPolicyInputAndCallHandler(fullFilePath);
                     LOGGER.debug("CSAR complete: {}", fileName);
-                } catch (InterruptedException e) {
+                } catch (final InterruptedException e) {
                     LOGGER.error("waitForFileToBeReady interrupted", e);
                     Thread.currentThread().interrupt();
                 }
