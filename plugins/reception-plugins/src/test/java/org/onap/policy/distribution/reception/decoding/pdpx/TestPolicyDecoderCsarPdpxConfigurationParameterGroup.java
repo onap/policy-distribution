@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,17 +33,13 @@ import org.onap.policy.common.parameters.ValidationStatus;
  */
 public class TestPolicyDecoderCsarPdpxConfigurationParameterGroup {
 
-    private static final String OPTIMIZATION_POLICY_CONFIGURATION = "optimizationPolicyConfiguration";
-
     @Test
-    public void testBuilderAndGetters() {
-        final PolicyDecoderCsarPdpxConfigurationParameterGroup parameterGroup =
-                new PolicyDecoderCsarPdpxConfigurationParameterBuilder().setOnapName("onapName")
-                        .setPolicyNamePrefix("OOF").setPriority("5").setRiskLevel("2").setRiskType("Test")
-                        .setVersion("1.0").build();
-        parameterGroup.setName(OPTIMIZATION_POLICY_CONFIGURATION);
+    public void testValidParameters() {
+        final PolicyDecoderCsarPdpxConfigurationParameterGroup parameterGroup = CommonTestData
+                .getPolicyDecoderParameters("src/test/resources/parameters/PdpxPolicyDecoderParameters.json",
+                        PolicyDecoderCsarPdpxConfigurationParameterGroup.class);
 
-        assertEquals(OPTIMIZATION_POLICY_CONFIGURATION, parameterGroup.getName());
+        assertEquals(PolicyDecoderCsarPdpxConfigurationParameterGroup.class.getSimpleName(), parameterGroup.getName());
         assertEquals("onapName", parameterGroup.getOnapName());
         assertEquals("OOF", parameterGroup.getPolicyNamePrefix());
         assertEquals("5", parameterGroup.getPriority());
@@ -54,11 +51,19 @@ public class TestPolicyDecoderCsarPdpxConfigurationParameterGroup {
 
     @Test
     public void testInvalidParameters() {
-        final PolicyDecoderCsarPdpxConfigurationParameterGroup parameterGroup =
-                new PolicyDecoderCsarPdpxConfigurationParameterBuilder().setOnapName("").setPolicyNamePrefix("")
-                        .setPriority("").setRiskLevel("").setRiskType("").setVersion("").build();
-        parameterGroup.setName(OPTIMIZATION_POLICY_CONFIGURATION);
+        final PolicyDecoderCsarPdpxConfigurationParameterGroup parameterGroup = CommonTestData
+                .getPolicyDecoderParameters("src/test/resources/parameters/PdpxPolicyDecoderParametersInvalid.json",
+                        PolicyDecoderCsarPdpxConfigurationParameterGroup.class);
 
         assertEquals(ValidationStatus.INVALID, parameterGroup.validate().getStatus());
+    }
+
+    @Test
+    public void testEmptyParameters() {
+        final PolicyDecoderCsarPdpxConfigurationParameterGroup configurationParameters =
+                CommonTestData.getPolicyDecoderParameters("src/test/resources/parameters/EmptyParameters.json",
+                        PolicyDecoderCsarPdpxConfigurationParameterGroup.class);
+
+        assertEquals(ValidationStatus.INVALID, configurationParameters.validate().getStatus());
     }
 }

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 package org.onap.policy.distribution.reception.parameters;
 
 import org.onap.policy.common.parameters.ParameterGroup;
+import org.onap.policy.common.parameters.ParameterGroupImpl;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 
 /**
@@ -28,18 +30,9 @@ import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public abstract class PolicyDecoderConfigurationParameterGroup implements ParameterGroup {
+public abstract class PolicyDecoderConfigurationParameterGroup extends ParameterGroupImpl {
 
-    private String name;
-
-    @Override
-    public String getName() {
-        return name;
+    public PolicyDecoderConfigurationParameterGroup(final String name) {
+        super(name);
     }
-
-    @Override
-    public void setName(final String name) {
-        this.name = name;
-    }
-
 }

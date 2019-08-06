@@ -1,0 +1,8 @@
+{
+    "policyNamePrefix": "OOF",
+    "onapName": "onapName",
+    "version": "1.0",
+    "priority": "5",
+    "riskType": "Test",
+    "riskLevel": "2"
+}

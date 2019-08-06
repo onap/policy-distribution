@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +35,8 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.distribution.reception.decoding.pdpx.CommonTestData;
 
 /**
  * Class to perform unit test of {@link SdcConfiguration}.
@@ -86,75 +89,11 @@ public class TestSdcReceptionHandlerConfigurationParameterGroup {
     }
 
     @Test
-    public void testSdcConfigurationBuilder() {
+    public void testEmptyParameters() {
+        final SdcReceptionHandlerConfigurationParameterGroup configurationParameters =
+                CommonTestData.getPolicyDecoderParameters("src/test/resources/parameters/EmptyParameters.json",
+                        SdcReceptionHandlerConfigurationParameterGroup.class);
 
-        final SdcReceptionHandlerConfigurationParameterBuilder builder =
-                new SdcReceptionHandlerConfigurationParameterBuilder().setAsdcAddress("localhost")
-                        .setConsumerGroup("policy-group").setConsumerId("policy-id").setEnvironmentName("TEST")
-                        .setKeystorePassword("password").setKeystorePath("dummyPath").setPassword("policy")
-                        .setPollingInterval(10).setPollingTimeout(20).setRetryDelay(30).setUser("policy")
-                        .setUseHttpsWithDmaap(false).setActiveserverTlsAuth(false).setFilterinEmptyResources(true)
-                        .setArtifactTypes(Arrays.asList("TOSCA_CSAR")).setMessageBusAddress(Arrays.asList("localhost"));
-        final SdcReceptionHandlerConfigurationParameterGroup configParameters =
-                new SdcReceptionHandlerConfigurationParameterGroup(builder);
-        configParameters.setName("SDCConfiguration");
-
-        assertEquals(Arrays.asList("localhost"), configParameters.getMessageBusAddress());
-        assertEquals(Arrays.asList("TOSCA_CSAR"), configParameters.getArtifactTypes());
-        assertEquals("localhost", configParameters.getAsdcAddress());
-        assertEquals("policy", configParameters.getUser());
-        assertEquals("policy", configParameters.getPassword());
-        assertEquals(10, configParameters.getPollingInterval());
-        assertEquals(20, configParameters.getPollingTimeout());
-        assertEquals(30, configParameters.getRetryDelay());
-        assertEquals("policy-id", configParameters.getConsumerId());
-        assertEquals("policy-group", configParameters.getConsumerGroup());
-        assertEquals("TEST", configParameters.getEnvironmentName());
-        assertEquals("dummyPath", configParameters.getKeyStorePath());
-        assertEquals("password", configParameters.getKeyStorePassword());
-        assertEquals(false, configParameters.isActiveServerTlsAuth());
-        assertEquals(true, configParameters.isFilterInEmptyResources());
-        assertEquals(false, configParameters.isUseHttpsWithDmaap());
-    }
-
-    @Test
-    public void testSdcConfigurationWithNullList() {
-
-        final SdcReceptionHandlerConfigurationParameterBuilder builder =
-                new SdcReceptionHandlerConfigurationParameterBuilder().setAsdcAddress("localhost")
-                        .setConsumerGroup("policy-group").setConsumerId("policy-id").setEnvironmentName("TEST")
-                        .setKeystorePassword("password").setKeystorePath("dummyPath").setPassword("policy")
-                        .setPollingInterval(10).setPollingTimeout(20).setUser("policy").setUseHttpsWithDmaap(false)
-                        .setActiveserverTlsAuth(false).setFilterinEmptyResources(true)
-                        .setArtifactTypes(Arrays.asList("TOSCA_CSAR")).setMessageBusAddress(null);
-        final SdcReceptionHandlerConfigurationParameterGroup configParameters =
-                new SdcReceptionHandlerConfigurationParameterGroup(builder);
-        configParameters.setName("SDCConfiguration");
-
-        try {
-            configParameters.validate();
-            fail("Test must throw an exception");
-        } catch (final Exception exp) {
-            assertTrue(exp.getMessage().contains("collection parameter \"messageBusAddress\" is null"));
-        }
-    }
-
-    @Test
-    public void testSdcConfigurationWithEmptyStringList() {
-
-        final SdcReceptionHandlerConfigurationParameterBuilder builder =
-                new SdcReceptionHandlerConfigurationParameterBuilder().setAsdcAddress("localhost")
-                        .setConsumerGroup("policy-group").setConsumerId("policy-id").setEnvironmentName("TEST")
-                        .setKeystorePassword("password").setKeystorePath("dummyPath").setPassword("policy")
-                        .setPollingInterval(10).setPollingTimeout(20).setUser("policy").setUseHttpsWithDmaap(false)
-                        .setActiveserverTlsAuth(false).setFilterinEmptyResources(true)
-                        .setArtifactTypes(Arrays.asList("")).setMessageBusAddress(Arrays.asList("localhost"));
-        final SdcReceptionHandlerConfigurationParameterGroup configParameters =
-                new SdcReceptionHandlerConfigurationParameterGroup(builder);
-        configParameters.setName("SDCConfiguration");
-
-        final GroupValidationResult validationResult = configParameters.validate();
-        assertFalse(validationResult.isValid());
-        assertTrue(validationResult.getResult().contains("must be a non-blank string"));
+        assertEquals(ValidationStatus.INVALID, configurationParameters.validate().getStatus());
     }
 }

@@ -52,9 +52,9 @@ public class TestFileSystemReceptionHandlerConfigurationParameterGroup {
         try {
             validPath = tempFolder.getRoot().getAbsolutePath();
 
-            final FileSystemReceptionHandlerConfigurationParameterBuilder builder =
-                new FileSystemReceptionHandlerConfigurationParameterBuilder().setWatchPath(validPath).setMaxThread(2);
-            configParameters = new FileSystemReceptionHandlerConfigurationParameterGroup(builder);
+            configParameters = new FileSystemReceptionHandlerConfigurationParameterGroup();
+            configParameters.setWatchPath(validPath);
+            configParameters.setMaxThread(2);
         } catch (final Exception e) {
             fail("test should not thrown an exception here: " + e.getMessage());
         }
@@ -79,24 +79,12 @@ public class TestFileSystemReceptionHandlerConfigurationParameterGroup {
     }
 
     @Test
-    public void testFileSystemReceptionHandlerConfigurationParameterBuilder() {
-
-        final FileSystemReceptionHandlerConfigurationParameterBuilder builder =
-                new FileSystemReceptionHandlerConfigurationParameterBuilder().setWatchPath("/foo/bar");
-        final FileSystemReceptionHandlerConfigurationParameterGroup configParameters =
-                new FileSystemReceptionHandlerConfigurationParameterGroup(builder);
-
-        assertEquals("/foo/bar", configParameters.getWatchPath());
-    }
-
-    @Test
     public void testFileSystemReceptionHandlerConfigurationParameterBuilderWithInvalidPath() throws IOException {
         final String invalidPath = tempFolder.newFile("foobar").getAbsolutePath();
 
-        final FileSystemReceptionHandlerConfigurationParameterBuilder builder =
-                new FileSystemReceptionHandlerConfigurationParameterBuilder().setWatchPath(invalidPath);
         final FileSystemReceptionHandlerConfigurationParameterGroup configParameters =
-                new FileSystemReceptionHandlerConfigurationParameterGroup(builder);
+                new FileSystemReceptionHandlerConfigurationParameterGroup();
+        configParameters.setWatchPath(invalidPath);
 
         final GroupValidationResult validateResult = configParameters.validate();
         assertFalse(validateResult.isValid());

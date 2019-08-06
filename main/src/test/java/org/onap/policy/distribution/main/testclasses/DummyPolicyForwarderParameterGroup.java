@@ -22,6 +22,7 @@
 package org.onap.policy.distribution.main.testclasses;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import org.onap.policy.common.parameters.annotations.Min;
 import org.onap.policy.common.parameters.annotations.NotBlank;
@@ -32,6 +33,7 @@ import org.onap.policy.distribution.main.parameters.PolicyForwarderConfiguration
  * Dummy policy forwarder parameter group.
  */
 @Getter
+@Setter
 @NotNull
 @NotBlank
 public class DummyPolicyForwarderParameterGroup extends PolicyForwarderConfigurationParameterGroup {

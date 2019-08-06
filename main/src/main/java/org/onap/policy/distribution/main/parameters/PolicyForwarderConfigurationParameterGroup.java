@@ -33,15 +33,4 @@ public abstract class PolicyForwarderConfigurationParameterGroup extends Paramet
     public PolicyForwarderConfigurationParameterGroup(final String name) {
         super(name);
     }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(final String name) {
-        this.name = name;
-    }
-
 }
