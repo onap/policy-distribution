@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6840b167_b505e84f",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-13T15:59:24Z",
+      "side": 1,
+      "message": "any need to check that get(0) and next() succeed?\n\nsame comment below",
+      "revId": "55bc79561caa5fbc4b51d66f35ac2460e17d94fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3af630e9_62b6f30a",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-13T15:59:24Z",
+      "side": 1,
+      "message": "too bad the parameters for API and PAP aren\u0027t segregated, then could get them all in a single assignment",
+      "revId": "55bc79561caa5fbc4b51d66f35ac2460e17d94fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1efd2082_8d47d4cc",
+        "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-13T15:59:24Z",
+      "side": 1,
+      "message": "probably don\u0027t need this wrapper",
+      "revId": "55bc79561caa5fbc4b51d66f35ac2460e17d94fa",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
