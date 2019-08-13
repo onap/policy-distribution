@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a06f01fa_fa987d79",
+        "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-13T17:18:38Z",
+      "side": 1,
+      "message": "don\u0027t even need to invoke \"assertThatCode\"",
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
