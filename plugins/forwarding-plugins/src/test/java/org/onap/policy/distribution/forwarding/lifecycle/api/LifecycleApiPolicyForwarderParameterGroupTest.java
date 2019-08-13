@@ -21,6 +21,7 @@
 package org.onap.policy.distribution.forwarding.lifecycle.api;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -34,14 +35,14 @@ import org.onap.policy.distribution.forwarding.xacml.pdp.testclasses.CommonTestD
  */
 public class LifecycleApiPolicyForwarderParameterGroupTest {
 
-    private static final String POLICY_API_HOST_NAME = "10.10.10.10";
-    private static final int POLICY_API_PORT = 1234;
-    private static final String POLICY_API_USER = "api_user";
-    private static final String POLICY_API_PASSWORD = "api_password";
-    private static final String POLICY_PAP_HOST_NAME = "20.20.20.20";
-    private static final int POLICY_PAP_PORT = 4321;
-    private static final String POLICY_PAP_USER = "pap_user";
-    private static final String POLICY_PAP_PASSWORD = "pap_password";
+    private static final String POLICY_API_HOST_NAME = "0.0.0.0";
+    private static final int POLICY_API_PORT = 6969;
+    private static final String POLICY_API_USER = "healthcheck";
+    private static final String POLICY_API_PASSWORD = "zb!XztG34";
+    private static final String POLICY_PAP_HOST_NAME = "0.0.0.0";
+    private static final int POLICY_PAP_PORT = 6969;
+    private static final String POLICY_PAP_USER = "healthcheck";
+    private static final String POLICY_PAP_PASSWORD = "zb!XztG34";
 
 
     @Test
@@ -53,7 +54,7 @@ public class LifecycleApiPolicyForwarderParameterGroupTest {
 
         assertEquals(LifecycleApiPolicyForwarderParameterGroup.class.getSimpleName(),
                 configurationParameters.getName());
-        assertTrue(configurationParameters.isHttps());
+        assertFalse(configurationParameters.isHttps());
         assertTrue(configurationParameters.isDeployPolicies());
         assertEquals(POLICY_API_HOST_NAME, configurationParameters.getPolicyApiHostName());
         assertEquals(POLICY_API_PORT, configurationParameters.getPolicyApiPort());
