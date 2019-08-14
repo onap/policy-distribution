@@ -2,6 +2,190 @@
   "comments": [
     {
       "key": {
+        "uuid": "95df8a07_ff212c1a",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-08-14T10:33:49Z",
+      "side": 1,
+      "message": "I guess these are unlikely to change!",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 83
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1be100b_4b4d1936",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-08-14T10:33:49Z",
+      "side": 1,
+      "message": "I find this variable name very confusing.",
+      "range": {
+        "startLine": 77,
+        "startChar": 54,
+        "endLine": 77,
+        "endChar": 62
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "770cf12a_1d3cfa5f",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-08-14T10:33:49Z",
+      "side": 1,
+      "message": "Are policies the only type of ToscaEntity we can expect here?",
+      "range": {
+        "startLine": 77,
+        "startChar": 30,
+        "endLine": 77,
+        "endChar": 62
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "017263f9_591f8663",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-08-14T10:33:49Z",
+      "side": 1,
+      "message": "Why is this variable called failedPolicies? Is this method only called in failure cases?",
+      "range": {
+        "startLine": 78,
+        "startChar": 32,
+        "endLine": 78,
+        "endChar": 46
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f969f95f_939b1dbd",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-08-14T10:33:49Z",
+      "side": 1,
+      "message": "final ToscaEntity entity: entities, would this be better?\n\nAnd so on everywhere in this class?",
+      "range": {
+        "startLine": 79,
+        "startChar": 13,
+        "endLine": 79,
+        "endChar": 48
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e507ac6_60857f09",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-08-14T10:33:49Z",
+      "side": 1,
+      "message": "folowing-\u003efollowing",
+      "range": {
+        "startLine": 84,
+        "startChar": 43,
+        "endLine": 84,
+        "endChar": 51
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74f36f5f_4244edec",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-08-14T10:33:49Z",
+      "side": 1,
+      "message": "If it isn\u0027t a ToscaServiceTemplate, isn\u0027t it an error?",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 5
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "187f765e_1ff58fcd",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-08-14T10:33:49Z",
+      "side": 1,
+      "message": "Maybe we should have an api in policy/api to create policy types and policies in one go from the TST?\n\nthen\n1) Call policy/API with TST to create policy types and policies, avoids most of the code here.\n2) Call PAP with TST to deploy policy.\n\nSomething for Frankfurt?",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 13
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a06f01fa_fa987d79",
         "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarderTest.java",
         "patchSetId": 3
