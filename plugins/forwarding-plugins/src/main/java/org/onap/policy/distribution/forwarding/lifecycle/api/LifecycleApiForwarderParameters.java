@@ -22,34 +22,27 @@ package org.onap.policy.distribution.forwarding.lifecycle.api;
 
 import lombok.Getter;
 
-import org.onap.policy.common.parameters.annotations.Min;
 import org.onap.policy.common.parameters.annotations.NotBlank;
 import org.onap.policy.common.parameters.annotations.NotNull;
 import org.onap.policy.distribution.main.parameters.PolicyForwarderConfigurationParameterGroup;
 
 /**
- * Holds the parameters for the{@link LifecycleApiPolicyForwarder}.
+ * Holds the parameters for the {@link LifecycleApiPolicyForwarder}.
+ *
+ * @author Ram Krishna Verma (ram.krishna.verma@est.tech)
  */
 @Getter
 @NotNull
 @NotBlank
-public class LifecycleApiPolicyForwarderParameterGroup extends PolicyForwarderConfigurationParameterGroup {
+public class LifecycleApiForwarderParameters extends PolicyForwarderConfigurationParameterGroup {
     public static final String POLICY_FORWARDER_PLUGIN_CLASS = LifecycleApiPolicyForwarder.class.getName();
 
-    private String policyApiHostName;
-    @Min(value = 1)
-    private int policyApiPort;
-    private String policyApiUserName;
-    private String policyApiPassword;
-    private String policyPapHostName;
-    @Min(value = 1)
-    private int policyPapPort;
-    private String policyPapUserName;
-    private String policyPapPassword;
+    private LifecycleApiParameters apiParameters;
+    private LifecycleApiParameters papParameters;
     private boolean isHttps;
     private boolean deployPolicies = true;
 
-    public LifecycleApiPolicyForwarderParameterGroup() {
-        super(LifecycleApiPolicyForwarderParameterGroup.class.getSimpleName());
+    public LifecycleApiForwarderParameters() {
+        super(LifecycleApiForwarderParameters.class.getSimpleName());
     }
 }

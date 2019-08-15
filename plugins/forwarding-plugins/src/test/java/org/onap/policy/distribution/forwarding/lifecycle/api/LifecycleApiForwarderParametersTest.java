@@ -21,6 +21,7 @@
 package org.onap.policy.distribution.forwarding.lifecycle.api;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -28,60 +29,60 @@ import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.distribution.forwarding.xacml.pdp.testclasses.CommonTestData;
 
 /**
- * Class to perform unit test of {@link LifecycleApiPolicyForwarderParameterGroup}.
+ * Class to perform unit test of {@link LifecycleApiForwarderParameters}.
  *
  * @author Ram Krishna Verma (ram.krishna.verma@est.tech)
  */
-public class LifecycleApiPolicyForwarderParameterGroupTest {
+public class LifecycleApiForwarderParametersTest {
 
-    private static final String POLICY_API_HOST_NAME = "10.10.10.10";
-    private static final int POLICY_API_PORT = 1234;
-    private static final String POLICY_API_USER = "api_user";
-    private static final String POLICY_API_PASSWORD = "api_password";
-    private static final String POLICY_PAP_HOST_NAME = "20.20.20.20";
-    private static final int POLICY_PAP_PORT = 4321;
-    private static final String POLICY_PAP_USER = "pap_user";
-    private static final String POLICY_PAP_PASSWORD = "pap_password";
+    private static final String POLICY_API_HOST_NAME = "0.0.0.0";
+    private static final int POLICY_API_PORT = 6969;
+    private static final String POLICY_API_USER = "healthcheck";
+    private static final String POLICY_API_PASSWORD = "zb!XztG34";
+    private static final String POLICY_PAP_HOST_NAME = "0.0.0.0";
+    private static final int POLICY_PAP_PORT = 6969;
+    private static final String POLICY_PAP_USER = "healthcheck";
+    private static final String POLICY_PAP_PASSWORD = "zb!XztG34";
 
 
     @Test
     public void testValidParameters() {
-        final LifecycleApiPolicyForwarderParameterGroup configurationParameters =
+        final LifecycleApiForwarderParameters configurationParameters =
                 CommonTestData.getPolicyForwarderParameters(
                         "src/test/resources/parameters/LifecycleApiPolicyForwarderParameters.json",
-                        LifecycleApiPolicyForwarderParameterGroup.class);
+                        LifecycleApiForwarderParameters.class);
 
-        assertEquals(LifecycleApiPolicyForwarderParameterGroup.class.getSimpleName(),
+        assertEquals(LifecycleApiForwarderParameters.class.getSimpleName(),
                 configurationParameters.getName());
-        assertTrue(configurationParameters.isHttps());
+        assertFalse(configurationParameters.isHttps());
         assertTrue(configurationParameters.isDeployPolicies());
-        assertEquals(POLICY_API_HOST_NAME, configurationParameters.getPolicyApiHostName());
-        assertEquals(POLICY_API_PORT, configurationParameters.getPolicyApiPort());
-        assertEquals(POLICY_API_USER, configurationParameters.getPolicyApiUserName());
-        assertEquals(POLICY_API_PASSWORD, configurationParameters.getPolicyApiPassword());
-        assertEquals(POLICY_PAP_HOST_NAME, configurationParameters.getPolicyPapHostName());
-        assertEquals(POLICY_PAP_PORT, configurationParameters.getPolicyPapPort());
-        assertEquals(POLICY_PAP_USER, configurationParameters.getPolicyPapUserName());
-        assertEquals(POLICY_PAP_PASSWORD, configurationParameters.getPolicyPapPassword());
+        assertEquals(POLICY_API_HOST_NAME, configurationParameters.getApiParameters().getHostName());
+        assertEquals(POLICY_API_PORT, configurationParameters.getApiParameters().getPort());
+        assertEquals(POLICY_API_USER, configurationParameters.getApiParameters().getUserName());
+        assertEquals(POLICY_API_PASSWORD, configurationParameters.getApiParameters().getPassword());
+        assertEquals(POLICY_PAP_HOST_NAME, configurationParameters.getPapParameters().getHostName());
+        assertEquals(POLICY_PAP_PORT, configurationParameters.getPapParameters().getPort());
+        assertEquals(POLICY_PAP_USER, configurationParameters.getPapParameters().getUserName());
+        assertEquals(POLICY_PAP_PASSWORD, configurationParameters.getPapParameters().getPassword());
 
         assertEquals(ValidationStatus.CLEAN, configurationParameters.validate().getStatus());
     }
 
     @Test
     public void testInvalidParameters() {
-        final LifecycleApiPolicyForwarderParameterGroup configurationParameters =
+        final LifecycleApiForwarderParameters configurationParameters =
                 CommonTestData.getPolicyForwarderParameters(
                         "src/test/resources/parameters/LifecycleApiPolicyForwarderParametersInvalid.json",
-                        LifecycleApiPolicyForwarderParameterGroup.class);
+                        LifecycleApiForwarderParameters.class);
 
         assertEquals(ValidationStatus.INVALID, configurationParameters.validate().getStatus());
     }
 
     @Test
     public void testEmptyParameters() {
-        final LifecycleApiPolicyForwarderParameterGroup configurationParameters =
+        final LifecycleApiForwarderParameters configurationParameters =
                 CommonTestData.getPolicyForwarderParameters("src/test/resources/parameters/EmptyParameters.json",
-                        LifecycleApiPolicyForwarderParameterGroup.class);
+                        LifecycleApiForwarderParameters.class);
 
         assertEquals(ValidationStatus.INVALID, configurationParameters.validate().getStatus());
     }

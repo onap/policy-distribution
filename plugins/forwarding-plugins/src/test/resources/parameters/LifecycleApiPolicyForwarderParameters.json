@@ -1,12 +1,16 @@
 {
-    "policyApiHostName": "10.10.10.10",
-    "policyApiPort": 1234,
-    "policyApiUserName": "api_user",
-    "policyApiPassword": "api_password",
-    "policyPapHostName": "20.20.20.20",
-    "policyPapPort": "4321",
-    "policyPapUserName": "pap_user",
-    "policyPapPassword": "pap_password",
-    "isHttps": true,
-    "deployPolicies": true
+  "apiParameters": {
+    "hostName": "0.0.0.0",
+    "port": 6969,
+    "userName": "healthcheck",
+    "password": "zb!XztG34"
+  },
+  "papParameters": {
+    "hostName": "0.0.0.0",
+    "port": 6969,
+    "userName": "healthcheck",
+    "password": "zb!XztG34"
+  },
+  "isHttps": false,
+  "deployPolicies": true
 }
