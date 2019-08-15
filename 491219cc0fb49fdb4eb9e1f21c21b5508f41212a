@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aa39ec1_24be0342",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-08-15T22:31:15Z",
+      "side": 1,
+      "message": ".toString() is unnecessary (I think sonar will complain, but not sure)\n\nsame comment below",
+      "revId": "491219cc0fb49fdb4eb9e1f21c21b5508f41212a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
