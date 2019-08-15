@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "552a0c84_d2dad924",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-08-15T14:04:59Z",
+      "side": 1,
+      "message": "Yes, and that\u0027s the reason I thought having them in configuration file is not needed.",
+      "parentUuid": "95df8a07_ff212c1a",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 83
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a1be100b_4b4d1936",
         "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
         "patchSetId": 3
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "2e843cd6_d6ac2905",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-08-15T14:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1be100b_4b4d1936",
+      "range": {
+        "startLine": 77,
+        "startChar": 54,
+        "endLine": 77,
+        "endChar": 62
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "017263f9_591f8663",
         "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
         "patchSetId": 3
@@ -82,6 +130,30 @@
       "writtenOn": "2019-08-14T10:33:49Z",
       "side": 1,
       "message": "Why is this variable called failedPolicies? Is this method only called in failure cases?",
+      "range": {
+        "startLine": 78,
+        "startChar": 32,
+        "endLine": 78,
+        "endChar": 46
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce34c4cd_e0d08a07",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-08-15T14:04:59Z",
+      "side": 1,
+      "message": "This list only holds the failed entities and then is reported after the iteration of whole original list of entities is done.",
+      "parentUuid": "017263f9_591f8663",
       "range": {
         "startLine": 78,
         "startChar": 32,
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "0498d0d3_e2b46547",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-08-15T14:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f969f95f_939b1dbd",
+      "range": {
+        "startLine": 79,
+        "startChar": 13,
+        "endLine": 79,
+        "endChar": 48
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5e507ac6_60857f09",
         "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
         "patchSetId": 3
@@ -128,6 +224,30 @@
       "writtenOn": "2019-08-14T10:33:49Z",
       "side": 1,
       "message": "folowing-\u003efollowing",
+      "range": {
+        "startLine": 84,
+        "startChar": 43,
+        "endLine": 84,
+        "endChar": 51
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56c28c08_2ba3cec9",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-08-15T14:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e507ac6_60857f09",
       "range": {
         "startLine": 84,
         "startChar": 43,
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "a64a9d47_c9e2cf6e",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-08-15T14:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74f36f5f_4244edec",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 5
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "187f765e_1ff58fcd",
         "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
         "patchSetId": 3
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "50b8c0b9_83037c4e",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-08-15T14:04:59Z",
+      "side": 1,
+      "message": "Agree, for simplicity to the clients we should have such API. Raised JIRA for Frankfurt.",
+      "parentUuid": "187f765e_1ff58fcd",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 13
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a06f01fa_fa987d79",
         "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarderTest.java",
         "patchSetId": 3
@@ -197,6 +365,24 @@
       "writtenOn": "2019-08-13T17:18:38Z",
       "side": 1,
       "message": "don\u0027t even need to invoke \"assertThatCode\"",
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9b83b9fc_e4340ffb",
+        "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarderTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-08-15T14:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a06f01fa_fa987d79",
       "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
