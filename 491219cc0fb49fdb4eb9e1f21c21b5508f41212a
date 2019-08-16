@@ -16,6 +16,24 @@
       "revId": "491219cc0fb49fdb4eb9e1f21c21b5508f41212a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4f37fbd_fd4a408f",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-08-16T10:17:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7aa39ec1_24be0342",
+      "revId": "491219cc0fb49fdb4eb9e1f21c21b5508f41212a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
