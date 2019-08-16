@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "075e792d_5d6918b3",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-08-16T08:19:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "552a0c84_d2dad924",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 83
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1be100b_4b4d1936",
         "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
         "patchSetId": 3
@@ -166,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "66d66f11_acb0cac6",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-08-16T08:19:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ce34c4cd_e0d08a07",
+      "range": {
+        "startLine": 78,
+        "startChar": 32,
+        "endLine": 78,
+        "endChar": 46
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f969f95f_939b1dbd",
         "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
         "patchSetId": 3
@@ -210,6 +258,30 @@
       "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e798ec8_05c8302d",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-08-16T08:19:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0498d0d3_e2b46547",
+      "range": {
+        "startLine": 79,
+        "startChar": 13,
+        "endLine": 79,
+        "endChar": 48
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -260,6 +332,30 @@
     },
     {
       "key": {
+        "uuid": "bf5626c3_23df49c7",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-08-16T08:19:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "56c28c08_2ba3cec9",
+      "range": {
+        "startLine": 84,
+        "startChar": 43,
+        "endLine": 84,
+        "endChar": 51
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74f36f5f_4244edec",
         "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
         "patchSetId": 3
@@ -307,6 +403,30 @@
     },
     {
       "key": {
+        "uuid": "2b614714_9e453fb0",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-08-16T08:19:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a64a9d47_c9e2cf6e",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 5
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "187f765e_1ff58fcd",
         "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
         "patchSetId": 3
@@ -351,6 +471,30 @@
       "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22a6da80_4457b559",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2019-08-16T08:19:40Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "50b8c0b9_83037c4e",
+      "range": {
+        "startLine": 92,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 13
+      },
+      "revId": "05d1219c91b8c3a8020d415fdfa1366216603733",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
