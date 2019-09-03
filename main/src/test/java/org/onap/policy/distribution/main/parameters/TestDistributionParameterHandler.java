@@ -160,9 +160,6 @@ public class TestDistributionParameterHandler {
         assertEquals(CommonTestData.FORWARDER_HOST,
                 ((DummyPolicyForwarderParameterGroup) parGroup.getPolicyForwarderConfigurationParameters()
                         .get(CommonTestData.FORWARDER_CONFIGURATION_PARAMETERS)).getHostname());
-        assertEquals(CommonTestData.POLICY_TYPE,
-                ((DummyPolicyDecoderParameterGroup) parGroup.getPolicyDecoderConfigurationParameters()
-                        .get(CommonTestData.DECODER_CONFIGURATION_PARAMETERS)).getPolicyType());
         assertEquals(CommonTestData.POLICY_NAME,
                 ((DummyPolicyDecoderParameterGroup) parGroup.getPolicyDecoderConfigurationParameters()
                         .get(CommonTestData.DECODER_CONFIGURATION_PARAMETERS)).getPolicyName());
