@@ -20,12 +20,16 @@
 
 package org.onap.policy.distribution.model;
 
+import com.att.aft.dme2.internal.apache.commons.lang.NotImplementedException;
+
 import java.util.Date;
+
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
  * An optimization policy.
  */
-public class OptimizationPolicy implements Policy {
+public class OptimizationPolicy extends ToscaEntity {
 
     private static final String OPTIMIZATION = "Optimization";
     private String policyName;
@@ -39,17 +43,25 @@ public class OptimizationPolicy implements Policy {
     private String riskType;
 
     @Override
-    public String getPolicyName() {
+    public String getName() {
         return policyName;
     }
 
     @Override
-    public String getPolicyType() {
+    public void setName(final String name) {
+        this.policyName = name;
+
+    }
+
+    @Override
+    public String getVersion() {
         return OPTIMIZATION;
     }
 
-    public void setPolicyName(final String policyName) {
-        this.policyName = policyName;
+    @Override
+    public void setVersion(final String version) {
+        throw new NotImplementedException();
+
     }
 
     public String getPolicyDescription() {
@@ -61,7 +73,7 @@ public class OptimizationPolicy implements Policy {
     }
 
     public String getPolicyConfigType() {
-        return getPolicyType();
+        return getVersion();
     }
 
     public String getOnapName() {
@@ -119,4 +131,6 @@ public class OptimizationPolicy implements Policy {
     public void setRiskType(final String riskType) {
         this.riskType = riskType;
     }
+
+
 }
