@@ -88,6 +88,7 @@ public class ExtractFromNode {
      */
     public Content extractInfo(final NodeTemplate node) throws PolicyDecodingException {
         final Metadata metaData = sdcCsarHelper.getNodeTemplateMetadata(node);
+        final Metadata metaDataOfService = sdcCsarHelper.getServiceMetadata();
         LOGGER.debug("the meta data of this nodetemplate = {}", metaData);
         final List<NodeTemplate> lnodeChild = sdcCsarHelper.getNodeTemplateChildren(node);
         LOGGER.debug("the size of lnodeChild = {}", lnodeChild.size());
@@ -111,7 +112,8 @@ public class ExtractFromNode {
 
         final Content content = new Content();
         content.getResources().add(metaData.getValue("name"));
-        content.setIdentity(content.getPolicyType() + "_" + metaData.getValue("name"));
+        content.getServices().add(metaDataOfService.getValue("name"));
+        content.setIdentity("hpa" + "_" + metaData.getValue("name")); /* hardcoded "hpa" here for now*/
         extractInfoVdu(lnodeVdu, content);
         extractInfoVduCp(lnodeVduCp, content);
         if (content.getFlavorFeatures().isEmpty()) {

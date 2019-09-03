@@ -29,14 +29,29 @@ import java.util.List;
  * @author Libo Zhu (libo.zhu@intel.com)
  */
 class Content {
+    private List<String> scope = null; /* keep scope as null for now */
+    private List<String> services = new ArrayList<>();
     private List<String> resources = new ArrayList<>();
+    private List<String> geography = null; /* keep geography as null for now */
     private String identity;
     private List<String> policyScope = new ArrayList<>();
     private String policyType = "Optimization";
     private List<FlavorFeature> flavorFeatures = new ArrayList<>();
 
+    public List<String> getScope() {
+        return scope;
+    }
+
+    public List<String> getServices() {
+        return services;
+    }
+
     public List<String> getResources() {
         return resources;
+    }
+
+    public List<String> getGeography() {
+        return geography;
     }
 
     public void setIdentity(final String identity) {
@@ -63,4 +78,3 @@ class Content {
         return flavorFeatures;
     }
 }
-
