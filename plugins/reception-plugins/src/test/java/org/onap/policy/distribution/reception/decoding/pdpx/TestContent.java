@@ -21,6 +21,7 @@
 package org.onap.policy.distribution.reception.decoding.pdpx;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
@@ -44,13 +45,19 @@ public class TestContent {
 
     private void validateReport(final String identity, final String policyType,
             final Content content) {
+        assertNull(content.getScope());
+        assertNull(content.getGeography());
         assertEquals(identity, content.getIdentity());
-        assertEquals(policyType, content.getPolicyType());
-        assertEquals(0, content.getPolicyScope().size());
-        content.getPolicyScope().add("vFW");
-        assertEquals(1, content.getPolicyScope().size());
-        content.getPolicyScope().remove("vFW");
-        assertEquals(0, content.getPolicyScope().size());
+        assertEquals(0, content.getServices().size());
+        content.getServices().add("vCPE");
+        assertEquals(1, content.getServices().size());
+        content.getServices().remove("vCPE");
+        assertEquals(0, content.getServices().size());
+        assertEquals(0, content.getGeography().size());
+        content.getGeography().add("US");
+        assertEquals(1, content.getGeography().size());
+        content.getGeography().remove("US");
+        assertEquals(0, content.getGeography().size());
         assertEquals(0, content.getFlavorFeatures().size());
         FlavorFeature flavorFeature = new FlavorFeature();
         content.getFlavorFeatures().add(flavorFeature);
