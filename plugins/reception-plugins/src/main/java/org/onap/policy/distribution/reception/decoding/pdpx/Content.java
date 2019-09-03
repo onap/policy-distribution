@@ -22,45 +22,21 @@ package org.onap.policy.distribution.reception.decoding.pdpx;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Data;
 
 /**
  * The content acts the high level abstraction which to be used by OOF to do Optimization.
  *
  * @author Libo Zhu (libo.zhu@intel.com)
  */
+@Data
 class Content {
+    private List<String> scope = new ArrayList<>(); /* keep scope as empty for now */
+    private List<String> services = new ArrayList<>();
     private List<String> resources = new ArrayList<>();
+    private List<String> geography = new ArrayList<>(); /* keep geography as empty for now */
     private String identity;
     private List<String> policyScope = new ArrayList<>();
     private String policyType = "Optimization";
     private List<FlavorFeature> flavorFeatures = new ArrayList<>();
-
-    public List<String> getResources() {
-        return resources;
-    }
-
-    public void setIdentity(final String identity) {
-        this.identity = identity;
-    }
-
-    public String getIdentity() {
-        return identity;
-    }
-
-    public List<String> getPolicyScope() {
-        return policyScope;
-    }
-
-    public void setPolicyType(final String policyType) {
-        this.policyType = policyType;
-    }
-
-    public String getPolicyType() {
-        return policyType;
-    }
-
-    public List<FlavorFeature> getFlavorFeatures() {
-        return flavorFeatures;
-    }
 }
-
