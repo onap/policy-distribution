@@ -31,10 +31,10 @@ import java.util.List;
 
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
+import org.onap.policy.distribution.model.OptimizationPolicy;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
 import org.onap.sdc.tosca.parser.api.ISdcCsarHelper;
 import org.onap.sdc.tosca.parser.impl.SdcToscaParserFactory;
 import org.onap.sdc.toscaparser.api.NodeTemplate;
@@ -44,15 +44,15 @@ import org.slf4j.LoggerFactory;
 /**
  * Decodes PDP-X policies from a CSAR file.
  */
-public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, ToscaServiceTemplate> {
+public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, OptimizationPolicy> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PolicyDecoderCsarPdpx.class);
     private final Gson gson = new GsonBuilder().serializeNulls().disableHtmlEscaping().create();
     private PolicyDecoderCsarPdpxConfigurationParameterGroup decoderParameters;
 
     @Override
-    public Collection<ToscaServiceTemplate> decode(final Csar csar) throws PolicyDecodingException {
-        final List<ToscaServiceTemplate> policies = new ArrayList<>();
+    public Collection<OptimizationPolicy> decode(final Csar csar) throws PolicyDecodingException {
+        final List<OptimizationPolicy> policies = new ArrayList<>();
         final ISdcCsarHelper sdcCsarHelper = parseCsar(csar);
         final List<NodeTemplate> lnodeVf = sdcCsarHelper.getServiceVfList();
         LOGGER.debug("the size of Vf = {}", lnodeVf.size());
@@ -63,9 +63,9 @@ public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, ToscaServiceTe
         for (final NodeTemplate node : lnodeVf) {
             final Content content = extractFromNode.extractInfo(node);
             if (content != null) {
-                final ToscaServiceTemplate policy = new ToscaServiceTemplate();
+                final OptimizationPolicy policy = new OptimizationPolicy();
                 final String policyName = decoderParameters.getPolicyNamePrefix() + "." + content.getIdentity();
-                // policy.setOnapName(decoderParameters.getOnapName());
+                policy.setOnapName(decoderParameters.getOnapName());
                 policy.setName(policyName);
                 final ConfigBody configBody = new ConfigBody();
                 configBody.setService("hpaPolicy");
@@ -81,7 +81,7 @@ public class PolicyDecoderCsarPdpx implements PolicyDecoder<Csar, ToscaServiceTe
                 content.getPolicyScope().add("HPA");
                 content.getPolicyScope().add(serviceName);
                 configBody.setContent(content);
-                // policy.setConfigBody(gson.toJson(configBody));
+                policy.setConfigBody(gson.toJson(configBody));
                 policies.add(policy);
             }
         }

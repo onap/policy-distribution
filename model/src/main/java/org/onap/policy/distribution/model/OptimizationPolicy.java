@@ -20,12 +20,25 @@
 
 package org.onap.policy.distribution.model;
 
+import com.att.aft.dme2.internal.apache.commons.lang.NotImplementedException;
+
 import java.util.Date;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
  * An optimization policy.
  */
-public class OptimizationPolicy implements Policy {
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(callSuper = true)
+public class OptimizationPolicy extends ToscaEntity {
 
     private static final String OPTIMIZATION = "Optimization";
     private String policyName;
@@ -39,84 +52,23 @@ public class OptimizationPolicy implements Policy {
     private String riskType;
 
     @Override
-    public String getPolicyName() {
+    public String getName() {
         return policyName;
     }
 
     @Override
-    public String getPolicyType() {
+    public void setName(final String name) {
+        this.policyName = name;
+    }
+
+    @Override
+    public String getVersion() {
+        // Utilizing this method to return the policy type instead of version for the old model.
         return OPTIMIZATION;
     }
 
-    public void setPolicyName(final String policyName) {
-        this.policyName = policyName;
-    }
-
-    public String getPolicyDescription() {
-        return policyDescription;
-    }
-
-    public void setPolicyDescription(final String policyDescription) {
-        this.policyDescription = policyDescription;
-    }
-
-    public String getPolicyConfigType() {
-        return getPolicyType();
-    }
-
-    public String getOnapName() {
-        return onapName;
-    }
-
-    public void setOnapName(final String onapName) {
-        this.onapName = onapName;
-    }
-
-    public String getConfigBody() {
-        return configBody;
-    }
-
-    public void setConfigBody(final String configBody) {
-        this.configBody = configBody;
-    }
-
-    public String getConfigBodyType() {
-        return configBodyType;
-    }
-
-    public void setConfigBodyType(final String configBodyType) {
-        this.configBodyType = configBodyType;
-    }
-
-    public Date getTimetolive() {
-        return timetolive;
-    }
-
-    public void setTimetolive(final Date timetolive) {
-        this.timetolive = timetolive;
-    }
-
-    public String getGuard() {
-        return guard;
-    }
-
-    public void setGuard(final String guard) {
-        this.guard = guard;
-    }
-
-    public String getRiskLevel() {
-        return riskLevel;
-    }
-
-    public void setRiskLevel(final String riskLevel) {
-        this.riskLevel = riskLevel;
-    }
-
-    public String getRiskType() {
-        return riskType;
-    }
-
-    public void setRiskType(final String riskType) {
-        this.riskType = riskType;
+    @Override
+    public void setVersion(final String version) {
+        throw new NotImplementedException();
     }
 }
