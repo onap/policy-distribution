@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e85c8967_62720e0c",
+        "filename": "model/src/main/java/org/onap/policy/distribution/model/OptimizationPolicy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-09-04T14:12:05Z",
+      "side": 1,
+      "message": "honestly I don\u0027t know as well. Just saw it used in one the classes and did the same.\nI will change it to UnsupportedOperationException in the next review.",
+      "parentUuid": "759075f7_fec344e0",
+      "revId": "53d14240b684df3d4f2fa8f02355effba722e514",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec4b55c6_6fe87753",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2019-09-04T13:09:34Z",
       "side": 1,
       "message": "don\u0027t need one flavor of this class with old model and one with new?",
+      "revId": "53d14240b684df3d4f2fa8f02355effba722e514",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca6892fd_f4832adb",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-09-04T14:12:05Z",
+      "side": 1,
+      "message": "Yes, the flavor with the new model will be created by Liang I guess to continue the work.",
+      "parentUuid": "ec4b55c6_6fe87753",
       "revId": "53d14240b684df3d4f2fa8f02355effba722e514",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
