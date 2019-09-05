@@ -69,6 +69,24 @@
       "revId": "53d14240b684df3d4f2fa8f02355effba722e514",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f7c54fa_d6fdf3f7",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpx.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-09-05T12:08:06Z",
+      "side": 1,
+      "message": "When we branch - the work will continue on master. Let\u0027s be sure to change the JIRA\u0027s target release.",
+      "parentUuid": "ca6892fd_f4832adb",
+      "revId": "53d14240b684df3d4f2fa8f02355effba722e514",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
