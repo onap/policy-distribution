@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "a8eda38a_7531d663",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Content.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2977
+      },
+      "writtenOn": "2019-09-06T01:57:22Z",
+      "side": 1,
+      "message": "According to me, an empty array would be better. Thanks.",
+      "range": {
+        "startLine": 32,
+        "startChar": 33,
+        "endLine": 32,
+        "endChar": 37
+      },
+      "revId": "f1ec98c48a359f936972ec20ac0d7e4339797d28",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08343ada_a8d77b81",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Content.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2977
+      },
+      "writtenOn": "2019-09-06T01:57:22Z",
+      "side": 1,
+      "message": "Same idea here.",
+      "range": {
+        "startLine": 35,
+        "startChar": 37,
+        "endLine": 35,
+        "endChar": 41
+      },
+      "revId": "f1ec98c48a359f936972ec20ac0d7e4339797d28",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fdae8b6_586df335",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Content.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2977
+      },
+      "writtenOn": "2019-09-06T01:57:22Z",
+      "side": 1,
+      "message": "Just curious that if this one is still needed",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 57
+      },
+      "revId": "f1ec98c48a359f936972ec20ac0d7e4339797d28",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bef49f9f_3d6ee6a3",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Content.java",
         "patchSetId": 4
@@ -16,6 +85,29 @@
       "revId": "f1ec98c48a359f936972ec20ac0d7e4339797d28",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73d7eddd_2c3e42d8",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/Content.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2977
+      },
+      "writtenOn": "2019-09-06T01:57:22Z",
+      "side": 1,
+      "message": "As well as this one(Needed or not?)",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 0
+      },
+      "revId": "f1ec98c48a359f936972ec20ac0d7e4339797d28",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
