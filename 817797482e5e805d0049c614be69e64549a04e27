@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1218330b_8bdbc244",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/ExtractFromNode.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-09-06T10:32:48Z",
+      "side": 1,
+      "message": "I hope content.getPolicyType() is not resulting to \"hpa\" and that\u0027s the reason for this hard coding?",
+      "range": {
+        "startLine": 116,
+        "startChar": 28,
+        "endLine": 116,
+        "endChar": 33
+      },
+      "revId": "817797482e5e805d0049c614be69e64549a04e27",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
