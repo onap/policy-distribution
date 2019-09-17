@@ -16,6 +16,24 @@
       "revId": "809f9fc89305f149373024c575ff8330218818f0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "52c74f29_4588a860",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-09-17T20:29:03Z",
+      "side": 1,
+      "message": "Yes - if we decide to release any of these then let\u0027s go back in and upgrade.",
+      "parentUuid": "fefa93ad_a3a07d72",
+      "revId": "809f9fc89305f149373024c575ff8330218818f0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
