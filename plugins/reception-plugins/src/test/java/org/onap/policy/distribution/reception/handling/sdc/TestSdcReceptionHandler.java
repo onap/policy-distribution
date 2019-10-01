@@ -56,11 +56,11 @@ import org.onap.policy.distribution.reception.handling.PluginHandler;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
 import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
+import org.onap.sdc.api.IDistributionClient;
 import org.onap.sdc.api.notification.IArtifactInfo;
 import org.onap.sdc.api.notification.INotificationData;
 import org.onap.sdc.api.results.IDistributionClientDownloadResult;
 import org.onap.sdc.api.results.IDistributionClientResult;
-import org.onap.sdc.impl.mock.DistributionClientStubImpl;
 import org.onap.sdc.utils.DistributionActionResultEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,7 +81,7 @@ public class TestSdcReceptionHandler {
     @Mock
     private IDistributionClientResult failureClientInitResult;
     @Mock
-    private DistributionClientStubImpl distributionClient;
+    private IDistributionClient distributionClient;
     @Mock
     private IDistributionClientDownloadResult successfulClientDownloadResult;
     @Mock
