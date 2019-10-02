@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "504ba5dd_77efc0f4",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpxLifecycleApi.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-10-02T14:43:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3adc278_0d03b44d",
+      "revId": "fd45582c12914515a01dd10ef0345275bd2d9327",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ef105ee_1fae9d22",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpxLifecycleApi.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "f0db5624_d5c7fa99",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpxLifecycleApi.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-10-02T14:43:01Z",
+      "side": 1,
+      "message": "I think so. We are checking that the given policyInput object is of type Csar.class",
+      "parentUuid": "8ef105ee_1fae9d22",
+      "revId": "fd45582c12914515a01dd10ef0345275bd2d9327",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e294b9b_0865fe09",
         "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/pdpx/TestPolicyDecoderCsarPdpxLifecycleApi.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2019-10-01T16:45:19Z",
       "side": 1,
       "message": "cast is not needed\n\nsame comment below",
+      "revId": "fd45582c12914515a01dd10ef0345275bd2d9327",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4df6ae4a_16fedc81",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/pdpx/TestPolicyDecoderCsarPdpxLifecycleApi.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2019-10-02T14:43:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e294b9b_0865fe09",
       "revId": "fd45582c12914515a01dd10ef0345275bd2d9327",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
