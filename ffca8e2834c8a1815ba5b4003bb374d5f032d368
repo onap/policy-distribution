@@ -16,6 +16,24 @@
       "revId": "ffca8e2834c8a1815ba5b4003bb374d5f032d368",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f4dd1cf_91554a6d",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/pdpx/TestPolicyDecoderCsarPdpxLifecycleApi.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-10-02T16:25:30Z",
+      "side": 1,
+      "message": "I think we discussed this last time when Ram loaded this - they are placeholders so that the tests can be re-built by Liang when he makes the changes.",
+      "parentUuid": "a5aac559_590bfe74",
+      "revId": "ffca8e2834c8a1815ba5b4003bb374d5f032d368",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
