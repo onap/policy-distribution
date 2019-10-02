@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5aac559_590bfe74",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/pdpx/TestPolicyDecoderCsarPdpxLifecycleApi.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2019-10-02T15:53:30Z",
+      "side": 1,
+      "message": "Delete commented out code (I think triggers sonars)",
+      "revId": "ffca8e2834c8a1815ba5b4003bb374d5f032d368",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
