@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "6ac2c183_8a57e405",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpxLifecycleApi.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-03T11:25:05Z",
+      "side": 1,
+      "message": "verified with javadocs.  This is backwards.\n\n  XXX.isAssignableFrom(YYY)\n\nverifies that the following can be done (i.e., that XXX is a superclass of YYY):\n\n  YYY yyy;\n  XXX xxx \u003d yyy;",
+      "parentUuid": "f0db5624_d5c7fa99",
+      "revId": "fd45582c12914515a01dd10ef0345275bd2d9327",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e294b9b_0865fe09",
         "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/pdpx/TestPolicyDecoderCsarPdpxLifecycleApi.java",
         "patchSetId": 1
