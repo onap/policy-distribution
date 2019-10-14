@@ -42,7 +42,7 @@ import org.onap.sdc.api.notification.IArtifactInfo;
 import org.onap.sdc.api.notification.INotificationData;
 import org.onap.sdc.api.results.IDistributionClientDownloadResult;
 import org.onap.sdc.api.results.IDistributionClientResult;
-import org.onap.sdc.impl.DistributionClientFactory;
+import org.onap.sdc.impl.DistributionClientImpl;
 import org.onap.sdc.utils.DistributionActionResultEnum;
 import org.onap.sdc.utils.DistributionStatusEnum;
 import org.slf4j.Logger;
@@ -122,7 +122,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
      * @return the {@link IDistributionClient} instance
      */
     protected IDistributionClient createSdcDistributionClient() {
-        return DistributionClientFactory.createDistributionClient();
+        return new DistributionClientImpl();
     }
 
     /**
