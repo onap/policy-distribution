@@ -26,7 +26,6 @@ KEYSTORE_PASSWD="Pol1cy_0nap"
 TRUSTSTORE="${POLICY_HOME}/etc/ssl/policy-truststore"
 TRUSTSTORE_PASSWD="Pol1cy_0nap"
 
-
 if [ "$#" -eq 1 ]; then
     CONFIG_FILE=$1
 else
@@ -36,6 +35,16 @@ fi
 if [ -z "$CONFIG_FILE" ]
   then
     CONFIG_FILE="${POLICY_HOME}/etc/defaultConfig.json"
+fi
+
+if [[ -f "${POLICY_HOME}"/etc/mounted/policy-truststore ]]; then
+    echo "overriding policy-truststore"
+    cp -f "${POLICY_HOME}"/etc/mounted/policy-truststore  "${TRUSTSTORE}"
+fi
+
+if [[ -f "${POLICY_HOME}"/etc/mounted/policy-keystore ]]; then
+    echo "overriding policy-keystore"
+    cp -f "${POLICY_HOME}"/etc/mounted/policy-keystore  "${KEYSTORE}"
 fi
 
 echo "Policy distribution config file: $CONFIG_FILE"
