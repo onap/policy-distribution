@@ -21,9 +21,16 @@
 package org.onap.policy.distribution.reception.decoding.pdpx;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.lang.String;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -32,14 +39,21 @@ import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
+import org.onap.policy.distribution.reception.decoding.pdpx.FlavorFeature;
+import org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderCsarPdpxLifecycleApi;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyType;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaProperty;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaTopologyTemplate;
 
 /**
- * Class to perform unit test of {@link PolicyDecoderCsarPdpxLifecycleApi}.
+ * Class to perform unit test of {@link PolicyDecoderCsarPdpxLifecycleApiLifecycleApi}.
  *
  */
 public class TestPolicyDecoderCsarPdpxLifecycleApi {
 
+    private final Gson gson = new GsonBuilder().serializeNulls().disableHtmlEscaping().create();
     /**
      * Set up for test cases.
      */
@@ -69,66 +83,62 @@ public class TestPolicyDecoderCsarPdpxLifecycleApi {
         final Collection<ToscaServiceTemplate> entities = policyDecoderCsarPdpx.decode(csar);
 
         assertEquals(2, entities.size());
-        // final ToscaServiceTemplate entity = entities.iterator().next();
-        //
-        // assertEquals("onapName", entity.getOnapName());
-        // assertTrue(entity.getName().startsWith("OOF."));
-        // assertTrue(entity.getConfigBody().contains("\"priority\":\"5\""));
-        // assertTrue(entity.getConfigBody().contains("\"riskLevel\":\"2\""));
-        // assertTrue(entity.getConfigBody().contains("\"riskType\":\"Test\""));
-        // assertTrue(entity.getConfigBody().contains("\"version\":\"1.0\""));
-        // assertTrue(entity.getConfigBody().contains("\"policyType\":\"hpa\""));
-        //
-        // assertTrue(entity.getConfigBody().contains("\"id\":\"VDU_vgw_0\""));
-        // assertTrue(entity.getConfigBody().contains("\"type\":\"tosca.nodes.nfv.Vdu.Compute\""));
-        // assertTrue(entity.getConfigBody().contains("\"type\":\"flavor_directives\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-feature\":\"basicCapabilities\""));
-        // assertTrue(entity.getConfigBody().contains("\"mandatory\":\"True\""));
-        // assertTrue(entity.getConfigBody().contains("\"architecture\":\"generic\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-version\":\"v1\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-key\":\"virtualMemSize\""));
-        // assertTrue(entity.getConfigBody().contains("\"operator\":\"=\""));
-        // assertTrue(entity.getConfigBody().contains("\"unit\":\"MB\""));
+        final ToscaServiceTemplate entity = entities.iterator().next();
+        ToscaTopologyTemplate topologyTemplate = entity.getToscaTopologyTemplate();
+        Map<String, ToscaPolicy> map = topologyTemplate.getPolicies().get(0);
+        ToscaPolicy policy = map.get(PolicyDecoderCsarPdpxLifecycleApi.TOSCA_POLICY_HPA_OOF);
+        Map<String, Object> props = policy.getProperties(); 
+        Object flavorFeatures = 
+                      props.get(PolicyDecoderCsarPdpxLifecycleApi.TOSCA_POLICY_FLAVORFEATURES);
+        String featrues = gson.toJson(flavorFeatures);
+        assertTrue(featrues.contains("\"id\":\"VDU_vgw_0\""));
+        assertTrue(featrues.contains("\"type\":\"tosca.nodes.nfv.Vdu.Compute\""));
+        assertTrue(featrues.contains("\"type\":\"flavor_directives\""));
+        assertTrue(featrues.contains("\"hpa-feature\":\"basicCapabilities\""));
+        assertTrue(featrues.contains("\"mandatory\":\"True\""));
+        assertTrue(featrues.contains("\"architecture\":\"generic\""));
+        assertTrue(featrues.contains("\"hpa-version\":\"v1\""));
+        assertTrue(featrues.contains("\"hpa-attribute-key\":\"virtualMemSize\""));
+        assertTrue(featrues.contains("\"operator\":\"=\""));
+        assertTrue(featrues.contains("\"unit\":\"MB\""));
     }
 
     @Test
     public void testHpaPolicySriov() throws IOException, PolicyDecodingException {
-        // final Csar csar = new Csar("src/test/resources/hpaPolicySriov.csar");
+        final Csar csar = new Csar("src/test/resources/hpaPolicySriov.csar");
         final PolicyDecoderCsarPdpxLifecycleApi policyDecoderCsarPdpx = new PolicyDecoderCsarPdpxLifecycleApi();
         policyDecoderCsarPdpx.configure(PolicyDecoderCsarPdpxLifecycleApiParameters.class.getSimpleName());
 
-        // final Collection<ToscaServiceTemplate> entities = policyDecoderCsarPdpx.decode(csar);
-        // final ToscaServiceTemplate entity = entities.iterator().next();
-        //
-        // assertEquals("onapName", entity.getOnapName());
-        // assertTrue(entity.getName().startsWith("OOF."));
-        // assertTrue(entity.getConfigBody().contains("\"priority\":\"5\""));
-        // assertTrue(entity.getConfigBody().contains("\"riskLevel\":\"2\""));
-        // assertTrue(entity.getConfigBody().contains("\"riskType\":\"Test\""));
-        // assertTrue(entity.getConfigBody().contains("\"version\":\"1.0\""));
-        // assertTrue(entity.getConfigBody().contains("\"policyType\":\"hpa\""));
-        //
-        // assertTrue(entity.getConfigBody().contains("\"id\":\"VDU_vgw_0\""));
-        // assertTrue(entity.getConfigBody().contains("\"type\":\"tosca.nodes.nfv.Vdu.Compute\""));
-        // assertTrue(entity.getConfigBody().contains("\"type\":\"flavor_directives\""));
-        // assertTrue(entity.getConfigBody().contains("\"attribute_name\":\"flavorName\""));
-        // assertTrue(entity.getConfigBody().contains("\"attribute_value\":\"\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-feature\":\"sriovNICNetwork\""));
-        // assertTrue(entity.getConfigBody().contains("\"mandatory\":\"True\""));
-        // assertTrue(entity.getConfigBody().contains("\"architecture\":\"generic\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-version\":\"v1\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-key\":\"pciVendorId\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-value\":\"1234\""));
-        // assertTrue(entity.getConfigBody().contains("\"operator\":\"=\""));
-        // assertTrue(entity.getConfigBody().contains("\"unit\":\"\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-key\":\"pciDeviceId\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-value\":\"5678\""));
-        // assertTrue(entity.getConfigBody().contains("\"operator\":\"=\""));
-        // assertTrue(entity.getConfigBody().contains("\"unit\":\"\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-key\":\"pciNumDevices\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-value\":\"1\""));
-        // assertTrue(entity.getConfigBody().contains("\"operator\":\"=\""));
-        // assertTrue(entity.getConfigBody().contains("\"unit\":\"\""));
+        final Collection<ToscaServiceTemplate> entities = policyDecoderCsarPdpx.decode(csar);
+        final ToscaServiceTemplate entity = entities.iterator().next();
+        ToscaTopologyTemplate topologyTemplate = entity.getToscaTopologyTemplate();
+        Map<String, ToscaPolicy> map = topologyTemplate.getPolicies().get(0);
+        ToscaPolicy policy = map.get(PolicyDecoderCsarPdpxLifecycleApi.TOSCA_POLICY_HPA_OOF);
+        Map<String, Object> props = policy.getProperties(); 
+        Object flavorFeatures = 
+                      props.get(PolicyDecoderCsarPdpxLifecycleApi.TOSCA_POLICY_FLAVORFEATURES);
+        String featrues = gson.toJson(flavorFeatures);
+        assertTrue(featrues.contains("\"id\":\"VDU_vgw_0\""));
+        assertTrue(featrues.contains("\"type\":\"tosca.nodes.nfv.Vdu.Compute\""));
+        assertTrue(featrues.contains("\"type\":\"flavor_directives\""));
+        assertTrue(featrues.contains("\"attribute_name\":\"flavorName\""));
+        assertTrue(featrues.contains("\"attribute_value\":\"\""));
+        assertTrue(featrues.contains("\"hpa-feature\":\"sriovNICNetwork\""));
+        assertTrue(featrues.contains("\"mandatory\":\"True\""));
+        assertTrue(featrues.contains("\"architecture\":\"generic\""));
+        assertTrue(featrues.contains("\"hpa-version\":\"v1\""));
+        assertTrue(featrues.contains("\"hpa-attribute-key\":\"pciVendorId\""));
+        assertTrue(featrues.contains("\"hpa-attribute-value\":\"1234\""));
+        assertTrue(featrues.contains("\"operator\":\"=\""));
+        assertTrue(featrues.contains("\"unit\":\"\""));
+        assertTrue(featrues.contains("\"hpa-attribute-key\":\"pciDeviceId\""));
+        assertTrue(featrues.contains("\"hpa-attribute-value\":\"5678\""));
+        assertTrue(featrues.contains("\"operator\":\"=\""));
+        assertTrue(featrues.contains("\"unit\":\"\""));
+        assertTrue(featrues.contains("\"hpa-attribute-key\":\"pciNumDevices\""));
+        assertTrue(featrues.contains("\"hpa-attribute-value\":\"1\""));
+        assertTrue(featrues.contains("\"operator\":\"=\""));
+        assertTrue(featrues.contains("\"unit\":\"\""));
     }
 
     @Test
@@ -139,39 +149,35 @@ public class TestPolicyDecoderCsarPdpxLifecycleApi {
 
         final Collection<ToscaServiceTemplate> entities = policyDecoderCsarPdpx.decode(csar);
         assertEquals(2, entities.size());
-        // final ToscaServiceTemplate entity = entities.iterator().next();
-        //
-        // assertEquals("onapName", entity.getOnapName());
-        // assertTrue(entity.getName().startsWith("OOF."));
-        // assertTrue(entity.getConfigBody().contains("\"priority\":\"5\""));
-        // assertTrue(entity.getConfigBody().contains("\"riskLevel\":\"2\""));
-        // assertTrue(entity.getConfigBody().contains("\"riskType\":\"Test\""));
-        // assertTrue(entity.getConfigBody().contains("\"version\":\"1.0\""));
-        // assertTrue(entity.getConfigBody().contains("\"policyType\":\"hpa\""));
-        //
-        // assertTrue(entity.getConfigBody().contains("\"id\":\"VDU_vgw_0\""));
-        // assertTrue(entity.getConfigBody().contains("\"type\":\"tosca.nodes.nfv.Vdu.Compute\""));
-        // assertTrue(entity.getConfigBody().contains("\"type\":\"flavor_directives\""));
-        // assertTrue(entity.getConfigBody().contains("\"attribute_name\":\"flavorName\""));
-        // assertTrue(entity.getConfigBody().contains("\"attribute_value\":\"\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-feature\":\"pciePassthrough\""));
-        // assertTrue(entity.getConfigBody().contains("\"mandatory\":\"True\""));
-        // assertTrue(entity.getConfigBody().contains("\"architecture\":\"generic\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-version\":\"v1\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-key\":\"pciVendorId\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-value\":\"1234\""));
-        // assertTrue(entity.getConfigBody().contains("\"operator\":\"=\""));
-        // assertTrue(entity.getConfigBody().contains("\"unit\":\"\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-key\":\"pciDeviceId\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-value\":\"5678\""));
-        // assertTrue(entity.getConfigBody().contains("\"operator\":\"=\""));
-        // assertTrue(entity.getConfigBody().contains("\"unit\":\"\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-key\":\"pciNumDevices\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-value\":\"1\""));
-        // assertTrue(entity.getConfigBody().contains("\"operator\":\"=\""));
-        // assertTrue(entity.getConfigBody().contains("\"unit\":\"\""));
-
-
+        final ToscaServiceTemplate entity = entities.iterator().next();
+        ToscaTopologyTemplate topologyTemplate = entity.getToscaTopologyTemplate();
+        Map<String, ToscaPolicy> map = topologyTemplate.getPolicies().get(0);
+        ToscaPolicy policy = map.get(PolicyDecoderCsarPdpxLifecycleApi.TOSCA_POLICY_HPA_OOF);
+        Map<String, Object> props = policy.getProperties(); 
+        Object flavorFeatures = 
+                      props.get(PolicyDecoderCsarPdpxLifecycleApi.TOSCA_POLICY_FLAVORFEATURES);
+        String featrues = gson.toJson(flavorFeatures);
+        assertTrue(featrues.contains("\"id\":\"VDU_vgw_0\""));
+        assertTrue(featrues.contains("\"type\":\"tosca.nodes.nfv.Vdu.Compute\""));
+        assertTrue(featrues.contains("\"type\":\"flavor_directives\""));
+        assertTrue(featrues.contains("\"attribute_name\":\"flavorName\""));
+        assertTrue(featrues.contains("\"attribute_value\":\"\""));
+        assertTrue(featrues.contains("\"hpa-feature\":\"pciePassthrough\""));
+        assertTrue(featrues.contains("\"mandatory\":\"True\""));
+        assertTrue(featrues.contains("\"architecture\":\"generic\""));
+        assertTrue(featrues.contains("\"hpa-version\":\"v1\""));
+        assertTrue(featrues.contains("\"hpa-attribute-key\":\"pciVendorId\""));
+        assertTrue(featrues.contains("\"hpa-attribute-value\":\"1234\""));
+        assertTrue(featrues.contains("\"operator\":\"=\""));
+        assertTrue(featrues.contains("\"unit\":\"\""));
+        assertTrue(featrues.contains("\"hpa-attribute-key\":\"pciDeviceId\""));
+        assertTrue(featrues.contains("\"hpa-attribute-value\":\"5678\""));
+        assertTrue(featrues.contains("\"operator\":\"=\""));
+        assertTrue(featrues.contains("\"unit\":\"\""));
+        assertTrue(featrues.contains("\"hpa-attribute-key\":\"pciNumDevices\""));
+        assertTrue(featrues.contains("\"hpa-attribute-value\":\"1\""));
+        assertTrue(featrues.contains("\"operator\":\"=\""));
+        assertTrue(featrues.contains("\"unit\":\"\""));
     }
 
     @Test
@@ -182,29 +188,27 @@ public class TestPolicyDecoderCsarPdpxLifecycleApi {
 
         final Collection<ToscaServiceTemplate> entities = policyDecoderCsarPdpx.decode(csar);
         assertEquals(2, entities.size());
-        // final ToscaServiceTemplate entity = entities.iterator().next();
-        //
-        // assertEquals("onapName", entity.getOnapName());
-        // assertTrue(entity.getName().startsWith("OOF."));
-        // assertTrue(entity.getConfigBody().contains("\"priority\":\"5\""));
-        // assertTrue(entity.getConfigBody().contains("\"riskLevel\":\"2\""));
-        // assertTrue(entity.getConfigBody().contains("\"riskType\":\"Test\""));
-        // assertTrue(entity.getConfigBody().contains("\"version\":\"1.0\""));
-        // assertTrue(entity.getConfigBody().contains("\"policyType\":\"hpa\""));
-        //
-        // assertTrue(entity.getConfigBody().contains("\"id\":\"VDU_vgw_0\""));
-        // assertTrue(entity.getConfigBody().contains("\"type\":\"tosca.nodes.nfv.Vdu.Compute\""));
-        // assertTrue(entity.getConfigBody().contains("\"type\":\"flavor_directives\""));
-        // assertTrue(entity.getConfigBody().contains("\"attribute_name\":\"flavorName\""));
-        // assertTrue(entity.getConfigBody().contains("\"attribute_value\":\"\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-feature\":\"hugePages\""));
-        // assertTrue(entity.getConfigBody().contains("\"mandatory\":\"true\""));
-        // assertTrue(entity.getConfigBody().contains("\"architecture\":\"generic\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-version\":\"v1\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-key\":\"memoryPageSize\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-value\":\"2\""));
-        // assertTrue(entity.getConfigBody().contains("\"operator\":\"=\""));
-        // assertTrue(entity.getConfigBody().contains("\"unit\":\"MB\""));
+        final ToscaServiceTemplate entity = entities.iterator().next();
+        ToscaTopologyTemplate topologyTemplate = entity.getToscaTopologyTemplate();
+        Map<String, ToscaPolicy> map = topologyTemplate.getPolicies().get(0);
+        ToscaPolicy policy = map.get(PolicyDecoderCsarPdpxLifecycleApi.TOSCA_POLICY_HPA_OOF);
+        Map<String, Object> props = policy.getProperties(); 
+        Object flavorFeatures = 
+                      props.get(PolicyDecoderCsarPdpxLifecycleApi.TOSCA_POLICY_FLAVORFEATURES);
+        String featrues = gson.toJson(flavorFeatures);
+        assertTrue(featrues.contains("\"id\":\"VDU_vgw_0\""));
+        assertTrue(featrues.contains("\"type\":\"tosca.nodes.nfv.Vdu.Compute\""));
+        assertTrue(featrues.contains("\"type\":\"flavor_directives\""));
+        assertTrue(featrues.contains("\"attribute_name\":\"flavorName\""));
+        assertTrue(featrues.contains("\"attribute_value\":\"\""));
+        assertTrue(featrues.contains("\"hpa-feature\":\"hugePages\""));
+        assertTrue(featrues.contains("\"mandatory\":\"true\""));
+        assertTrue(featrues.contains("\"architecture\":\"generic\""));
+        assertTrue(featrues.contains("\"hpa-version\":\"v1\""));
+        assertTrue(featrues.contains("\"hpa-attribute-key\":\"memoryPageSize\""));
+        assertTrue(featrues.contains("\"hpa-attribute-value\":\"2\""));
+        assertTrue(featrues.contains("\"operator\":\"=\""));
+        assertTrue(featrues.contains("\"unit\":\"MB\""));
     }
 
     @Test
@@ -215,30 +219,27 @@ public class TestPolicyDecoderCsarPdpxLifecycleApi {
 
         final Collection<ToscaServiceTemplate> entities = policyDecoderCsarPdpx.decode(csar);
         assertEquals(1, entities.size());
-        // final ToscaServiceTemplate entity = entities.iterator().next();
-        //
-        // assertEquals("onapName", entity.getOnapName());
-        // assertTrue(entity.getName().startsWith("OOF."));
-        // assertTrue(entity.getConfigBody().contains("\"priority\":\"5\""));
-        // assertTrue(entity.getConfigBody().contains("\"riskLevel\":\"2\""));
-        // assertTrue(entity.getConfigBody().contains("\"riskType\":\"Test\""));
-        // assertTrue(entity.getConfigBody().contains("\"version\":\"1.0\""));
-        // assertTrue(entity.getConfigBody().contains("\"policyType\":\"hpa\""));
-        //
-        // assertTrue(entity.getConfigBody().contains("\"id\":\"VDU_vgw_0\""));
-        // assertTrue(entity.getConfigBody().contains("\"type\":\"tosca.nodes.nfv.Vdu.Compute\""));
-        // assertTrue(entity.getConfigBody().contains("\"type\":\"flavor_directives\""));
-        // assertTrue(entity.getConfigBody().contains("\"attribute_name\":\"flavorName\""));
-        // assertTrue(entity.getConfigBody().contains("\"attribute_value\":\"\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-feature\":\"pciePassthrough\""));
-        // assertTrue(entity.getConfigBody().contains("\"mandatory\":\"True\""));
-        // assertTrue(entity.getConfigBody().contains("\"architecture\":\"generic\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-version\":\"v1\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-key\":\"pciVendorId\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-value\":\"1234\""));
-        // assertTrue(entity.getConfigBody().contains("\"operator\":\"=\""));
-        // assertTrue(entity.getConfigBody().contains("\"unit\":\"\""));
-
+        final ToscaServiceTemplate entity = entities.iterator().next();
+        ToscaTopologyTemplate topologyTemplate = entity.getToscaTopologyTemplate();
+        Map<String, ToscaPolicy> map = topologyTemplate.getPolicies().get(0);
+        ToscaPolicy policy = map.get(PolicyDecoderCsarPdpxLifecycleApi.TOSCA_POLICY_HPA_OOF);
+        Map<String, Object> props = policy.getProperties(); 
+        Object flavorFeatures = 
+                      props.get(PolicyDecoderCsarPdpxLifecycleApi.TOSCA_POLICY_FLAVORFEATURES);
+        String featrues = gson.toJson(flavorFeatures);
+        assertTrue(featrues.contains("\"id\":\"VDU_vgw_0\""));
+        assertTrue(featrues.contains("\"type\":\"tosca.nodes.nfv.Vdu.Compute\""));
+        assertTrue(featrues.contains("\"type\":\"flavor_directives\""));
+        assertTrue(featrues.contains("\"attribute_name\":\"flavorName\""));
+        assertTrue(featrues.contains("\"attribute_value\":\"\""));
+        assertTrue(featrues.contains("\"hpa-feature\":\"pciePassthrough\""));
+        assertTrue(featrues.contains("\"mandatory\":\"True\""));
+        assertTrue(featrues.contains("\"architecture\":\"generic\""));
+        assertTrue(featrues.contains("\"hpa-version\":\"v1\""));
+        assertTrue(featrues.contains("\"hpa-attribute-key\":\"pciVendorId\""));
+        assertTrue(featrues.contains("\"hpa-attribute-value\":\"1234\""));
+        assertTrue(featrues.contains("\"operator\":\"=\""));
+        assertTrue(featrues.contains("\"unit\":\"\""));
     }
 
     @Test
@@ -249,28 +250,25 @@ public class TestPolicyDecoderCsarPdpxLifecycleApi {
 
         final Collection<ToscaServiceTemplate> entities = policyDecoderCsarPdpx.decode(csar);
         assertEquals(5, entities.size());
-        // final ToscaServiceTemplate entity = entities.iterator().next();
-        //
-        // assertEquals("onapName", entity.getOnapName());
-        // assertTrue(entity.getName().startsWith("OOF."));
-        // assertTrue(entity.getConfigBody().contains("\"priority\":\"5\""));
-        // assertTrue(entity.getConfigBody().contains("\"riskLevel\":\"2\""));
-        // assertTrue(entity.getConfigBody().contains("\"riskType\":\"Test\""));
-        // assertTrue(entity.getConfigBody().contains("\"version\":\"1.0\""));
-        // assertTrue(entity.getConfigBody().contains("\"policyType\":\"hpa\""));
-        //
-        // assertTrue(entity.getConfigBody().contains("\"type\":\"tosca.nodes.nfv.Vdu.Compute\""));
-        // assertTrue(entity.getConfigBody().contains("\"type\":\"flavor_directives\""));
-        // assertTrue(entity.getConfigBody().contains("\"attribute_name\":\"flavorName\""));
-        // assertTrue(entity.getConfigBody().contains("\"attribute_value\":\"\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-feature\":\"sriovNICNetwork\""));
-        // assertTrue(entity.getConfigBody().contains("\"mandatory\":\"True\""));
-        // assertTrue(entity.getConfigBody().contains("\"architecture\":\"generic\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-version\":\"v1\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-key\":\"pciVendorId\""));
-        // assertTrue(entity.getConfigBody().contains("\"hpa-attribute-value\":\"1234\""));
-        // assertTrue(entity.getConfigBody().contains("\"operator\":\"=\""));
-        // assertTrue(entity.getConfigBody().contains("\"unit\":\"\""));
-
+        final ToscaServiceTemplate entity = entities.iterator().next();
+        ToscaTopologyTemplate topologyTemplate = entity.getToscaTopologyTemplate();
+        Map<String, ToscaPolicy> map = topologyTemplate.getPolicies().get(0);
+        ToscaPolicy policy = map.get(PolicyDecoderCsarPdpxLifecycleApi.TOSCA_POLICY_HPA_OOF);
+        Map<String, Object> props = policy.getProperties(); 
+        Object flavorFeatures = 
+                      props.get(PolicyDecoderCsarPdpxLifecycleApi.TOSCA_POLICY_FLAVORFEATURES);
+        String featrues = gson.toJson(flavorFeatures);
+        assertTrue(featrues.contains("\"type\":\"tosca.nodes.nfv.Vdu.Compute\""));
+        assertTrue(featrues.contains("\"type\":\"flavor_directives\""));
+        assertTrue(featrues.contains("\"attribute_name\":\"flavorName\""));
+        assertTrue(featrues.contains("\"attribute_value\":\"\""));
+        assertTrue(featrues.contains("\"hpa-feature\":\"sriovNICNetwork\""));
+        assertTrue(featrues.contains("\"mandatory\":\"True\""));
+        assertTrue(featrues.contains("\"architecture\":\"generic\""));
+        assertTrue(featrues.contains("\"hpa-version\":\"v1\""));
+        assertTrue(featrues.contains("\"hpa-attribute-key\":\"pciVendorId\""));
+        assertTrue(featrues.contains("\"hpa-attribute-value\":\"1234\""));
+        assertTrue(featrues.contains("\"operator\":\"=\""));
+        assertTrue(featrues.contains("\"unit\":\"\""));
     }
 }
