@@ -20,10 +20,15 @@
 
 package org.onap.policy.distribution.reception.decoding.pdpx;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.coder.StandardCoder;
@@ -31,6 +36,9 @@ import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntityKey;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyType;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaProperty;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
 import org.onap.sdc.tosca.parser.api.ISdcCsarHelper;
 import org.onap.sdc.tosca.parser.impl.SdcToscaParserFactory;
@@ -45,7 +53,22 @@ public class PolicyDecoderCsarPdpxLifecycleApi implements PolicyDecoder<Csar, To
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PolicyDecoderCsarPdpxLifecycleApi.class);
     private final StandardCoder coder = new StandardCoder();
+    private final Gson gson = new GsonBuilder().serializeNulls().disableHtmlEscaping().create();
     private PolicyDecoderCsarPdpxLifecycleApiParameters decoderParameters;
+
+    public static final String TOSCA_POLICY_NAME_PREFIX = "hpa";
+    //public static final String TOSCA_POLICY_TYPE = "type";
+    //public static final String TOSCA_POLICY_SERVICE = "service";
+    public static final String TOSCA_POLICY_ONAP_NAME = "onapName";
+    //public static final String TOSCA_POLICY_NAME = "policyName";
+    //public static final String TOSCA_POLICY_DESCRIPTION = "description";
+    //public static final String TOSCA_POLICY_TEMPLATE_VERSION = "templateVersion";
+    public static final String TOSCA_POLICY_VERSION = "version";
+    public static final String TOSCA_POLICY_PRIORITY = "priority";
+    public static final String TOSCA_POLICY_RISK_LEVEL = "riskLevel";
+    public static final String TOSCA_POLICY_RISK_TYPE = "riskType";
+    //public static final String TOSCA_POLICY_GUARD = "guard";
+    public static final String TOSCA_POLICY_CONTENT = "content";
 
     @Override
     public Collection<ToscaServiceTemplate> decode(final Csar csar) throws PolicyDecodingException {
@@ -61,7 +84,40 @@ public class PolicyDecoderCsarPdpxLifecycleApi implements PolicyDecoder<Csar, To
             final Content content = extractFromNode.extractInfo(node);
             if (content != null) {
                 final ToscaServiceTemplate entity = new ToscaServiceTemplate();
-                // TODO: add the logic for creating ToscaServiceTemplate for HPA policy
+                Map<String, ToscaProperty> props = new LinkedHashMap<>();
+
+                ToscaProperty prefix = new ToscaProperty();
+                prefix.setDefaultValue(decoderParameters.getPolicyNamePrefix());
+                props.put(TOSCA_POLICY_NAME_PREFIX, prefix);
+
+                ToscaProperty onapName = new ToscaProperty();
+                onapName.setDefaultValue(decoderParameters.getOnapName());
+                props.put(TOSCA_POLICY_ONAP_NAME, onapName);
+
+                ToscaProperty version = new ToscaProperty();
+                version.setDefaultValue(decoderParameters.getVersion());
+                props.put(TOSCA_POLICY_VERSION, version);
+
+                ToscaProperty priority = new ToscaProperty();
+                priority.setDefaultValue(decoderParameters.getPriority());
+                props.put(TOSCA_POLICY_PRIORITY, priority);
+
+                ToscaProperty riskLevel = new ToscaProperty();
+                riskLevel.setDefaultValue(decoderParameters.getRiskLevel());
+                props.put(TOSCA_POLICY_RISK_LEVEL, riskLevel);
+
+                ToscaProperty riskType = new ToscaProperty();
+                riskType.setDefaultValue(decoderParameters.getRiskType());
+                props.put(TOSCA_POLICY_RISK_TYPE, riskType);
+
+                ToscaProperty cnt = new ToscaProperty();
+                cnt.setDefaultValue(gson.toJson(content));
+                props.put(TOSCA_POLICY_CONTENT, cnt);
+                ToscaPolicyType type = new ToscaPolicyType();
+                type.setProperties(props);
+                Map<String, ToscaPolicyType> policyTypes = new LinkedHashMap<>();
+                policyTypes.put(TOSCA_POLICY_NAME_PREFIX, type);
+                entity.setPolicyTypes(policyTypes);
                 entities.add(entity);
             }
         }
