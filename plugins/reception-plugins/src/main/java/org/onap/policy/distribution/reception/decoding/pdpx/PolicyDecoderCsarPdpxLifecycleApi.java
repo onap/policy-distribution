@@ -23,7 +23,9 @@ package org.onap.policy.distribution.reception.decoding.pdpx;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.coder.StandardCoder;
@@ -31,7 +33,12 @@ import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaEntityKey;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyType;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaProperty;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaTopologyTemplate;
 import org.onap.sdc.tosca.parser.api.ISdcCsarHelper;
 import org.onap.sdc.tosca.parser.impl.SdcToscaParserFactory;
 import org.onap.sdc.toscaparser.api.NodeTemplate;
@@ -47,6 +54,14 @@ public class PolicyDecoderCsarPdpxLifecycleApi implements PolicyDecoder<Csar, To
     private final StandardCoder coder = new StandardCoder();
     private PolicyDecoderCsarPdpxLifecycleApiParameters decoderParameters;
 
+    public static final String TOSCA_POLICY_SCOPE = "scope";
+    public static final String TOSCA_POLICY_SERVICES = "services";
+    public static final String TOSCA_POLICY_RESOURCES = "resources";
+    public static final String TOSCA_POLICY_IDENTITY = "identity";
+    public static final String TOSCA_POLICY_FLAVORFEATURES = "flavorfeatures";
+
+    public static final String TOSCA_POLICY_HPA_OOF = "Optimization";
+
     @Override
     public Collection<ToscaServiceTemplate> decode(final Csar csar) throws PolicyDecodingException {
         final List<ToscaServiceTemplate> entities = new ArrayList<>();
@@ -61,7 +76,22 @@ public class PolicyDecoderCsarPdpxLifecycleApi implements PolicyDecoder<Csar, To
             final Content content = extractFromNode.extractInfo(node);
             if (content != null) {
                 final ToscaServiceTemplate entity = new ToscaServiceTemplate();
-                // TODO: add the logic for creating ToscaServiceTemplate for HPA policy
+                Map<String, Object> props = new LinkedHashMap<>();
+                props.put(TOSCA_POLICY_SCOPE, content.getScope());
+                props.put(TOSCA_POLICY_SERVICES, content.getServices());
+                props.put(TOSCA_POLICY_RESOURCES, content.getResources());
+                props.put(TOSCA_POLICY_IDENTITY, content.getIdentity());
+                props.put(TOSCA_POLICY_FLAVORFEATURES, content.getFlavorFeatures());
+                ToscaPolicy policy = new ToscaPolicy();
+                policy.setProperties(props);
+                Map<String, ToscaPolicy> map = new LinkedHashMap<>();
+                String type = content.getPolicyType();
+                map.put(type, policy);
+                List<Map<String, ToscaPolicy>> policies = new ArrayList<>();
+                policies.add(map);
+                ToscaTopologyTemplate topologyTemplate = new ToscaTopologyTemplate();
+                topologyTemplate.setPolicies(policies);
+                entity.setToscaTopologyTemplate(topologyTemplate);
                 entities.add(entity);
             }
         }
