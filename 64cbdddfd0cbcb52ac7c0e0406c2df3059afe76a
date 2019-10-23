@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e3dc83c_d42f7cf8",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/pdpx/PolicyDecoderCsarPdpxLifecycleApi.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-10-23T11:42:56Z",
+      "side": 1,
+      "message": "I don\u0027t think you need these fields. They were associated with the old API call, not the policy model. Why are you bringing these forward? My understanding is that all you need to do is create a ToscaPolicy based on the ToscaPolicyType onap.policies.optimization.HpaPolicy.\n\nFor example:\n\ntosca_definitions_version: tosca_simple_yaml_1_0_0\ntopology_template:\n  policies:\n    -\n        OSDF_CASABLANCA.hpa_policy_vG_1:\n            type: onap.policies.optimization.HpaPolicy\n            version: 1.0.0\n            type_version: 1.0.0\n            metadata:\n                policy-id: OSDF_CASABLANCA.hpa_policy_vG_1\n            properties:\n                scope: []\n                services: [vCPE]\n                resources: [vG]\n                geography: []\n                identity: hpa-vG\n                flavorFeatures:\n                    -\n                         id: vg_1\n                         type: vnfc\n                         directives:\n...etc.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 0
+      },
+      "revId": "64cbdddfd0cbcb52ac7c0e0406c2df3059afe76a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
