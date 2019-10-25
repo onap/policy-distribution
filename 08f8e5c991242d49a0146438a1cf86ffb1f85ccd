@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b56b1862_8cc29572",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/pdpx/TestPolicyDecoderCsarPdpxLifecycleApi.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-25T12:56:25Z",
+      "side": 1,
+      "message": "if this works with a StandardCoder, then I\u0027d use that instead",
+      "revId": "08f8e5c991242d49a0146438a1cf86ffb1f85ccd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c6c500e2_0d7ab284",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/pdpx/TestPolicyDecoderCsarPdpxLifecycleApi.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-25T12:56:25Z",
+      "side": 1,
+      "message": "typo: \"featrues\" \u003d\u003e \"features\"\n\nsame comment through-out this file",
+      "revId": "08f8e5c991242d49a0146438a1cf86ffb1f85ccd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
