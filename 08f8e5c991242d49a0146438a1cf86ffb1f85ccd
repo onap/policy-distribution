@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9d70b375_b9d8c97e",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/pdpx/TestPolicyDecoderCsarPdpxLifecycleApi.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2019-10-25T15:01:29Z",
+      "side": 1,
+      "message": "Liang may not be familiar with the StandardCode that is located in policy/common - can you give him pointers Jim?",
+      "parentUuid": "b56b1862_8cc29572",
+      "revId": "08f8e5c991242d49a0146438a1cf86ffb1f85ccd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6c500e2_0d7ab284",
         "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/pdpx/TestPolicyDecoderCsarPdpxLifecycleApi.java",
         "patchSetId": 4
