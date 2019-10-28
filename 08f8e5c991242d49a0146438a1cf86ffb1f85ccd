@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c5d279d9_e79a8d48",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/pdpx/TestPolicyDecoderCsarPdpxLifecycleApi.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2737
+      },
+      "writtenOn": "2019-10-28T05:58:06Z",
+      "side": 1,
+      "message": "Hi, Pam and Jim\nI tried StandardCoder, but I found that, the method \"encode\" could ignore redundant same string and keep just one. For example, there are actually multiple strings of \"operator\" in some parsed testing csar files, but the StandardCoder.encode() method gives only one \"operator\" string in the encoded output, and this made tests failed. So I still use gson.toJson().",
+      "parentUuid": "9d70b375_b9d8c97e",
+      "revId": "08f8e5c991242d49a0146438a1cf86ffb1f85ccd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6c500e2_0d7ab284",
         "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/pdpx/TestPolicyDecoderCsarPdpxLifecycleApi.java",
         "patchSetId": 4
