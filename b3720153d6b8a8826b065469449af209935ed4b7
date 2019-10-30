@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bbb21390_5126e2de",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/pdpx/TestPolicyDecoderCsarPdpxLifecycleApi.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2019-10-30T13:37:41Z",
+      "side": 1,
+      "message": "I don\u0027t think these are needed now",
+      "revId": "b3720153d6b8a8826b065469449af209935ed4b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
