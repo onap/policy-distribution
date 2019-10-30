@@ -16,6 +16,24 @@
       "revId": "b3720153d6b8a8826b065469449af209935ed4b7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe78bc4f_36ee607f",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/pdpx/TestPolicyDecoderCsarPdpxLifecycleApi.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2737
+      },
+      "writtenOn": "2019-10-30T15:44:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbb21390_5126e2de",
+      "revId": "b3720153d6b8a8826b065469449af209935ed4b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
