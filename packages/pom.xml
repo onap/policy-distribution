@@ -37,6 +37,9 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <modules>
+                <module>policy-distribution-tarball</module>
+            </modules>
         </profile>
         <profile>
             <id>docker</id>
