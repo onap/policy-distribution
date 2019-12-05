@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,13 +55,13 @@ public class TestHttpsDistributionRestServer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TestHttpsDistributionRestServer.class);
     private static final String ALIVE = "alive";
-    private static final String SELF = "self";
+    private static final String SELF = NetworkUtil.getHostname();
     private static final String NAME = "Policy SSD";
     private static String KEYSTORE = System.getProperty("user.dir") + "/src/test/resources/ssl/policy-keystore";
 
     @Test
     public void testHttpsHealthCheckSuccess() {
-        final String reportString = "Report [name=Policy SSD, url=self, healthy=true, code=200, message=alive]";
+        final String reportString = "Report [name=Policy SSD, url=" + SELF + ", healthy=true, code=200, message=alive]";
         try {
             final Main main = startDistributionService();
             final HealthCheckReport report = performHealthCheck();

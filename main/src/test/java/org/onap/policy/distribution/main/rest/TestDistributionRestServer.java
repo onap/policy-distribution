@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,12 +58,12 @@ public class TestDistributionRestServer {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestDistributionRestServer.class);
     private static final String NOT_ALIVE = "not alive";
     private static final String ALIVE = "alive";
-    private static final String SELF = "self";
+    private static final String SELF = NetworkUtil.getHostname();
     private static final String NAME = "Policy SSD";
 
     @Test
     public void testHealthCheckSuccess() {
-        final String reportString = "Report [name=Policy SSD, url=self, healthy=true, code=200, message=alive]";
+        final String reportString = "Report [name=Policy SSD, url=" + SELF + ", healthy=true, code=200, message=alive]";
         try {
             final Main main = startDistributionService();
             final HealthCheckReport report = performHealthCheck();
@@ -76,7 +77,8 @@ public class TestDistributionRestServer {
 
     @Test
     public void testHealthCheckFailure() {
-        final String reportString = "Report [name=Policy SSD, url=self, healthy=false, code=500, message=not alive]";
+        final String reportString =
+                "Report [name=Policy SSD, url=" + SELF + ", healthy=false, code=500, message=not alive]";
         final RestServerParameters restServerParams = new CommonTestData().getRestServerParameters(false);
         restServerParams.setName(CommonTestData.DISTRIBUTION_GROUP_NAME);
         final RestServer restServer = new RestServer(restServerParams, null, DistributionRestController.class);
