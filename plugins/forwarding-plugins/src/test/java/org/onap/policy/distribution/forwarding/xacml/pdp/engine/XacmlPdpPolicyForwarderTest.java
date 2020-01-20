@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2019-2020 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,9 +23,9 @@
 package org.onap.policy.distribution.forwarding.xacml.pdp.engine;
 
 import static org.junit.Assert.assertSame;
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.argThat;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -38,10 +38,9 @@ import java.util.HashMap;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.ArgumentMatcher;
 import org.onap.policy.api.PolicyParameters;
 import org.onap.policy.api.PushPolicyParameters;
 import org.onap.policy.common.endpoints.event.comm.bus.internal.BusTopicParams;
@@ -83,8 +82,8 @@ public class XacmlPdpPolicyForwarderTest {
 
         final HttpClient httpClientMock = mock(HttpClient.class);
         headers.put(CLIENT_AUTH, CLIENT_AUTH_VALUE);
-        when(httpClientMock.put(eq("createPolicy"), anyObject(), eq(headers))).thenReturn(Response.ok().build());
-        when(httpClientMock.put(eq("pushPolicy"), anyObject(), eq(headers))).thenReturn(Response.ok().build());
+        when(httpClientMock.put(eq("createPolicy"), any(), eq(headers))).thenReturn(Response.ok().build());
+        when(httpClientMock.put(eq("pushPolicy"), any(), eq(headers))).thenReturn(Response.ok().build());
 
         final HttpClientFactory httpClientFactoryMock = mock(HttpClientFactory.class);
         when(httpClientFactoryMock.build(argThat(matcher))).thenReturn(httpClientMock);
@@ -118,8 +117,8 @@ public class XacmlPdpPolicyForwarderTest {
 
         final HttpClient httpClientMock = mock(HttpClient.class);
         headers.put(CLIENT_AUTH, CLIENT_AUTH_VALUE);
-        when(httpClientMock.put(eq("createPolicy"), anyObject(), eq(headers))).thenReturn(Response.status(400).build());
-        when(httpClientMock.put(eq("pushPolicy"), anyObject(), eq(headers))).thenReturn(Response.ok().build());
+        when(httpClientMock.put(eq("createPolicy"), any(), eq(headers))).thenReturn(Response.status(400).build());
+        when(httpClientMock.put(eq("pushPolicy"), any(), eq(headers))).thenReturn(Response.ok().build());
 
         final HttpClientFactory httpClientFactoryMock = mock(HttpClientFactory.class);
         when(httpClientFactoryMock.build(argThat(matcher))).thenReturn(httpClientMock);
@@ -132,7 +131,7 @@ public class XacmlPdpPolicyForwarderTest {
         forwarder.forward(policies);
 
         verify(httpClientMock).put(eq("createPolicy"), argThat(new PolicyParametersEntityMatcher(policy)), eq(headers));
-        verify(httpClientMock, times(0)).put(eq("pushPolicy"), anyObject(), anyObject());
+        verify(httpClientMock, times(0)).put(eq("pushPolicy"), any(), any());
     }
 
     @Test
@@ -140,8 +139,8 @@ public class XacmlPdpPolicyForwarderTest {
 
         final HttpClient httpClientMock = mock(HttpClient.class);
         headers.put(CLIENT_AUTH, CLIENT_AUTH_VALUE);
-        when(httpClientMock.put(eq("createPolicy"), anyObject(), eq(headers))).thenReturn(Response.ok().build());
-        when(httpClientMock.put(eq("pushPolicy"), anyObject(), eq(headers))).thenReturn(Response.status(400).build());
+        when(httpClientMock.put(eq("createPolicy"), any(), eq(headers))).thenReturn(Response.ok().build());
+        when(httpClientMock.put(eq("pushPolicy"), any(), eq(headers))).thenReturn(Response.status(400).build());
 
         final HttpClientFactory httpClientFactoryMock = mock(HttpClientFactory.class);
         when(httpClientFactoryMock.build(argThat(matcher))).thenReturn(httpClientMock);
@@ -163,8 +162,8 @@ public class XacmlPdpPolicyForwarderTest {
 
         final HttpClient httpClientMock = mock(HttpClient.class);
         headers.put(CLIENT_AUTH, CLIENT_AUTH_VALUE);
-        when(httpClientMock.put(eq("createPolicy"), anyObject(), eq(headers))).thenReturn(Response.ok().build());
-        when(httpClientMock.put(eq("pushPolicy"), anyObject(), eq(headers))).thenReturn(Response.status(400).build());
+        when(httpClientMock.put(eq("createPolicy"), any(), eq(headers))).thenReturn(Response.ok().build());
+        when(httpClientMock.put(eq("pushPolicy"), any(), eq(headers))).thenReturn(Response.status(400).build());
 
         final HttpClientFactory httpClientFactoryMock = mock(HttpClientFactory.class);
         when(httpClientFactoryMock.build(argThat(matcher))).thenThrow(new HttpClientConfigException());
@@ -178,8 +177,8 @@ public class XacmlPdpPolicyForwarderTest {
 
         assertSame(policy, policies.iterator().next());
 
-        verify(httpClientMock, times(0)).put(eq("createPolicy"), anyObject(), anyObject());
-        verify(httpClientMock, times(0)).put(eq("pushPolicy"), anyObject(), anyObject());
+        verify(httpClientMock, times(0)).put(eq("createPolicy"), any(), any());
+        verify(httpClientMock, times(0)).put(eq("pushPolicy"), any(), any());
     }
 
     @Test
@@ -187,8 +186,8 @@ public class XacmlPdpPolicyForwarderTest {
 
         final HttpClient httpClientMock = mock(HttpClient.class);
         headers.put(CLIENT_AUTH, CLIENT_AUTH_VALUE);
-        when(httpClientMock.put(eq("createPolicy"), anyObject(), eq(headers))).thenReturn(Response.ok().build());
-        when(httpClientMock.put(eq("pushPolicy"), anyObject(), eq(headers))).thenReturn(Response.status(400).build());
+        when(httpClientMock.put(eq("createPolicy"), any(), eq(headers))).thenReturn(Response.ok().build());
+        when(httpClientMock.put(eq("pushPolicy"), any(), eq(headers))).thenReturn(Response.status(400).build());
 
         final HttpClientFactory httpClientFactoryMock = mock(HttpClientFactory.class);
         when(httpClientFactoryMock.build(argThat(matcher))).thenReturn(httpClientMock)
@@ -202,10 +201,10 @@ public class XacmlPdpPolicyForwarderTest {
         forwarder.forward(policies);
 
         verify(httpClientMock).put(eq("createPolicy"), argThat(new PolicyParametersEntityMatcher(policy)), eq(headers));
-        verify(httpClientMock, times(0)).put(eq("pushPolicy"), anyObject(), anyObject());
+        verify(httpClientMock, times(0)).put(eq("pushPolicy"), any(), any());
     }
 
-    class BusTopicParamsMatcher extends BaseMatcher<BusTopicParams> {
+    class BusTopicParamsMatcher implements ArgumentMatcher<BusTopicParams> {
 
         private BusTopicParams busTopicParams;
 
@@ -214,7 +213,7 @@ public class XacmlPdpPolicyForwarderTest {
         }
 
         @Override
-        public boolean matches(final Object arg0) {
+        public boolean matches(final BusTopicParams arg0) {
             if (arg0 instanceof BusTopicParams) {
                 final BusTopicParams toCompareTo = (BusTopicParams) arg0;
                 return toCompareTo.isUseHttps() == busTopicParams.isUseHttps()
@@ -226,12 +225,9 @@ public class XacmlPdpPolicyForwarderTest {
             }
             return false;
         }
-
-        @Override
-        public void describeTo(final Description arg0) {}
     }
 
-    class PolicyParametersEntityMatcher extends BaseMatcher<Entity<PolicyParameters>> {
+    class PolicyParametersEntityMatcher implements ArgumentMatcher<Entity<PolicyParameters>> {
 
         private ToscaPolicy policy;
 
@@ -241,19 +237,16 @@ public class XacmlPdpPolicyForwarderTest {
 
         @SuppressWarnings("unchecked")
         @Override
-        public boolean matches(final Object arg0) {
+        public boolean matches(final Entity<PolicyParameters> arg0) {
             if (arg0 instanceof Entity) {
                 final PolicyParameters toCompareTo = ((Entity<PolicyParameters>) arg0).getEntity();
                 return toCompareTo.getPolicyName().equals(policy.getName());
             }
             return false;
         }
-
-        @Override
-        public void describeTo(final Description arg0) {}
     }
 
-    class PushPolicyParametersEntityMatcher extends BaseMatcher<Entity<PushPolicyParameters>> {
+    class PushPolicyParametersEntityMatcher implements ArgumentMatcher<Entity<PushPolicyParameters>> {
 
         private ToscaPolicy policy;
 
@@ -263,7 +256,7 @@ public class XacmlPdpPolicyForwarderTest {
 
         @SuppressWarnings("unchecked")
         @Override
-        public boolean matches(final Object arg0) {
+        public boolean matches(final Entity<PushPolicyParameters> arg0) {
             if (arg0 instanceof Entity) {
                 final PushPolicyParameters toCompareTo = ((Entity<PushPolicyParameters>) arg0).getEntity();
                 return toCompareTo.getPolicyName().equals(policy.getName())
@@ -272,9 +265,6 @@ public class XacmlPdpPolicyForwarderTest {
             }
             return false;
         }
-
-        @Override
-        public void describeTo(final Description arg0) {}
     }
 
     class UnsupportedPolicy extends ToscaEntity {
