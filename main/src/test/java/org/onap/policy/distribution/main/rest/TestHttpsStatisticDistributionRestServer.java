@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -95,10 +96,12 @@ public class TestHttpsStatisticDistributionRestServer {
             }
 
             @Override
-            public void checkClientTrusted(final java.security.cert.X509Certificate[] certs, final String authType) {}
+            public void checkClientTrusted(final java.security.cert.X509Certificate[] certs, final String authType) {
+            }
 
             @Override
-            public void checkServerTrusted(final java.security.cert.X509Certificate[] certs, final String authType) {}
+            public void checkServerTrusted(final java.security.cert.X509Certificate[] certs, final String authType) {
+            }
         } };
 
         final SSLContext sc = SSLContext.getInstance("TLSv1.2");
