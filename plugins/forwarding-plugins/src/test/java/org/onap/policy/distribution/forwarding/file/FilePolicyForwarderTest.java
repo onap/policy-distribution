@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Intel Corp. All rights reserved.
- *  Modifications Copyright (C) 2019 AT&T Intellectual Property.
+ *  Modifications Copyright (C) 2019-2020 AT&T Intellectual Property.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,10 +39,11 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
+
 
 /**
  * Class to perform unit test of {@link FilePolicyForwarder}.
@@ -94,13 +95,14 @@ public class FilePolicyForwarderTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     public void testForwardPolicyError() {
         final Collection<ToscaEntity> policies = new ArrayList<>();
         final ToscaPolicy policy = createPolicy(policies, "test", "test");
 
         final ToscaPolicy spy = Mockito.spy(policy);
-        Mockito.when(spy.toString()).thenThrow(IOException.class);
+        Mockito.when(spy.toString()).thenAnswer(invocation -> {
+            throw new IOException();
+        });
         policies.add(spy);
 
         final FilePolicyForwarder forwarder = new FilePolicyForwarder();

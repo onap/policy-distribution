@@ -1,4 +1,4 @@
-FROM onap/policy-common-alpine:1.4.0
+FROM onap/policy-jre-alpine
 
 LABEL maintainer="Policy Team"
 
@@ -7,7 +7,9 @@ ARG POLICY_LOGS=/var/log/onap/policy/distribution
 ENV POLICY_LOGS=$POLICY_LOGS
 ENV POLICY_HOME=$POLICY_HOME/distribution
 
-RUN mkdir -p $POLICY_HOME $POLICY_LOGS $POLICY_HOME/bin && \
+RUN apt update && \
+    apt-get install -y mariadb-client && \
+    mkdir -p $POLICY_HOME $POLICY_LOGS $POLICY_HOME/bin && \
     chown -R policy:policy $POLICY_HOME $POLICY_LOGS
 
 RUN mkdir /packages
