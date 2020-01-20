@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9893ff6e_14d59a98",
+        "filename": "packages/policy-distribution-docker/src/main/docker/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-01-20T22:51:21Z",
+      "side": 1,
+      "message": "sorry, I goofed - this should be: onap/policy-jre-alpine",
+      "revId": "b70e2a59d39b05efe5c9e3a8da969a70aca07f46",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
