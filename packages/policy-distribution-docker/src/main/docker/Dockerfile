@@ -1,4 +1,4 @@
-FROM onap/policy-common-alpine:1.4.0
+FROM onap/policy-jre-alpine
 
 LABEL maintainer="Policy Team"
 
@@ -8,9 +8,9 @@ ENV POLICY_LOGS=$POLICY_LOGS
 ENV POLICY_HOME=$POLICY_HOME/distribution
 
 RUN mkdir -p $POLICY_HOME $POLICY_LOGS $POLICY_HOME/bin && \
-    chown -R policy:policy $POLICY_HOME $POLICY_LOGS
+    chown -R policy:policy $POLICY_HOME $POLICY_LOGS &&\
+    mkdir /packages
 
-RUN mkdir /packages
 COPY /maven/* /packages
 RUN tar xvfz /packages/policy-distribution.tar.gz --directory $POLICY_HOME \
      && rm /packages/policy-distribution.tar.gz
