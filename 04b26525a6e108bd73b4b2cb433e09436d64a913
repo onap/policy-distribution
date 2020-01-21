@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bd3c224e_adc40054",
+        "filename": "plugins/forwarding-plugins/pom.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1757
+      },
+      "writtenOn": "2020-01-21T22:42:31Z",
+      "side": 1,
+      "message": "funny, it was coming from junit4 below.. I removed it. thanks!",
+      "parentUuid": "01f7fc87_a87be4d8",
+      "revId": "04b26525a6e108bd73b4b2cb433e09436d64a913",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa7ca676_fd183230",
         "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/file/FilePolicyForwarderTest.java",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2020-01-21T21:41:54Z",
       "side": 1,
       "message": "sonar: remove curly braces in lambda",
+      "revId": "04b26525a6e108bd73b4b2cb433e09436d64a913",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2c333204_c0977e10",
+        "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/file/FilePolicyForwarderTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1757
+      },
+      "writtenOn": "2020-01-21T22:42:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fa7ca676_fd183230",
       "revId": "04b26525a6e108bd73b4b2cb433e09436d64a913",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
