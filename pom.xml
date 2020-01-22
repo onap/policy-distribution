@@ -41,7 +41,7 @@
 
     <properties>
         <!-- Default Sonar configuration -->
-        <sonar.coverage.jacoco.xmlReportPaths>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <jacoco.dataFile>${project.basedir}/../target/code-coverage/jacoco-ut.exec</jacoco.dataFile>
 
         <policy.common.version>1.6.2-SNAPSHOT</policy.common.version>
         <policy.engine.version>1.6.0-SNAPSHOT</policy.engine.version>
