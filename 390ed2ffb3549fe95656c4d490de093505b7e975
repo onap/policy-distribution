@@ -22,6 +22,30 @@
       "revId": "390ed2ffb3549fe95656c4d490de093505b7e975",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73249f75_62f09e4c",
+        "filename": "packages/policy-distribution-docker/src/main/docker/Dockerfile",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-01-22T12:25:43Z",
+      "side": 1,
+      "message": "Probably cut-n-paste from the other reviews - Ali you can remove this since the distribution doesn\u0027t need to access the mariadb.",
+      "parentUuid": "e663557b_9cc75d10",
+      "range": {
+        "startLine": 11,
+        "startChar": 4,
+        "endLine": 11,
+        "endChar": 42
+      },
+      "revId": "390ed2ffb3549fe95656c4d490de093505b7e975",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
