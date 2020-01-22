@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "2dddc175_4eb96a18",
+        "filename": "packages/policy-distribution-docker/src/main/docker/Dockerfile",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1757
+      },
+      "writtenOn": "2020-01-22T14:48:05Z",
+      "side": 1,
+      "message": "ok, done!",
+      "parentUuid": "c22ae53f_5876e797",
+      "range": {
+        "startLine": 11,
+        "startChar": 4,
+        "endLine": 11,
+        "endChar": 42
+      },
+      "revId": "390ed2ffb3549fe95656c4d490de093505b7e975",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cf73928_6b6a2eec",
         "filename": "packages/policy-distribution-docker/src/main/docker/Dockerfile",
         "patchSetId": 7
@@ -84,6 +108,24 @@
       "writtenOn": "2020-01-22T13:43:59Z",
       "side": 1,
       "message": "can combine this \"RUN\" with the previous \"RUN\"",
+      "revId": "390ed2ffb3549fe95656c4d490de093505b7e975",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c2ac401_21ecc059",
+        "filename": "packages/policy-distribution-docker/src/main/docker/Dockerfile",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1757
+      },
+      "writtenOn": "2020-01-22T14:48:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cf73928_6b6a2eec",
       "revId": "390ed2ffb3549fe95656c4d490de093505b7e975",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
