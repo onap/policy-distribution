@@ -31,6 +31,9 @@
     <description>The module of Policy Distribution that holds plugins for custom policy reception and forwarding.</description>
     <packaging>pom</packaging>
     
+    <properties>
+        <jacoco.dataFile>${project.basedir}/../../target/code-coverage/jacoco-ut.exec</jacoco.dataFile>
+    </properties>
     <modules>
         <module>forwarding-plugins</module>
         <module>reception-plugins</module>
