@@ -1,6 +1,7 @@
 <!--
   ============LICENSE_START=======================================================
    Copyright (C) 2018 Ericsson. All rights reserved.
+   Modifications Copyright (C) 2020 Bell Canada.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -25,7 +26,7 @@
         <version>2.3.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>main</artifactId>
+    <artifactId>distribution-main</artifactId>
 
     <name>${project.artifactId}</name>
     <description>The main module of Policy Distribution that handles startup, lifecycle management, and parameters.</description>
