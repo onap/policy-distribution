@@ -24,7 +24,7 @@
         <artifactId>testsuites</artifactId>
         <version>2.3.0-SNAPSHOT</version>
     </parent>
-    <artifactId>performance</artifactId>
+    <artifactId>distribution-performance</artifactId>
     <build>
         <plugins>
             <plugin>

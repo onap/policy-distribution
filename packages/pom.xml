@@ -27,7 +27,7 @@
         <version>2.3.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>packages</artifactId>
+    <artifactId>distribution-packages</artifactId>
     <packaging>pom</packaging>
     <name>Policy Distribution Packages</name>
 

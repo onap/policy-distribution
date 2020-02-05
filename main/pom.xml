@@ -25,7 +25,7 @@
         <version>2.3.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>main</artifactId>
+    <artifactId>distribution-main</artifactId>
 
     <name>${project.artifactId}</name>
     <description>The main module of Policy Distribution that handles startup, lifecycle management, and parameters.</description>
