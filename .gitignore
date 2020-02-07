@@ -11,3 +11,7 @@ target
 .log
 logs
 debug-logs
+
+# IntelliJ files
+.idea/
+**/*.iml
