@@ -166,10 +166,17 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
         final LifecycleApiParameters parameters =
                 (wantApi ? forwarderParameters.getApiParameters() : forwarderParameters.getPapParameters());
         final BusTopicParams params = BusTopicParams.builder().clientName("Policy Distribution").useHttps(https)
-                .hostname(parameters.getHostName()).port(parameters.getPort()).userName(parameters.getUserName())
-                .password(parameters.getPassword()).serializationProvider(GsonMessageBodyHandler.class.getName())
+                .hostname(parameters.getHostName()).port(parameters.getPort()).userName(getValue(parameters.getUserName()))
+                .password(getValue(parameters.getPassword())).serializationProvider(GsonMessageBodyHandler.class.getName())
                 .build();
         return HttpClientFactoryInstance.getClientFactory().build(params);
+    }
+
+    private String getValue(final String value) {
+        if (value != null && value.matches("[$][{].*[}]$")) {
+            return System.getenv(value.substring(2, value.length() - 1));
+        }
+        return value;
     }
 }
 

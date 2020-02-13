@@ -104,7 +104,7 @@ public class XacmlPdpPolicyForwarder implements PolicyForwarder {
 
         try {
             final Response response = getHttpClient().put(method, entity,
-                    Collections.singletonMap("ClientAuth", configurationParameters.getClientAuth()));
+                    Collections.singletonMap("ClientAuth", getValue(configurationParameters.getClientAuth())));
 
             if (response.getStatus() != HttpStatus.OK.value()) {
                 LOGGER.error(
@@ -124,13 +124,20 @@ public class XacmlPdpPolicyForwarder implements PolicyForwarder {
         final boolean useHttps = configurationParameters.isUseHttps();
         final String hostname = configurationParameters.getHostname();
         final int port = configurationParameters.getPort();
-        final String userName = configurationParameters.getUserName();
-        final String password = configurationParameters.getPassword();
+        final String userName = getValue(configurationParameters.getUserName());
+        final String password = getValue(configurationParameters.getPassword());
         final boolean managed = configurationParameters.isManaged();
         final BusTopicParams params =
                 BusTopicParams.builder().clientName("SDC Dist").useHttps(useHttps).hostname(hostname).port(port)
                         .userName(userName).password(password).basePath(BASE_PATH).managed(managed).build();
         return getHttpClientFactory().build(params);
+    }
+
+    private String getValue(final String value) {
+        if (value != null && value.matches("[$][{].*[}]$")) {
+            return System.getenv(value.substring(2, value.length() - 1));
+        }
+        return value;
     }
 
     @Override
