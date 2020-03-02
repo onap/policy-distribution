@@ -35,8 +35,8 @@ import org.onap.policy.common.utils.coder.StandardCoder;
 import org.onap.policy.common.utils.network.NetworkUtil;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
-import org.onap.policy.distribution.forwarding.xacml.pdp.testclasses.CommonTestData;
-import org.onap.policy.distribution.forwarding.xacml.pdp.testclasses.LifecycleApiSimulatorMain;
+import org.onap.policy.distribution.forwarding.testclasses.CommonTestData;
+import org.onap.policy.distribution.forwarding.testclasses.LifecycleApiSimulatorMain;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
 
