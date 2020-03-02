@@ -1,128 +1,94 @@
 {
-  "name": "SDCDistributionGroup",
-  "restServerParameters": {
-    "host": "0.0.0.0",
-    "port": 6969,
-    "userName": "healthcheck",
-    "password": "zb!XztG34",
-    "https": true
-  },
-  "receptionHandlerParameters": {
-    "SDCReceptionHandler": {
-      "receptionHandlerType": "SDC",
-      "receptionHandlerClassName": "org.onap.policy.distribution.reception.handling.sdc.SdcReceptionHandler",
-      "receptionHandlerConfigurationName": "sdcConfiguration",
-      "pluginHandlerParameters": {
-        "policyDecoders": {
-          "CsarDecoder": {
-            "decoderType": "CsarDecoder",
-            "decoderClassName": "org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderCsarPdpx",
-            "decoderConfigurationName": "csarToOptimizationPolicyConfiguration"
-          },
-          "LifecycleApiDecoder": {
-            "decoderType": "CsarDecoder",
-            "decoderClassName": "org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderCsarPdpxLifecycleApi",
-            "decoderConfigurationName": "csarToToscaServiceTemplateConfiguration"
-          }
-        },
-        "policyForwarders": {
-          "PAPEngineForwarder": {
-            "forwarderType": "PAPEngine",
-            "forwarderClassName": "org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarder",
-            "forwarderConfigurationName": "xacmlPdpConfiguration"
-          },
-          "LifeCycleApiForwarder": {
-            "forwarderType": "LifeCycleAPI",
-            "forwarderClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiPolicyForwarder",
-            "forwarderConfigurationName": "lifecycleApiConfiguration"
-          }
+    "name": "SDCDistributionGroup",
+    "restServerParameters": {
+        "host": "0.0.0.0",
+        "port": 6969,
+        "userName": "healthcheck",
+        "password": "zb!XztG34",
+        "https": true
+    },
+    "receptionHandlerParameters": {
+        "SDCReceptionHandler": {
+            "receptionHandlerType": "SDC",
+            "receptionHandlerClassName": "org.onap.policy.distribution.reception.handling.sdc.SdcReceptionHandler",
+            "receptionHandlerConfigurationName": "sdcConfiguration",
+            "pluginHandlerParameters": {
+                "policyDecoders": {
+                    "LifecycleApiDecoder": {
+                        "decoderType": "CsarDecoder",
+                        "decoderClassName": "org.onap.policy.distribution.reception.decoding.hpa.PolicyDecoderCsarHpa",
+                        "decoderConfigurationName": "csarToToscaServiceTemplateConfiguration"
+                    }
+                },
+                "policyForwarders": {
+                    "LifeCycleApiForwarder": {
+                        "forwarderType": "LifeCycleAPI",
+                        "forwarderClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiPolicyForwarder",
+                        "forwarderConfigurationName": "lifecycleApiConfiguration"
+                    }
+                }
+            }
         }
-      }
-    }
-  },
-  "receptionHandlerConfigurationParameters": {
-    "sdcConfiguration": {
-      "parameterClassName": "org.onap.policy.distribution.reception.handling.sdc.SdcReceptionHandlerConfigurationParameterGroup",
-      "parameters": {
-        "asdcAddress": "sdc-be.onap:8443",
-        "messageBusAddress": [
-          "message-router.onap"
-        ],
-        "user": "policy",
-        "password": "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U",
-        "pollingInterval": 20,
-        "pollingTimeout": 30,
-        "consumerId": "policy-id",
-        "artifactTypes": [
-          "TOSCA_CSAR",
-          "HEAT"
-        ],
-        "consumerGroup": "policy-group",
-        "environmentName": "AUTO",
-        "keystorePath": "null",
-        "keystorePassword": "null",
-        "activeserverTlsAuth": false,
-        "isFilterinEmptyResources": true,
-        "isUseHttpsWithDmaap": false
-      }
-    }
-  },
-  "policyDecoderConfigurationParameters": {
-    "csarToOptimizationPolicyConfiguration": {
-      "parameterClassName": "org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderCsarPdpxConfigurationParameterGroup",
-      "parameters": {
-        "policyNamePrefix": "oofCasablanca",
-        "onapName": "OOF",
-        "version": "1.0",
-        "priority": "3",
-        "riskType": "Test",
-        "riskLevel": "2"
-      }
     },
-    "csarToToscaServiceTemplateConfiguration": {
-      "parameterClassName": "org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderCsarPdpxLifecycleApiParameters",
-      "parameters": {
-        "policyNamePrefix": "oofCasablanca",
-        "onapName": "OOF",
-        "version": "1.0",
-        "priority": "3",
-        "riskType": "Test",
-        "riskLevel": "2"
-      }
-    }
-  },
-  "policyForwarderConfigurationParameters": {
-    "xacmlPdpConfiguration": {
-      "parameterClassName": "org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarderParameterGroup",
-      "parameters": {
-        "useHttps": true,
-        "hostname": "pdp",
-        "port": 8081,
-        "userName": "testpdp",
-        "password": "alpha123",
-        "clientAuth": "cHl0aG9uOnRlc3Q=",
-        "isManaged": true,
-        "pdpGroup": "default"
-      }
+    "receptionHandlerConfigurationParameters": {
+        "sdcConfiguration": {
+            "parameterClassName": "org.onap.policy.distribution.reception.handling.sdc.SdcReceptionHandlerConfigurationParameterGroup",
+            "parameters": {
+                "asdcAddress": "sdc-be.onap:8443",
+                "messageBusAddress": [
+                    "message-router.onap"
+                ],
+                "user": "policy",
+                "password": "Kp8bJ4SXszM0WXlhak3eHlcse2gAw84vaoGGmJvUy2U",
+                "pollingInterval": 20,
+                "pollingTimeout": 30,
+                "consumerId": "policy-id",
+                "artifactTypes": [
+                    "TOSCA_CSAR",
+                    "HEAT"
+                ],
+                "consumerGroup": "policy-group",
+                "environmentName": "AUTO",
+                "keystorePath": "null",
+                "keystorePassword": "null",
+                "activeserverTlsAuth": false,
+                "isFilterinEmptyResources": true,
+                "isUseHttpsWithDmaap": false
+            }
+        }
     },
-    "lifecycleApiConfiguration": {
-      "parameterClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiForwarderParameters",
-      "parameters": {
-        "apiParameters": {
-          "hostName": "policy-api",
-          "port": 6969,
-          "userName": "healthcheck",
-          "password": "zb!XztG34"
-        },
-        "papParameters": {
-          "hostName": "policy-pap",
-          "port": 6969,
-          "userName": "healthcheck",
-          "password": "zb!XztG34"
-        },
-        "isHttps": true,
-        "deployPolicies": true
-      }
+    "policyDecoderConfigurationParameters": {
+        "csarToToscaServiceTemplateConfiguration": {
+            "parameterClassName": "org.onap.policy.distribution.reception.decoding.hpa.PolicyDecoderCsarHpaParameters",
+            "parameters": {
+                "policyNamePrefix": "oofCasablanca",
+                "onapName": "OOF",
+                "version": "1.0",
+                "priority": "3",
+                "riskType": "Test",
+                "riskLevel": "2"
+            }
+        }
+    },
+    "policyForwarderConfigurationParameters": {
+        "lifecycleApiConfiguration": {
+            "parameterClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiForwarderParameters",
+            "parameters": {
+                "apiParameters": {
+                    "hostName": "policy-api",
+                    "port": 6969,
+                    "userName": "healthcheck",
+                    "password": "zb!XztG34"
+                },
+                "papParameters": {
+                    "hostName": "policy-pap",
+                    "port": 6969,
+                    "userName": "healthcheck",
+                    "password": "zb!XztG34"
+                },
+                "isHttps": true,
+                "deployPolicies": true
+            }
+        }
     }
-  }
 }

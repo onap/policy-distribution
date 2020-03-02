@@ -36,7 +36,7 @@ import java.util.Arrays;
 import org.junit.Test;
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
-import org.onap.policy.distribution.reception.decoding.pdpx.CommonTestData;
+import org.onap.policy.distribution.reception.decoding.hpa.CommonTestData;
 
 /**
  * Class to perform unit test of {@link SdcConfiguration}.

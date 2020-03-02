@@ -1,46 +1,46 @@
 {
-    "name":"SDCDistributionGroup",
-    "restServerParameters":{
-        "host":"0.0.0.0",
-        "port":6969,
-        "userName":"healthcheck",
-        "password":"zb!XztG34"
+    "name": "SDCDistributionGroup",
+    "restServerParameters": {
+        "host": "0.0.0.0",
+        "port": 6969,
+        "userName": "healthcheck",
+        "password": "zb!XztG34"
     },
-    "receptionHandlerParameters":{
-        "S3PReceptionHandler":{
-            "receptionHandlerType":"S3P",
-            "receptionHandlerClassName":"org.onap.policy.distribution.reception.handling.file.FileSystemReceptionHandler",
-            "receptionHandlerConfigurationName":"fileConfiguration",
-            "pluginHandlerParameters":{
-                "policyDecoders":{
-                    "CsarDecoder":{
-                        "decoderType":"CsarDecoder",
-                        "decoderClassName":"org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderCsarPdpx",
+    "receptionHandlerParameters": {
+        "S3PReceptionHandler": {
+            "receptionHandlerType": "S3P",
+            "receptionHandlerClassName": "org.onap.policy.distribution.reception.handling.file.FileSystemReceptionHandler",
+            "receptionHandlerConfigurationName": "fileConfiguration",
+            "pluginHandlerParameters": {
+                "policyDecoders": {
+                    "CsarDecoder": {
+                        "decoderType": "CsarDecoder",
+                        "decoderClassName": "org.onap.policy.distribution.reception.decoding.hpa.PolicyDecoderCsarHpa",
                         "decoderConfigurationName": "csarToOptimizationPolicyConfiguration"
                     }
                 },
-                "policyForwarders":{
-                    "PAPEngineForwarder":{
-                        "forwarderType":"PAPEngine",
-                        "forwarderClassName":"org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarder",
-                        "forwarderConfigurationName": "xacmlPdpConfiguration"
+                "policyForwarders": {
+                    "LifeCycleApiForwarder": {
+                        "forwarderType": "LifeCycleAPI",
+                        "forwarderClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiPolicyForwarder",
+                        "forwarderConfigurationName": "lifecycleApiConfiguration"
                     }
                 }
             }
         }
     },
-    "receptionHandlerConfigurationParameters":{
-        "fileConfiguration":{
-            "parameterClassName":"org.onap.policy.distribution.reception.handling.file.FileSystemReceptionHandlerConfigurationParameterGroup",
-            "parameters":{
+    "receptionHandlerConfigurationParameters": {
+        "fileConfiguration": {
+            "parameterClassName": "org.onap.policy.distribution.reception.handling.file.FileSystemReceptionHandlerConfigurationParameterGroup",
+            "parameters": {
                 "watchPath": "/tmp/policy_distribution/csar/"
             }
         }
     },
-    "policyDecoderConfigurationParameters":{
-        "csarToOptimizationPolicyConfiguration":{
-            "parameterClassName":"org.onap.policy.distribution.reception.decoding.pdpx.PolicyDecoderCsarPdpxConfigurationParameterGroup",
-            "parameters":{
+    "policyDecoderConfigurationParameters": {
+        "csarToToscaServiceTemplateConfiguration": {
+            "parameterClassName": "org.onap.policy.distribution.reception.decoding.hpa.PolicyDecoderCsarHpaParameters",
+            "parameters": {
                 "policyNamePrefix": "oofCasablanca",
                 "onapName": "OOF",
                 "version": "1.0",
@@ -50,18 +50,24 @@
             }
         }
     },
-    "policyForwarderConfigurationParameters":{
-        "xacmlPdpConfiguration":{
-            "parameterClassName":"org.onap.policy.distribution.forwarding.xacml.pdp.XacmlPdpPolicyForwarderParameterGroup",
-            "parameters":{
-                "useHttps": true,
-                "hostname": "pdp",
-                "port": 8081,
-                "userName": "testpdp",
-                "password": "alpha123",
-                "clientAuth": "cHl0aG9uOnRlc3Q=",
-                "isManaged": true,
-                "pdpGroup": "default"
+    "policyForwarderConfigurationParameters": {
+        "lifecycleApiConfiguration": {
+            "parameterClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiForwarderParameters",
+            "parameters": {
+                "apiParameters": {
+                    "hostName": "policy-api",
+                    "port": 6969,
+                    "userName": "healthcheck",
+                    "password": "zb!XztG34"
+                },
+                "papParameters": {
+                    "hostName": "policy-pap",
+                    "port": 6969,
+                    "userName": "healthcheck",
+                    "password": "zb!XztG34"
+                },
+                "isHttps": true,
+                "deployPolicies": true
             }
         }
     }

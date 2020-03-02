@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.onap.policy.common.parameters.ValidationStatus;
-import org.onap.policy.distribution.forwarding.xacml.pdp.testclasses.CommonTestData;
+import org.onap.policy.distribution.forwarding.testclasses.CommonTestData;
 
 /**
  * Class to perform unit test of {@link LifecycleApiForwarderParameters}.

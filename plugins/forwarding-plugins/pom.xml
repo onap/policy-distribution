@@ -42,22 +42,6 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.onap.policy.engine</groupId>
-            <artifactId>PolicyEngineAPI</artifactId>
-            <version>${policy.engine.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.persistence</groupId>
-                    <artifactId>eclipselink</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.onap.policy.apex-pdp.core</groupId>
-            <artifactId>core-deployment</artifactId>
-            <version>${policy.apex-pdp.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito2</artifactId>
             <scope>test</scope>
