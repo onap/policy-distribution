@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c044830f_568841fc",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/xacml/pdp/XacmlPdpPolicyForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-03-03T17:10:07Z",
+      "side": 1,
+      "message": "This file has been deleted - so you can remove this change.",
+      "revId": "92daabc64beffb691b1b9edff90c1c45a963386d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
