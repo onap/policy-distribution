@@ -33,6 +33,24 @@
       "revId": "cdcb6e9a3951bd8b60dd3997c71914b7a1ebe393",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6642d154_a0993224",
+        "filename": "packages/policy-distribution-tarball/src/main/resources/etc/defaultConfig.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-03-03T16:33:42Z",
+      "side": 1,
+      "message": "I believe Dominik from OOM team has an outstanding review for using environment for passwords - would not be in the config file. He has not finished it - I asked for status yesterday. So I think we are ok with this.",
+      "parentUuid": "fdbe3acf_60bbaab2",
+      "revId": "cdcb6e9a3951bd8b60dd3997c71914b7a1ebe393",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
