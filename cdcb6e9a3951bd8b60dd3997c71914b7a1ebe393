@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73be6655_ecb4e0df",
+        "filename": "packages/policy-distribution-tarball/src/main/resources/etc/defaultConfig.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-03T01:57:52Z",
+      "side": 1,
+      "message": "tabs \u003d\u003e spaces\n\nsame comment in other files",
+      "revId": "cdcb6e9a3951bd8b60dd3997c71914b7a1ebe393",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
