@@ -44,8 +44,6 @@
         <jacoco.dataFile>${project.basedir}/../target/code-coverage/jacoco-ut.exec</jacoco.dataFile>
 
         <policy.common.version>1.6.2-SNAPSHOT</policy.common.version>
-        <policy.engine.version>1.6.0-SNAPSHOT</policy.engine.version>
-        <policy.apex-pdp.version>2.3.0-SNAPSHOT</policy.apex-pdp.version>
         <policy.models.version>2.2.1-SNAPSHOT</policy.models.version>
     </properties>
 
