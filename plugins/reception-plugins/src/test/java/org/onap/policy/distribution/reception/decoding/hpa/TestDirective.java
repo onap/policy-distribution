@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
+ *  Modifications Copyright (C) 2020 AT&T Inc.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +24,6 @@ package org.onap.policy.distribution.reception.decoding.hpa;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.onap.policy.distribution.reception.decoding.hpa.Attribute;
-import org.onap.policy.distribution.reception.decoding.hpa.Directive;
 
 /**
  * Class to perform unit test for Directive 0f {@link Directive}.

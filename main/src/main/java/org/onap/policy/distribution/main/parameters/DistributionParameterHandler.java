@@ -69,7 +69,6 @@ public class DistributionParameterHandler {
         } catch (final Exception e) {
             final String errorMessage = "error reading parameters from \"" + arguments.getConfigurationFilePath()
                     + "\"\n" + "(" + e.getClass().getSimpleName() + "):" + e.getMessage();
-            LOGGER.error(errorMessage, e);
             throw new PolicyDistributionException(errorMessage, e);
         }
 

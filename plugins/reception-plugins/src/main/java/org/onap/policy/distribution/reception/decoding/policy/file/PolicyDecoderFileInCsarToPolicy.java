@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 AT&T Inc.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,8 +38,6 @@ import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This class extracts policy files from a CSAR file.
@@ -47,7 +46,6 @@ import org.slf4j.LoggerFactory;
  */
 public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, ToscaEntity> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PolicyDecoderFileInCsarToPolicy.class);
     private PolicyDecoderFileInCsarToPolicyParameterGroup decoderParameters;
     private StandardCoder coder;
 
@@ -87,9 +85,7 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
                 }
             }
         } catch (final IOException | CoderException exp) {
-            final String message = "Failed decoding the policy";
-            LOGGER.error(message, exp);
-            throw new PolicyDecodingException(message, exp);
+            throw new PolicyDecodingException("Failed decoding the policy", exp);
         }
 
         return policyList;

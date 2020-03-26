@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2020 AT&T Inc.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -267,9 +268,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
                 return tempArtifactFile.toPath();
             }
         } catch (final Exception exp) {
-            final String message = "Failed to write artifact to local repository";
-            LOGGER.error(message, exp);
-            throw new ArtifactDownloadException(message, exp);
+            throw new ArtifactDownloadException("Failed to write artifact to local repository", exp);
         }
     }
 

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 AT&T Inc.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 
 package org.onap.policy.distribution.main.startstop;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -62,9 +64,11 @@ public class TestMain {
 
     @Test
     public void testMain_Help() {
-        final String[] distributionConfigParameters =
-        { "-h" };
-        Main.main(distributionConfigParameters);
+        assertThatCode(() -> {
+            final String[] distributionConfigParameters =
+            { "-h" };
+            Main.main(distributionConfigParameters);
+        }).doesNotThrowAnyException();
     }
 
     @Test

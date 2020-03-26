@@ -22,6 +22,7 @@
 
 package org.onap.policy.distribution.main.startstop;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -82,12 +83,14 @@ public class DistributionActivator {
             try {
                 final Class<AbstractReceptionHandler> receptionHandlerClass = (Class<AbstractReceptionHandler>) Class
                         .forName(receptionHandlerParameters.getReceptionHandlerClassName());
-                final AbstractReceptionHandler receptionHandler = receptionHandlerClass.newInstance();
+                final AbstractReceptionHandler receptionHandler =
+                        receptionHandlerClass.getDeclaredConstructor().newInstance();
                 receptionHandler.initialize(receptionHandlerParameters.getName());
                 receptionHandlersMap.put(receptionHandlerParameters.getName(), receptionHandler);
                 DistributionActivator.setAlive(true);
             } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException
-                    | PluginInitializationException exp) {
+                    | PluginInitializationException | IllegalArgumentException | InvocationTargetException
+                    | NoSuchMethodException | SecurityException exp) {
                 throw new PolicyDistributionException(exp.getMessage(), exp);
             }
         }
@@ -126,7 +129,6 @@ public class DistributionActivator {
             // Stop the distribution rest server
             restServer.stop();
         } catch (final Exception exp) {
-            LOGGER.error("Policy distribution service termination failed", exp);
             throw new PolicyDistributionException(exp.getMessage(), exp);
         }
     }

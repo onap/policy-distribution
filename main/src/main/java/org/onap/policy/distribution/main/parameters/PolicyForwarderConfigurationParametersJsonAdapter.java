@@ -74,7 +74,6 @@ public class PolicyForwarderConfigurationParametersJsonAdapter
         } catch (final ClassNotFoundException e) {
             final String errorMessage = "parameter \"" + PARAMETER_CLASS_NAME + "\" value \""
                     + policyForwarderParameterClassName + "\", could not find class";
-            LOGGER.warn(errorMessage, e);
             throw new IllegalArgumentException(errorMessage, e);
         }
         return policyForwarderParameterClass;

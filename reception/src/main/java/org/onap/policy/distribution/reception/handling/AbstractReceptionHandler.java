@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2020 AT&T Inc.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -85,7 +86,7 @@ public abstract class AbstractReceptionHandler implements ReceptionHandler {
             try {
                 policyForwarder.forward(policies);
             } catch (final PolicyForwardingException policyForwardingException) {
-                LOGGER.error("Error when forwarding policies to " + policyForwarder, policyForwardingException);
+                LOGGER.error("Error when forwarding policies to {}", policyForwarder, policyForwardingException);
             }
         }
     }
