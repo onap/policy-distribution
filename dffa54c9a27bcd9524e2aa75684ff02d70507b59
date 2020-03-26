@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "87fc1c1c_8d3c607a",
+        "filename": "main/src/test/resources/logback-test.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2020-03-26T20:06:03Z",
+      "side": 1,
+      "message": "policy-distribution",
+      "range": {
+        "startLine": 24,
+        "startChar": 17,
+        "endLine": 24,
+        "endChar": 27
+      },
+      "revId": "dffa54c9a27bcd9524e2aa75684ff02d70507b59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eac01def_083cdc8d",
         "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
         "patchSetId": 2
@@ -13,6 +36,29 @@
       "writtenOn": "2020-03-26T18:22:25Z",
       "side": 1,
       "message": "extra space after the first \"entity\"",
+      "revId": "dffa54c9a27bcd9524e2aa75684ff02d70507b59",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ead026f3_e276bdbd",
+        "filename": "plugins/forwarding-plugins/src/test/resources/logback-test.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2020-03-26T20:06:03Z",
+      "side": 1,
+      "message": "policy-distribution",
+      "range": {
+        "startLine": 24,
+        "startChar": 17,
+        "endLine": 24,
+        "endChar": 27
+      },
       "revId": "dffa54c9a27bcd9524e2aa75684ff02d70507b59",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
