@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 AT&T Inc.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 
 package org.onap.policy.distribution.reception.handling;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -92,11 +94,13 @@ public class PluginHandler {
                 final Class<PolicyDecoder<PolicyInput, ToscaEntity>> policyDecoderClass =
                         (Class<PolicyDecoder<PolicyInput, ToscaEntity>>) Class
                                 .forName(decoderParameters.getDecoderClassName());
-                final PolicyDecoder<PolicyInput, ToscaEntity> decoder = policyDecoderClass.newInstance();
+                final PolicyDecoder<PolicyInput, ToscaEntity> decoder =
+                        policyDecoderClass.getDeclaredConstructor().newInstance();
                 decoder.configure(decoderParameters.getDecoderConfigurationName());
                 policyDecoders.add(decoder);
-            } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException exp) {
-                LOGGER.error("exception occured while initializing decoders", exp);
+            } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException
+                    | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+                    | SecurityException exp) {
                 throw new PluginInitializationException(exp.getMessage(), exp.getCause());
             }
         }
@@ -116,11 +120,12 @@ public class PluginHandler {
             try {
                 final Class<PolicyForwarder> policyForwarderClass =
                         (Class<PolicyForwarder>) Class.forName(forwarderParameters.getForwarderClassName());
-                final PolicyForwarder policyForwarder = policyForwarderClass.newInstance();
+                final PolicyForwarder policyForwarder = policyForwarderClass.getDeclaredConstructor().newInstance();
                 policyForwarder.configure(forwarderParameters.getForwarderConfigurationName());
                 policyForwarders.add(policyForwarder);
-            } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException exp) {
-                LOGGER.error("exception occured while initializing forwarders", exp);
+            } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException
+                    | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+                    | SecurityException exp) {
                 throw new PluginInitializationException(exp.getMessage(), exp.getCause());
             }
         }

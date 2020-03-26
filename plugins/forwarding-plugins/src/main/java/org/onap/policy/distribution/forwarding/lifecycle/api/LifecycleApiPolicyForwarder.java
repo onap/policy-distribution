@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 AT&T Inc.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -153,10 +154,8 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
                 throw new PolicyForwardingException("Failed creating the entity - " + entity);
             }
         } catch (final HttpClientConfigException exception) {
-            LOGGER.error(
-                    "Invocation of path " + path + " failed for entity " + entity + " due to error opening Http client",
+            throw new PolicyForwardingException("Invocation of path " + path + " failed for entity  " + entity,
                     exception);
-            throw new PolicyForwardingException("Failed creating the entity - " + entity, exception);
         }
         return response;
     }

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 AT&T Inc.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,7 +75,6 @@ public class ReceptionHandlerConfigurationParametersJsonAdapter
         } catch (final ClassNotFoundException e) {
             final String errorMessage = "parameter \"" + PARAMETER_CLASS_NAME + "\" value \""
                     + receptionHAndlerParameterClassName + "\", could not find class";
-            LOGGER.warn(errorMessage, e);
             throw new IllegalArgumentException(errorMessage, e);
         }
         return receptionHandlerParameterClass;

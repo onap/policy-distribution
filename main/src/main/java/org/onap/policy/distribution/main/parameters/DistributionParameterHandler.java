@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 AT&T Inc.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,7 +70,6 @@ public class DistributionParameterHandler {
         } catch (final Exception e) {
             final String errorMessage = "error reading parameters from \"" + arguments.getConfigurationFilePath()
                     + "\"\n" + "(" + e.getClass().getSimpleName() + "):" + e.getMessage();
-            LOGGER.error(errorMessage, e);
             throw new PolicyDistributionException(errorMessage, e);
         }
 
