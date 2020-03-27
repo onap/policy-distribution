@@ -21,7 +21,7 @@
 
 <configuration>
 
-    <contextName>policy-api</contextName>
+    <contextName>policy-distribution</contextName>
     <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />
 
     <!-- USE FOR STD OUT ONLY -->

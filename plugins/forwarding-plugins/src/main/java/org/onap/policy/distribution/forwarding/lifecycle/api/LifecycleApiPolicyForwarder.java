@@ -154,7 +154,7 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
                 throw new PolicyForwardingException("Failed creating the entity - " + entity);
             }
         } catch (final HttpClientConfigException exception) {
-            throw new PolicyForwardingException("Invocation of path " + path + " failed for entity  " + entity,
+            throw new PolicyForwardingException("Invocation of path " + path + " failed for entity " + entity,
                     exception);
         }
         return response;
