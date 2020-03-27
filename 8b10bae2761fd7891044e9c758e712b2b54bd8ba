@@ -34,6 +34,24 @@
       "revId": "8b10bae2761fd7891044e9c758e712b2b54bd8ba",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7fc2330c_49e8d4ca",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-27T17:27:06Z",
+      "side": 1,
+      "message": "could just make the change and then it will work either way",
+      "parentUuid": "97b62501_3d85dc26",
+      "revId": "8b10bae2761fd7891044e9c758e712b2b54bd8ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
