@@ -142,11 +142,11 @@ public class Main {
     }
 
     /**
-     * The main method.
+     * The main method. The args passed in are validated in the constructor, thus adding the NOSONAR.
      *
      * @param args the arguments
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) { // NOSONAR
         new Main(args);
     }
 }

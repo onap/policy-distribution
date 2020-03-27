@@ -36,15 +36,11 @@ import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Handles the plugins to policy distribution.
  */
 public class PluginHandler {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(PluginHandler.class);
 
     private Collection<PolicyDecoder<PolicyInput, ToscaEntity>> policyDecoders;
     private Collection<PolicyForwarder> policyForwarders;

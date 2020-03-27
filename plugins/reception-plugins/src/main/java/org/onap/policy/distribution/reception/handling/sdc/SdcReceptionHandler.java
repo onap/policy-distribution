@@ -27,7 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
+import java.util.concurrent.atomic.AtomicInteger;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
@@ -60,7 +60,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
     private SdcReceptionHandlerStatus sdcReceptionHandlerStatus = SdcReceptionHandlerStatus.STOPPED;
     private IDistributionClient distributionClient;
     private SdcConfiguration sdcConfig;
-    private volatile int nbOfNotificationsOngoing = 0;
+    private AtomicInteger nbOfNotificationsOngoing = new AtomicInteger();
     private int retryDelay;
     private SdcClientHandler sdcClientHandler;
 
@@ -109,7 +109,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
                 handleIdleStatusChange(newStatus);
                 break;
             case BUSY:
-                ++nbOfNotificationsOngoing;
+                nbOfNotificationsOngoing.incrementAndGet();
                 sdcReceptionHandlerStatus = newStatus;
                 break;
             default:
@@ -370,10 +370,10 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
      * @param newStatus the new status
      */
     private void handleIdleStatusChange(final SdcReceptionHandlerStatus newStatus) {
-        if (nbOfNotificationsOngoing > 1) {
-            --nbOfNotificationsOngoing;
+        if (nbOfNotificationsOngoing.get() > 1) {
+            nbOfNotificationsOngoing.decrementAndGet();
         } else {
-            nbOfNotificationsOngoing = 0;
+            nbOfNotificationsOngoing.set(0);
             sdcReceptionHandlerStatus = newStatus;
         }
     }
