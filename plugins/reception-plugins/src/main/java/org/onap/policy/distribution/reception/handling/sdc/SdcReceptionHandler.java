@@ -370,10 +370,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
      * @param newStatus the new status
      */
     private void handleIdleStatusChange(final SdcReceptionHandlerStatus newStatus) {
-        if (nbOfNotificationsOngoing.get() > 1) {
-            nbOfNotificationsOngoing.decrementAndGet();
-        } else {
-            nbOfNotificationsOngoing.set(0);
+        if (nbOfNotificationsOngoing.getAndUpdate(curval -> Math.max(0, curval - 1)) == 0) {
             sdcReceptionHandlerStatus = newStatus;
         }
     }
