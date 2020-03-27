@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a301c8e_30c5497d",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-03-27T16:48:11Z",
+      "side": 1,
+      "message": "does this need to be thread-safe?  If so, then should use getAndUpdate() or some other mechanism to atomically do the check AND modify the value.  Perhaps:\n\n  if(nb.getAndUpdate(curval -\u003e Math.max(0, curval-1)) \u003d\u003d 0) \n    line 377\n  // no need for else",
+      "revId": "8b10bae2761fd7891044e9c758e712b2b54bd8ba",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
