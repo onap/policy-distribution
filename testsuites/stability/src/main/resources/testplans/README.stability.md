@@ -1,37 +1,18 @@
-tability Test for Policy Distribution
+Stability Test for Policy Distribution
 ## Steps to Run stability test
 1. Download Apache JMeter
 Download JMeter 5.0 from https://jmeter.apache.org/download_jmeter.cgi, and extracted it locally.
- 
-2. Launch the policy distribution service
-Launch the policy distribution service with the configuration from s3pConfig.json, you need to make sure when the service is being launched, the directory configured in s3pConfig.json by receptionHandlerConfigurationParameters.fileConfiguration.parameters.watchPath is a valid local directory(Default directory is /tmp/policy_distribution/csar/).
-The policy distribution service will use the FileSystemReceptionHandler plugin to monitor the local directory specified by the 'watchPath' parameter for newly added csar file, parse them to generate policies and forward it to PDP.
-```
-java -cp "<comma separated directories containing jar files>" org.onap.policy.distribution.main.startstop.Main -c s3pConfig.json
-```
-  Or if you want to launch it from docker, please do the followings:
-```
-mkdir -p /tmp/policy_distribution/csar/
-docker run -d -e "CONFIG_FILE=/opt/app/policy/distribution/etc/s3pConfig.json" \
-           -v /tmp/policy_distribution/csar/:/tmp/policy_distribution/csar/ \
-           -p 6969:6969 \
-           --name policy-distribution policy-distribution
-```
-Here we use -e option to "docker run" to pass the config file which the policy distribution service will be launched upon and use -v option to map the local host /tmp/policy_distribution/csar/ directory as the directory of /tmp/policy_distribution/csar/ within the policy-distribution docker.
 
-**NOTED:**
-Please make sure when you launch the policy distribution service, the following requirements are met:
-a. The policy PDP service is active, and can be reached using the parameters configured by policyForwarderConfigurationParameters.xacmlPdpConfiguration.parameters in the s3pConfig.json file.
+2. Run the setup-components script found within simulator setup.
+This will launch MariaDB, PDPSimulator, PAP, Policy-API and DMaap Simulator as docker containers.
 
-b. Make sure you have installed the AAF root CA either in local host or in the docker image(running as root):
+3. Launch the policy distribution service by running the setup-distribution script found within distributionsetup.
+If you are running all of the components locally you will need to edit the port that distribution starts on as it is
+currently 6969 which conflicts with the policy API port.
+This will launch policy-distribution as a docker container and takes 2 arguments, PAP IP and API IP.
+If you are running locally these will be 127.0.0.1. If on a VM enter the VM IP.
 ```
-curl -s https://git.onap.org/dmaap/buscontroller/plain/misc/cert-client-init.sh | bash --
-```
-
-3. Get the Jmeter configuration ans scripts
-Git clone the policy distribution code, and goto the s3p directory:
-```
-git clone https://git.onap.org/policy/distribution policy-distribution
+setup-distribution.sh 127.0.0.1 127.0.0.1
 ```
 
 4. Run the JMeter stability test
@@ -46,7 +27,10 @@ We can configure the following properties when running the JMeter stability test
 |---------------|-------------|---------------|
 | host | pdp | PDP service host name or ip  |
 | csardir | /tmp/policy_distribution/csar | Directory where to store the generated csar files |
+| testcsar | {SCRIPT_DIR}/sample_csar_with_apex_policy.csar) | Location of Test CSAR |
 | duration | 30 | Number of seconds for how long to run the tests |
 | retry | 10 | Number of retry to retrieve the policy of each csar |
 | wait | 1000 | Milliseconds to wait between each retry |
+|PAP_PORT|7000| Port that pap service is exposing|
+|API_PORT|6969| Port that API service is exposing|
 
