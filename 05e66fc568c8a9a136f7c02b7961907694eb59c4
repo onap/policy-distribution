@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee1f55a1_1823ae4e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-05T14:37:18Z",
+      "side": 1,
+      "message": "maybe eliminate this second change-id",
+      "revId": "05e66fc568c8a9a136f7c02b7961907694eb59c4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4ef9849_8ed56bfd",
+        "filename": "testsuites/stability/src/main/resources/distributionsetup/setup_distribution.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-05T14:37:18Z",
+      "side": 1,
+      "message": "date",
+      "revId": "05e66fc568c8a9a136f7c02b7961907694eb59c4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cbe8c88_337c9233",
+        "filename": "testsuites/stability/src/main/resources/simulatorsetup/config/db/db.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-05T14:37:18Z",
+      "side": 1,
+      "message": "date\n\nsame comment for other files",
+      "revId": "05e66fc568c8a9a136f7c02b7961907694eb59c4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d46988fe_ac6aef78",
+        "filename": "testsuites/stability/src/main/resources/simulatorsetup/docker-compose.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-05T14:37:18Z",
+      "side": 1,
+      "message": "this section probably isn\u0027t needed",
+      "revId": "05e66fc568c8a9a136f7c02b7961907694eb59c4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbd1c518_8459baaa",
+        "filename": "testsuites/stability/src/main/resources/simulatorsetup/setup_components.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-05T14:37:18Z",
+      "side": 1,
+      "message": "this line can be removed, or the path prefix can be removed from lines 44, 51, 55, etc.",
+      "revId": "05e66fc568c8a9a136f7c02b7961907694eb59c4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c15c9aea_99cb6aa7",
+        "filename": "testsuites/stability/src/main/resources/testplans/addcsar.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-05T14:37:18Z",
+      "side": 1,
+      "message": "tabs \u003d\u003e spaces",
+      "revId": "05e66fc568c8a9a136f7c02b7961907694eb59c4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
