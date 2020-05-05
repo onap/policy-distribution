@@ -16,6 +16,24 @@
       "revId": "88d61f1a8f8173f541afb01a98e22e1ca0c1ea46",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b0e7c32_fef34fc9",
+        "filename": "testsuites/stability/src/main/resources/testplans/addcsar.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6593
+      },
+      "writtenOn": "2020-05-05T16:29:46Z",
+      "side": 1,
+      "message": "Fixed in latest patch",
+      "parentUuid": "8f1087c8_666b54dd",
+      "revId": "88d61f1a8f8173f541afb01a98e22e1ca0c1ea46",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
