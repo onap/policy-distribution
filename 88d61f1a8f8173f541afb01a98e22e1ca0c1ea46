@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f1087c8_666b54dd",
+        "filename": "testsuites/stability/src/main/resources/testplans/addcsar.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-05T15:33:33Z",
+      "side": 1,
+      "message": "tabs \u003d\u003e spaces",
+      "revId": "88d61f1a8f8173f541afb01a98e22e1ca0c1ea46",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
