@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f9ff303_55f3a31e",
+        "filename": "testsuites/performance/src/main/resources/testplans/README.perf.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-14T12:50:50Z",
+      "side": 1,
+      "message": "trailing space",
+      "revId": "8de87d69071cc28a6159464a8723003b0af9a6a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "891afa5c_9cce1352",
+        "filename": "testsuites/performance/src/main/resources/testplans/README.perf.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-14T12:50:50Z",
+      "side": 1,
+      "message": "trailing space",
+      "revId": "8de87d69071cc28a6159464a8723003b0af9a6a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "734c597e_ecb31b3b",
+        "filename": "testsuites/performance/src/main/resources/testplans/clearuppolicies.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-14T12:50:50Z",
+      "side": 1,
+      "message": "could we add some underscores so these are a bit more legible?",
+      "revId": "8de87d69071cc28a6159464a8723003b0af9a6a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9143b73c_f01c2497",
+        "filename": "testsuites/performance/src/main/resources/testplans/removecsars.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-14T12:50:50Z",
+      "side": 1,
+      "message": "FYI: these quotes are not needed unless $1 is also quoted on line 29",
+      "revId": "8de87d69071cc28a6159464a8723003b0af9a6a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
