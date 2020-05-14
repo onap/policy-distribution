@@ -139,6 +139,24 @@
       "revId": "8de87d69071cc28a6159464a8723003b0af9a6a0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a763e80_c636cce7",
+        "filename": "testsuites/performance/src/main/resources/testplans/removecsars.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-14T16:26:17Z",
+      "side": 1,
+      "message": "in that case, $1 should be quoted on line 29, for the same reason",
+      "parentUuid": "05cf44d7_74f467ab",
+      "revId": "8de87d69071cc28a6159464a8723003b0af9a6a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }

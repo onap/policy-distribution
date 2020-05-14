@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bcde6882_4669034e",
+        "filename": "testsuites/performance/src/main/resources/testplans/addcsars.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-14T16:26:17Z",
+      "side": 1,
+      "message": "same with \"then\"",
+      "parentUuid": "d58cb107_bb5cef74",
+      "revId": "51b27c931bd32b17187ed818aa0fab707a57f495",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fb50be80_6c82caed",
         "filename": "testsuites/performance/src/main/resources/testplans/clearuppolicies.sh",
         "patchSetId": 2
@@ -47,6 +65,23 @@
       "writtenOn": "2020-05-14T15:28:52Z",
       "side": 1,
       "message": "(optionally) could have a bash function for this and the next while passing the url as a parameter",
+      "revId": "51b27c931bd32b17187ed818aa0fab707a57f495",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00418ebf_8ad0cdfa",
+        "filename": "testsuites/performance/src/main/resources/testplans/removecsars.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-14T16:26:17Z",
+      "side": 1,
+      "message": "why not just do this?\n\n  rm -rf \"$TARGETDIRECTORY\"",
       "revId": "51b27c931bd32b17187ed818aa0fab707a57f495",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
