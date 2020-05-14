@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d58cb107_bb5cef74",
+        "filename": "testsuites/performance/src/main/resources/testplans/addcsars.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-05-14T15:28:52Z",
+      "side": 1,
+      "message": "little indent error in fi",
+      "revId": "51b27c931bd32b17187ed818aa0fab707a57f495",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb50be80_6c82caed",
+        "filename": "testsuites/performance/src/main/resources/testplans/clearuppolicies.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-05-14T15:28:52Z",
+      "side": 1,
+      "message": "(optionally) could split lines by separating multiline instruction with \"\\\" at the end of first line",
+      "revId": "51b27c931bd32b17187ed818aa0fab707a57f495",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3907c6f4_337a4972",
+        "filename": "testsuites/performance/src/main/resources/testplans/clearuppolicies.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-05-14T15:28:52Z",
+      "side": 1,
+      "message": "(optionally) could have a bash function for this and the next while passing the url as a parameter",
+      "revId": "51b27c931bd32b17187ed818aa0fab707a57f495",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "656d76ac_cdc67266",
+        "filename": "testsuites/performance/src/main/resources/testplans/removecsars.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-05-14T15:28:52Z",
+      "side": 1,
+      "message": "kind of dangerous if \"$TARGETDIRETORY\" is \"/\" by mistake, it could remove everything.   Optionally you could add an if check on the variable.",
+      "revId": "51b27c931bd32b17187ed818aa0fab707a57f495",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
