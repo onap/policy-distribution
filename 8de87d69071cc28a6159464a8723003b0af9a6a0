@@ -157,6 +157,24 @@
       "revId": "8de87d69071cc28a6159464a8723003b0af9a6a0",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80e61e9f_8d7c12c5",
+        "filename": "testsuites/performance/src/main/resources/testplans/removecsars.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6593
+      },
+      "writtenOn": "2020-05-15T08:59:54Z",
+      "side": 1,
+      "message": "Hey Jim, its only an issue when using the variable, setting it is not a risk",
+      "parentUuid": "0a763e80_c636cce7",
+      "revId": "8de87d69071cc28a6159464a8723003b0af9a6a0",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }

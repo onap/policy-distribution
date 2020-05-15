@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "176b4d30_ff6ee6ac",
+        "filename": "testsuites/performance/src/main/resources/testplans/addcsars.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6593
+      },
+      "writtenOn": "2020-05-15T08:59:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bcde6882_4669034e",
+      "revId": "51b27c931bd32b17187ed818aa0fab707a57f495",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb50be80_6c82caed",
         "filename": "testsuites/performance/src/main/resources/testplans/clearuppolicies.sh",
         "patchSetId": 2
@@ -51,6 +69,24 @@
       "revId": "51b27c931bd32b17187ed818aa0fab707a57f495",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c93b8bd1_a3985dcc",
+        "filename": "testsuites/performance/src/main/resources/testplans/clearuppolicies.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6593
+      },
+      "writtenOn": "2020-05-15T08:59:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fb50be80_6c82caed",
+      "revId": "51b27c931bd32b17187ed818aa0fab707a57f495",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "0cf83c92_68f9a7b2",
+        "filename": "testsuites/performance/src/main/resources/testplans/clearuppolicies.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6593
+      },
+      "writtenOn": "2020-05-15T08:59:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3907c6f4_337a4972",
+      "revId": "51b27c931bd32b17187ed818aa0fab707a57f495",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00418ebf_8ad0cdfa",
         "filename": "testsuites/performance/src/main/resources/testplans/removecsars.sh",
         "patchSetId": 2
@@ -82,6 +136,24 @@
       "writtenOn": "2020-05-14T16:26:17Z",
       "side": 1,
       "message": "why not just do this?\n\n  rm -rf \"$TARGETDIRECTORY\"",
+      "revId": "51b27c931bd32b17187ed818aa0fab707a57f495",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0910d3b4_f07350bd",
+        "filename": "testsuites/performance/src/main/resources/testplans/removecsars.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6593
+      },
+      "writtenOn": "2020-05-15T08:59:54Z",
+      "side": 1,
+      "message": "Hey Jim, That would have been the right way to do it but i have changed the implementation to only delete .csar files just in case the wrong directory is selected as Jorge points out below, i think this is the safer way to do it",
+      "parentUuid": "00418ebf_8ad0cdfa",
       "revId": "51b27c931bd32b17187ed818aa0fab707a57f495",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
