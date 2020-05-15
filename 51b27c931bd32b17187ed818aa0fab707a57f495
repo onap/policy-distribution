@@ -160,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "eea76a5b_45066ff8",
+        "filename": "testsuites/performance/src/main/resources/testplans/removecsars.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-15T13:04:41Z",
+      "side": 1,
+      "message": "Hi Ross.  In that case, could use:\n\n  rm -rf \"$TARGETDIRECTORY\"/*.csar\n\nAlso, if it\u0027s only files that are to be deleted, then perhaps leave off the \"-r\" option.",
+      "parentUuid": "0910d3b4_f07350bd",
+      "revId": "51b27c931bd32b17187ed818aa0fab707a57f495",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "656d76ac_cdc67266",
         "filename": "testsuites/performance/src/main/resources/testplans/removecsars.sh",
         "patchSetId": 2
