@@ -124,6 +124,24 @@
       "revId": "c9ec33a43c53c1b64b5013db1f02d0290afa9256",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "446f35fc_4e5fecfe",
+        "filename": "testsuites/performance/src/main/resources/testplans/clearuppolicies.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6593
+      },
+      "writtenOn": "2020-05-19T16:09:26Z",
+      "side": 1,
+      "message": "Hey Jim, apologies, i pushed it up from nordix but the push-upstream job failed, its on here now",
+      "parentUuid": "6b631c15_a14dfe0c",
+      "revId": "c9ec33a43c53c1b64b5013db1f02d0290afa9256",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
