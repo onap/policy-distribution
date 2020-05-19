@@ -16,6 +16,24 @@
       "revId": "1716ea9f998b856235f18297577382c2af356f7b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "780a201f_fc50e66a",
+        "filename": "releases/2.3.2.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2020-05-19T22:34:02Z",
+      "side": 1,
+      "message": "I forgot it - sorry. No big deal the tag is really ok to be done here vs when we add the docker container.yaml",
+      "parentUuid": "0844b2c5_43a5bec7",
+      "revId": "1716ea9f998b856235f18297577382c2af356f7b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
