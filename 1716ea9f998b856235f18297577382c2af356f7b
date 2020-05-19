@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0844b2c5_43a5bec7",
+        "filename": "releases/2.3.2.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2020-05-19T21:50:33Z",
+      "side": 1,
+      "message": "Do we need - tag_release: false ?",
+      "revId": "1716ea9f998b856235f18297577382c2af356f7b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
