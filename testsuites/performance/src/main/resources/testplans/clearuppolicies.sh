@@ -30,14 +30,14 @@ POLICY_PAP_PORT=$4
 send_delete_request(){
   echo $1
   curl -k -u 'healthcheck:zb!XztG34' -X DELETE "$1"
-  COUNTER=$((COUNTER +1))
 }
 
 COUNTER=1
 while [ $COUNTER != 11 ]
 do
-  send_delete_request https://"$POLICY_PAP_IP":"$POLICY_PAP_PORT"/policy/pap/v1/pdps/policies/operational.apex.\
-sampledomain.test$COUNTER
-  send_delete_request https://"$POLICY_API_IP":"$POLICY_API_PORT"/policy/api/v1/policytypes/operational.apex.\
-sampledomain.test$COUNTER/versions/1.0.0/policies/operational.apex.sampledomain.test$COUNTER/versions/1.0.0
+  send_delete_request https://"$POLICY_PAP_IP":"$POLICY_PAP_PORT"/policy/pap/v1/pdps/policies/\
+operational.apex.sampledomain.test$COUNTER
+  send_delete_request https://"$POLICY_API_IP":"$POLICY_API_PORT"/policy/api/v1/policytypes/operational\
+.apex.sampledomain.test$COUNTER/versions/1.0.0/policies/operational.apex.sampledomain.test$COUNTER/versions/1.0.0
+  COUNTER=$((COUNTER +1))
 done
