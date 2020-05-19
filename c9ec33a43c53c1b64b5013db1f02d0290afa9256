@@ -70,6 +70,24 @@
       "revId": "c9ec33a43c53c1b64b5013db1f02d0290afa9256",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b936bc3_4ee9f62d",
+        "filename": "testsuites/performance/src/main/resources/testplans/clearuppolicies.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-19T14:33:17Z",
+      "side": 1,
+      "message": "\"sed\" will work with either.  Can use this instead of the other lines:\n\n  ARG\u003d$(echo $@ | sed \u0027s/ //g\u0027)",
+      "parentUuid": "78a5f6a6_8b9eb939",
+      "revId": "c9ec33a43c53c1b64b5013db1f02d0290afa9256",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
