@@ -34,6 +34,24 @@
       "revId": "c9ec33a43c53c1b64b5013db1f02d0290afa9256",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6b4d4b4_857f58e0",
+        "filename": "testsuites/performance/src/main/resources/testplans/clearuppolicies.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-05-19T12:56:12Z",
+      "side": 1,
+      "message": "oh, I see - it\u0027s splitting it into separate arguments when passing to send_delete_request().  One way around that, assuming this is executed with \"bash\" instead of \"sh\" would be to add this after line 30 and then use $ARG instead of $1:\n\n  ARG\u003d\"${@}\"          # combine all function arguments into one\n  ARG\u003d${ARG// /}      # strip out intervening whitespace\n\nIf this is to be executed with \"sh\", then could use \"sed\" to strip the whitespace instead.",
+      "parentUuid": "604f059b_a97b4fbd",
+      "revId": "c9ec33a43c53c1b64b5013db1f02d0290afa9256",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
