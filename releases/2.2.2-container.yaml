@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '2.2.2'
+project: 'policy-distribution'
+log_dir: 'policy-distribution-maven-docker-stage-elalto/10/'
+ref: afbd4c0ae7b893c4941b8add2b0e5c1068b9ee5d
+containers:
+    - name: 'policy-distribution'
+      version: '2.2.2-20200528T2004'
