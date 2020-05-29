@@ -22,24 +22,20 @@
 package org.onap.policy.distribution.forwarding.lifecycle.api;
 
 import com.google.common.collect.ImmutableMap;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
 import org.onap.policy.common.endpoints.event.comm.bus.internal.BusTopicParams;
 import org.onap.policy.common.endpoints.http.client.HttpClient;
 import org.onap.policy.common.endpoints.http.client.HttpClientConfigException;
 import org.onap.policy.common.endpoints.http.client.HttpClientFactoryInstance;
-import org.onap.policy.common.gson.GsonMessageBodyHandler;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
@@ -166,7 +162,7 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
                 (wantApi ? forwarderParameters.getApiParameters() : forwarderParameters.getPapParameters());
         final BusTopicParams params = BusTopicParams.builder().clientName("Policy Distribution").useHttps(https)
                 .hostname(parameters.getHostName()).port(parameters.getPort()).userName(parameters.getUserName())
-                .password(parameters.getPassword()).serializationProvider(GsonMessageBodyHandler.class.getName())
+                .password(parameters.getPassword())
                 .build();
         return HttpClientFactoryInstance.getClientFactory().build(params);
     }
