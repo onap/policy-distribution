@@ -48,8 +48,8 @@
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 
         <policy.common.version>1.5.2</policy.common.version>
-        <policy.engine.version>1.5.2</policy.engine.version>
-        <policy.apex-pdp.version>2.2.2</policy.apex-pdp.version>
+        <policy.engine.version>1.5.3</policy.engine.version>
+        <policy.apex-pdp.version>2.2.3</policy.apex-pdp.version>
         <policy.models.version>2.1.4</policy.models.version>
     </properties>
 
