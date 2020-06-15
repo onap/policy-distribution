@@ -22,9 +22,7 @@
 
 JAVA_HOME=/usr/lib/jvm/java-11-openjdk/
 KEYSTORE="${POLICY_HOME}/etc/ssl/policy-keystore"
-KEYSTORE_PASSWD="Pol1cy_0nap"
 TRUSTSTORE="${POLICY_HOME}/etc/ssl/policy-truststore"
-TRUSTSTORE_PASSWD="Pol1cy_0nap"
 
 if [ "$#" -eq 1 ]; then
     CONFIG_FILE=$1
@@ -54,4 +52,4 @@ fi
 
 echo "Policy distribution config file: $CONFIG_FILE"
 
-$JAVA_HOME/bin/java -cp "${POLICY_HOME}/etc:${POLICY_HOME}/lib/*" -Dlogback.configurationFile=$POLICY_HOME/etc/logback.xml -Djavax.net.ssl.keyStore="$KEYSTORE" -Djavax.net.ssl.keyStorePassword="$KEYSTORE_PASSWD" -Djavax.net.ssl.trustStore="$TRUSTSTORE" -Djavax.net.ssl.trustStorePassword="$TRUSTSTORE_PASSWD" org.onap.policy.distribution.main.startstop.Main -c $CONFIG_FILE
+$JAVA_HOME/bin/java -cp "${POLICY_HOME}/etc:${POLICY_HOME}/lib/*" -Dlogback.configurationFile=$POLICY_HOME/etc/logback.xml -Djavax.net.ssl.keyStore="$KEYSTORE" -Djavax.net.ssl.keyStorePassword="${KEYSTORE_PASSWD:-Pol1cy_0nap}" -Djavax.net.ssl.trustStore="$TRUSTSTORE" -Djavax.net.ssl.trustStorePassword="${TRUSTSTORE_PASSWD:-Pol1cy_0nap}" org.onap.policy.distribution.main.startstop.Main -c $CONFIG_FILE
