@@ -26,7 +26,7 @@
         <version>2.4.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>plugins</artifactId>
+    <artifactId>distribution-plugins</artifactId>
 
     <name>${project.artifactId}</name>
     <description>The module of Policy Distribution that holds plugins for custom policy reception and forwarding.</description>
