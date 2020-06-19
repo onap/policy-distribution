@@ -21,12 +21,10 @@
 package org.onap.policy.distribution.model;
 
 import java.util.Date;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
 import org.apache.commons.lang3.NotImplementedException;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 

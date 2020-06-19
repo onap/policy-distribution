@@ -22,7 +22,6 @@
 package org.onap.policy.distribution.reception.decoding.policy.file;
 
 import lombok.Getter;
-
 import org.onap.policy.common.parameters.annotations.NotBlank;
 import org.onap.policy.common.parameters.annotations.NotNull;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;

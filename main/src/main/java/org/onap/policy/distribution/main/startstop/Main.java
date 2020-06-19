@@ -23,7 +23,6 @@
 package org.onap.policy.distribution.main.startstop;
 
 import java.util.Arrays;
-
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.DistributionParameterGroup;
 import org.onap.policy.distribution.main.parameters.DistributionParameterHandler;

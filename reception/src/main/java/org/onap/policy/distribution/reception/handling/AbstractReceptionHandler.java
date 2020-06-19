@@ -24,7 +24,6 @@ package org.onap.policy.distribution.reception.handling;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;

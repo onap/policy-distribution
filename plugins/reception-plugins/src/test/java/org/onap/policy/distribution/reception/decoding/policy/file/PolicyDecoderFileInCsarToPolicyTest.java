@@ -28,7 +28,6 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

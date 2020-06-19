@@ -23,7 +23,6 @@ package org.onap.policy.distribution.main.testclasses;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import org.onap.policy.common.parameters.annotations.NotBlank;
 import org.onap.policy.common.parameters.annotations.NotNull;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;

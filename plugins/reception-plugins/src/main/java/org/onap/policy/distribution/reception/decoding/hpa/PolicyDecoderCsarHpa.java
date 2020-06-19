@@ -117,7 +117,7 @@ public class PolicyDecoderCsarHpa implements PolicyDecoder<Csar, ToscaServiceTem
             final File csarFile = new File(csar.getCsarPath());
             sdcCsarHelper = factory.getSdcCsarHelper(csarFile.getAbsolutePath());
         } catch (final Exception exp) {
-            throw new PolicyDecodingException( "Failed passing the csar file", exp);
+            throw new PolicyDecodingException("Failed passing the csar file", exp);
         }
         return sdcCsarHelper;
     }

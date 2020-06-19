@@ -21,7 +21,6 @@
 package org.onap.policy.distribution.forwarding.testclasses;
 
 import java.io.File;
-
 import org.onap.policy.common.utils.coder.Coder;
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.coder.StandardCoder;

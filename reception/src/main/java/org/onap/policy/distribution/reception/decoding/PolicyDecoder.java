@@ -21,7 +21,6 @@
 package org.onap.policy.distribution.reception.decoding;
 
 import java.util.Collection;
-
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 

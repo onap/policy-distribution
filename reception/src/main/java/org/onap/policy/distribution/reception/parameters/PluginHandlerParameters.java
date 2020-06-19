@@ -22,7 +22,6 @@ package org.onap.policy.distribution.reception.parameters;
 
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ParameterGroup;
 import org.onap.policy.common.parameters.ValidationStatus;
@@ -109,6 +108,7 @@ public class PluginHandlerParameters implements ParameterGroup {
      *
      * @param name the name to set.
      */
+    @Override
     public void setName(final String name) {
         this.name = name;
     }

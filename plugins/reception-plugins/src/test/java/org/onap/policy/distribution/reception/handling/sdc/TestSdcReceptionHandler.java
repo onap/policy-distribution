@@ -28,7 +28,6 @@ import static org.mockito.Matchers.any;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -37,7 +36,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

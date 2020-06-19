@@ -22,9 +22,7 @@
 package org.onap.policy.distribution.reception.handling.sdc;
 
 import java.util.List;
-
 import lombok.Getter;
-
 import org.onap.policy.common.parameters.annotations.NotBlank;
 import org.onap.policy.common.parameters.annotations.NotNull;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;

@@ -22,7 +22,6 @@
 package org.onap.policy.distribution.forwarding.testclasses;
 
 import java.util.Collection;
-
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;

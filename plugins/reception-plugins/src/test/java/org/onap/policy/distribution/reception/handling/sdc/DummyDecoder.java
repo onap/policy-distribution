@@ -23,7 +23,6 @@ package org.onap.policy.distribution.reception.handling.sdc;
 
 import java.util.Arrays;
 import java.util.Collection;
-
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;

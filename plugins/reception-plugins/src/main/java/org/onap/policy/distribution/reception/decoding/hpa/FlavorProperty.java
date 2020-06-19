@@ -21,7 +21,6 @@
 package org.onap.policy.distribution.reception.decoding.hpa;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
 

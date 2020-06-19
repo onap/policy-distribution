@@ -22,10 +22,8 @@
 package org.onap.policy.distribution.reception.handling.file;
 
 import java.io.File;
-
 import lombok.Getter;
 import lombok.Setter;
-
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.common.parameters.annotations.NotBlank;

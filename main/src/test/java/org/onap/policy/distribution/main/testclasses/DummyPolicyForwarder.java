@@ -23,7 +23,6 @@ package org.onap.policy.distribution.main.testclasses;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;

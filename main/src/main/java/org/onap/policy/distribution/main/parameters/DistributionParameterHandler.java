@@ -24,9 +24,7 @@ package org.onap.policy.distribution.main.parameters;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.io.FileReader;
-
 import org.onap.policy.common.parameters.GroupValidationResult;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.startstop.DistributionCommandLineArguments;

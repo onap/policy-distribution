@@ -25,7 +25,6 @@ package org.onap.policy.distribution.main.parameters;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.onap.policy.common.endpoints.parameters.RestServerParameters;
 import org.onap.policy.common.utils.coder.Coder;
 import org.onap.policy.common.utils.coder.CoderException;

@@ -21,7 +21,6 @@
 package org.onap.policy.distribution.forwarding.lifecycle.api;
 
 import lombok.Getter;
-
 import org.onap.policy.common.parameters.annotations.NotBlank;
 import org.onap.policy.common.parameters.annotations.NotNull;
 import org.onap.policy.distribution.main.parameters.PolicyForwarderConfigurationParameterGroup;
