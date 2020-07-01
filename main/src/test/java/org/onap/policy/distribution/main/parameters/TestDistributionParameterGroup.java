@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +22,10 @@
 
 package org.onap.policy.distribution.main.parameters;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.Map;
 import org.junit.Test;
@@ -177,16 +178,12 @@ public class TestDistributionParameterGroup {
                 commonTestData.getPolicyForwarderConfigurationParameters(false);
         final Map<String, PolicyDecoderConfigurationParameterGroup> decoderConfigurations =
                 commonTestData.getPolicyDecoderConfigurationParameters(false);
-        try {
+        assertThatThrownBy(() -> {
             final DistributionParameterGroup distributionParameters =
                     new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, null,
                             receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
             distributionParameters.validate();
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("map parameter \"receptionHandlerParameters\" is null"));
-        }
-
+        }).isInstanceOf(Exception.class).hasMessageContaining("map parameter \"receptionHandlerParameters\" is null");
     }
 
     @Test

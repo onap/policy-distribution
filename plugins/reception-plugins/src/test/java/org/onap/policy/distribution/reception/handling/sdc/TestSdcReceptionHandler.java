@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +22,9 @@
 
 package org.onap.policy.distribution.reception.handling.sdc;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 
 import com.google.gson.Gson;
@@ -60,8 +61,6 @@ import org.onap.sdc.api.notification.INotificationData;
 import org.onap.sdc.api.results.IDistributionClientDownloadResult;
 import org.onap.sdc.api.results.IDistributionClientResult;
 import org.onap.sdc.utils.DistributionActionResultEnum;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Class to perform unit test of {@link SdcReceptionHandler}.
@@ -71,7 +70,6 @@ import org.slf4j.LoggerFactory;
 @RunWith(MockitoJUnitRunner.class)
 public class TestSdcReceptionHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestSdcReceptionHandler.class);
     private static final String DUMMY_SERVICE_CSAR = "dummyService.csar";
 
     @Mock
@@ -141,12 +139,9 @@ public class TestSdcReceptionHandler {
 
     @Test
     public final void testInitializeSdcClient() {
-        try {
+        assertThatCode(() -> {
             sypHandler.initializeReception(pssdConfigParameters.getName());
-        } catch (final Exception exp) {
-            LOGGER.error("testInitializeSdcClient failed", exp);
-            fail("Test should not throw any exception");
-        }
+        }).doesNotThrowAnyException();
     }
 
     @Test
@@ -154,36 +149,26 @@ public class TestSdcReceptionHandler {
 
         Mockito.when(successfulClientInitResult.getDistributionActionResult())
                 .thenReturn(DistributionActionResultEnum.FAIL).thenReturn(DistributionActionResultEnum.SUCCESS);
-        try {
+        assertThatCode(() -> {
             sypHandler.initializeReception(pssdConfigParameters.getName());
-        } catch (final Exception exp) {
-            LOGGER.error("testInitializeSdcClient_Failure failed", exp);
-            fail("Test should not throw any exception");
-        }
+        }).doesNotThrowAnyException();
     }
 
     @Test
     public final void testStartSdcClient_Failure() {
-        try {
+        assertThatCode(() -> {
             Mockito.when(distributionClient.start()).thenReturn(failureClientInitResult)
-                    .thenReturn(successfulClientInitResult);
+            .thenReturn(successfulClientInitResult);
             sypHandler.initializeReception(pssdConfigParameters.getName());
-        } catch (final Exception exp) {
-            LOGGER.error("testStartSdcClient_Failure failed", exp);
-            fail("Test should not throw any exception");
-        }
+        }).doesNotThrowAnyException();
     }
 
     @Test
     public final void testStopSdcClient() {
-        try {
+        assertThatCode(() -> {
             sypHandler.initializeReception(pssdConfigParameters.getName());
             sypHandler.destroy();
-        } catch (final Exception exp) {
-            LOGGER.error("testStopSdcClient failed", exp);
-            fail("Test should not throw any exception");
-        }
-
+        }).doesNotThrowAnyException();
     }
 
     @Test
@@ -192,23 +177,16 @@ public class TestSdcReceptionHandler {
         sypHandler.initializeReception(pssdConfigParameters.getName());
         Mockito.when(distributionClient.stop()).thenReturn(failureClientInitResult)
                 .thenReturn(successfulClientInitResult);
-        try {
+        assertThatCode(() -> {
             sypHandler.destroy();
-        } catch (final Exception exp) {
-            LOGGER.error("testStopSdcClient_Failure failed", exp);
-            fail("Test should not throw any exception");
-        }
+        }).doesNotThrowAnyException();
     }
 
     @Test
     public final void testStopSdcClientWithoutStart() {
-        try {
+        assertThatCode(() -> {
             sypHandler.destroy();
-        } catch (final Exception exp) {
-            LOGGER.error("testStopSdcClientWithoutStart", exp);
-            fail("Test should not throw any exception");
-        }
-
+        }).doesNotThrowAnyException();
     }
 
     @Test

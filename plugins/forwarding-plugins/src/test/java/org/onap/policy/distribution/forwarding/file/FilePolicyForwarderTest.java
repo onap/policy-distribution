@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Intel Corp. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 AT&T Intellectual Property.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,9 @@
 
 package org.onap.policy.distribution.forwarding.file;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -84,13 +85,11 @@ public class FilePolicyForwarderTest {
         final FilePolicyForwarder forwarder = new FilePolicyForwarder();
         forwarder.configure(GROUP_NAME);
 
-        try {
+        assertThatCode(() -> {
             forwarder.forward(policies);
             final Path path = Paths.get(tempFolder.getRoot().getAbsolutePath().toString(), policy.getName());
             assertTrue(Files.exists(path));
-        } catch (final Exception exp) {
-            fail("Test must not throw an exception");
-        }
+        }).doesNotThrowAnyException();
     }
 
     @Test
@@ -107,12 +106,10 @@ public class FilePolicyForwarderTest {
         final FilePolicyForwarder forwarder = new FilePolicyForwarder();
         forwarder.configure(GROUP_NAME);
 
-        try {
+        assertThatThrownBy(() -> {
             forwarder.forward(policies);
-            fail("Test must throw an exception");
-        } catch (final Exception exp) {
-            assertTrue(exp.getMessage().contains("Error sending policy"));
-        }
+        }).isInstanceOf(Exception.class)
+        .hasMessageContaining("Error sending policy");
     }
 
     @Test
@@ -124,12 +121,10 @@ public class FilePolicyForwarderTest {
         final ToscaEntity policy = new UnsupportedPolicy();
         policies.add(policy);
 
-        try {
+        assertThatThrownBy(() -> {
             forwarder.forward(policies);
-            fail("Test must throw an exception");
-        } catch (final Exception exp) {
-            assertTrue(exp.getMessage().contains("Cannot forward policy"));
-        }
+        }).isInstanceOf(Exception.class)
+        .hasMessageContaining("Cannot forward policy");
     }
 
     class UnsupportedPolicy extends ToscaEntity {
