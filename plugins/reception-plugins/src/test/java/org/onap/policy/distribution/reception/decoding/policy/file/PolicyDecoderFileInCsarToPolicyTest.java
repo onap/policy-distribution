@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,11 @@
 
 package org.onap.policy.distribution.reception.decoding.policy.file;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Collection;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -34,8 +33,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.onap.policy.common.parameters.ParameterService;
-import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.distribution.model.Csar;
+import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.decoding.hpa.CommonTestData;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
@@ -68,7 +67,7 @@ public class PolicyDecoderFileInCsarToPolicyTest {
     }
 
     @Test
-    public void testDecodePolicy() {
+    public void testDecodePolicy() throws PolicyDecodingException {
 
         final PolicyDecoderFileInCsarToPolicy decoder = new PolicyDecoderFileInCsarToPolicy();
         decoder.configure(PolicyDecoderFileInCsarToPolicyParameterGroup.class.getSimpleName());
@@ -76,13 +75,9 @@ public class PolicyDecoderFileInCsarToPolicyTest {
         final File file = new File("src/test/resources/service-Sampleservice.csar");
         final Csar csar = new Csar(file.getAbsolutePath());
 
-        try {
-            assertTrue(decoder.canHandle(csar));
-            final Collection<ToscaEntity> policyHolders = decoder.decode(csar);
-            assertEquals(2, policyHolders.size());
-        } catch (final Exception exp) {
-            fail("Test must not throw an exception");
-        }
+        assertTrue(decoder.canHandle(csar));
+        final Collection<ToscaEntity> policyHolders = decoder.decode(csar);
+        assertEquals(2, policyHolders.size());
     }
 
     @Test
@@ -94,14 +89,9 @@ public class PolicyDecoderFileInCsarToPolicyTest {
         final File file = new File("unknown.csar");
         final Csar csar = new Csar(file.getAbsolutePath());
 
-        try {
-            assertTrue(decoder.canHandle(csar));
-            decoder.decode(csar);
-            fail("Test must throw an exception");
-        } catch (final Exception exp) {
-            assertTrue(exp.getCause() instanceof IOException);
-            assertTrue(exp.getMessage().contains("Failed decoding the policy"));
-        }
+        assertTrue(decoder.canHandle(csar));
+        assertThatThrownBy(() -> decoder.decode(csar)).isInstanceOf(PolicyDecodingException.class)
+        .hasMessageContaining("Failed decoding the policy");
     }
 
 
@@ -114,13 +104,8 @@ public class PolicyDecoderFileInCsarToPolicyTest {
         final File file = new File("src/test/resources/service-Sampleservice-test.csar");
         final Csar csar = new Csar(file.getAbsolutePath());
 
-        try {
-            assertTrue(decoder.canHandle(csar));
-            decoder.decode(csar);
-            fail("Test must throw an exception");
-        } catch (final Exception exp) {
-            assertTrue(exp.getCause() instanceof CoderException);
-            assertTrue(exp.getMessage().contains("Failed decoding the policy"));
-        }
+        assertTrue(decoder.canHandle(csar));
+        assertThatThrownBy(() -> decoder.decode(csar)).isInstanceOf(PolicyDecodingException.class)
+        .hasMessageContaining("Failed decoding the policy");
     }
 }

@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Intel. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2020 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +23,9 @@
 
 package org.onap.policy.distribution.main.rest;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.Properties;
@@ -43,8 +42,6 @@ import org.junit.Test;
 import org.onap.policy.common.utils.network.NetworkUtil;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.startstop.Main;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Class to perform unit test of HealthCheckMonitor.
@@ -53,21 +50,16 @@ import org.slf4j.LoggerFactory;
  */
 public class TestHttpsStatisticDistributionRestServer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestHttpsStatisticDistributionRestServer.class);
     private static String KEYSTORE = System.getProperty("user.dir") + "/src/test/resources/ssl/policy-keystore";
 
     @Test
-    public void testHttpsDistributionStatistic()
-            throws PolicyDistributionException, InterruptedException, KeyManagementException, NoSuchAlgorithmException {
-        try {
+    public void testHttpsDistributionStatistic() {
+        assertThatCode(() -> {
             final Main main = startDistributionService();
             final StatisticsReport report = performStatisticCheck();
             validateReport(200, 0, 0, 0, 0, 0, 0, report);
             stopDistributionService(main);
-        } catch (final Exception exp) {
-            LOGGER.error("testHttpsDistributionStatistic failed", exp);
-            fail("Test should not throw an exception");
-        }
+        }).doesNotThrowAnyException();
     }
 
     private Main startDistributionService() {

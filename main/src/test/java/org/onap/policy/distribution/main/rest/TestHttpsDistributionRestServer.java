@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  *  Modifications Copyright (C) 2020 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,8 +22,8 @@
 
 package org.onap.policy.distribution.main.rest;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
@@ -42,8 +42,6 @@ import org.onap.policy.common.endpoints.report.HealthCheckReport;
 import org.onap.policy.common.utils.network.NetworkUtil;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.startstop.Main;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Class to perform unit test of HealthCheckMonitor.
@@ -52,7 +50,6 @@ import org.slf4j.LoggerFactory;
  */
 public class TestHttpsDistributionRestServer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestHttpsDistributionRestServer.class);
     private static final String ALIVE = "alive";
     private static final String SELF = NetworkUtil.getHostname();
     private static final String NAME = "Policy SSD";
@@ -61,15 +58,12 @@ public class TestHttpsDistributionRestServer {
     @Test
     public void testHttpsHealthCheckSuccess() {
         final String reportString = "Report [name=Policy SSD, url=" + SELF + ", healthy=true, code=200, message=alive]";
-        try {
+        assertThatCode(() -> {
             final Main main = startDistributionService();
             final HealthCheckReport report = performHealthCheck();
             validateReport(NAME, SELF, true, 200, ALIVE, reportString, report);
             stopDistributionService(main);
-        } catch (final Exception exp) {
-            LOGGER.error("testHttpsHealthCheckSuccess failed", exp);
-            fail("Test should not throw an exception");
-        }
+        }).doesNotThrowAnyException();
     }
 
     private Main startDistributionService() {
