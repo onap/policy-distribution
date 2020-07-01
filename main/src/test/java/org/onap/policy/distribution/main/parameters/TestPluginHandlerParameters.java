@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +21,16 @@
 
 package org.onap.policy.distribution.main.parameters;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.util.Map;
 import org.junit.Test;
 import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ParameterRuntimeException;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
@@ -55,26 +58,22 @@ public class TestPluginHandlerParameters {
 
     @Test
     public void testPluginHandlerParameters_NullPolicyDecoders() {
-        try {
-            final Map<String, PolicyForwarderParameters> policyForwarders = commonTestData.getPolicyForwarders(false);
-            final PluginHandlerParameters pHParameters = new PluginHandlerParameters(null, policyForwarders);
-            pHParameters.validate();
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("map parameter \"policyDecoders\" is null"));
-        }
+        final Map<String, PolicyForwarderParameters> policyForwarders = commonTestData.getPolicyForwarders(false);
+        final PluginHandlerParameters pHParameters = new PluginHandlerParameters(null, policyForwarders);
+        assertThatThrownBy(() ->
+            pHParameters.validate()
+        ).isInstanceOf(ParameterRuntimeException.class)
+        .hasMessage("map parameter \"policyDecoders\" is null");
     }
 
     @Test
     public void testPluginHandlerParameters_NullPolicyForwarders() {
-        try {
-            final Map<String, PolicyDecoderParameters> policyDecoders = commonTestData.getPolicyDecoders(false);
-            final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, null);
-            pHParameters.validate();
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("map parameter \"policyForwarders\" is null"));
-        }
+        final Map<String, PolicyDecoderParameters> policyDecoders = commonTestData.getPolicyDecoders(false);
+        final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, null);
+        assertThatThrownBy(() ->
+            pHParameters.validate()
+        ).isInstanceOf(ParameterRuntimeException.class)
+        .hasMessage("map parameter \"policyForwarders\" is null");
     }
 
     @Test

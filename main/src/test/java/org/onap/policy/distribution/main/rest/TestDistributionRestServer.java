@@ -3,7 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@
 
 package org.onap.policy.distribution.main.rest;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import javax.ws.rs.client.Client;
@@ -43,8 +43,6 @@ import org.onap.policy.common.utils.network.NetworkUtil;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.CommonTestData;
 import org.onap.policy.distribution.main.startstop.Main;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Class to perform unit test of HealthCheckMonitor.
@@ -53,7 +51,6 @@ import org.slf4j.LoggerFactory;
  */
 public class TestDistributionRestServer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestDistributionRestServer.class);
     private static final String NOT_ALIVE = "not alive";
     private static final String ALIVE = "alive";
     private static final String SELF = NetworkUtil.getHostname();
@@ -62,15 +59,12 @@ public class TestDistributionRestServer {
     @Test
     public void testHealthCheckSuccess() {
         final String reportString = "Report [name=Policy SSD, url=" + SELF + ", healthy=true, code=200, message=alive]";
-        try {
+        assertThatCode(() -> {
             final Main main = startDistributionService();
             final HealthCheckReport report = performHealthCheck();
             validateReport(NAME, SELF, true, 200, ALIVE, reportString, report);
             stopDistributionService(main);
-        } catch (final Exception exp) {
-            LOGGER.error("testHealthCheckSuccess failed", exp);
-            fail("Test should not throw an exception");
-        }
+        }).doesNotThrowAnyException();
     }
 
     @Test
@@ -80,17 +74,14 @@ public class TestDistributionRestServer {
         final RestServerParameters restServerParams = new CommonTestData().getRestServerParameters(false);
         restServerParams.setName(CommonTestData.DISTRIBUTION_GROUP_NAME);
         final RestServer restServer = new RestServer(restServerParams, null, DistributionRestController.class);
-        try {
+        assertThatCode(() -> {
             restServer.start();
             final HealthCheckReport report = performHealthCheck();
             validateReport(NAME, SELF, false, 500, NOT_ALIVE, reportString, report);
             assertTrue(restServer.isAlive());
             assertTrue(restServer.toString().startsWith("RestServer [servers="));
             restServer.shutdown();
-        } catch (final Exception exp) {
-            LOGGER.error("testHealthCheckFailure failed", exp);
-            fail("Test should not throw an exception");
-        }
+        }).doesNotThrowAnyException();
     }
 
     private Main startDistributionService() {

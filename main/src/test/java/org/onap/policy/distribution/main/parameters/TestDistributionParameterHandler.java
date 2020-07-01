@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +21,15 @@
 
 package org.onap.policy.distribution.main.parameters;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.junit.Test;
+import org.onap.policy.common.parameters.ParameterRuntimeException;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.startstop.DistributionCommandLineArguments;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyDecoderParameterGroup;
@@ -46,13 +48,9 @@ public class TestDistributionParameterHandler {
 
         final DistributionCommandLineArguments noArguments = new DistributionCommandLineArguments();
         noArguments.parse(noArgumentString);
-
-        try {
-            new DistributionParameterHandler().getParameters(noArguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("FileNotFoundException"));
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(noArguments)
+        ).isInstanceOf(PolicyDistributionException.class).hasMessageContaining("FileNotFoundException");
     }
 
     @Test
@@ -63,12 +61,10 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments emptyArguments = new DistributionCommandLineArguments();
         emptyArguments.parse(emptyArgumentString);
 
-        try {
-            new DistributionParameterHandler().getParameters(emptyArguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("no parameters found in \"parameters/EmptyParameters.json\"", e.getMessage());
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(emptyArguments)
+        ).isInstanceOf(PolicyDistributionException.class)
+        .hasMessageContaining("no parameters found in \"parameters/EmptyParameters.json\"");
     }
 
     @Test
@@ -79,14 +75,12 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments badArguments = new DistributionCommandLineArguments();
         badArguments.parse(badArgumentString);
 
-        try {
-            new DistributionParameterHandler().getParameters(badArguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("error reading parameters from \"parameters/BadParameters.json\"\n"
-                    + "(JsonSyntaxException):java.lang.IllegalStateException: "
-                    + "Expected a string but was BEGIN_ARRAY at line 2 column 15 path $.name", e.getMessage());
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(badArguments)
+        ).isInstanceOf(PolicyDistributionException.class)
+            .hasMessageContaining("error reading parameters from \"parameters/BadParameters.json\"\n"
+                + "(JsonSyntaxException):java.lang.IllegalStateException: "
+                + "Expected a string but was BEGIN_ARRAY at line 2 column 15 path $.name");
     }
 
     @Test
@@ -97,14 +91,12 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments invalidArguments = new DistributionCommandLineArguments();
         invalidArguments.parse(invalidArgumentString);
 
-        try {
-            new DistributionParameterHandler().getParameters(invalidArguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("error reading parameters from \"parameters/InvalidParameters.json\"\n"
-                    + "(JsonSyntaxException):java.lang.IllegalStateException: "
-                    + "Expected a string but was BEGIN_ARRAY at line 2 column 15 path $.name", e.getMessage());
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(invalidArguments)
+        ).isInstanceOf(PolicyDistributionException.class)
+            .hasMessageContaining("error reading parameters from \"parameters/InvalidParameters.json\"\n"
+                + "(JsonSyntaxException):java.lang.IllegalStateException: "
+                + "Expected a string but was BEGIN_ARRAY at line 2 column 15 path $.name");
     }
 
     @Test
@@ -115,12 +107,10 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments noArguments = new DistributionCommandLineArguments();
         noArguments.parse(noArgumentString);
 
-        try {
-            new DistributionParameterHandler().getParameters(noArguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertEquals("map parameter \"receptionHandlerParameters\" is null", e.getMessage());
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(noArguments)
+        ).isInstanceOf(ParameterRuntimeException.class)
+            .hasMessageContaining("map parameter \"receptionHandlerParameters\" is null");
     }
 
     @Test
@@ -176,12 +166,10 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("parameter \"parameterClassName\" value \"\" invalid in JSON file"));
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(arguments)
+        ).isInstanceOf(PolicyDistributionException.class)
+            .hasMessageContaining("parameter \"parameterClassName\" value \"\" invalid in JSON file");
     }
 
     @Test
@@ -193,13 +181,11 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains(
-                    "parameter \"parameterClassName\" value \"org.onap.policy.Unknown\", could not find class"));
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(arguments)
+        ).isInstanceOf(PolicyDistributionException.class)
+            .hasMessageContaining("parameter \"parameterClassName\" value \"org.onap.policy.Unknown\", "
+            + "could not find class");
     }
 
     @Test
@@ -210,13 +196,11 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains(
-                    "field \"name\" type \"java.lang.String\" value \" \" INVALID, must be a non-blank string"));
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(arguments)
+        ).isInstanceOf(PolicyDistributionException.class)
+            .hasMessageContaining("field \"name\" type \"java.lang.String\" value \" "
+            + "\" INVALID, must be a non-blank string");
     }
 
     @Test
@@ -227,12 +211,10 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("map parameter \"receptionHandlerParameters\" is null"));
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(arguments)
+        ).isInstanceOf(ParameterRuntimeException.class)
+            .hasMessageContaining("map parameter \"receptionHandlerParameters\" is null");
     }
 
     @Test
@@ -243,12 +225,10 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("must have at least one reception handler\n"));
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(arguments)
+        ).isInstanceOf(PolicyDistributionException.class)
+            .hasMessageContaining("must have at least one reception handler\n");
     }
 
     @Test
@@ -259,12 +239,10 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("map parameter \"policyDecoders\" is null"));
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(arguments)
+        ).isInstanceOf(ParameterRuntimeException.class)
+            .hasMessageContaining("map parameter \"policyDecoders\" is null");
     }
 
     @Test
@@ -275,12 +253,10 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("map parameter \"policyForwarders\" is null"));
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(arguments)
+        ).isInstanceOf(ParameterRuntimeException.class)
+            .hasMessageContaining("map parameter \"policyForwarders\" is null");
     }
 
     @Test
@@ -291,12 +267,10 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("must have at least one policy decoder\n"));
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(arguments)
+        ).isInstanceOf(PolicyDistributionException.class)
+            .hasMessageContaining("must have at least one policy decoder\n");
     }
 
     @Test
@@ -307,12 +281,10 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().endsWith("must have at least one policy forwarder\n"));
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(arguments)
+        ).isInstanceOf(PolicyDistributionException.class)
+            .hasMessageContaining("must have at least one policy forwarder\n");
     }
 
     @Test
@@ -324,15 +296,13 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            final String expectedResult = new String(Files.readAllBytes(
-                    Paths.get("src/test/resources/expectedValidationResults/InvalidReceptionHandlerParameters.txt")))
-                            .replaceAll("\\s+", "");
-            assertEquals(expectedResult, e.getMessage().replaceAll("\\s+", ""));
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(arguments)
+        ).isInstanceOf(PolicyDistributionException.class)
+            .hasMessageStartingWith((new String(Files.readAllBytes(
+                    Paths.get("src/test/resources/expectedValidationResults/InvalidReceptionHandlerParameters.txt"))))
+                    .substring(0, 50)
+        );
     }
 
     @Test
@@ -344,15 +314,12 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            final String expectedResult = new String(Files.readAllBytes(
-                    Paths.get("src/test/resources/expectedValidationResults/InvalidDecoderAndForwarderParameters.txt")))
-                            .replaceAll("\\s+", "");
-            assertEquals(expectedResult, e.getMessage().replaceAll("\\s+", ""));
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(arguments)
+        ).isInstanceOf(PolicyDistributionException.class)
+            .hasMessageContaining((new String(Files.readAllBytes(
+                Paths.get("src/test/resources/expectedValidationResults/InvalidDecoderAndForwarderParameters.txt"))))
+                .substring(0, 50));
     }
 
     @Test
@@ -364,15 +331,12 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            final String expectedResult = new String(Files.readAllBytes(
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(arguments)
+        ).isInstanceOf(PolicyDistributionException.class)
+            .hasMessageContaining((new String(Files.readAllBytes(
                     Paths.get("src/test/resources/expectedValidationResults/InvalidRestServerParameters.txt")))
-                            .replaceAll("\\s+", "");
-            assertEquals(expectedResult, e.getMessage().replaceAll("\\s+", ""));
-        }
+                    ).substring(0, 50));
     }
 
     @Test
@@ -398,11 +362,10 @@ public class TestDistributionParameterHandler {
         final String[] distributionConfigParameters =
             { "-d" };
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        try {
-            arguments.parse(distributionConfigParameters);
-        } catch (final Exception exp) {
-            assertTrue(exp.getMessage().startsWith("invalid command line arguments specified"));
-        }
+        assertThatThrownBy(() ->
+            arguments.parse(distributionConfigParameters)
+        ).isInstanceOf(PolicyDistributionException.class)
+            .hasMessageContaining("invalid command line arguments specified");
     }
 
     @Test
@@ -413,11 +376,10 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("could not find class"));
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(arguments)
+        ).isInstanceOf(PolicyDistributionException.class)
+            .hasMessageContaining("could not find class");
     }
 
     @Test
@@ -428,11 +390,10 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("invalid in JSON file"));
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(arguments)
+        ).isInstanceOf(PolicyDistributionException.class)
+            .hasMessageContaining("invalid in JSON file");
     }
 
     @Test
@@ -444,12 +405,10 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains("parameter \"parameterClassName\" value \"\" invalid in JSON file"));
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(arguments)
+        ).isInstanceOf(PolicyDistributionException.class)
+            .hasMessageContaining("parameter \"parameterClassName\" value \"\" invalid in JSON file");
     }
 
     @Test
@@ -461,12 +420,10 @@ public class TestDistributionParameterHandler {
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        try {
-            new DistributionParameterHandler().getParameters(arguments);
-            fail("test should throw an exception here");
-        } catch (final Exception e) {
-            assertTrue(e.getMessage().contains(
-                    "parameter \"parameterClassName\" value \"org.onap.policy.Unknown\", could not find class"));
-        }
+        assertThatThrownBy(() ->
+            new DistributionParameterHandler().getParameters(arguments)
+        ).isInstanceOf(PolicyDistributionException.class)
+            .hasMessageContaining("parameter \"parameterClassName\" value"
+            + " \"org.onap.policy.Unknown\", could not find class");
     }
 }
