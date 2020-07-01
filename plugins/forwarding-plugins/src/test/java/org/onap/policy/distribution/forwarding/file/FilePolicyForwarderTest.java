@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Intel Corp. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 AT&T Intellectual Property.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@
 
 package org.onap.policy.distribution.forwarding.file;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -40,6 +40,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
 
@@ -77,20 +78,16 @@ public class FilePolicyForwarderTest {
     }
 
     @Test
-    public void testForwardPolicy() {
+    public void testForwardPolicy() throws PolicyForwardingException {
         final Collection<ToscaEntity> policies = new ArrayList<>();
         final ToscaPolicy policy = createPolicy(policies, "test", "test");
 
         final FilePolicyForwarder forwarder = new FilePolicyForwarder();
         forwarder.configure(GROUP_NAME);
 
-        try {
-            forwarder.forward(policies);
-            final Path path = Paths.get(tempFolder.getRoot().getAbsolutePath().toString(), policy.getName());
-            assertTrue(Files.exists(path));
-        } catch (final Exception exp) {
-            fail("Test must not throw an exception");
-        }
+        forwarder.forward(policies);
+        final Path path = Paths.get(tempFolder.getRoot().getAbsolutePath().toString(), policy.getName());
+        assertTrue(Files.exists(path));
     }
 
     @Test
@@ -107,12 +104,8 @@ public class FilePolicyForwarderTest {
         final FilePolicyForwarder forwarder = new FilePolicyForwarder();
         forwarder.configure(GROUP_NAME);
 
-        try {
-            forwarder.forward(policies);
-            fail("Test must throw an exception");
-        } catch (final Exception exp) {
-            assertTrue(exp.getMessage().contains("Error sending policy"));
-        }
+        assertThatThrownBy(() -> forwarder.forward(policies)).isInstanceOf(PolicyForwardingException.class)
+        .hasMessageContaining("Error sending policy");
     }
 
     @Test
@@ -124,12 +117,8 @@ public class FilePolicyForwarderTest {
         final ToscaEntity policy = new UnsupportedPolicy();
         policies.add(policy);
 
-        try {
-            forwarder.forward(policies);
-            fail("Test must throw an exception");
-        } catch (final Exception exp) {
-            assertTrue(exp.getMessage().contains("Cannot forward policy"));
-        }
+        assertThatThrownBy(() -> forwarder.forward(policies)).isInstanceOf(PolicyForwardingException.class)
+        .hasMessageContaining("Cannot forward policy");
     }
 
     class UnsupportedPolicy extends ToscaEntity {

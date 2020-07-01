@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +23,8 @@
 
 package org.onap.policy.distribution.main.rest;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import javax.ws.rs.client.Client;
@@ -41,8 +42,6 @@ import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.CommonTestData;
 import org.onap.policy.distribution.main.startstop.Main;
 import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Class to perform unit test of {@link DistributionRestController}.
@@ -51,12 +50,9 @@ import org.slf4j.LoggerFactory;
  */
 public class TestDistributionStatistics {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestDistributionStatistics.class);
-
-
     @Test
     public void testDistributionStatistics_200() {
-        try {
+        assertThatCode(() -> {
             final Main main = startDistributionService();
             StatisticsReport report = getDistributionStatistics();
             validateReport(report, 0, 200);
@@ -65,10 +61,7 @@ public class TestDistributionStatistics {
             validateReport(report, 1, 200);
             stopDistributionService(main);
             DistributionStatisticsManager.resetAllStatistics();
-        } catch (final Exception exp) {
-            LOGGER.error("testDistributionStatistics_200 failed", exp);
-            fail("Test should not throw an exception");
-        }
+        }).doesNotThrowAnyException();
     }
 
     @Test
@@ -76,16 +69,13 @@ public class TestDistributionStatistics {
         final RestServerParameters restServerParams = new CommonTestData().getRestServerParameters(false);
         restServerParams.setName(CommonTestData.DISTRIBUTION_GROUP_NAME);
         final RestServer restServer = new RestServer(restServerParams, null, DistributionRestController.class);
-        try {
+        assertThatCode(() -> {
             restServer.start();
             final StatisticsReport report = getDistributionStatistics();
             validateReport(report, 0, 500);
             restServer.shutdown();
             DistributionStatisticsManager.resetAllStatistics();
-        } catch (final Exception exp) {
-            LOGGER.error("testDistributionStatistics_500 failed", exp);
-            fail("Test should not throw an exception");
-        }
+        }).doesNotThrowAnyException();
     }
 
     private Main startDistributionService() {

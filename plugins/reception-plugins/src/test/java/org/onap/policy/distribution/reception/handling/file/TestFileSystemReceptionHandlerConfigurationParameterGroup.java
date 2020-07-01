@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +25,6 @@ package org.onap.policy.distribution.reception.handling.file;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,15 +47,13 @@ public class TestFileSystemReceptionHandlerConfigurationParameterGroup {
     public void testFileSystemConfiguration() throws IOException {
         FileSystemReceptionHandlerConfigurationParameterGroup configParameters = null;
         String validPath = null;
-        try {
-            validPath = tempFolder.getRoot().getAbsolutePath();
 
-            configParameters = new FileSystemReceptionHandlerConfigurationParameterGroup();
-            configParameters.setWatchPath(validPath);
-            configParameters.setMaxThread(2);
-        } catch (final Exception e) {
-            fail("test should not thrown an exception here: " + e.getMessage());
-        }
+        validPath = tempFolder.getRoot().getAbsolutePath();
+
+        configParameters = new FileSystemReceptionHandlerConfigurationParameterGroup();
+        configParameters.setWatchPath(validPath);
+        configParameters.setMaxThread(2);
+
         final GroupValidationResult validationResult = configParameters.validate();
         assertTrue(validationResult.isValid());
         assertEquals(validPath, configParameters.getWatchPath());
@@ -65,15 +63,12 @@ public class TestFileSystemReceptionHandlerConfigurationParameterGroup {
     @Test
     public void testInvalidFileSystemConfiguration() throws IOException {
         FileSystemReceptionHandlerConfigurationParameterGroup configParameters = null;
-        try {
-            final Gson gson = new GsonBuilder().create();
-            configParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdcInvalid.json"),
-                    FileSystemReceptionHandlerConfigurationParameterGroup.class);
-        } catch (final Exception e) {
-            fail("test should not thrown an exception here: " + e.getMessage());
-        }
+        final Gson gson = new GsonBuilder().create();
+        configParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdcInvalid.json"),
+                FileSystemReceptionHandlerConfigurationParameterGroup.class);
         final GroupValidationResult validationResult = configParameters.validate();
         assertFalse(validationResult.isValid());
+
     }
 
     @Test

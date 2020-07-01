@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +21,6 @@
  */
 
 package org.onap.policy.distribution.reception.handling.file;
-
-import static org.junit.Assert.fail;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -93,27 +92,16 @@ public class TestFileSystemReceptionHandler {
         final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
         Mockito.doNothing().when(sypHandler).initFileWatcher(Mockito.isA(String.class),
                 Mockito.anyInt());
-        try {
-            sypHandler.initializeReception(pssdConfigParameters.getName());
-        } catch (final Exception exp) {
-            LOGGER.error("testInit failed", exp);
-            fail("Test should not throw any exception");
-        }
+        sypHandler.initializeReception(pssdConfigParameters.getName());
     }
 
     @Test
     public final void testDestroy() throws IOException {
-        try {
-            final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
-            Mockito.doNothing().when(sypHandler).initFileWatcher(Mockito.isA(String.class),
-                    Mockito.anyInt());
-            sypHandler.initializeReception(pssdConfigParameters.getName());
-            sypHandler.destroy();
-        } catch (final Exception exp) {
-            LOGGER.error("testDestroy failed", exp);
-            fail("Test should not throw any exception");
-        }
-
+        final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
+        Mockito.doNothing().when(sypHandler).initFileWatcher(Mockito.isA(String.class),
+                Mockito.anyInt());
+        sypHandler.initializeReception(pssdConfigParameters.getName());
+        sypHandler.destroy();
     }
 
     @Test
