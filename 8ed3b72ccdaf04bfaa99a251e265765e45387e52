@@ -1,0 +1,180 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "052dffcf_7b3d4e62",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestDistributionParameterGroup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-01T16:14:48Z",
+      "side": 1,
+      "message": "sonar: change whole lambda to:\n\n  distributionParameters::validate",
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b2d7c85_ef167e82",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestDistributionParameterHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-01T16:14:48Z",
+      "side": 1,
+      "message": "prefer to use Files.readString()\n\nsame comment below",
+      "range": {
+        "startLine": 302,
+        "startChar": 37,
+        "endLine": 302,
+        "endChar": 67
+      },
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0619d80_a67534b2",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestDistributionParameterHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-01T16:14:48Z",
+      "side": 1,
+      "message": "should we just truncate the contents of the file and then avoid invoking substring() ?",
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42e57da9_146e1d69",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestPluginHandlerParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-01T16:14:48Z",
+      "side": 1,
+      "message": "same comment as before about the lambda form\n\nsame comment below",
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0936e0d4_7395330f",
+        "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/file/FilePolicyForwarderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-01T16:14:48Z",
+      "side": 1,
+      "message": "don\u0027t need assertThatCode()",
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14c57470_287c4c1d",
+        "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/file/FilePolicyForwarderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-01T16:14:48Z",
+      "side": 1,
+      "message": "other lambda form",
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90e4bec6_fc1cb449",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicyTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-01T16:14:48Z",
+      "side": 1,
+      "message": "don\u0027t need assertThatCode()",
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd825c53_b03033d4",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/file/TestFileSystemReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-01T16:14:48Z",
+      "side": 1,
+      "message": "remove \"{\" and \"}\"",
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca3eda2b_3d4c6d5e",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/TestSdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-01T16:14:48Z",
+      "side": 1,
+      "message": "remove \"{\" and \"}\"\n\nsame comment below",
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c37ba71_1cdcc7c1",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/TestSdcReceptionHandlerConfigurationParameterGroup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-01T16:14:48Z",
+      "side": 1,
+      "message": "technically, this read should be closed when done with it, but this is just a junit so not as big a deal\n\nsame comment below",
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
