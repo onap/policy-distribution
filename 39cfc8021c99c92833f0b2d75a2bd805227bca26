@@ -22,6 +22,190 @@
       "revId": "39cfc8021c99c92833f0b2d75a2bd805227bca26",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f16d4884_40b03e5b",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/rest/TestDistributionRestServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6639
+      },
+      "writtenOn": "2020-07-02T12:27:57Z",
+      "side": 1,
+      "message": "as above",
+      "range": {
+        "startLine": 84,
+        "startChar": 11,
+        "endLine": 84,
+        "endChar": 35
+      },
+      "revId": "39cfc8021c99c92833f0b2d75a2bd805227bca26",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18c75bd7_c42e8287",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/rest/TestDistributionRestServer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 6639
+      },
+      "writtenOn": "2020-07-02T12:27:57Z",
+      "side": 1,
+      "message": "I typically would call this assertReport since this is testware and all the methods being executed in it are asserts :-)\nNot sure (but dont think) this wil help with SonarQube violations because of missed asserts...",
+      "range": {
+        "startLine": 113,
+        "startChar": 17,
+        "endLine": 113,
+        "endChar": 31
+      },
+      "revId": "39cfc8021c99c92833f0b2d75a2bd805227bca26",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f539d71_9d643375",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/rest/TestDistributionStatistics.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6639
+      },
+      "writtenOn": "2020-07-02T12:27:57Z",
+      "side": 1,
+      "message": "as before, wont repeat again",
+      "range": {
+        "startLine": 64,
+        "startChar": 11,
+        "endLine": 64,
+        "endChar": 35
+      },
+      "revId": "39cfc8021c99c92833f0b2d75a2bd805227bca26",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f732a0e_2ef152e3",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/file/TestFileSystemReceptionHandlerConfigurationParameterGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6639
+      },
+      "writtenOn": "2020-07-02T12:27:57Z",
+      "side": 1,
+      "message": "suggestion: are you better of extracting out variable to reduce linelength and improve readabiliy?",
+      "range": {
+        "startLine": 67,
+        "startChar": 42,
+        "endLine": 67,
+        "endChar": 103
+      },
+      "revId": "39cfc8021c99c92833f0b2d75a2bd805227bca26",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2afb5a23_d86ef721",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/TestSdcReceptionHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 6639
+      },
+      "writtenOn": "2020-07-02T12:27:57Z",
+      "side": 1,
+      "message": "is there nothing positive you can assert after the initialize method is executed? It must set some attributes you might be able to test with a getter?",
+      "range": {
+        "startLine": 142,
+        "startChar": 41,
+        "endLine": 142,
+        "endChar": 60
+      },
+      "revId": "39cfc8021c99c92833f0b2d75a2bd805227bca26",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2419c29e_b0ae534a",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/TestSdcReceptionHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 6639
+      },
+      "writtenOn": "2020-07-02T12:27:57Z",
+      "side": 1,
+      "message": "as above, can you test anything that depend on the fact the result is a failure.\nAs it stands these are pretty invaluable tets that only server coverage, there is no asserts and that is why SQ complains too. Just assert there is no exception is just a cheap trick to bypass the violation... (not your fault, someone was lazy before you)",
+      "range": {
+        "startLine": 151,
+        "startChar": 8,
+        "endLine": 151,
+        "endChar": 22
+      },
+      "revId": "39cfc8021c99c92833f0b2d75a2bd805227bca26",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07e5c54f_1031de32",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/TestSdcReceptionHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 6639
+      },
+      "writtenOn": "2020-07-02T12:27:57Z",
+      "side": 1,
+      "message": "I wont repeat anymore :-)",
+      "range": {
+        "startLine": 161,
+        "startChar": 11,
+        "endLine": 161,
+        "endChar": 35
+      },
+      "revId": "39cfc8021c99c92833f0b2d75a2bd805227bca26",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df6bafc6_9f37ac2f",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/TestSdcReceptionHandlerConfigurationParameterGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6639
+      },
+      "writtenOn": "2020-07-02T12:27:57Z",
+      "side": 1,
+      "message": "suggestion: are you better of extracting out variable to reduce linelength and improve readabiliy?",
+      "range": {
+        "startLine": 76,
+        "startChar": 41,
+        "endLine": 76,
+        "endChar": 103
+      },
+      "revId": "39cfc8021c99c92833f0b2d75a2bd805227bca26",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
