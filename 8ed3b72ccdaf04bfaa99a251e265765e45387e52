@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "49f6a662_0bfa2bb6",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestDistributionParameterGroup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-02T12:19:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "052dffcf_7b3d4e62",
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b2d7c85_ef167e82",
         "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestDistributionParameterHandler.java",
         "patchSetId": 2
@@ -76,6 +94,24 @@
     },
     {
       "key": {
+        "uuid": "ed8b1483_3f104c3a",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestPluginHandlerParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-02T12:19:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42e57da9_146e1d69",
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0936e0d4_7395330f",
         "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/file/FilePolicyForwarderTest.java",
         "patchSetId": 2
@@ -90,6 +126,24 @@
       "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2108d4bf_7523cd3c",
+        "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/file/FilePolicyForwarderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-02T12:19:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0936e0d4_7395330f",
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +164,24 @@
     },
     {
       "key": {
+        "uuid": "430fb231_e0480532",
+        "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/file/FilePolicyForwarderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-02T12:19:33Z",
+      "side": 1,
+      "message": "my bad - it has an argument, thus can\u0027t use \"::\" notation",
+      "parentUuid": "14c57470_287c4c1d",
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90e4bec6_fc1cb449",
         "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicyTest.java",
         "patchSetId": 2
@@ -124,6 +196,24 @@
       "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c38504b_3e1b0d8e",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicyTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-02T12:19:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90e4bec6_fc1cb449",
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -144,6 +234,24 @@
     },
     {
       "key": {
+        "uuid": "393523bf_0e1f091f",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/file/TestFileSystemReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-02T12:19:33Z",
+      "side": 1,
+      "message": "still need to assert something here and in the next test method",
+      "parentUuid": "bd825c53_b03033d4",
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ca3eda2b_3d4c6d5e",
         "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/TestSdcReceptionHandler.java",
         "patchSetId": 2
@@ -158,6 +266,24 @@
       "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05a371bc_c2bee2e3",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/handling/sdc/TestSdcReceptionHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-02T12:19:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca3eda2b_3d4c6d5e",
+      "revId": "8ed3b72ccdaf04bfaa99a251e265765e45387e52",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
