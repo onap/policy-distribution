@@ -18,7 +18,7 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.reception.decoding.hpa;
+package org.onap.policy.distribution.reception.handling.sdc;
 
 import java.io.File;
 import org.onap.policy.common.utils.coder.Coder;

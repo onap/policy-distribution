@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.onap.policy.common.parameters.ValidationStatus;
-import org.onap.policy.distribution.reception.decoding.hpa.CommonTestData;
+import org.onap.policy.distribution.reception.handling.sdc.CommonTestData;
 
 /**
  * Class to perform unit test of {@link PolicyDecoderFileInCsarToPolicyParameterGroup}.

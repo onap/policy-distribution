@@ -35,7 +35,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
-import org.onap.policy.distribution.reception.decoding.hpa.CommonTestData;
+import org.onap.policy.distribution.reception.handling.sdc.CommonTestData;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
