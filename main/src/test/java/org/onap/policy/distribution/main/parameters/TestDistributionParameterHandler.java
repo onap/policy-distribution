@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -105,11 +106,9 @@ public class TestDistributionParameterHandler {
             { "-c", "parameters/NoParameters.json" };
 
         final DistributionCommandLineArguments noArguments = new DistributionCommandLineArguments();
+        final DistributionParameterHandler paramHandler = new DistributionParameterHandler();
         noArguments.parse(noArgumentString);
-
-        assertThatThrownBy(() ->
-            new DistributionParameterHandler().getParameters(noArguments)
-        ).isInstanceOf(ParameterRuntimeException.class)
+        assertThatThrownBy(() -> paramHandler.getParameters(noArguments)).isInstanceOf(ParameterRuntimeException.class)
             .hasMessageContaining("map parameter \"receptionHandlerParameters\" is null");
     }
 
@@ -209,11 +208,10 @@ public class TestDistributionParameterHandler {
             { "-c", "parameters/DistributionConfigParameters_NoReceptionHandler.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
+        final DistributionParameterHandler paramHandler = new DistributionParameterHandler();
         arguments.parse(distributionConfigParameters);
 
-        assertThatThrownBy(() ->
-            new DistributionParameterHandler().getParameters(arguments)
-        ).isInstanceOf(ParameterRuntimeException.class)
+        assertThatThrownBy(() -> paramHandler.getParameters(arguments)).isInstanceOf(ParameterRuntimeException.class)
             .hasMessageContaining("map parameter \"receptionHandlerParameters\" is null");
     }
 
@@ -237,11 +235,10 @@ public class TestDistributionParameterHandler {
             { "-c", "parameters/DistributionConfigParameters_NoPolicyDecoder.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
+        final DistributionParameterHandler paramHandler = new DistributionParameterHandler();
         arguments.parse(distributionConfigParameters);
 
-        assertThatThrownBy(() ->
-            new DistributionParameterHandler().getParameters(arguments)
-        ).isInstanceOf(ParameterRuntimeException.class)
+        assertThatThrownBy(() -> paramHandler.getParameters(arguments)).isInstanceOf(ParameterRuntimeException.class)
             .hasMessageContaining("map parameter \"policyDecoders\" is null");
     }
 
@@ -251,11 +248,10 @@ public class TestDistributionParameterHandler {
             { "-c", "parameters/DistributionConfigParameters_NoPolicyForwarder.json" };
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
+        final DistributionParameterHandler paramHandler = new DistributionParameterHandler();
         arguments.parse(distributionConfigParameters);
 
-        assertThatThrownBy(() ->
-            new DistributionParameterHandler().getParameters(arguments)
-        ).isInstanceOf(ParameterRuntimeException.class)
+        assertThatThrownBy(() -> paramHandler.getParameters(arguments)).isInstanceOf(ParameterRuntimeException.class)
             .hasMessageContaining("map parameter \"policyForwarders\" is null");
     }
 

@@ -23,6 +23,7 @@ package org.onap.policy.distribution.main.startstop;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -51,7 +52,7 @@ public class TestMain {
         final String[] distributionConfigParameters =
         {};
         final Main main = new Main(distributionConfigParameters);
-        assertTrue(main.getParameters() == null);
+        assertNull(main.getParameters());
     }
 
     @Test
@@ -59,7 +60,7 @@ public class TestMain {
         final String[] distributionConfigParameters =
         { "parameters/DistributionConfigParameters.json" };
         final Main main = new Main(distributionConfigParameters);
-        assertTrue(main.getParameters() == null);
+        assertNull(main.getParameters());
     }
 
     @Test
@@ -76,6 +77,6 @@ public class TestMain {
         final String[] distributionConfigParameters =
         { "-c", "parameters/DistributionConfigParameters_InvalidName.json" };
         final Main main = new Main(distributionConfigParameters);
-        assertTrue(main.getParameters() == null);
+        assertNull(main.getParameters());
     }
 }
