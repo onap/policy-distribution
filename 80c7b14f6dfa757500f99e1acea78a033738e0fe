@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee7b7373_45ca1523",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestDistributionParameterHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-28T21:01:41Z",
+      "side": 1,
+      "message": "should probably add: All rights reserved.",
+      "revId": "80c7b14f6dfa757500f99e1acea78a033738e0fe",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea93be97_2e068892",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestDistributionParameterHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-28T21:01:41Z",
+      "side": 1,
+      "message": "should either join lines 111-113 into one line, or indent line 112\n\nsame comment below",
+      "revId": "80c7b14f6dfa757500f99e1acea78a033738e0fe",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
