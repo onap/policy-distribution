@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "6d9acada_2dc7b112",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestDistributionParameterHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2020-07-28T21:31:51Z",
+      "side": 1,
+      "message": "Change to \"paramHandler\", which is the convention used throughout.  I am surprise that it didn\u0027t give a checkstyle issue.   This is a general issue.",
+      "revId": "80c7b14f6dfa757500f99e1acea78a033738e0fe",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ea93be97_2e068892",
         "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestDistributionParameterHandler.java",
         "patchSetId": 2
