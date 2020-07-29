@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cc22ebaa_f95c59ea",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestDistributionParameterHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-29T12:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee7b7373_45ca1523",
+      "revId": "80c7b14f6dfa757500f99e1acea78a033738e0fe",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d9acada_2dc7b112",
         "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestDistributionParameterHandler.java",
         "patchSetId": 2
@@ -50,6 +68,24 @@
       "revId": "80c7b14f6dfa757500f99e1acea78a033738e0fe",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "050b22a0_09a4adac",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestDistributionParameterHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2020-07-29T12:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea93be97_2e068892",
+      "revId": "80c7b14f6dfa757500f99e1acea78a033738e0fe",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
