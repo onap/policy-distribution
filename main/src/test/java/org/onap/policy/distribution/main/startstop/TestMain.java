@@ -26,6 +26,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import org.junit.Test;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.CommonTestData;
@@ -38,9 +39,9 @@ import org.onap.policy.distribution.main.parameters.CommonTestData;
 public class TestMain {
 
     @Test
-    public void testMain() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters.json" };
+    public void testMain() throws PolicyDistributionException, IOException {
+        CommonTestData.makeConfigFile("parameters/DistributionConfigParameters.json");
+        final String[] distributionConfigParameters = { "-c", CommonTestData.CONFIG_FILE };
         final Main main = new Main(distributionConfigParameters);
         assertTrue(main.getParameters().isValid());
         assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, main.getParameters().getName());

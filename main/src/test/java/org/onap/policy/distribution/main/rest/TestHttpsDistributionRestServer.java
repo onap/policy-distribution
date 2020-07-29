@@ -25,12 +25,11 @@ package org.onap.policy.distribution.main.rest;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.security.SecureRandom;
-import java.security.cert.X509Certificate;
 import java.util.Properties;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -41,6 +40,7 @@ import org.junit.Test;
 import org.onap.policy.common.endpoints.report.HealthCheckReport;
 import org.onap.policy.common.utils.network.NetworkUtil;
 import org.onap.policy.distribution.main.PolicyDistributionException;
+import org.onap.policy.distribution.main.parameters.CommonTestData;
 import org.onap.policy.distribution.main.startstop.Main;
 
 /**
@@ -55,6 +55,8 @@ public class TestHttpsDistributionRestServer {
     private static final String NAME = "Policy SSD";
     private static String KEYSTORE = System.getProperty("user.dir") + "/src/test/resources/ssl/policy-keystore";
 
+    private int port;
+
     @Test
     public void testHttpsHealthCheckSuccess() {
         final String reportString = "Report [name=Policy SSD, url=" + SELF + ", healthy=true, code=200, message=alive]";
@@ -66,13 +68,14 @@ public class TestHttpsDistributionRestServer {
         }).doesNotThrowAnyException();
     }
 
-    private Main startDistributionService() {
+    private Main startDistributionService() throws IOException {
         final Properties systemProps = System.getProperties();
         systemProps.put("javax.net.ssl.keyStore", KEYSTORE);
         systemProps.put("javax.net.ssl.keyStorePassword", "Pol1cy_0nap");
         System.setProperties(systemProps);
 
-        final String[] distributionConfigParameters = { "-c", "parameters/DistributionConfigParameters_Https.json" };
+        port = CommonTestData.makeConfigFile("parameters/DistributionConfigParameters_Https.json");
+        final String[] distributionConfigParameters = { "-c", CommonTestData.CONFIG_FILE };
         return new Main(distributionConfigParameters);
     }
 
@@ -82,21 +85,7 @@ public class TestHttpsDistributionRestServer {
 
     private HealthCheckReport performHealthCheck() throws Exception {
 
-        final TrustManager[] noopTrustManager = new TrustManager[] { new X509TrustManager() {
-
-            @Override
-            public X509Certificate[] getAcceptedIssuers() {
-                return new X509Certificate[0];
-            }
-
-            @Override
-            public void checkClientTrusted(final java.security.cert.X509Certificate[] certs, final String authType) {
-            }
-
-            @Override
-            public void checkServerTrusted(final java.security.cert.X509Certificate[] certs, final String authType) {
-            }
-        } };
+        final TrustManager[] noopTrustManager = NetworkUtil.getAlwaysTrustingManager();
 
         final SSLContext sc = SSLContext.getInstance("TLSv1.2");
         sc.init(null, noopTrustManager, new SecureRandom());
@@ -106,13 +95,11 @@ public class TestHttpsDistributionRestServer {
         final HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("healthcheck", "zb!XztG34");
         client.register(feature);
 
-        final WebTarget webTarget = client.target("https://localhost:6969/healthcheck");
+        final WebTarget webTarget = client.target("https://localhost:" + port + "/healthcheck");
 
         final Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 
-        if (!NetworkUtil.isTcpPortOpen("localhost", 6969, 6, 10000L)) {
-            throw new IllegalStateException("cannot connect to port 6969");
-        }
+        CommonTestData.awaitServer(port);
         return invocationBuilder.get(HealthCheckReport.class);
     }
 

@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2019-2020 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,6 +36,7 @@ import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.Test;
+import org.mockito.internal.util.reflection.Whitebox;
 import org.onap.policy.common.endpoints.http.server.RestServer;
 import org.onap.policy.common.endpoints.parameters.RestServerParameters;
 import org.onap.policy.common.endpoints.report.HealthCheckReport;
@@ -56,6 +57,8 @@ public class TestDistributionRestServer {
     private static final String SELF = NetworkUtil.getHostname();
     private static final String NAME = "Policy SSD";
 
+    private int port;
+
     @Test
     public void testHealthCheckSuccess() {
         final String reportString = "Report [name=Policy SSD, url=" + SELF + ", healthy=true, code=200, message=alive]";
@@ -68,10 +71,12 @@ public class TestDistributionRestServer {
     }
 
     @Test
-    public void testHealthCheckFailure() {
+    public void testHealthCheckFailure() throws IOException {
+        port = NetworkUtil.allocPort();
         final String reportString =
                 "Report [name=Policy SSD, url=" + SELF + ", healthy=false, code=500, message=not alive]";
         final RestServerParameters restServerParams = new CommonTestData().getRestServerParameters(false);
+        Whitebox.setInternalState(restServerParams, "port", port);
         restServerParams.setName(CommonTestData.DISTRIBUTION_GROUP_NAME);
         final RestServer restServer = new RestServer(restServerParams, null, DistributionRestController.class);
         assertThatCode(() -> {
@@ -84,8 +89,9 @@ public class TestDistributionRestServer {
         }).doesNotThrowAnyException();
     }
 
-    private Main startDistributionService() {
-        final String[] distributionConfigParameters = { "-c", "parameters/DistributionConfigParameters.json" };
+    private Main startDistributionService() throws IOException {
+        port = CommonTestData.makeConfigFile("parameters/DistributionConfigParameters.json");
+        final String[] distributionConfigParameters = { "-c", CommonTestData.CONFIG_FILE };
         return new Main(distributionConfigParameters);
     }
 
@@ -100,13 +106,11 @@ public class TestDistributionRestServer {
         clientConfig.register(feature);
 
         final Client client = ClientBuilder.newClient(clientConfig);
-        final WebTarget webTarget = client.target("http://localhost:6969/healthcheck");
+        final WebTarget webTarget = client.target("http://localhost:" + port + "/healthcheck");
 
         final Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 
-        if (!NetworkUtil.isTcpPortOpen("localhost", 6969, 6, 10000L)) {
-            throw new IllegalStateException("cannot connect to port 6969");
-        }
+        CommonTestData.awaitServer(port);
         return invocationBuilder.get(HealthCheckReport.class);
     }
 

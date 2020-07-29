@@ -68,7 +68,7 @@ public class LifecycleApiPolicyForwarderTest {
                 LifecycleApiForwarderParameters.class);
         ParameterService.register(parameterGroup);
         simulator.startLifecycycleApiSimulator();
-        if (!NetworkUtil.isTcpPortOpen("0.0.0.0", 6969, 6, 10000L)) {
+        if (!NetworkUtil.isTcpPortOpen("0.0.0.0", 6969, 50, 200L)) {
             throw new IllegalStateException("cannot connect to port 6969");
         }
     }

@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2020 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import org.junit.Test;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.CommonTestData;
@@ -39,8 +41,9 @@ import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParamet
 public class TestDistributionActivator {
 
     @Test
-    public void testDistributionActivator() throws PolicyDistributionException {
-        final String[] distributionConfigParameters = {"-c", "parameters/DistributionConfigParameters.json"};
+    public void testDistributionActivator() throws PolicyDistributionException, IOException {
+        CommonTestData.makeConfigFile("parameters/DistributionConfigParameters.json");
+        final String[] distributionConfigParameters = { "-c", CommonTestData.CONFIG_FILE };
 
         final DistributionCommandLineArguments arguments =
                 new DistributionCommandLineArguments(distributionConfigParameters);

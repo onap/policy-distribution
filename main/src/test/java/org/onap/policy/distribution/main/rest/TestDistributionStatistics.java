@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2019-2020 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,6 +35,7 @@ import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.Test;
+import org.mockito.internal.util.reflection.Whitebox;
 import org.onap.policy.common.endpoints.http.server.RestServer;
 import org.onap.policy.common.endpoints.parameters.RestServerParameters;
 import org.onap.policy.common.utils.network.NetworkUtil;
@@ -49,6 +50,8 @@ import org.onap.policy.distribution.reception.statistics.DistributionStatisticsM
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
 public class TestDistributionStatistics {
+
+    private int port;
 
     @Test
     public void testDistributionStatistics_200() {
@@ -65,8 +68,10 @@ public class TestDistributionStatistics {
     }
 
     @Test
-    public void testDistributionStatistics_500() throws InterruptedException {
+    public void testDistributionStatistics_500() throws InterruptedException, IOException {
+        port = NetworkUtil.allocPort();
         final RestServerParameters restServerParams = new CommonTestData().getRestServerParameters(false);
+        Whitebox.setInternalState(restServerParams, "port", port);
         restServerParams.setName(CommonTestData.DISTRIBUTION_GROUP_NAME);
         final RestServer restServer = new RestServer(restServerParams, null, DistributionRestController.class);
         assertThatCode(() -> {
@@ -78,8 +83,9 @@ public class TestDistributionStatistics {
         }).doesNotThrowAnyException();
     }
 
-    private Main startDistributionService() {
-        final String[] distributionConfigParameters = { "-c", "parameters/DistributionConfigParameters.json" };
+    private Main startDistributionService() throws IOException {
+        port = CommonTestData.makeConfigFile("parameters/DistributionConfigParameters.json");
+        final String[] distributionConfigParameters = { "-c", CommonTestData.CONFIG_FILE };
         return new Main(distributionConfigParameters);
     }
 
@@ -94,13 +100,11 @@ public class TestDistributionStatistics {
         clientConfig.register(feature);
 
         final Client client = ClientBuilder.newClient(clientConfig);
-        final WebTarget webTarget = client.target("http://localhost:6969/statistics");
+        final WebTarget webTarget = client.target("http://localhost:" + port + "/statistics");
 
         final Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 
-        if (!NetworkUtil.isTcpPortOpen("localhost", 6969, 6, 10000L)) {
-            throw new IllegalStateException("cannot connect to port 6969");
-        }
+        CommonTestData.awaitServer(port);
         return invocationBuilder.get(StatisticsReport.class);
     }
 

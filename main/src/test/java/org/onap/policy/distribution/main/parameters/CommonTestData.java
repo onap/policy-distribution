@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2019-2020 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,12 +23,17 @@
 package org.onap.policy.distribution.main.parameters;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 import org.onap.policy.common.endpoints.parameters.RestServerParameters;
 import org.onap.policy.common.utils.coder.Coder;
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.coder.StandardCoder;
+import org.onap.policy.common.utils.network.NetworkUtil;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyDecoderParameterGroup;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup;
@@ -70,7 +75,44 @@ public class CommonTestData {
     public static final String POLICY_NAME = "SamplePolicy";
     public static final String DECODER_CONFIGURATION_PARAMETERS = "dummyDecoderConfiguration";
 
+    public static final String CONFIG_FILE = "src/test/resources/parameters/TestConfigParams.json";
+
     private Coder coder = new StandardCoder();
+
+    /**
+     * Makes a parameter configuration file by substituting an available port number within a
+     * source file.
+     *
+     * @param sourceName original configuration file containing 6969
+     * @return the port that was substituted into the config file
+     * @throws IOException if the config file cannot be created
+     */
+    public static int makeConfigFile(String sourceName) throws IOException {
+        int port = NetworkUtil.allocPort();
+
+        String json = Files.readString(new File("src/test/resources/" + sourceName).toPath());
+        json = json.replace("6969", String.valueOf(port));
+
+        File file = new File(CONFIG_FILE);
+        file.deleteOnExit();
+
+        try (FileOutputStream output = new FileOutputStream(file)) {
+            output.write(json.getBytes(StandardCharsets.UTF_8));
+        }
+
+        return port;
+    }
+
+    /**
+     * Waits for the server to connect to a port.
+     * @param port server's port
+     * @throws InterruptedException if interrupted
+     */
+    public static void awaitServer(int port) throws InterruptedException {
+        if (!NetworkUtil.isTcpPortOpen("localhost", port, 50, 200L)) {
+            throw new IllegalStateException("cannot connect to port " + port);
+        }
+    }
 
     /**
      * Returns an instance of ReceptionHandlerParameters for test cases.
