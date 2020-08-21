@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 AT&T Inc.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +23,15 @@
 package org.onap.policy.distribution.main.startstop;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import org.junit.Test;
+import org.onap.policy.common.utils.resources.MessageConstants;
 import org.onap.policy.distribution.main.PolicyDistributionException;
+import org.onap.policy.distribution.main.PolicyDistributionRuntimeException;
 import org.onap.policy.distribution.main.parameters.CommonTestData;
 
 /**
@@ -50,18 +53,18 @@ public class TestMain {
 
     @Test
     public void testMain_NoArguments() {
-        final String[] distributionConfigParameters =
-        {};
-        final Main main = new Main(distributionConfigParameters);
-        assertNull(main.getParameters());
+        final String[] distributionConfigParameters = {};
+        assertThatThrownBy(() -> new Main(distributionConfigParameters))
+            .isInstanceOf(PolicyDistributionRuntimeException.class)
+            .hasMessage(String.format(MessageConstants.START_FAILURE_MSG, MessageConstants.POLICY_DISTRIBUTION));
     }
 
     @Test
     public void testMain_InvalidArguments() {
-        final String[] distributionConfigParameters =
-        { "parameters/DistributionConfigParameters.json" };
-        final Main main = new Main(distributionConfigParameters);
-        assertNull(main.getParameters());
+        final String[] distributionConfigParameters = {"parameters/DistributionConfigParameters.json"};
+        assertThatThrownBy(() -> new Main(distributionConfigParameters))
+            .isInstanceOf(PolicyDistributionRuntimeException.class)
+            .hasMessage(String.format(MessageConstants.START_FAILURE_MSG, MessageConstants.POLICY_DISTRIBUTION));
     }
 
     @Test
@@ -76,8 +79,9 @@ public class TestMain {
     @Test
     public void testMain_InvalidParameters() {
         final String[] distributionConfigParameters =
-        { "-c", "parameters/DistributionConfigParameters_InvalidName.json" };
-        final Main main = new Main(distributionConfigParameters);
-        assertNull(main.getParameters());
+            {"-c", "parameters/DistributionConfigParameters_InvalidName.json"};
+        assertThatThrownBy(() -> new Main(distributionConfigParameters))
+            .isInstanceOf(PolicyDistributionRuntimeException.class)
+            .hasMessage(String.format(MessageConstants.START_FAILURE_MSG, MessageConstants.POLICY_DISTRIBUTION));
     }
 }

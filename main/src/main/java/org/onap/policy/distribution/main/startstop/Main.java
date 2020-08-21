@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2020 AT&T Inc.
+ *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +24,9 @@
 package org.onap.policy.distribution.main.startstop;
 
 import java.util.Arrays;
+import org.onap.policy.common.utils.resources.MessageConstants;
 import org.onap.policy.distribution.main.PolicyDistributionException;
+import org.onap.policy.distribution.main.PolicyDistributionRuntimeException;
 import org.onap.policy.distribution.main.parameters.DistributionParameterGroup;
 import org.onap.policy.distribution.main.parameters.DistributionParameterHandler;
 import org.slf4j.Logger;
@@ -64,35 +67,24 @@ public class Main {
 
             // Validate that the arguments are sane
             arguments.validate();
-        } catch (final PolicyDistributionException e) {
-            LOGGER.error("start of policy distribution service failed", e);
-            return;
-        }
 
-        // Read the parameters
-        try {
+            // Read the parameters
             parameterGroup = new DistributionParameterHandler().getParameters(arguments);
-        } catch (final Exception e) {
-            LOGGER.error("start of policy distribution service failed", e);
-            return;
-        }
 
-        // Now, create the activator for the policy distribution service
-        activator = new DistributionActivator(parameterGroup);
+            // Now, create the activator for the policy distribution service
+            activator = new DistributionActivator(parameterGroup);
 
-        // Start the activator
-        try {
+            // Start the activator
             activator.initialize();
         } catch (final PolicyDistributionException e) {
-            LOGGER.error("start of policy distribution service failed, used parameters are {}",
-                    Arrays.toString(args),
-                    e);
-            return;
+            throw new PolicyDistributionRuntimeException(
+                String.format(MessageConstants.START_FAILURE_MSG, MessageConstants.POLICY_DISTRIBUTION), e);
         }
 
         // Add a shutdown hook to shut everything down in an orderly manner
         Runtime.getRuntime().addShutdownHook(new PolicyDistributionShutdownHookClass());
-        LOGGER.info("Started policy distribution service");
+        String successMsg = String.format(MessageConstants.START_SUCCESS_MSG, MessageConstants.POLICY_DISTRIBUTION);
+        LOGGER.info(successMsg);
     }
 
     /**
