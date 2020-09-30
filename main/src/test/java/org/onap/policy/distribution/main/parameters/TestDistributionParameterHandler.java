@@ -44,72 +44,41 @@ import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParamet
 public class TestDistributionParameterHandler {
     @Test
     public void testParameterHandlerNoParameterFile() throws PolicyDistributionException {
-        final String[] noArgumentString =
-            { "-c", "parameters/NoParameterFile.json" };
-
-        final DistributionCommandLineArguments noArguments = new DistributionCommandLineArguments();
-        noArguments.parse(noArgumentString);
-        assertThatThrownBy(() ->
-            new DistributionParameterHandler().getParameters(noArguments)
-        ).isInstanceOf(PolicyDistributionException.class).hasMessageContaining("FileNotFoundException");
+        verifyFailure("NoParameterFile.json",
+                        PolicyDistributionException.class,
+                        "FileNotFoundException");
     }
 
     @Test
     public void testParameterHandlerEmptyParameters() throws PolicyDistributionException {
-        final String[] emptyArgumentString =
-            { "-c", "parameters/EmptyParameters.json" };
-
-        final DistributionCommandLineArguments emptyArguments = new DistributionCommandLineArguments();
-        emptyArguments.parse(emptyArgumentString);
-
-        assertThatThrownBy(() ->
-            new DistributionParameterHandler().getParameters(emptyArguments)
-        ).isInstanceOf(PolicyDistributionException.class)
-        .hasMessageContaining("no parameters found in \"parameters/EmptyParameters.json\"");
+        verifyFailure("EmptyParameters.json",
+                        PolicyDistributionException.class,
+                        "no parameters found in \"parameters/EmptyParameters.json\"");
     }
 
     @Test
     public void testParameterHandlerBadParameters() throws PolicyDistributionException {
-        final String[] badArgumentString =
-            { "-c", "parameters/BadParameters.json" };
-
-        final DistributionCommandLineArguments badArguments = new DistributionCommandLineArguments();
-        badArguments.parse(badArgumentString);
-
-        assertThatThrownBy(() ->
-            new DistributionParameterHandler().getParameters(badArguments)
-        ).isInstanceOf(PolicyDistributionException.class)
-            .hasMessageContaining("error reading parameters from \"parameters/BadParameters.json\"\n"
-                + "(JsonSyntaxException):java.lang.IllegalStateException: "
-                + "Expected a string but was BEGIN_ARRAY at line 2 column 15 path $.name");
+        verifyFailure("BadParameters.json",
+                        PolicyDistributionException.class,
+                        "error reading parameters from \"parameters/BadParameters.json\"\n"
+                            + "(JsonSyntaxException):java.lang.IllegalStateException: "
+                            + "Expected a string but was BEGIN_ARRAY at line 2 column 15 path $.name");
     }
 
     @Test
     public void testParameterHandlerInvalidParameters() throws PolicyDistributionException {
-        final String[] invalidArgumentString =
-            { "-c", "parameters/InvalidParameters.json" };
-
-        final DistributionCommandLineArguments invalidArguments = new DistributionCommandLineArguments();
-        invalidArguments.parse(invalidArgumentString);
-
-        assertThatThrownBy(() ->
-            new DistributionParameterHandler().getParameters(invalidArguments)
-        ).isInstanceOf(PolicyDistributionException.class)
-            .hasMessageContaining("error reading parameters from \"parameters/InvalidParameters.json\"\n"
-                + "(JsonSyntaxException):java.lang.IllegalStateException: "
-                + "Expected a string but was BEGIN_ARRAY at line 2 column 15 path $.name");
+        verifyFailure("InvalidParameters.json",
+                        PolicyDistributionException.class,
+                        "error reading parameters from \"parameters/InvalidParameters.json\"\n"
+                            + "(JsonSyntaxException):java.lang.IllegalStateException: "
+                            + "Expected a string but was BEGIN_ARRAY at line 2 column 15 path $.name");
     }
 
     @Test
     public void testParameterHandlerNoParameters() throws PolicyDistributionException {
-        final String[] noArgumentString =
-            { "-c", "parameters/NoParameters.json" };
-
-        final DistributionCommandLineArguments noArguments = new DistributionCommandLineArguments();
-        final DistributionParameterHandler paramHandler = new DistributionParameterHandler();
-        noArguments.parse(noArgumentString);
-        assertThatThrownBy(() -> paramHandler.getParameters(noArguments)).isInstanceOf(ParameterRuntimeException.class)
-            .hasMessageContaining("map parameter \"receptionHandlerParameters\" is null");
+        verifyFailure("NoParameters.json",
+                        ParameterRuntimeException.class,
+                        "map parameter \"receptionHandlerParameters\" is null");
     }
 
     @Test
@@ -159,179 +128,105 @@ public class TestDistributionParameterHandler {
     @Test
     public void testDistributionParameterGroup_InvalidForwarderConfigurationClassName()
             throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-            { "-c", "parameters/DistributionConfigParameters_InvalidForwarderConfigurationClassName.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
-
-        assertThatThrownBy(() ->
-            new DistributionParameterHandler().getParameters(arguments)
-        ).isInstanceOf(PolicyDistributionException.class)
-            .hasMessageContaining("parameter \"parameterClassName\" value \"\" invalid in JSON file");
+        verifyFailure("DistributionConfigParameters_InvalidForwarderConfigurationClassName.json",
+                        PolicyDistributionException.class,
+                        "parameter \"parameterClassName\" value \"\" invalid in JSON file");
     }
 
     @Test
     public void testDistributionParameterGroup_UnknownForwarderConfigurationClassName()
             throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-            { "-c", "parameters/DistributionConfigParameters_UnknownForwarderConfigurationClassName.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
-
-        assertThatThrownBy(() ->
-            new DistributionParameterHandler().getParameters(arguments)
-        ).isInstanceOf(PolicyDistributionException.class)
-            .hasMessageContaining("parameter \"parameterClassName\" value \"org.onap.policy.Unknown\", "
-            + "could not find class");
+        verifyFailure("DistributionConfigParameters_UnknownForwarderConfigurationClassName.json",
+                        PolicyDistributionException.class,
+                        "parameter \"parameterClassName\" value \"org.onap.policy.Unknown\", could not find class");
     }
 
     @Test
     public void testDistributionParameterGroup_InvalidName() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-            { "-c", "parameters/DistributionConfigParameters_InvalidName.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
-
-        assertThatThrownBy(() ->
-            new DistributionParameterHandler().getParameters(arguments)
-        ).isInstanceOf(PolicyDistributionException.class)
-            .hasMessageContaining("field \"name\" type \"java.lang.String\" value \" "
-            + "\" INVALID, must be a non-blank string");
+        verifyFailure("DistributionConfigParameters_InvalidName.json",
+                        PolicyDistributionException.class,
+                        "field \"name\" type \"java.lang.String\" value \" \" INVALID, must be a non-blank string");
     }
 
     @Test
     public void testDistributionParameterGroup_NoReceptionHandler() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-            { "-c", "parameters/DistributionConfigParameters_NoReceptionHandler.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        final DistributionParameterHandler paramHandler = new DistributionParameterHandler();
-        arguments.parse(distributionConfigParameters);
-
-        assertThatThrownBy(() -> paramHandler.getParameters(arguments)).isInstanceOf(ParameterRuntimeException.class)
-            .hasMessageContaining("map parameter \"receptionHandlerParameters\" is null");
+        verifyFailure("DistributionConfigParameters_NoReceptionHandler.json",
+                        ParameterRuntimeException.class,
+                        "map parameter \"receptionHandlerParameters\" is null");
     }
 
     @Test
     public void testDistributionParameterGroup_EmptyReceptionHandler() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-            { "-c", "parameters/DistributionConfigParameters_EmptyReceptionHandler.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
-
-        assertThatThrownBy(() ->
-            new DistributionParameterHandler().getParameters(arguments)
-        ).isInstanceOf(PolicyDistributionException.class)
-            .hasMessageContaining("must have at least one reception handler\n");
+        verifyFailure("DistributionConfigParameters_EmptyReceptionHandler.json",
+                        PolicyDistributionException.class,
+                        "must have at least one reception handler\n");
     }
 
     @Test
     public void testDistributionParameterGroup_NoPolicyDecoder() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-            { "-c", "parameters/DistributionConfigParameters_NoPolicyDecoder.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        final DistributionParameterHandler paramHandler = new DistributionParameterHandler();
-        arguments.parse(distributionConfigParameters);
-
-        assertThatThrownBy(() -> paramHandler.getParameters(arguments)).isInstanceOf(ParameterRuntimeException.class)
-            .hasMessageContaining("map parameter \"policyDecoders\" is null");
+        verifyFailure("DistributionConfigParameters_NoPolicyDecoder.json",
+                        ParameterRuntimeException.class,
+                        "map parameter \"policyDecoders\" is null");
     }
 
     @Test
     public void testDistributionParameterGroup_NoPolicyForwarder() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-            { "-c", "parameters/DistributionConfigParameters_NoPolicyForwarder.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        final DistributionParameterHandler paramHandler = new DistributionParameterHandler();
-        arguments.parse(distributionConfigParameters);
-
-        assertThatThrownBy(() -> paramHandler.getParameters(arguments)).isInstanceOf(ParameterRuntimeException.class)
-            .hasMessageContaining("map parameter \"policyForwarders\" is null");
+        verifyFailure("DistributionConfigParameters_NoPolicyForwarder.json",
+                        ParameterRuntimeException.class,
+                        "map parameter \"policyForwarders\" is null");
     }
 
     @Test
     public void testDistributionParameterGroup_EmptyPolicyDecoder() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-            { "-c", "parameters/DistributionConfigParameters_EmptyPolicyDecoder.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
-
-        assertThatThrownBy(() ->
-            new DistributionParameterHandler().getParameters(arguments)
-        ).isInstanceOf(PolicyDistributionException.class)
-            .hasMessageContaining("must have at least one policy decoder\n");
+        verifyFailure("DistributionConfigParameters_EmptyPolicyDecoder.json",
+                        PolicyDistributionException.class,
+                        "must have at least one policy decoder\n");
     }
 
     @Test
     public void testDistributionParameterGroup_EmptyPolicyForwarder() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-            { "-c", "parameters/DistributionConfigParameters_EmptyPolicyForwarder.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
-
-        assertThatThrownBy(() ->
-            new DistributionParameterHandler().getParameters(arguments)
-        ).isInstanceOf(PolicyDistributionException.class)
-            .hasMessageContaining("must have at least one policy forwarder\n");
+        verifyFailure("DistributionConfigParameters_EmptyPolicyForwarder.json",
+                        PolicyDistributionException.class,
+                        "must have at least one policy forwarder\n");
     }
 
     @Test
     public void testDistributionParameterGroup_InvalidReceptionHandlerParameters()
             throws PolicyDistributionException, IOException {
-        final String[] distributionConfigParameters =
-            { "-c", "parameters/DistributionConfigParameters_InvalidReceptionHandlerParameters.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
 
         String resultString = Files.readString(Paths.get(
-                "src/test/resources/expectedValidationResults/InvalidReceptionHandlerParameters.txt"))
-                .trim().replaceAll("\\r\\n", "\\\n");
-        assertThatThrownBy(() ->
-            new DistributionParameterHandler().getParameters(arguments)
-        ).isInstanceOf(PolicyDistributionException.class)
-            .hasMessageContaining(resultString);
+                        "src/test/resources/expectedValidationResults/InvalidReceptionHandlerParameters.txt"))
+                        .trim().replaceAll("\\r\\n", "\\\n");
+
+        verifyFailure("DistributionConfigParameters_InvalidReceptionHandlerParameters.json",
+                        PolicyDistributionException.class,
+                        resultString);
     }
 
     @Test
     public void testDistributionParameterGroup_InvalidDecoderAndForwarderParameters()
             throws PolicyDistributionException, IOException {
-        final String[] distributionConfigParameters =
-            { "-c", "parameters/DistributionConfigParameters_InvalidDecoderAndForwarderParameters.json" };
 
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
         String resultString = new String(Files.readString(Paths.get(
-                "src/test/resources/expectedValidationResults/InvalidDecoderAndForwarderParameters.txt"))
-                .trim().replaceAll("\\r\\n", "\\\n"));
-        assertThatThrownBy(() -> new DistributionParameterHandler().getParameters(arguments))
-        .isInstanceOf(PolicyDistributionException.class)
-            .hasMessageContaining((resultString));
+                        "src/test/resources/expectedValidationResults/InvalidDecoderAndForwarderParameters.txt"))
+                        .trim().replaceAll("\\r\\n", "\\\n"));
+
+        verifyFailure("DistributionConfigParameters_InvalidDecoderAndForwarderParameters.json",
+                        PolicyDistributionException.class,
+                        resultString);
     }
 
     @Test
     public void testDistributionParameterGroup_InvalidRestServerParameters()
             throws PolicyDistributionException, IOException {
-        final String[] distributionConfigParameters =
-            { "-c", "parameters/DistributionConfigParameters_InvalidRestServerParameters.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
 
         String resultString = new String(Files.readString(Paths.get(
                 "src/test/resources/expectedValidationResults/InvalidRestServerParameters.txt"))
                 .trim().replaceAll("\\r\\n", "\\\n"));
-        assertThatThrownBy(() -> new DistributionParameterHandler().getParameters(arguments))
-        .isInstanceOf(PolicyDistributionException.class)
-            .hasMessageContaining(resultString);
+
+        verifyFailure("DistributionConfigParameters_InvalidRestServerParameters.json",
+                        PolicyDistributionException.class,
+                        resultString);
     }
 
     @Test
@@ -365,56 +260,42 @@ public class TestDistributionParameterHandler {
 
     @Test
     public void testDistributionParameterGroup_InvalidReceptionHandlerClass() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-            { "-c", "parameters/DistributionConfigParameters_InvalidReceptionHandlerClass.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
-
-        assertThatThrownBy(() -> new DistributionParameterHandler().getParameters(arguments))
-        .isInstanceOf(PolicyDistributionException.class)
-            .hasMessageContaining("could not find class");
+        verifyFailure("DistributionConfigParameters_InvalidReceptionHandlerClass.json",
+                        PolicyDistributionException.class, "could not find class");
     }
 
     @Test
     public void testDistributionParameterGroup_EmptyReceptionHandlerClass() throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-            { "-c", "parameters/DistributionConfigParameters_EmptyReceptionHandlerClass.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
-
-        assertThatThrownBy(() -> new DistributionParameterHandler().getParameters(arguments))
-        .isInstanceOf(PolicyDistributionException.class)
-            .hasMessageContaining("invalid in JSON file");
+        verifyFailure("DistributionConfigParameters_EmptyReceptionHandlerClass.json",
+                        PolicyDistributionException.class, "invalid in JSON file");
     }
 
     @Test
     public void testDistributionParameterGroup_InvalidDecoderConfigurationClassName()
             throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-            { "-c", "parameters/DistributionConfigParameters_InvalidDecoderConfigurationClassName.json" };
-
-        final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
-        arguments.parse(distributionConfigParameters);
-
-        assertThatThrownBy(() -> new DistributionParameterHandler().getParameters(arguments))
-        .isInstanceOf(PolicyDistributionException.class)
-            .hasMessageContaining("parameter \"parameterClassName\" value \"\" invalid in JSON file");
+        verifyFailure("DistributionConfigParameters_InvalidDecoderConfigurationClassName.json",
+                        PolicyDistributionException.class,
+                        "parameter \"parameterClassName\" value \"\" invalid in JSON file");
     }
 
     @Test
     public void testDistributionParameterGroup_UnknownDecoderConfigurationClassName()
             throws PolicyDistributionException {
-        final String[] distributionConfigParameters =
-            { "-c", "parameters/DistributionConfigParameters_UnknownDecoderConfigurationClassName.json" };
+        verifyFailure("DistributionConfigParameters_UnknownDecoderConfigurationClassName.json",
+                        PolicyDistributionException.class,
+                        "parameter \"parameterClassName\" value \"org.onap.policy.Unknown\", could not find class");
+    }
+
+    private <T> void verifyFailure(String fileName, Class<T> clazz, String expectedMessage)
+                    throws PolicyDistributionException {
+        final String[] distributionConfigParameters = {"-c", "parameters/" + fileName};
 
         final DistributionCommandLineArguments arguments = new DistributionCommandLineArguments();
         arguments.parse(distributionConfigParameters);
 
-        assertThatThrownBy(() -> new DistributionParameterHandler().getParameters(arguments))
-            .isInstanceOf(PolicyDistributionException.class)
-            .hasMessageContaining("parameter \"parameterClassName\" value"
-                + " \"org.onap.policy.Unknown\", could not find class");
+        DistributionParameterHandler paramHandler = new DistributionParameterHandler();
+
+        assertThatThrownBy(() -> paramHandler.getParameters(arguments)).isInstanceOf(clazz)
+                        .hasMessageContaining(expectedMessage);
     }
 }
