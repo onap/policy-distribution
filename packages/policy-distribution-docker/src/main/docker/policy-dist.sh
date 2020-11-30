@@ -1,8 +1,9 @@
-#!/bin/bash -x
+#!/usr/bin/env ash
 #
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2018 Ericsson. All rights reserved.
 #  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+#  Modifications Copyright (C) 2020 AT&T.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -32,22 +33,21 @@ else
     CONFIG_FILE=${CONFIG_FILE}
 fi
 
-if [ -z "$CONFIG_FILE" ]
-  then
+if [ -z "$CONFIG_FILE" ]; then
     CONFIG_FILE="${POLICY_HOME}/etc/defaultConfig.json"
 fi
 
-if [[ -f "${POLICY_HOME}"/etc/mounted/policy-truststore ]]; then
+if [ -f "${POLICY_HOME}/etc/mounted/policy-truststore" ]; then
     echo "overriding policy-truststore"
     cp -f "${POLICY_HOME}"/etc/mounted/policy-truststore "${TRUSTSTORE}"
 fi
 
-if [[ -f "${POLICY_HOME}"/etc/mounted/policy-keystore ]]; then
+if [ -f "${POLICY_HOME}/etc/mounted/policy-keystore" ]; then
     echo "overriding policy-keystore"
     cp -f "${POLICY_HOME}"/etc/mounted/policy-keystore "${KEYSTORE}"
 fi
 
-if [[ -f "${POLICY_HOME}"/etc/mounted/logback.xml ]]; then
+if [ -f "${POLICY_HOME}/etc/mounted/logback.xml" ]; then
     echo "overriding logback.xml"
     cp -f "${POLICY_HOME}"/etc/mounted/logback.xml "${POLICY_HOME}"/etc/
 fi
