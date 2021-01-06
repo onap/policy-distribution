@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2020 AT&T Inc.
+ *  Modifications Copyright (C) 2021 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,9 +41,9 @@ import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.models.pap.concepts.PdpDeployPolicies;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifierOptVersion;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicyIdentifierOptVersion;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,13 +125,13 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
 
     private Response deployPolicy(final ToscaServiceTemplate toscaServiceTemplate) throws PolicyForwardingException {
         final PdpDeployPolicies pdpPolicies = new PdpDeployPolicies();
-        final List<ToscaPolicyIdentifierOptVersion> policyIdentifierList = new ArrayList<>();
+        final List<ToscaConceptIdentifierOptVersion> policyIdentifierList = new ArrayList<>();
         for (final Map<String, ToscaPolicy> policyMap : toscaServiceTemplate.getToscaTopologyTemplate().getPolicies()) {
             final String policyId = policyMap.entrySet().iterator().next().getValue().getMetadata().get("policy-id");
             final String policyVersion =
                     policyMap.entrySet().iterator().next().getValue().getMetadata().get("policy-version");
-            final ToscaPolicyIdentifierOptVersion toscaPolicyIdentifier =
-                    new ToscaPolicyIdentifierOptVersion(policyId, policyVersion);
+            final ToscaConceptIdentifierOptVersion toscaPolicyIdentifier =
+                    new ToscaConceptIdentifierOptVersion(policyId, policyVersion);
             policyIdentifierList.add(toscaPolicyIdentifier);
         }
         pdpPolicies.setPolicies(policyIdentifierList);
