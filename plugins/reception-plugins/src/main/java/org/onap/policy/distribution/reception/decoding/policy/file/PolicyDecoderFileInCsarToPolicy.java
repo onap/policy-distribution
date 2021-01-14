@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2020 AT&T Inc.
+ *  Modifications Copyright (C) 2020-2021 AT&T Inc.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,8 @@
 package org.onap.policy.distribution.reception.decoding.policy.file;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -76,8 +78,7 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
             final Enumeration<? extends ZipEntry> entries = zipFile.entries();
             while (entries.hasMoreElements()) {
                 final ZipEntry entry = entries.nextElement();
-                if (entry.getName().contains(decoderParameters.getPolicyTypeFileName())
-                        || entry.getName().contains(decoderParameters.getPolicyFileName())) {
+                if (isZipEntryValid(entry, csar.getCsarPath())) {
                     final ToscaServiceTemplate policy =
                             coder.decode(zipFile.getInputStream(entry), ToscaServiceTemplate.class);
                     policyList.add(policy);
@@ -88,5 +89,30 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
         }
 
         return policyList;
+    }
+
+    /**
+     * Method to filter out Policy type and Policy files. In addition,
+     * ensures validation of entries in the Zipfile. Attempts to solve path
+     * injection java security issues.
+     *
+     * @param entry the ZipEntry to check
+     * @param csarPath Absolute path to the csar the ZipEntry is in
+     * @return true if no injection detected, and it is a policy type  or policy file.
+     */
+    private boolean isZipEntryValid(ZipEntry entry, String csarPath) {
+        //
+        // We only care about policy types and policies
+        //
+        if (entry.getName().contains(decoderParameters.getPolicyTypeFileName())
+                || entry.getName().contains(decoderParameters.getPolicyFileName())) {
+            //
+            // Now ensure that there is no path injection
+            //
+            Path path = Path.of(csarPath, entry.getName()).normalize();
+            return path.startsWith(csarPath);
+        }
+
+        return false;
     }
 }
