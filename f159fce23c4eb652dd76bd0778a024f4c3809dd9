@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "540028d2_371bae51",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2021-01-15T15:04:11Z",
+      "side": 1,
+      "message": "We could also add a size check here, like under 1 Mb?? Assuming that the size is included in the CSAR from SDC. Otherwise I recommend adding a //NOSONAR flag if we feel this is enough to accommodate the security issue. Unfortunately, java has no way to address this itself. I have not seen any good solutions on stackoverflow etc. to solve these types of issues.",
+      "range": {
+        "startLine": 85,
+        "startChar": 16,
+        "endLine": 85,
+        "endChar": 75
+      },
+      "revId": "f159fce23c4eb652dd76bd0778a024f4c3809dd9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
