@@ -46,6 +46,30 @@
       "revId": "f159fce23c4eb652dd76bd0778a024f4c3809dd9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba959793_b9503443",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2021-01-15T15:47:33Z",
+      "side": 1,
+      "message": "If I understand correctly the code the zip file never gets \"unzipped\" into the file system (I don\u0027t see an OutputStream in the code to write the entry), seems to me that the file entry will be read from the file and will be converted into a Tosca Policy in memory.   I think the path injection security issue comes into play when unzipping into the file system blindly as it may override some critical OS or application files.\n\nI think the size limit check would be good to take care of DoS that target excessive RAM usage and cause OOM (as the entries go into memory in the form of Tosca Policies) but I don\u0027t think it relates to the path injection issue.\n\nAnother check that could be done would be to check that each zip entry does not refer to any directory location, in other words the zip files dir structure is flat (no dirs), I don\u0027t think this would be an issue if I read the code correctly as the code takes the entry from the zip file into the Tosca Policy without expansion but I may be misreading something.",
+      "parentUuid": "540028d2_371bae51",
+      "range": {
+        "startLine": 85,
+        "startChar": 16,
+        "endLine": 85,
+        "endChar": 75
+      },
+      "revId": "f159fce23c4eb652dd76bd0778a024f4c3809dd9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
