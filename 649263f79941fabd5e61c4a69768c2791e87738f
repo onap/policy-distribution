@@ -16,6 +16,24 @@
       "revId": "649263f79941fabd5e61c4a69768c2791e87738f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15dbd2ab_146a482a",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2021-01-15T18:01:57Z",
+      "side": 1,
+      "message": "There are tons of other files in the csar, so best is to change the method. Potential that normalize could throw an IOException, but doc doesn\u0027t say so.",
+      "parentUuid": "4adb7ec8_f1b41014",
+      "revId": "649263f79941fabd5e61c4a69768c2791e87738f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
