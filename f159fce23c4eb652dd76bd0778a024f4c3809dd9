@@ -22,6 +22,30 @@
       "revId": "f159fce23c4eb652dd76bd0778a024f4c3809dd9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce39dded_9414eea5",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-01-15T15:40:10Z",
+      "side": 1,
+      "message": "if there\u0027s an easy way to check the size, sure.  Otherwise, we can just take it as it is",
+      "parentUuid": "540028d2_371bae51",
+      "range": {
+        "startLine": 85,
+        "startChar": 16,
+        "endLine": 85,
+        "endChar": 75
+      },
+      "revId": "f159fce23c4eb652dd76bd0778a024f4c3809dd9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
