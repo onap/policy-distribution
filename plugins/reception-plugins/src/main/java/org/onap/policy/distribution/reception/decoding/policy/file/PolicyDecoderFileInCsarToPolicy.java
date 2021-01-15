@@ -24,7 +24,6 @@ package org.onap.policy.distribution.reception.decoding.policy.file;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -77,8 +76,13 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
         try (ZipFile zipFile = new ZipFile(csar.getCsarPath())) {
             final Enumeration<? extends ZipEntry> entries = zipFile.entries();
             while (entries.hasMoreElements()) {
+                //
+                // Sonar will flag this as a Security Hotspot
+                // "Expanding archive files is security-sensitive.
+                // isZipEntryValid ensures the file being read exists in the archive
+                //
                 final ZipEntry entry = entries.nextElement();
-                if (isZipEntryValid(entry, csar.getCsarPath())) {
+                if (isZipEntryValid(entry.getName(), csar.getCsarPath())) {
                     final ToscaServiceTemplate policy =
                             coder.decode(zipFile.getInputStream(entry), ToscaServiceTemplate.class);
                     policyList.add(policy);
@@ -100,16 +104,16 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
      * @param csarPath Absolute path to the csar the ZipEntry is in
      * @return true if no injection detected, and it is a policy type  or policy file.
      */
-    private boolean isZipEntryValid(ZipEntry entry, String csarPath) {
+    private boolean isZipEntryValid(String entryName, String csarPath) {
         //
         // We only care about policy types and policies
         //
-        if (entry.getName().contains(decoderParameters.getPolicyTypeFileName())
-                || entry.getName().contains(decoderParameters.getPolicyFileName())) {
+        if (entryName.contains(decoderParameters.getPolicyTypeFileName())
+                || entryName.contains(decoderParameters.getPolicyFileName())) {
             //
             // Now ensure that there is no path injection
             //
-            Path path = Path.of(csarPath, entry.getName()).normalize();
+            Path path = Path.of(csarPath, entryName).normalize();
             return path.startsWith(csarPath);
         }
 
