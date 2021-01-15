@@ -214,6 +214,30 @@
       "revId": "f159fce23c4eb652dd76bd0778a024f4c3809dd9",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a90f3e3_d73adcde",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicy.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2021-01-15T16:21:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d93cc610_a3d0e927",
+      "range": {
+        "startLine": 85,
+        "startChar": 16,
+        "endLine": 85,
+        "endChar": 75
+      },
+      "revId": "f159fce23c4eb652dd76bd0778a024f4c3809dd9",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
