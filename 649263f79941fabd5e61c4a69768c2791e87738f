@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4adb7ec8_f1b41014",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-01-15T17:47:31Z",
+      "side": 1,
+      "message": "need a warning or throw an exception if invalid?  or at least log a message",
+      "revId": "649263f79941fabd5e61c4a69768c2791e87738f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
