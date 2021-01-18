@@ -48,7 +48,7 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
 
     private PolicyDecoderFileInCsarToPolicyParameterGroup decoderParameters;
     private StandardCoder coder;
-    private static final long MAX_FILE_SIZE = 512 * 1024;
+    private static final long MAX_FILE_SIZE = 512L * 1024;
 
     /**
      * {@inheritDoc}.
