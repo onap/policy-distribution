@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53e8d31f_88ed20f3",
+        "filename": "csit/plans/testplan.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-02-04T20:09:24Z",
+      "side": 1,
+      "message": "csit/tests",
+      "range": {
+        "startLine": 1,
+        "startChar": 65,
+        "endLine": 1,
+        "endChar": 70
+      },
+      "revId": "06882f7f4b4d1e966a5f007f94597f9c301b38ce",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
