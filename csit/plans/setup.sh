@@ -30,7 +30,7 @@ sudo apt-get -y install libxml2-utils
 
 source ${SCRIPTS}/detmVers.sh
 
-SCRIPT_DIR=${SCRIPTS}/config
+SCRIPT_DIR=${TESTPLANDIR}/csit/config
 
 # Remaking the csar file in case if the file got corrupted
 zip -F ${SCRIPT_DIR}/csar/sample_csar_with_apex_policy.csar --out ${SCRIPT_DIR}/csar/csar_temp.csar
