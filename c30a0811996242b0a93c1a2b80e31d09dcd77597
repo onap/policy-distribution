@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7331e4b3_4304ec70",
+        "filename": "packages/policy-distribution-docker/src/main/docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-02-23T16:29:16Z",
+      "side": 1,
+      "message": "license?",
+      "revId": "c30a0811996242b0a93c1a2b80e31d09dcd77597",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
