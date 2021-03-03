@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 AT&T Intellectual Property. All rights reserved.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -226,5 +226,27 @@ public class TestDistributionParameterGroup {
         assertTrue(validationResult.getResult()
                 .contains("\"org.onap.policy.common.endpoints.parameters.RestServerParameters\" INVALID, "
                         + "parameter group has status INVALID"));
+    }
+
+    @Test
+    public void testDistributionParameterGroup_NullRestServerParameters() {
+        final RestServerParameters restServerParameters = null;
+        final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
+                commonTestData.getReceptionHandlerParameters(false);
+        final Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurations =
+                commonTestData.getReceptionHandlerConfigurationParameters(false);
+        final Map<String, PolicyForwarderConfigurationParameterGroup> forwarderConfigurations =
+                commonTestData.getPolicyForwarderConfigurationParameters(false);
+        final Map<String, PolicyDecoderConfigurationParameterGroup> decoderConfigurations =
+                commonTestData.getPolicyDecoderConfigurationParameters(false);
+
+        final DistributionParameterGroup distributionParameters = new DistributionParameterGroup(
+                CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, receptionHandlerParameters,
+                receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
+        final GroupValidationResult validationResult = distributionParameters.validate();
+        assertFalse(validationResult.isValid());
+        assertTrue(validationResult.getResult()
+                .contains("parameter group \"UNDEFINED\" INVALID, "
+                        + "must have restServerParameters to configure distribution rest server"));
     }
 }
