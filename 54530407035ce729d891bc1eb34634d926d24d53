@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae636385_5b154467",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/parameters/TestDistributionParameterGroup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-03T17:53:03Z",
+      "side": 1,
+      "message": "sonar: use assertThat(xxx).contains()",
+      "range": {
+        "startLine": 248,
+        "startChar": 8,
+        "endLine": 248,
+        "endChar": 18
+      },
+      "revId": "54530407035ce729d891bc1eb34634d926d24d53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f83ddf9_de9ceeef",
+        "filename": "main/src/test/java/org/onap/policy/distribution/main/startstop/TestDistributionCommandLineArguments.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-03T17:53:03Z",
+      "side": 1,
+      "message": "looks like a common method could be extracted for these duplicated lines",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 80
+      },
+      "revId": "54530407035ce729d891bc1eb34634d926d24d53",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
