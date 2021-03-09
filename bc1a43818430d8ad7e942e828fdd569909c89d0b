@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "285b2be1_6a2844ab",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPluginHandlerParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:26:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecd0d06d_10ee785e",
+      "range": {
+        "startLine": 42,
+        "startChar": 56,
+        "endLine": 42,
+        "endChar": 87
+      },
+      "revId": "bc1a43818430d8ad7e942e828fdd569909c89d0b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "74c9936f_3c6ef9a5",
         "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPluginHandlerParameters.java",
         "patchSetId": 1
@@ -81,6 +105,30 @@
         "id": 7625
       },
       "writtenOn": "2021-03-09T16:19:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74c9936f_3c6ef9a5",
+      "range": {
+        "startLine": 77,
+        "startChar": 28,
+        "endLine": 77,
+        "endChar": 61
+      },
+      "revId": "bc1a43818430d8ad7e942e828fdd569909c89d0b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2dcef509_757b7e21",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPluginHandlerParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:26:28Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "74c9936f_3c6ef9a5",
@@ -191,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "e62c5581_0d6b6d05",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPolicyDecoderConfigurationParametersJsonAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:26:28Z",
+      "side": 1,
+      "message": "oh, I see the issue - we need a special type adapter for the parameter groups.  This seems to indicate a problem with the structure of the parameter group classes, as none of the other repos need a special type adapter for the parameter group classes.\n\nmaybe create a JIRA to fix this",
+      "parentUuid": "4afca53b_00590548",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 17
+      },
+      "revId": "bc1a43818430d8ad7e942e828fdd569909c89d0b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7296769_3a61e443",
         "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPolicyDecoderConfigurationParametersJsonAdapter.java",
         "patchSetId": 1
@@ -211,6 +283,30 @@
       "revId": "bc1a43818430d8ad7e942e828fdd569909c89d0b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d049dac1_a3817bc1",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPolicyDecoderConfigurationParametersJsonAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:26:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d7296769_3a61e443",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 13
+      },
+      "revId": "bc1a43818430d8ad7e942e828fdd569909c89d0b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -249,6 +345,24 @@
     },
     {
       "key": {
+        "uuid": "cfaa9428_d6390596",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPolicyDecoderConfigurationParametersJsonAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:26:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "983ef83f_6cf0041b",
+      "revId": "bc1a43818430d8ad7e942e828fdd569909c89d0b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85d790a3_cae72978",
         "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestReceptionHandlerConfigurationParametersJsonAdapter.java",
         "patchSetId": 1
@@ -272,6 +386,30 @@
     },
     {
       "key": {
+        "uuid": "1521f185_4659a3dd",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestReceptionHandlerConfigurationParametersJsonAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:26:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "85d790a3_cae72978",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 13
+      },
+      "revId": "bc1a43818430d8ad7e942e828fdd569909c89d0b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a227ba4_94265479",
         "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestReceptionHandlerConfigurationParametersJsonAdapter.java",
         "patchSetId": 1
@@ -292,6 +430,30 @@
       "revId": "bc1a43818430d8ad7e942e828fdd569909c89d0b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d48eacc_5024c69d",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestReceptionHandlerConfigurationParametersJsonAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:26:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0a227ba4_94265479",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 13
+      },
+      "revId": "bc1a43818430d8ad7e942e828fdd569909c89d0b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -470,6 +632,24 @@
       "side": 1,
       "message": "they are not lombok annotated",
       "parentUuid": "6ef2ba01_5c805697",
+      "revId": "bc1a43818430d8ad7e942e828fdd569909c89d0b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14e7c943_dff353e0",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/statistics/TestDistributionStatisticsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:26:28Z",
+      "side": 1,
+      "message": "oh, they should be - that needs to be fixed.\n\nalso create a JIRA to get rid of the static methods in DistributionStatisticsManager - the code should create an instance of that object and make the fields should be non-static.",
+      "parentUuid": "9e7ad074_b6804cab",
       "revId": "bc1a43818430d8ad7e942e828fdd569909c89d0b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true

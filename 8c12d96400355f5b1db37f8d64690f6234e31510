@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "caca66e9_7afd7b98",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPolicyDecoderConfigurationParametersJsonAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:26:28Z",
+      "side": 1,
+      "message": "should be a method to read the whole content of a file - no need to append lines to a buffer.  There may be a method that takes a file name or a File object, but lines 98-100 can be collapsed into a single call",
+      "revId": "8c12d96400355f5b1db37f8d64690f6234e31510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d77875d_e1ac0399",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestReceptionHandlerConfigurationParametersJsonAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:26:28Z",
+      "side": 1,
+      "message": "same comment as before",
+      "range": {
+        "startLine": 97,
+        "startChar": 7,
+        "endLine": 100,
+        "endChar": 38
+      },
+      "revId": "8c12d96400355f5b1db37f8d64690f6234e31510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f1fc30a_b837169c",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestReceptionHandlerParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:26:28Z",
+      "side": 1,
+      "message": "not needed",
+      "revId": "8c12d96400355f5b1db37f8d64690f6234e31510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2bcb1b5_526df920",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestReceptionHandlerParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:26:28Z",
+      "side": 1,
+      "message": "not needed",
+      "revId": "8c12d96400355f5b1db37f8d64690f6234e31510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc6c77dd_072ea1cd",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestReceptionHandlerParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:26:28Z",
+      "side": 1,
+      "message": "not needed",
+      "revId": "8c12d96400355f5b1db37f8d64690f6234e31510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a51b6603_1d67c63e",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestReceptionHandlerParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:26:28Z",
+      "side": 1,
+      "message": "not needed",
+      "revId": "8c12d96400355f5b1db37f8d64690f6234e31510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82003188_bc62b295",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestReceptionHandlerParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:26:28Z",
+      "side": 1,
+      "message": "not needed",
+      "revId": "8c12d96400355f5b1db37f8d64690f6234e31510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
