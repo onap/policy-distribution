@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "36427aca_991313d1",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPolicyDecoderConfigurationParametersJsonAdapter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T15:45:06Z",
+      "side": 1,
+      "message": "that doesn\u0027t make sense.  StandardCoder uses gson internally.  What coverage went to zero?  The src/main/java code?  Or the src/test/java code?  If the latter, it doesn\u0027t matter, as that isn\u0027t reported in sonarcloud.",
+      "parentUuid": "856adbb4_5c69b49f",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 17
+      },
+      "revId": "bc1a43818430d8ad7e942e828fdd569909c89d0b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7296769_3a61e443",
         "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPolicyDecoderConfigurationParametersJsonAdapter.java",
         "patchSetId": 1
