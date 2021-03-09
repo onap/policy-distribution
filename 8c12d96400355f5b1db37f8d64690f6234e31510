@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "63d43781_2591c51f",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPolicyDecoderConfigurationParametersJsonAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2021-03-09T16:42:23Z",
+      "side": 1,
+      "message": "Yes,we should use the StandardCoder here.",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 38
+      },
+      "revId": "8c12d96400355f5b1db37f8d64690f6234e31510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bba542ec_fb3e867c",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPolicyDecoderConfigurationParametersJsonAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2021-03-09T16:42:23Z",
+      "side": 1,
+      "message": "Yes, use IoUtils or TextFileUtils in policy/common",
+      "range": {
+        "startLine": 96,
+        "startChar": 19,
+        "endLine": 96,
+        "endChar": 32
+      },
+      "revId": "8c12d96400355f5b1db37f8d64690f6234e31510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "caca66e9_7afd7b98",
         "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPolicyDecoderConfigurationParametersJsonAdapter.java",
         "patchSetId": 3
