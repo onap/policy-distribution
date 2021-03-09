@@ -251,6 +251,24 @@
       "revId": "bc1a43818430d8ad7e942e828fdd569909c89d0b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e7ad074_b6804cab",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/statistics/TestDistributionStatisticsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2021-03-09T15:16:35Z",
+      "side": 1,
+      "message": "they are not lombok annotated",
+      "parentUuid": "6ef2ba01_5c805697",
+      "revId": "bc1a43818430d8ad7e942e828fdd569909c89d0b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
