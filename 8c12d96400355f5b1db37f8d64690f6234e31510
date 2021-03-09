@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0a2fc926_e9b48b8c",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPolicyDecoderConfigurationParametersJsonAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:35:09Z",
+      "side": 1,
+      "message": "this will work:\n\n  new String(Files.readAllBytes(new file(path).toPath()), StandardCharsets.UTF_8)",
+      "parentUuid": "caca66e9_7afd7b98",
+      "revId": "8c12d96400355f5b1db37f8d64690f6234e31510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4d77875d_e1ac0399",
         "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestReceptionHandlerConfigurationParametersJsonAdapter.java",
         "patchSetId": 3
