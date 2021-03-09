@@ -1,0 +1,7 @@
+{
+    "parameterClassName": "org.onap.policy.distribution.reception.testclasses.DummyPolicyDecoderParameterGroup",
+    "parameters": {
+        "policyName": "SamplePolicy",
+        "policyType": "DUMMY"
+    }
+}
