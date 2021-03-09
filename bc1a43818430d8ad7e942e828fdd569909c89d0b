@@ -653,6 +653,24 @@
       "revId": "bc1a43818430d8ad7e942e828fdd569909c89d0b",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61a06278_c0d70cd0",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/statistics/TestDistributionStatisticsManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T16:27:59Z",
+      "side": 1,
+      "message": "No need to change this in Honolulu - can assign the JIRA to Istanbul, \"R9 Technical Debt\" epic",
+      "parentUuid": "14e7c943_dff353e0",
+      "revId": "bc1a43818430d8ad7e942e828fdd569909c89d0b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
