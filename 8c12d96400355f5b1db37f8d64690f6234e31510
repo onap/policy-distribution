@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a2ee4bc2_c5267f9e",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPolicyDecoderConfigurationParametersJsonAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-03-09T17:56:01Z",
+      "side": 1,
+      "message": "I wish we could, but as Adheli pointed out to me, that won\u0027t work here; this relies on a specialized type adapter - perhaps we can change that design in a subsequent review",
+      "parentUuid": "63d43781_2591c51f",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 38
+      },
+      "revId": "8c12d96400355f5b1db37f8d64690f6234e31510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bba542ec_fb3e867c",
         "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPolicyDecoderConfigurationParametersJsonAdapter.java",
         "patchSetId": 3
