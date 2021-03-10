@@ -1,0 +1,8 @@
+{
+    "parameterClassName": "org.onap.policy.distribution.reception.testclasses.DummyReceptionHandlerParameterGroup",
+    "parameters": {
+        "myStringParameter": "stringValue",
+        "myIntegerParameter": 20,
+        "myBooleanParameter": true
+    }
+}
