@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "643e194e_4a226ba6",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPolicyDecoderConfigurationParametersJsonAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2021-03-10T11:58:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a2ee4bc2_c5267f9e",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 38
+      },
+      "revId": "8c12d96400355f5b1db37f8d64690f6234e31510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bba542ec_fb3e867c",
         "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPolicyDecoderConfigurationParametersJsonAdapter.java",
         "patchSetId": 3
@@ -69,6 +93,30 @@
       "revId": "8c12d96400355f5b1db37f8d64690f6234e31510",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddb0e2c4_73785060",
+        "filename": "reception/src/test/java/org/onap/policy/distribution/reception/parameters/TestPolicyDecoderConfigurationParametersJsonAdapter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2021-03-10T11:58:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bba542ec_fb3e867c",
+      "range": {
+        "startLine": 96,
+        "startChar": 19,
+        "endLine": 96,
+        "endChar": 32
+      },
+      "revId": "8c12d96400355f5b1db37f8d64690f6234e31510",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
