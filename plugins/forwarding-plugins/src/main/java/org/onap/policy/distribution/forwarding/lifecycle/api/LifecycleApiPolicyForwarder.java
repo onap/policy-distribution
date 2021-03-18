@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2020 AT&T Inc.
+ *  Modifications Copyright (C) 2020-2021 AT&T Inc.
  *  Modifications Copyright (C) 2021 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +32,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 import org.onap.policy.common.endpoints.event.comm.bus.internal.BusTopicParams;
 import org.onap.policy.common.endpoints.http.client.HttpClient;
 import org.onap.policy.common.endpoints.http.client.HttpClientConfigException;
@@ -144,7 +143,7 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
         try {
             response = getHttpClient(wantApi).post(path, entity, ImmutableMap.of(HttpHeaders.ACCEPT,
                     MediaType.APPLICATION_JSON, HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
-            if (response.getStatus() != Status.OK.getStatusCode()) {
+            if (response.getStatus() / 100 != 2) {
                 LOGGER.error(
                         "Invocation of path {} failed for entity {}. Response status: {}, Response status info: {}",
                         path, entity, response.getStatus(), response.getStatusInfo());
@@ -163,7 +162,7 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
                 (wantApi ? forwarderParameters.getApiParameters() : forwarderParameters.getPapParameters());
         final BusTopicParams params = BusTopicParams.builder().clientName("Policy Distribution").useHttps(https)
                 .hostname(parameters.getHostName()).port(parameters.getPort()).userName(parameters.getUserName())
-                .password(parameters.getPassword())
+                .password(parameters.getPassword()).allowSelfSignedCerts(forwarderParameters.isAllowSelfSignedCerts())
                 .build();
         return HttpClientFactoryInstance.getClientFactory().build(params);
     }
