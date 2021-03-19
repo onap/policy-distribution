@@ -32,7 +32,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 import org.onap.policy.common.endpoints.event.comm.bus.internal.BusTopicParams;
 import org.onap.policy.common.endpoints.http.client.HttpClient;
 import org.onap.policy.common.endpoints.http.client.HttpClientConfigException;
@@ -144,7 +143,7 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
         try {
             response = getHttpClient(wantApi).post(path, entity, ImmutableMap.of(HttpHeaders.ACCEPT,
                     MediaType.APPLICATION_JSON, HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
-            if (response.getStatus() != Status.OK.getStatusCode()) {
+            if (response.getStatus() / 100 != 2) {
                 LOGGER.error(
                         "Invocation of path {} failed for entity {}. Response status: {}, Response status info: {}",
                         path, entity, response.getStatus(), response.getStatusInfo());
