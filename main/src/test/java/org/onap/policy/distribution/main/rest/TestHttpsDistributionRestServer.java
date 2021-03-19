@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
- *  Modifications Copyright (C) 2020 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +39,7 @@ import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.Test;
 import org.onap.policy.common.endpoints.report.HealthCheckReport;
 import org.onap.policy.common.utils.network.NetworkUtil;
+import org.onap.policy.common.utils.security.SelfSignedKeyStore;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.CommonTestData;
 import org.onap.policy.distribution.main.startstop.Main;
@@ -53,7 +54,6 @@ public class TestHttpsDistributionRestServer {
     private static final String ALIVE = "alive";
     private static final String SELF = NetworkUtil.getHostname();
     private static final String NAME = "Policy SSD";
-    private static String KEYSTORE = System.getProperty("user.dir") + "/src/test/resources/ssl/policy-keystore";
 
     private int port;
 
@@ -68,10 +68,10 @@ public class TestHttpsDistributionRestServer {
         }).doesNotThrowAnyException();
     }
 
-    private Main startDistributionService() throws IOException {
+    private Main startDistributionService() throws IOException, InterruptedException {
         final Properties systemProps = System.getProperties();
-        systemProps.put("javax.net.ssl.keyStore", KEYSTORE);
-        systemProps.put("javax.net.ssl.keyStorePassword", "Pol1cy_0nap");
+        systemProps.put("javax.net.ssl.keyStore", new SelfSignedKeyStore().getKeystoreName());
+        systemProps.put("javax.net.ssl.keyStorePassword", SelfSignedKeyStore.KEYSTORE_PASSWORD);
         System.setProperties(systemProps);
 
         port = CommonTestData.makeConfigFile("parameters/DistributionConfigParameters_Https.json");
