@@ -10,7 +10,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="PAP_HOST" elementType="Argument">
             <stringProp name="Argument.name">PAP_HOST</stringProp>
-            <stringProp name="Argument.value">${__P(host,10.2.0.27)}</stringProp>
+            <stringProp name="Argument.value">${__P(host,10.2.0.110)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="PAP_PORT" elementType="Argument">
@@ -20,7 +20,7 @@
           </elementProp>
           <elementProp name="API_HOST" elementType="Argument">
             <stringProp name="Argument.name">API_HOST</stringProp>
-            <stringProp name="Argument.value">${__P(host,10.2.0.27)}</stringProp>
+            <stringProp name="Argument.value">${__P(host,10.2.0.110)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="API_PORT" elementType="Argument">
@@ -35,12 +35,12 @@
           </elementProp>
           <elementProp name="DISTRIBUTION_PORT" elementType="Argument">
             <stringProp name="Argument.name">DISTRIBUTION_PORT</stringProp>
-            <stringProp name="Argument.value">7001</stringProp>
+            <stringProp name="Argument.value">7002</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="DURATION" elementType="Argument">
             <stringProp name="Argument.name">DURATION</stringProp>
-            <stringProp name="Argument.value">${__P(duration, 259200)}</stringProp>
+            <stringProp name="Argument.value">${__P(duration, 14400)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="SCRIPT_DIR" elementType="Argument">
@@ -50,7 +50,7 @@
           </elementProp>
           <elementProp name="WATCHED_FOLDER" elementType="Argument">
             <stringProp name="Argument.name">WATCHED_FOLDER</stringProp>
-            <stringProp name="Argument.value">${__P(watchedfolder, /tmp/policydistribution/distributionmounts)}</stringProp>
+            <stringProp name="Argument.value">${__P(watchedfolder, /tmp/policydistribution/distributionmount)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -87,21 +87,21 @@
         <AuthManager guiclass="AuthPanel" testclass="AuthManager" testname="HTTP Authorization Manager" enabled="true">
           <collectionProp name="AuthManager.auth_list">
             <elementProp name="" elementType="Authorization">
-              <stringProp name="Authorization.url">https://${PAP_HOST}:7000/policy/pap/v1</stringProp>
+              <stringProp name="Authorization.url">https://${PAP_HOST}:${PAP_PORT}/policy/pap/v1</stringProp>
               <stringProp name="Authorization.username">healthcheck</stringProp>
               <stringProp name="Authorization.password">zb!XztG34</stringProp>
               <stringProp name="Authorization.domain"></stringProp>
               <stringProp name="Authorization.realm"></stringProp>
             </elementProp>
             <elementProp name="" elementType="Authorization">
-              <stringProp name="Authorization.url">https://${API_HOST}:6969/policy/api/v1</stringProp>
+              <stringProp name="Authorization.url">https://${API_HOST}:${API_PORT}/policy/api/v1</stringProp>
               <stringProp name="Authorization.username">healthcheck</stringProp>
               <stringProp name="Authorization.password">zb!XztG34</stringProp>
               <stringProp name="Authorization.domain"></stringProp>
               <stringProp name="Authorization.realm"></stringProp>
             </elementProp>
             <elementProp name="" elementType="Authorization">
-              <stringProp name="Authorization.url">http://127.0.0.1:6969/</stringProp>
+              <stringProp name="Authorization.url">http://${DISTRIBUTION_HOST}:${DISTRIBUTION_PORT}/</stringProp>
               <stringProp name="Authorization.username">healthcheck</stringProp>
               <stringProp name="Authorization.password">zb!XztG34</stringProp>
               <stringProp name="Authorization.domain"></stringProp>
@@ -116,7 +116,7 @@
           <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="Remove CSAR" enabled="true">
             <boolProp name="SystemSampler.checkReturnCode">false</boolProp>
             <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
-            <stringProp name="SystemSampler.command">${SCRIPT_DIR}removecsars.sh</stringProp>
+            <stringProp name="SystemSampler.command">${SCRIPT_DIR}/removecsars.sh</stringProp>
             <elementProp name="SystemSampler.arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="Argument">
@@ -360,7 +360,7 @@
           <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="Undeploy/Delete Policies" enabled="true">
             <boolProp name="SystemSampler.checkReturnCode">false</boolProp>
             <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
-            <stringProp name="SystemSampler.command">${SCRIPT_DIR}clearuppolicies.sh</stringProp>
+            <stringProp name="SystemSampler.command">${SCRIPT_DIR}/clearuppolicies.sh</stringProp>
             <elementProp name="SystemSampler.arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="Argument">
@@ -537,21 +537,21 @@
         <AuthManager guiclass="AuthPanel" testclass="AuthManager" testname="HTTP Authorization Manager" enabled="true">
           <collectionProp name="AuthManager.auth_list">
             <elementProp name="" elementType="Authorization">
-              <stringProp name="Authorization.url">https://${PAP_HOST}:7000/policy/pap/v1</stringProp>
+              <stringProp name="Authorization.url">https://${PAP_HOST}:${PAP_PORT}/policy/pap/v1</stringProp>
               <stringProp name="Authorization.username">healthcheck</stringProp>
               <stringProp name="Authorization.password">zb!XztG34</stringProp>
               <stringProp name="Authorization.domain"></stringProp>
               <stringProp name="Authorization.realm"></stringProp>
             </elementProp>
             <elementProp name="" elementType="Authorization">
-              <stringProp name="Authorization.url">https://${API_HOST}:6969/policy/api/v1</stringProp>
+              <stringProp name="Authorization.url">https://${API_HOST}:${API_PORT}/policy/api/v1</stringProp>
               <stringProp name="Authorization.username">healthcheck</stringProp>
               <stringProp name="Authorization.password">zb!XztG34</stringProp>
               <stringProp name="Authorization.domain"></stringProp>
               <stringProp name="Authorization.realm"></stringProp>
             </elementProp>
             <elementProp name="" elementType="Authorization">
-              <stringProp name="Authorization.url">http://127.0.0.1:6969/</stringProp>
+              <stringProp name="Authorization.url">http://${DISTRIBUTION_HOST}:${DISTRIBUTION_PORT}/</stringProp>
               <stringProp name="Authorization.username">healthcheck</stringProp>
               <stringProp name="Authorization.password">zb!XztG34</stringProp>
               <stringProp name="Authorization.domain"></stringProp>

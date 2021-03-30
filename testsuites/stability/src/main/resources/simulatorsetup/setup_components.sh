@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============LICENSE_START=======================================================
-#  Copyright (c) 2020 Nordix Foundation.
+#  Copyright (c) 2020-2021 Nordix Foundation.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,12 +18,15 @@
 # ============LICENSE_END=========================================================
 
 # the directory of the script
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo ${DIR}
+
+# change to VM IP
+POLICY_API_HOST=127.0.0.1
 
 # the temp directory used, within $DIR
 # omit the -p parameter to create a temporal directory in the default location
-WORK_DIR=`mktemp -d -p "$DIR"`
+WORK_DIR=$(mktemp -d -p "$DIR")
 echo ${WORK_DIR}
 
 cd ${WORK_DIR}
@@ -47,19 +50,19 @@ git clone http://gerrit.onap.org/r/oparent
 git clone --depth 1 https://gerrit.onap.org/r/policy/models -b master
 
 cd models/models-sim/models-sim-dmaap
-${WORK_DIR}/maven/apache-maven-3.3.9/bin/mvn clean install -DskipTests  --settings ${WORK_DIR}/oparent/settings.xml
+${WORK_DIR}/maven/apache-maven-3.3.9/bin/mvn clean install -DskipTests --settings ${WORK_DIR}/oparent/settings.xml
 bash ./src/main/package/docker/docker_build.sh
 
 cd ../policy-models-sim-pdp
-${WORK_DIR}/maven/apache-maven-3.3.9/bin/mvn clean install -DskipTests  --settings ${WORK_DIR}/oparent/settings.xml
+${WORK_DIR}/maven/apache-maven-3.3.9/bin/mvn clean install -DskipTests --settings ${WORK_DIR}/oparent/settings.xml
 bash ./src/main/package/docker/docker_build.sh
 
 cd ${DIR}
 rm -rf ${WORK_DIR}
 
-docker run -p 3306:3306 -v ${DIR}/config/db:/docker-entrypoint-initdb.d --name mariadb  --env-file ${DIR}/config/db/db.conf -d --rm mariadb:10.2.14 --lower-case-table-names=1 --wait_timeout=28800
+docker run -p 3306:3306 -v ${DIR}/config/db:/docker-entrypoint-initdb.d --name mariadb --env-file ${DIR}/config/db/db.conf -d --rm mariadb:10.2.14 --lower-case-table-names=1 --wait_timeout=28800
 docker run -p 3904:3904 -d --name message-router --rm dmaap/simulator:latest
 sleep 10
 docker run --link message-router:message-router -d --rm --name pdp-simulator pdp/simulator:latest
-docker run -p 6969:6969 --link mariadb:mariadb --name policy-api -d --rm nexus3.onap.org:10001/onap/policy-api:2.2.3-SNAPSHOT
-docker run -p 7000:6969 --link mariadb:mariadb --link message-router:message-router --name policy-pap -d --rm nexus3.onap.org:10001/onap/policy-pap:2.2.2-SNAPSHOT
+docker run -p 6969:6969 --link mariadb:mariadb --name policy-api -d --rm nexus3.onap.org:10001/onap/policy-api:2.4.2-SNAPSHOT
+docker run -p 7000:6969 --link mariadb:mariadb --link message-router:message-router --name policy-pap --add-host policy-api:${POLICY_API_HOST} -d --rm nexus3.onap.org:10001/onap/policy-pap:2.4.2-SNAPSHOT
