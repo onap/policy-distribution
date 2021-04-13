@@ -20,11 +20,11 @@
 
 package org.onap.policy.distribution.main.startstop;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
-import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.PolicyDistributionRuntimeException;
 
 /**
@@ -34,6 +34,12 @@ import org.onap.policy.distribution.main.PolicyDistributionRuntimeException;
  *
  */
 public class TestDistributionCommandLineArguments {
+
+    @Test
+    public void testDistributionOnlyFileName() {
+        String[] testArgs = {"src/test/resources/parameters/DistributionConfigParameters.json"};
+        assertThrows(PolicyDistributionRuntimeException.class, () -> new DistributionCommandLineArguments(testArgs));
+    }
 
     @Test
     public void testDistributionCommandLineArgumentsException() {
@@ -61,11 +67,15 @@ public class TestDistributionCommandLineArguments {
                 "policy distribution configuration file \"src/test/resources/parameters\" is not a normal file");
     }
 
-    protected void assertValidate(String[] testArgs, String expectedErrorMsg) {
+    @Test
+    public void testDistributionVersion() {
+        String[] testArgs = {"-v"};
         DistributionCommandLineArguments sutArgs = new DistributionCommandLineArguments(testArgs);
+        assertThat(sutArgs.version()).startsWith("ONAP Policy Framework Distribution Service");
+    }
 
-        assertThatThrownBy(() -> sutArgs.validate())
-            .isInstanceOf(PolicyDistributionException.class)
-            .hasMessage(expectedErrorMsg);
+    private void assertValidate(String[] testArgs, String expectedErrorMsg) {
+        DistributionCommandLineArguments sutArgs = new DistributionCommandLineArguments(testArgs);
+        assertThatThrownBy(() -> sutArgs.validate()).hasMessage(expectedErrorMsg);
     }
 }

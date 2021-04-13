@@ -4,6 +4,7 @@
  *  Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2020 AT&T Inc.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +25,7 @@
 package org.onap.policy.distribution.main.startstop;
 
 import java.util.Arrays;
+import org.onap.policy.common.utils.cmd.CommandLineException;
 import org.onap.policy.common.utils.resources.MessageConstants;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.PolicyDistributionRuntimeException;
@@ -76,7 +78,7 @@ public class Main {
 
             // Start the activator
             activator.initialize();
-        } catch (final PolicyDistributionException e) {
+        } catch (final PolicyDistributionException | CommandLineException e) {
             throw new PolicyDistributionRuntimeException(
                 String.format(MessageConstants.START_FAILURE_MSG, MessageConstants.POLICY_DISTRIBUTION), e);
         }
