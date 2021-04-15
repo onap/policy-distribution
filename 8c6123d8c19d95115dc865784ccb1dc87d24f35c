@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73ca2b59_5f919e07",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionCommandLineArguments.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 4903
+      },
+      "writtenOn": "2021-04-15T09:38:19Z",
+      "side": 0,
+      "message": "Nice!",
+      "revId": "8c6123d8c19d95115dc865784ccb1dc87d24f35c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
