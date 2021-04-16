@@ -34,6 +34,24 @@
       "revId": "737d2a33d8f3a2fb0c54a211ea191891224f75ac",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1ad4781_4973d53b",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/startstop/DistributionCommandLineArguments.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2021-04-16T09:47:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adad955a_71d7503d",
+      "revId": "737d2a33d8f3a2fb0c54a211ea191891224f75ac",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
