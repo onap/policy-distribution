@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,23 +22,24 @@
 
 package org.onap.policy.distribution.reception.parameters;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
+import lombok.Getter;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ParameterGroup;
-import org.onap.policy.common.parameters.ValidationStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.onap.policy.common.parameters.annotations.ClassName;
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
  * Class to hold all the policy decoder parameters.
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
+@Getter
+@NotBlank
 public class PolicyDecoderParameters implements ParameterGroup {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(PolicyDecoderParameters.class);
-
-    private String decoderType;
-    private String decoderClassName;
+    private @NotNull String decoderType;
+    private @NotNull @ClassName String decoderClassName;
     private String decoderConfigurationName;
 
     /**
@@ -52,33 +54,6 @@ public class PolicyDecoderParameters implements ParameterGroup {
         this.decoderType = decoderType;
         this.decoderClassName = decoderClassName;
         this.decoderConfigurationName = decoderConfigurationName;
-    }
-
-    /**
-     * Return the decoderType of this PolicyDecoderParameters instance.
-     *
-     * @return the decoderType
-     */
-    public String getDecoderType() {
-        return decoderType;
-    }
-
-    /**
-     * Return the decoderClassName of this PolicyDecoderParameters instance.
-     *
-     * @return the decoderClassName
-     */
-    public String getDecoderClassName() {
-        return decoderClassName;
-    }
-
-    /**
-     * Return the name of the decoder configuration of this {@link PolicyDecoderParameters} instance.
-     *
-     * @return the the name of the decoder configuration
-     */
-    public String getDecoderConfigurationName() {
-        return decoderConfigurationName;
     }
 
     /**
@@ -101,27 +76,7 @@ public class PolicyDecoderParameters implements ParameterGroup {
      * {@inheritDoc}.
      */
     @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult validationResult = new GroupValidationResult(this);
-        if (decoderType == null || decoderType.trim().length() == 0) {
-            validationResult.setResult("decoderType", ValidationStatus.INVALID, "must be a non-blank string");
-        }
-        if (decoderClassName == null || decoderClassName.trim().length() == 0) {
-            validationResult.setResult("decoderClassName", ValidationStatus.INVALID,
-                    "must be a non-blank string containing full class name of the decoder");
-        } else {
-            validatePolicyDecoderClass(validationResult);
-        }
-        return validationResult;
-    }
-
-    private void validatePolicyDecoderClass(final GroupValidationResult validationResult) {
-        try {
-            Class.forName(decoderClassName);
-        } catch (final ClassNotFoundException exp) {
-            LOGGER.trace("policy decoder class not found in classpath", exp);
-            validationResult.setResult("decoderClassName", ValidationStatus.INVALID,
-                    "policy decoder class not found in classpath");
-        }
+    public BeanValidationResult validate() {
+        return new BeanValidator().validateTop(getClass().getSimpleName(), this);
     }
 }

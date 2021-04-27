@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +22,13 @@
 package org.onap.policy.distribution.reception.parameters;
 
 import java.util.Map;
-import java.util.Map.Entry;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import lombok.Setter;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ParameterGroup;
-import org.onap.policy.common.parameters.ValidationStatus;
+import org.onap.policy.common.parameters.annotations.NotNull;
+import org.onap.policy.common.parameters.annotations.Size;
+import org.onap.policy.common.parameters.annotations.Valid;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 
 /**
@@ -32,13 +36,19 @@ import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParamet
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
+@NotNull
 public class PluginHandlerParameters implements ParameterGroup {
 
     private static final String PLUGIN_HANDLER = "_PluginHandler";
 
+    @Setter
     private String name;
-    private Map<String, PolicyDecoderParameters> policyDecoders;
-    private Map<String, PolicyForwarderParameters> policyForwarders;
+
+    @Size(min = 1)
+    private Map<String, @NotNull @Valid PolicyDecoderParameters> policyDecoders;
+
+    @Size(min = 1)
+    private Map<String, @NotNull @Valid PolicyForwarderParameters> policyForwarders;
 
     /**
      * Constructor for instantiating PluginHandlerParameters.
@@ -80,36 +90,7 @@ public class PluginHandlerParameters implements ParameterGroup {
      *
      */
     @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult validationResult = new GroupValidationResult(this);
-        if (policyDecoders == null || policyDecoders.size() == 0) {
-            validationResult.setResult("policyDecoders", ValidationStatus.INVALID,
-                    "must have at least one policy decoder");
-        } else {
-            for (final Entry<String, PolicyDecoderParameters> nestedGroupEntry : policyDecoders.entrySet()) {
-                validationResult.setResult("policyDecoders", nestedGroupEntry.getKey(),
-                        nestedGroupEntry.getValue().validate());
-            }
-        }
-        if (policyForwarders == null || policyForwarders.size() == 0) {
-            validationResult.setResult("policyForwarders", ValidationStatus.INVALID,
-                    "must have at least one policy forwarder");
-        } else {
-            for (final Entry<String, PolicyForwarderParameters> nestedGroupEntry : policyForwarders.entrySet()) {
-                validationResult.setResult("policyForwarders", nestedGroupEntry.getKey(),
-                        nestedGroupEntry.getValue().validate());
-            }
-        }
-        return validationResult;
-    }
-
-    /**
-     * Set the name of this group.
-     *
-     * @param name the name to set.
-     */
-    @Override
-    public void setName(final String name) {
-        this.name = name;
+    public BeanValidationResult validate() {
+        return new BeanValidator().validateTop(getClass().getSimpleName(), this);
     }
 }

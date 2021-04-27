@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2019-2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,6 @@
 package org.onap.policy.distribution.main.parameters;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -31,8 +30,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Map;
 import org.junit.Test;
 import org.onap.policy.common.endpoints.parameters.RestServerParameters;
-import org.onap.policy.common.parameters.GroupValidationResult;
-import org.onap.policy.common.parameters.ParameterRuntimeException;
+import org.onap.policy.common.parameters.ValidationResult;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup;
 import org.onap.policy.distribution.main.testclasses.DummyReceptionHandlerParameterGroup;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;
@@ -62,7 +60,7 @@ public class TestDistributionParameterGroup {
         final DistributionParameterGroup distributionParameters = new DistributionParameterGroup(
                 CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, receptionHandlerParameters,
                 receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
-        final GroupValidationResult validationResult = distributionParameters.validate();
+        final ValidationResult validationResult = distributionParameters.validate();
         assertTrue(validationResult.isValid());
         assertEquals(restServerParameters.getHost(), distributionParameters.getRestServerParameters().getHost());
         assertEquals(restServerParameters.getPort(), distributionParameters.getRestServerParameters().getPort());
@@ -116,7 +114,7 @@ public class TestDistributionParameterGroup {
         final DistributionParameterGroup distributionParameters =
                 new DistributionParameterGroup(null, restServerParameters, receptionHandlerParameters,
                         receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
-        final GroupValidationResult validationResult = distributionParameters.validate();
+        final ValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
         assertEquals(null, distributionParameters.getName());
         assertEquals(
@@ -132,8 +130,7 @@ public class TestDistributionParameterGroup {
                 receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getPluginHandlerParameters(),
                 distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
                         .getPluginHandlerParameters());
-        assertTrue(validationResult.getResult().contains(
-                "field \"name\" type \"java.lang.String\" value \"null\" INVALID, " + "must be a non-blank string"));
+        assertThat(validationResult.getResult()).contains("\"name\" value \"null\" INVALID, is null");
     }
 
     @Test
@@ -151,7 +148,7 @@ public class TestDistributionParameterGroup {
         final DistributionParameterGroup distributionParameters =
                 new DistributionParameterGroup("", restServerParameters, receptionHandlerParameters,
                         receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
-        final GroupValidationResult validationResult = distributionParameters.validate();
+        final ValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
         assertEquals("", distributionParameters.getName());
         assertEquals(
@@ -167,8 +164,7 @@ public class TestDistributionParameterGroup {
                 receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getPluginHandlerParameters(),
                 distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
                         .getPluginHandlerParameters());
-        assertTrue(validationResult.getResult().contains(
-                "field \"name\" type \"java.lang.String\" value \"\" INVALID, " + "must be a non-blank string"));
+        assertThat(validationResult.getResult()).contains("\"name\" value \"\" INVALID, is blank");
     }
 
     @Test
@@ -182,9 +178,9 @@ public class TestDistributionParameterGroup {
                 commonTestData.getPolicyDecoderConfigurationParameters(false);
         final DistributionParameterGroup distributionParameters =
                 new DistributionParameterGroup(CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, null,
-                        receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
-        assertThatThrownBy(distributionParameters::validate).isInstanceOf(ParameterRuntimeException.class)
-            .hasMessageContaining("map parameter \"receptionHandlerParameters\" is null");
+                                        receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
+        assertThat(distributionParameters.validate().getResult())
+                        .contains("\"receptionHandlerParameters\" value \"null\" INVALID, is null");
     }
 
     @Test
@@ -202,9 +198,9 @@ public class TestDistributionParameterGroup {
                 CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, receptionHandlerParameters,
                 receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
         distributionParameters.validate();
-        final GroupValidationResult result = distributionParameters.validate();
+        final ValidationResult result = distributionParameters.validate();
         assertFalse(result.isValid());
-        assertTrue(result.getResult().endsWith("must have at least one reception handler\n"));
+        assertThat(result.getResult()).contains("minimum");
     }
 
     @Test
@@ -222,11 +218,9 @@ public class TestDistributionParameterGroup {
         final DistributionParameterGroup distributionParameters = new DistributionParameterGroup(
                 CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, receptionHandlerParameters,
                 receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
-        final GroupValidationResult validationResult = distributionParameters.validate();
+        final ValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
-        assertTrue(validationResult.getResult()
-                .contains("\"org.onap.policy.common.endpoints.parameters.RestServerParameters\" INVALID, "
-                        + "parameter group has status INVALID"));
+        assertThat(validationResult.getResult()).contains("\"RestServerParameters\" INVALID");
     }
 
     @Test
@@ -244,10 +238,8 @@ public class TestDistributionParameterGroup {
         final DistributionParameterGroup distributionParameters = new DistributionParameterGroup(
                 CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, receptionHandlerParameters,
                 receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
-        final GroupValidationResult validationResult = distributionParameters.validate();
+        final ValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
-        assertThat(validationResult.getResult())
-                .contains("parameter group \"UNDEFINED\" INVALID, "
-                        + "must have restServerParameters to configure distribution rest server");
+        assertThat(validationResult.getResult()).contains("\"restServerParameters\" value \"null\" INVALID, is null");
     }
 }

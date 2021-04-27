@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +24,7 @@ package org.onap.policy.distribution.reception.parameters;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
+import org.onap.policy.distribution.reception.handling.DummyDecoder;
 
 /**
  * Class for unit testing PolicyDecoderParameters class.
@@ -32,7 +34,7 @@ import org.junit.Test;
  */
 public class TestPolicyDecoderParameters {
 
-    static final String DECODER_CLASS_NAME = "org.onap.policy.distribution.reception.handling.DummyDecoder";
+    static final String DECODER_CLASS_NAME = DummyDecoder.class.getName();
     static final String DECODER_CONFIG = "decoderConfigName";
     static final String DECODER_TYPE = "DummyDecoder";
 
@@ -40,14 +42,12 @@ public class TestPolicyDecoderParameters {
     public void testValidate_DecoderTypeEmptyNull() {
         PolicyDecoderParameters sutParams = new PolicyDecoderParameters(null, DECODER_CLASS_NAME, DECODER_CONFIG);
 
-        assertThat(sutParams.validate().getResult()).contains(
-                "field \"decoderType\" type \"java.lang.String\" value \"null\" INVALID, must be a non-blank string");
+        assertThat(sutParams.validate().getResult()).contains("\"decoderType\" value \"null\" INVALID, is null");
 
         sutParams.setName("");
 
-        assertThat(sutParams.validate().getResult()).contains(
-                "field \"decoderType\" type \"java.lang.String\" value \"\" INVALID, must be a non-blank string");
-        assertThat(sutParams.validate().getResult()).doesNotContain("policy decoder class not found in classpath");
+        assertThat(sutParams.validate().getResult()).contains("\"decoderType\" value \"\" INVALID, is blank")
+                        .doesNotContain("not found in classpath");
     }
 
     @Test
@@ -55,13 +55,10 @@ public class TestPolicyDecoderParameters {
         PolicyDecoderParameters nullClassName = new PolicyDecoderParameters(DECODER_TYPE, null, DECODER_CONFIG);
 
         assertThat(nullClassName.validate().getResult())
-                .contains("field \"decoderClassName\" type \"java.lang.String\" value \"null\" INVALID, "
-                        + "must be a non-blank string containing full class name of the decoder");
+                        .contains("\"decoderClassName\" value \"null\" INVALID, is null");
 
         PolicyDecoderParameters emptyClassName = new PolicyDecoderParameters(DECODER_TYPE, "", DECODER_CONFIG);
 
-        assertThat(emptyClassName.validate().getResult())
-                .contains("field \"decoderClassName\" type \"java.lang.String\" value \"\" INVALID, "
-                        + "must be a non-blank string containing full class name of the decoder");
+        assertThat(emptyClassName.validate().getResult()).contains("\"decoderClassName\" value \"\" INVALID, is blank");
     }
 }

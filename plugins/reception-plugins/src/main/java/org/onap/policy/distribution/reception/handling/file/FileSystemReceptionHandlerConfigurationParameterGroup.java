@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
  *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +25,10 @@ package org.onap.policy.distribution.reception.handling.file;
 import java.io.File;
 import lombok.Getter;
 import lombok.Setter;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.BeanValidator;
+import org.onap.policy.common.parameters.ObjectValidationResult;
+import org.onap.policy.common.parameters.ValidationResult;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.common.parameters.annotations.NotBlank;
 import org.onap.policy.common.parameters.annotations.NotNull;
@@ -51,9 +55,9 @@ public class FileSystemReceptionHandlerConfigurationParameterGroup extends Recep
      * {@inheritDoc}.
      */
     @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult validationResult = new GroupValidationResult(this);
-        validatePathElement(validationResult, watchPath, "watchPath");
+    public BeanValidationResult validate() {
+        final BeanValidationResult validationResult = new BeanValidator().validateTop(getClass().getSimpleName(), this);
+        validationResult.addResult(validatePathElement(watchPath, "watchPath"));
         return validationResult;
     }
 
@@ -61,23 +65,17 @@ public class FileSystemReceptionHandlerConfigurationParameterGroup extends Recep
     /**
      * Validate the string element.
      *
-     * @param validationResult the result object
      * @param element the element to validate
      * @param elementName the element name for error message
      */
-    private void validatePathElement(final GroupValidationResult validationResult, final String element,
-            final String elementName) {
-        boolean valid = false;
+    private ValidationResult validatePathElement(final String element, final String elementName) {
         if (element != null) {
             final File file = new File(element);
             if (file.exists() && file.isDirectory()) {
-                valid = true;
+                return null;
             }
         }
-        if (!valid) {
-            validationResult.setResult(elementName, ValidationStatus.INVALID,
-                    elementName + " must be a valid directory");
-        }
+
+        return new ObjectValidationResult(elementName, element, ValidationStatus.INVALID, "is not a valid directory");
     }
 }
-
