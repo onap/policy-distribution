@@ -1,7 +1,7 @@
 validation error(s) on parameters from "parameters/DistributionConfigParameters_InvalidRestServerParameters.json"
-parameter group "SDCDistributionGroup" type "org.onap.policy.distribution.main.parameters.DistributionParameterGroup" INVALID, parameter group has status INVALID
-  parameter group "RestServerParameters" type "org.onap.policy.common.endpoints.parameters.RestServerParameters" INVALID, parameter group has status INVALID
-    field "host" type "java.lang.String" value "" INVALID, must be a non-blank string
-    field "port" type "int" value "-1" INVALID, must be >= 1
-    field "userName" type "java.lang.String" value "" INVALID, must be a non-blank string
-    field "password" type "java.lang.String" value "" INVALID, must be a non-blank string
+"DistributionParameterGroup" INVALID, item has status INVALID
+  "RestServerParameters" INVALID, item has status INVALID
+    item "host" value "" INVALID, is blank
+    item "port" value "-1" INVALID, is below the minimum value: 1
+    item "userName" value "" INVALID, is blank
+    item "password" value "" INVALID, is blank

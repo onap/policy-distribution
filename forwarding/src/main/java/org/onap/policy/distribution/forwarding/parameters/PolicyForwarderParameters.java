@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,23 +22,25 @@
 
 package org.onap.policy.distribution.forwarding.parameters;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
+import lombok.Getter;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ParameterGroup;
-import org.onap.policy.common.parameters.ValidationStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.onap.policy.common.parameters.annotations.ClassName;
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
 
 /**
  * Class to hold all the policy forwarder parameters.
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
+@Getter
+@NotBlank
 public class PolicyForwarderParameters implements ParameterGroup {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PolicyForwarderParameters.class);
-
-    private String forwarderType;
-    private String forwarderClassName;
+    private @NotNull String forwarderType;
+    private @NotNull @ClassName String forwarderClassName;
     private String forwarderConfigurationName;
 
     /**
@@ -52,33 +55,6 @@ public class PolicyForwarderParameters implements ParameterGroup {
         this.forwarderType = forwarderType;
         this.forwarderClassName = forwarderClassName;
         this.forwarderConfigurationName = forwarderConfigurationName;
-    }
-
-    /**
-     * Return the forwarderType of this PolicyForwarderParameters instance.
-     *
-     * @return the forwarderType
-     */
-    public String getForwarderType() {
-        return forwarderType;
-    }
-
-    /**
-     * Return the forwarderClassName of this PolicyForwarderParameters instance.
-     *
-     * @return the forwarderClassName
-     */
-    public String getForwarderClassName() {
-        return forwarderClassName;
-    }
-
-    /**
-     * Return the name of the forwarder configuration of this PolicyForwarderParameters instance.
-     *
-     * @return the the name of the forwarder configuration
-     */
-    public String getForwarderConfigurationName() {
-        return forwarderConfigurationName;
     }
 
     /**
@@ -101,27 +77,7 @@ public class PolicyForwarderParameters implements ParameterGroup {
      * {@inheritDoc}.
      */
     @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult validationResult = new GroupValidationResult(this);
-        if (forwarderType == null || forwarderType.trim().length() == 0) {
-            validationResult.setResult("forwarderType", ValidationStatus.INVALID, "must be a non-blank string");
-        }
-        if (forwarderClassName == null || forwarderClassName.trim().length() == 0) {
-            validationResult.setResult("forwarderClassName", ValidationStatus.INVALID,
-                    "must be a non-blank string containing full class name of the forwarder");
-        } else {
-            validatePolicyForwarderClass(validationResult);
-        }
-        return validationResult;
-    }
-
-    private void validatePolicyForwarderClass(final GroupValidationResult validationResult) {
-        try {
-            Class.forName(forwarderClassName);
-        } catch (final ClassNotFoundException exp) {
-            LOGGER.trace("policy forwarder class not found in classpath", exp);
-            validationResult.setResult("forwarderClassName", ValidationStatus.INVALID,
-                    "policy forwarder class not found in classpath");
-        }
+    public BeanValidationResult validate() {
+        return new BeanValidator().validateTop(getClass().getSimpleName(), this);
     }
 }

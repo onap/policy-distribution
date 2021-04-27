@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.junit.Test;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
+import org.onap.policy.distribution.reception.handling.DummyDecoder;
 
 /**
  * Class for unit testing ReceptionHandlerParameters class.
@@ -42,25 +44,24 @@ public class TestReceptionHandlerParameters {
         ReceptionHandlerParameters sutParams = getReceptionHandlerParameters(className);
         sutParams.setName(className);
 
-        assertThat(sutParams.validate().getResult()).contains("reception handler class not found in classpath");
+        assertThat(sutParams.validate().getResult()).contains("class is not in the classpath");
     }
 
     @Test
     public void testValidate_ReceptionHandlerTypeNullEmpty() {
-        final String className = "org.onap.policy.distribution.reception.handling.DummyReceptionHandler";
+        final String className = DummyDecoder.class.getName();
         final PluginHandlerParameters pHParameters =
                 new PluginHandlerParameters(getPolicyDecoders(), getPolicyForwarders());
 
         ReceptionHandlerParameters nullType = new ReceptionHandlerParameters(null, className, className, pHParameters);
 
-        assertThat(nullType.validate().getResult()).contains("field \"receptionHandlerType\" type \"java.lang.String\""
-                + " value \"null\" INVALID, must be a non-blank string");
+        assertThat(nullType.validate().getResult())
+                        .contains("\"receptionHandlerType\" value \"null\" INVALID, is null");
 
         ReceptionHandlerParameters emptyType = new ReceptionHandlerParameters("", className, className, pHParameters);
 
-        assertThat(emptyType.validate().getResult()).contains("field \"receptionHandlerType\" type \"java.lang.String\""
-                + " value \"\" INVALID, must be a non-blank string");
-        assertThat(emptyType.validate().getResult()).doesNotContain("reception handler class not found in classpath");
+        assertThat(emptyType.validate().getResult()).contains("\"receptionHandlerType\" value \"\" INVALID, is blank")
+                        .doesNotContain("classpath");
     }
 
     @Test
@@ -72,17 +73,13 @@ public class TestReceptionHandlerParameters {
                 "dummyReceptionHandlerConfiguration", pHParameters);
 
         assertThat(nullType.validate().getResult())
-                .contains("field \"receptionHandlerClassName\" type \"java.lang.String\" value "
-                        + "\"null\" INVALID, must be a non-blank string containing full class name "
-                        + "of the reception handler");
+                .contains("\"receptionHandlerClassName\" value \"null\" INVALID, is null");
 
         ReceptionHandlerParameters emptyType = new ReceptionHandlerParameters("DummyReceptionHandler", "",
                 "dummyReceptionHandlerConfiguration", pHParameters);
 
         assertThat(emptyType.validate().getResult())
-                .contains("field \"receptionHandlerClassName\" type \"java.lang.String\" value "
-                        + "\"\" INVALID, must be a non-blank string containing full class name of "
-                        + "the reception handler");
+                .contains("\"receptionHandlerClassName\" value \"\" INVALID, is blank");
     }
 
     @Test
@@ -93,7 +90,7 @@ public class TestReceptionHandlerParameters {
                 "dummyReceptionHandlerConfiguration", null);
 
         assertThat(sutParams.validate().getResult())
-                .contains("parameter group \"UNDEFINED\" INVALID, must have a plugin handler");
+                .contains("\"pluginHandlerParameters\" value \"null\" INVALID, is null");
     }
 
     private ReceptionHandlerParameters getReceptionHandlerParameters(String className) {
@@ -109,7 +106,7 @@ public class TestReceptionHandlerParameters {
         final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<>();
 
         final PolicyDecoderParameters pDParameters =
-                new PolicyDecoderParameters("DummyDecoder", "DummyDecoder", "dummyDecoderConfiguration");
+                new PolicyDecoderParameters("DummyDecoder", DummyDecoder.class.getName(), "dummyDecoderConfiguration");
         policyDecoders.put("DummyDecoder", pDParameters);
 
         return policyDecoders;
@@ -118,8 +115,8 @@ public class TestReceptionHandlerParameters {
     private Map<String, PolicyForwarderParameters> getPolicyForwarders() {
         final Map<String, PolicyForwarderParameters> policyForwarders = new HashMap<>();
 
-        final PolicyForwarderParameters pFParameters =
-                new PolicyForwarderParameters("DummyForwarder", "DummyForwarder", "dummyForwarderConfiguration");
+        final PolicyForwarderParameters pFParameters = new PolicyForwarderParameters("DummyForwarder",
+                        DummyDecoder.class.getName(), "dummyForwarderConfiguration");
         policyForwarders.put("DummyForwarder", pFParameters);
 
         return policyForwarders;

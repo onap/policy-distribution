@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.Test;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationResult;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 
 /**
@@ -40,30 +41,24 @@ public class TestPluginHandlerParameters {
     public void testValidate_PolicyDecodersEmpty() {
         PluginHandlerParameters emptyDecoder = new PluginHandlerParameters(new HashMap<>(), getPolicyForwarders());
 
-        GroupValidationResult result = emptyDecoder.validate();
+        ValidationResult result = emptyDecoder.validate();
 
-        assertThat(result.getResult())
-                .contains("parameter group map \"policyDecoders\" INVALID, must have at least one policy decoder");
-        assertThat(result.getResult()).doesNotContain(
-                "parameter group map \"policyForwarders\" INVALID, must have at least one policy forwarder");
+        assertThat(result.getResult()).contains("\"policyDecoders\"", "minimum").doesNotContain("\"policyForwarders\"");
     }
 
     @Test
     public void testValidate_PolicyForwardersNullEmpty() {
         PluginHandlerParameters emptyDecoder = new PluginHandlerParameters(getPolicyDecoders(), new HashMap<>());
 
-        GroupValidationResult result = emptyDecoder.validate();
+        ValidationResult result = emptyDecoder.validate();
 
-        assertThat(result.getResult())
-                .contains("parameter group map \"policyForwarders\" INVALID, must have at least one policy forwarder");
-        assertThat(result.getResult()).doesNotContain(
-                "parameter group map \"policyDecoders\" INVALID, must have at least one policy decoder");
+        assertThat(result.getResult()).contains("\"policyForwarders\"", "minimum").doesNotContain("\"policyDecoders\"");
     }
 
     private Map<String, PolicyDecoderParameters> getPolicyDecoders() {
         final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<>();
         final PolicyDecoderParameters pDParameters =
-                new PolicyDecoderParameters("DummyDecoder", "DummyDecoder", "dummyDecoderConfiguration");
+                new PolicyDecoderParameters("DummyDecoder", getClass().getName(), "dummyDecoderConfiguration");
         policyDecoders.put("DummyDecoder", pDParameters);
 
         return policyDecoders;
@@ -72,7 +67,7 @@ public class TestPluginHandlerParameters {
     private Map<String, PolicyForwarderParameters> getPolicyForwarders() {
         final Map<String, PolicyForwarderParameters> policyForwarders = new HashMap<>();
         final PolicyForwarderParameters pFParameters =
-                new PolicyForwarderParameters("DummyForwarder", "DummyForwarder", "dummyForwarderConfiguration");
+                new PolicyForwarderParameters("DummyForwarder", getClass().getName(), "dummyForwarderConfiguration");
         policyForwarders.put("DummyForwarder", pFParameters);
 
         return policyForwarders;

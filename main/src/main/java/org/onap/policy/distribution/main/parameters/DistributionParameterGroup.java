@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2019, 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,12 +23,14 @@ package org.onap.policy.distribution.main.parameters;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import org.onap.policy.common.endpoints.parameters.RestServerParameters;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ParameterGroup;
-import org.onap.policy.common.parameters.ValidationStatus;
-import org.onap.policy.common.utils.validation.ParameterValidationUtils;
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
+import org.onap.policy.common.parameters.annotations.Size;
+import org.onap.policy.common.parameters.annotations.Valid;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
@@ -38,17 +40,26 @@ import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParamet
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
+@NotNull
+@NotBlank
 public class DistributionParameterGroup implements ParameterGroup {
     // @formatter:off
     private String name;
+
+    @Valid
     private RestServerParameters restServerParameters;
-    private Map<String, ReceptionHandlerParameters> receptionHandlerParameters;
-    private Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurationParameters
-        = new LinkedHashMap<>();
-    private Map<String, PolicyForwarderConfigurationParameterGroup> policyForwarderConfigurationParameters
-        = new LinkedHashMap<>();
-    private Map<String, PolicyDecoderConfigurationParameterGroup> policyDecoderConfigurationParameters
-        = new LinkedHashMap<>();
+
+    @Size(min = 1)
+    private Map<String, @NotNull @Valid ReceptionHandlerParameters> receptionHandlerParameters;
+
+    private Map<String, @NotNull @Valid ReceptionHandlerConfigurationParameterGroup>
+                receptionHandlerConfigurationParameters = new LinkedHashMap<>();
+
+    private Map<String, @NotNull @Valid PolicyForwarderConfigurationParameterGroup>
+                policyForwarderConfigurationParameters = new LinkedHashMap<>();
+
+    private Map<String, @NotNull @Valid PolicyDecoderConfigurationParameterGroup>
+                policyDecoderConfigurationParameters = new LinkedHashMap<>();
     // @formatter:on
 
     /**
@@ -170,53 +181,7 @@ public class DistributionParameterGroup implements ParameterGroup {
      * @return the result of the validation
      */
     @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult validationResult = new GroupValidationResult(this);
-        if (!ParameterValidationUtils.validateStringParameter(name)) {
-            validationResult.setResult("name", ValidationStatus.INVALID, "must be a non-blank string");
-        }
-        if (restServerParameters == null) {
-            validationResult.setResult("restServerParameters", ValidationStatus.INVALID,
-                "must have restServerParameters to configure distribution rest server");
-        } else {
-            validationResult.setResult("restServerParameters", restServerParameters.validate());
-        }
-        validateReceptionHandlers(validationResult);
-        validateForwarderConfigurations(validationResult);
-        validateDecoderConfigurations(validationResult);
-        return validationResult;
-    }
-
-    private void validateReceptionHandlers(final GroupValidationResult validationResult) {
-        if (receptionHandlerParameters == null || receptionHandlerParameters.size() == 0) {
-            validationResult.setResult("receptionHandlerParameters", ValidationStatus.INVALID,
-                "must have at least one reception handler");
-        } else {
-            for (final Entry<String, ReceptionHandlerParameters> nestedGroupEntry : receptionHandlerParameters
-                .entrySet()) {
-                validationResult.setResult("receptionHandlerParameters", nestedGroupEntry.getKey(),
-                    nestedGroupEntry.getValue().validate());
-            }
-        }
-    }
-
-    private void validateForwarderConfigurations(final GroupValidationResult validationResult) {
-        // @formatter:off
-        for (final Entry<String, PolicyForwarderConfigurationParameterGroup> configurationParameters :
-            policyForwarderConfigurationParameters.entrySet()) {
-            validationResult.setResult("policyForwarderConfigurationParameters", configurationParameters.getKey(),
-                configurationParameters.getValue().validate());
-        }
-        // @formatter:on
-    }
-
-    private void validateDecoderConfigurations(final GroupValidationResult validationResult) {
-        // @formatter:off
-        for (final Entry<String, PolicyDecoderConfigurationParameterGroup> configurationParameters :
-            policyDecoderConfigurationParameters.entrySet()) {
-            validationResult.setResult("policyDecoderConfigurationParameters", configurationParameters.getKey(),
-                configurationParameters.getValue().validate());
-        }
-        // @formatter:on
+    public BeanValidationResult validate() {
+        return new BeanValidator().validateTop(getClass().getSimpleName(), this);
     }
 }
