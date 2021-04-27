@@ -24,6 +24,7 @@ package org.onap.policy.distribution.forwarding.lifecycle.api;
 import lombok.Getter;
 import org.onap.policy.common.parameters.annotations.NotBlank;
 import org.onap.policy.common.parameters.annotations.NotNull;
+import org.onap.policy.common.parameters.annotations.Valid;
 import org.onap.policy.distribution.main.parameters.PolicyForwarderConfigurationParameterGroup;
 
 /**
@@ -37,8 +38,8 @@ import org.onap.policy.distribution.main.parameters.PolicyForwarderConfiguration
 public class LifecycleApiForwarderParameters extends PolicyForwarderConfigurationParameterGroup {
     public static final String POLICY_FORWARDER_PLUGIN_CLASS = LifecycleApiPolicyForwarder.class.getName();
 
-    private LifecycleApiParameters apiParameters;
-    private LifecycleApiParameters papParameters;
+    private @Valid LifecycleApiParameters apiParameters;
+    private @Valid LifecycleApiParameters papParameters;
     private boolean isHttps;
     private boolean allowSelfSignedCerts;
     private boolean deployPolicies = true;

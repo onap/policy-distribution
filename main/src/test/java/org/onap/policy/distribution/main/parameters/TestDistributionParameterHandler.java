@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 Nordix Foundation.
- *  Modifications Copyright (C) 2020 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.junit.Test;
-import org.onap.policy.common.parameters.ParameterRuntimeException;
 import org.onap.policy.common.utils.cmd.CommandLineException;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.startstop.DistributionCommandLineArguments;
@@ -72,8 +71,8 @@ public class TestDistributionParameterHandler {
 
     @Test
     public void testParameterHandlerNoParameters() throws PolicyDistributionException, CommandLineException {
-        verifyFailure("NoParameters.json", ParameterRuntimeException.class,
-                "map parameter \"receptionHandlerParameters\" is null");
+        verifyFailure("NoParameters.json", PolicyDistributionException.class,
+                "\"receptionHandlerParameters\" value \"null\" INVALID, is null");
     }
 
     @Test
@@ -136,49 +135,49 @@ public class TestDistributionParameterHandler {
     @Test
     public void testDistributionParameterGroup_InvalidName() throws PolicyDistributionException, CommandLineException {
         verifyFailure("DistributionConfigParameters_InvalidName.json", PolicyDistributionException.class,
-                "field \"name\" type \"java.lang.String\" value \" \" INVALID, must be a non-blank string");
+                "\"name\" value \" \" INVALID, is blank");
     }
 
     @Test
     public void testDistributionParameterGroup_NoReceptionHandler()
             throws PolicyDistributionException, CommandLineException {
-        verifyFailure("DistributionConfigParameters_NoReceptionHandler.json", ParameterRuntimeException.class,
-                "map parameter \"receptionHandlerParameters\" is null");
+        verifyFailure("DistributionConfigParameters_NoReceptionHandler.json", PolicyDistributionException.class,
+                "\"receptionHandlerParameters\" value \"null\" INVALID, is null");
     }
 
     @Test
     public void testDistributionParameterGroup_EmptyReceptionHandler()
             throws PolicyDistributionException, CommandLineException {
         verifyFailure("DistributionConfigParameters_EmptyReceptionHandler.json", PolicyDistributionException.class,
-                "must have at least one reception handler\n");
+                "\"receptionHandlerParameters\" value \"{}\" INVALID, minimum number of elements: 1");
     }
 
     @Test
     public void testDistributionParameterGroup_NoPolicyDecoder()
             throws PolicyDistributionException, CommandLineException {
-        verifyFailure("DistributionConfigParameters_NoPolicyDecoder.json", ParameterRuntimeException.class,
-                "map parameter \"policyDecoders\" is null");
+        verifyFailure("DistributionConfigParameters_NoPolicyDecoder.json", PolicyDistributionException.class,
+                "\"policyDecoders\" value \"null\" INVALID, is null");
     }
 
     @Test
     public void testDistributionParameterGroup_NoPolicyForwarder()
             throws PolicyDistributionException, CommandLineException {
-        verifyFailure("DistributionConfigParameters_NoPolicyForwarder.json", ParameterRuntimeException.class,
-                "map parameter \"policyForwarders\" is null");
+        verifyFailure("DistributionConfigParameters_NoPolicyForwarder.json", PolicyDistributionException.class,
+                "\"policyForwarderConfigurationParameters\" value \"null\" INVALID, is null");
     }
 
     @Test
     public void testDistributionParameterGroup_EmptyPolicyDecoder()
             throws PolicyDistributionException, CommandLineException {
         verifyFailure("DistributionConfigParameters_EmptyPolicyDecoder.json", PolicyDistributionException.class,
-                "must have at least one policy decoder\n");
+                "\"policyDecoders\" value \"{}\" INVALID, minimum number of elements: 1");
     }
 
     @Test
     public void testDistributionParameterGroup_EmptyPolicyForwarder()
             throws PolicyDistributionException, CommandLineException {
         verifyFailure("DistributionConfigParameters_EmptyPolicyForwarder.json", PolicyDistributionException.class,
-                "must have at least one policy forwarder\n");
+                "\"policyForwarders\" value \"{}\" INVALID, minimum number of elements: 1");
     }
 
     @Test

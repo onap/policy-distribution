@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +21,13 @@
 
 package org.onap.policy.distribution.main.parameters;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationResult;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
@@ -43,7 +45,7 @@ public class TestReceptionHandlerParameters {
         final ReceptionHandlerParameters rHParameters = new ReceptionHandlerParameters(
                 CommonTestData.RECEPTION_HANDLER_TYPE, CommonTestData.RECEPTION_HANDLER_CLASS_NAME,
                 CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
-        final GroupValidationResult validationResult = rHParameters.validate();
+        final ValidationResult validationResult = rHParameters.validate();
         assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, rHParameters.getReceptionHandlerType());
         assertEquals(CommonTestData.RECEPTION_HANDLER_CLASS_NAME, rHParameters.getReceptionHandlerClassName());
         assertEquals(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS,
@@ -58,16 +60,14 @@ public class TestReceptionHandlerParameters {
         final ReceptionHandlerParameters rHParameters =
                 new ReceptionHandlerParameters(null, CommonTestData.RECEPTION_HANDLER_CLASS_NAME,
                         CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
-        final GroupValidationResult validationResult = rHParameters.validate();
+        final ValidationResult validationResult = rHParameters.validate();
         assertEquals(null, rHParameters.getReceptionHandlerType());
         assertEquals(CommonTestData.RECEPTION_HANDLER_CLASS_NAME, rHParameters.getReceptionHandlerClassName());
         assertEquals(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS,
                 rHParameters.getReceptionHandlerConfigurationName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertFalse(validationResult.isValid());
-        assertTrue(validationResult.getResult()
-                .contains("field \"receptionHandlerType\" type \"java.lang.String\" value \"null\" INVALID, "
-                        + "must be a non-blank string"));
+        assertThat(validationResult.getResult()).contains("\"receptionHandlerType\" value \"null\" INVALID, is null");
     }
 
     @Test
@@ -76,16 +76,15 @@ public class TestReceptionHandlerParameters {
         final ReceptionHandlerParameters rHParameters =
                 new ReceptionHandlerParameters(CommonTestData.RECEPTION_HANDLER_TYPE, null,
                         CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
-        final GroupValidationResult validationResult = rHParameters.validate();
+        final ValidationResult validationResult = rHParameters.validate();
         assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, rHParameters.getReceptionHandlerType());
         assertEquals(null, rHParameters.getReceptionHandlerClassName());
         assertEquals(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS,
                 rHParameters.getReceptionHandlerConfigurationName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertFalse(validationResult.isValid());
-        assertTrue(validationResult.getResult()
-                .contains("field \"receptionHandlerClassName\" type \"java.lang.String\" value \"null\" INVALID, "
-                        + "must be a non-blank string containing full class name " + "of the reception handler"));
+        assertThat(validationResult.getResult())
+                        .contains("\"receptionHandlerClassName\" value \"null\" INVALID, is null");
     }
 
     @Test
@@ -94,14 +93,12 @@ public class TestReceptionHandlerParameters {
         final ReceptionHandlerParameters rHParameters =
                 new ReceptionHandlerParameters("", CommonTestData.RECEPTION_HANDLER_CLASS_NAME,
                         CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
-        final GroupValidationResult validationResult = rHParameters.validate();
+        final ValidationResult validationResult = rHParameters.validate();
         assertEquals("", rHParameters.getReceptionHandlerType());
         assertEquals(CommonTestData.RECEPTION_HANDLER_CLASS_NAME, rHParameters.getReceptionHandlerClassName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertFalse(validationResult.isValid());
-        assertTrue(validationResult.getResult()
-                .contains("field \"receptionHandlerType\" type \"java.lang.String\" value \"\" INVALID, "
-                        + "must be a non-blank string"));
+        assertThat(validationResult.getResult()).contains("\"receptionHandlerType\" value \"\" INVALID, is blank");
     }
 
     @Test
@@ -110,16 +107,14 @@ public class TestReceptionHandlerParameters {
         final ReceptionHandlerParameters rHParameters =
                 new ReceptionHandlerParameters(CommonTestData.RECEPTION_HANDLER_TYPE, "",
                         CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
-        final GroupValidationResult validationResult = rHParameters.validate();
+        final ValidationResult validationResult = rHParameters.validate();
         assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, rHParameters.getReceptionHandlerType());
         assertEquals("", rHParameters.getReceptionHandlerClassName());
         assertEquals(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS,
                 rHParameters.getReceptionHandlerConfigurationName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertFalse(validationResult.isValid());
-        assertTrue(validationResult.getResult()
-                .contains("field \"receptionHandlerClassName\" type \"java.lang.String\" value \"\" INVALID, "
-                        + "must be a non-blank string containing full class name " + "of the reception handler"));
+        assertThat(validationResult.getResult()).contains("\"receptionHandlerClassName\" value \"\" INVALID, is blank");
     }
 
     @Test
@@ -128,9 +123,9 @@ public class TestReceptionHandlerParameters {
         final ReceptionHandlerParameters rHParameters = new ReceptionHandlerParameters(
                 CommonTestData.RECEPTION_HANDLER_TYPE, CommonTestData.RECEPTION_HANDLER_CLASS_NAME,
                 CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
-        GroupValidationResult result = rHParameters.validate();
+        ValidationResult result = rHParameters.validate();
         assertFalse(result.isValid());
-        assertTrue(result.getResult().endsWith("must have at least one policy forwarder\n"));
+        assertThat(result.getResult()).contains("\"policyForwarders\"", "minimum");
     }
 
     @Test
@@ -140,7 +135,7 @@ public class TestReceptionHandlerParameters {
         final ReceptionHandlerParameters rHParameters = new ReceptionHandlerParameters(
                 CommonTestData.RECEPTION_HANDLER_TYPE, CommonTestData.RECEPTION_HANDLER_CLASS_NAME + "Invalid",
                 CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
-        final GroupValidationResult validationResult = rHParameters.validate();
+        final ValidationResult validationResult = rHParameters.validate();
         assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, rHParameters.getReceptionHandlerType());
         assertEquals(CommonTestData.RECEPTION_HANDLER_CLASS_NAME + "Invalid",
                 rHParameters.getReceptionHandlerClassName());
@@ -148,6 +143,6 @@ public class TestReceptionHandlerParameters {
                 rHParameters.getReceptionHandlerConfigurationName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
         assertFalse(validationResult.isValid());
-        assertTrue(validationResult.getResult().contains("reception handler class not found in classpath"));
+        assertThat(validationResult.getResult()).contains("\"receptionHandlerClassName\"", "classpath");
     }
 }

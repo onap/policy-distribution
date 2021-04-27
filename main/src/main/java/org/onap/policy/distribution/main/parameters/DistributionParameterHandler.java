@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2020 AT&T Inc.
+ *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ package org.onap.policy.distribution.main.parameters;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.FileReader;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationResult;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.startstop.DistributionCommandLineArguments;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;
@@ -79,7 +79,7 @@ public class DistributionParameterHandler {
         }
 
         // validate the parameters
-        final GroupValidationResult validationResult = distributionParameterGroup.validate();
+        final ValidationResult validationResult = distributionParameterGroup.validate();
         if (!validationResult.isValid()) {
             String returnMessage =
                     "validation error(s) on parameters from \"" + arguments.getConfigurationFilePath() + "\"\n";

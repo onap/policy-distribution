@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,26 +22,30 @@
 
 package org.onap.policy.distribution.reception.parameters;
 
-import org.onap.policy.common.parameters.GroupValidationResult;
+import lombok.Getter;
+import lombok.Setter;
+import org.onap.policy.common.parameters.BeanValidationResult;
+import org.onap.policy.common.parameters.BeanValidator;
 import org.onap.policy.common.parameters.ParameterGroup;
-import org.onap.policy.common.parameters.ValidationStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.onap.policy.common.parameters.annotations.ClassName;
+import org.onap.policy.common.parameters.annotations.NotBlank;
+import org.onap.policy.common.parameters.annotations.NotNull;
+import org.onap.policy.common.parameters.annotations.Valid;
 
 /**
  * Class to hold all the reception handler parameters.
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
+@NotNull
+@NotBlank
+@Getter
 public class ReceptionHandlerParameters implements ParameterGroup {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ReceptionHandlerParameters.class);
-
-    private String name;
+    private @Setter String name;
     private String receptionHandlerType;
-    private String receptionHandlerClassName;
+    private @ClassName String receptionHandlerClassName;
     private String receptionHandlerConfigurationName;
-    private PluginHandlerParameters pluginHandlerParameters;
+    private @Valid PluginHandlerParameters pluginHandlerParameters;
 
     /**
      * Constructor for instantiating ReceptionHandlerParameters.
@@ -58,42 +63,6 @@ public class ReceptionHandlerParameters implements ParameterGroup {
         this.pluginHandlerParameters = pluginHandlerParameters;
     }
 
-    /**
-     * Return the receptionHandlerType of this ReceptionHandlerParameters instance.
-     *
-     * @return the receptionHandlerType
-     */
-    public String getReceptionHandlerType() {
-        return receptionHandlerType;
-    }
-
-    /**
-     * Return the receptionHandlerClassName of this ReceptionHandlerParameters instance.
-     *
-     * @return the receptionHandlerClassName
-     */
-    public String getReceptionHandlerClassName() {
-        return receptionHandlerClassName;
-    }
-
-    /**
-     * Return the name of the reception handler configuration for this ReceptionHandlerParameters instance.
-     *
-     * @return the PssdConfigurationParametersGroup
-     */
-    public String getReceptionHandlerConfigurationName() {
-        return receptionHandlerConfigurationName;
-    }
-
-    /**
-     * Return the pluginHandlerParameters of this ReceptionHandlerParameters instance.
-     *
-     * @return the pluginHandlerParameters
-     */
-    public PluginHandlerParameters getPluginHandlerParameters() {
-        return pluginHandlerParameters;
-    }
-
     @Override
     public String getName() {
         return name + "_" + receptionHandlerType;
@@ -104,43 +73,7 @@ public class ReceptionHandlerParameters implements ParameterGroup {
      *
      */
     @Override
-    public GroupValidationResult validate() {
-        final GroupValidationResult validationResult = new GroupValidationResult(this);
-        if (receptionHandlerType == null || receptionHandlerType.trim().length() == 0) {
-            validationResult.setResult("receptionHandlerType", ValidationStatus.INVALID, "must be a non-blank string");
-        }
-        if (receptionHandlerClassName == null || receptionHandlerClassName.trim().length() == 0) {
-            validationResult.setResult("receptionHandlerClassName", ValidationStatus.INVALID,
-                    "must be a non-blank string containing full class name of the reception handler");
-        } else {
-            validateReceptionHandlerClass(validationResult);
-        }
-        if (pluginHandlerParameters == null) {
-            validationResult.setResult("pluginHandlerParameters", ValidationStatus.INVALID,
-                    "must have a plugin handler");
-        } else {
-            validationResult.setResult("pluginHandlerParameters", pluginHandlerParameters.validate());
-        }
-        return validationResult;
-    }
-
-    private void validateReceptionHandlerClass(final GroupValidationResult validationResult) {
-        try {
-            Class.forName(receptionHandlerClassName);
-        } catch (final ClassNotFoundException exp) {
-            LOGGER.error("reception handler class not found in classpath", exp);
-            validationResult.setResult("receptionHandlerClassName", ValidationStatus.INVALID,
-                    "reception handler class not found in classpath");
-        }
-    }
-
-    /**
-     * Set the name of this group.
-     *
-     * @param name the name to set
-     */
-    @Override
-    public void setName(final String name) {
-        this.name = name;
+    public BeanValidationResult validate() {
+        return new BeanValidator().validateTop(getClass().getSimpleName(), this);
     }
 }

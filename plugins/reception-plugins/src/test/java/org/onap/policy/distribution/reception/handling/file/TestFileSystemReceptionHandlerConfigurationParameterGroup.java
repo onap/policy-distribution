@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Intel. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,7 @@
 
 package org.onap.policy.distribution.reception.handling.file;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -33,7 +35,7 @@ import java.io.IOException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.onap.policy.common.parameters.GroupValidationResult;
+import org.onap.policy.common.parameters.ValidationResult;
 
 /**
  * Class to perform unit test of {@link FileSystemReceptionHandlerConfigurationParameterGroup}.
@@ -54,7 +56,7 @@ public class TestFileSystemReceptionHandlerConfigurationParameterGroup {
         configParameters.setWatchPath(validPath);
         configParameters.setMaxThread(2);
 
-        final GroupValidationResult validationResult = configParameters.validate();
+        final ValidationResult validationResult = configParameters.validate();
         assertTrue(validationResult.isValid());
         assertEquals(validPath, configParameters.getWatchPath());
         assertEquals(2, configParameters.getMaxThread());
@@ -66,7 +68,7 @@ public class TestFileSystemReceptionHandlerConfigurationParameterGroup {
         final Gson gson = new GsonBuilder().create();
         configParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdcInvalid.json"),
                 FileSystemReceptionHandlerConfigurationParameterGroup.class);
-        final GroupValidationResult validationResult = configParameters.validate();
+        final ValidationResult validationResult = configParameters.validate();
         assertFalse(validationResult.isValid());
 
     }
@@ -79,8 +81,8 @@ public class TestFileSystemReceptionHandlerConfigurationParameterGroup {
                 new FileSystemReceptionHandlerConfigurationParameterGroup();
         configParameters.setWatchPath(invalidPath);
 
-        final GroupValidationResult validateResult = configParameters.validate();
+        final ValidationResult validateResult = configParameters.validate();
         assertFalse(validateResult.isValid());
-        assertTrue(validateResult.getResult().contains("must be a valid directory"));
+        assertThat(validateResult.getResult()).contains("is not a valid directory");
     }
 }
