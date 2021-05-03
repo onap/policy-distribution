@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f8290a8_82b2c974",
+        "filename": "main/src/main/java/org/onap/policy/distribution/main/parameters/DistributionParameterGroup.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-05-03T20:09:58Z",
+      "side": 1,
+      "message": "this isn\u0027t validated in the original code.  Is it OK to add validation to it?",
+      "range": {
+        "startLine": 55,
+        "startChar": 34,
+        "endLine": 55,
+        "endChar": 39
+      },
+      "revId": "d8fef59aae3a5443d2f096416c073bfcf5d652cb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
