@@ -22,7 +22,6 @@
 
 package org.onap.policy.distribution.main.parameters;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.FileReader;
 import org.onap.policy.common.parameters.ValidationResult;
@@ -55,7 +54,7 @@ public class DistributionParameterHandler {
         // Read the parameters
         try {
             // Read the parameters from JSON using Gson
-            final Gson gson = new GsonBuilder()
+            final var gson = new GsonBuilder()
                     .registerTypeAdapter(PolicyForwarderConfigurationParameterGroup.class,
                             new PolicyForwarderConfigurationParametersJsonAdapter())
                     .registerTypeAdapter(ReceptionHandlerConfigurationParameterGroup.class,

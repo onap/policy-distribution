@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
- *  Copyright (C) 2020 AT&T Inc.
+ *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -192,14 +192,14 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
      * @param notificationData the notification from SDC
      */
     public void processCsarServiceArtifacts(final INotificationData notificationData) {
-        boolean artifactsProcessedSuccessfully = true;
+        var artifactsProcessedSuccessfully = true;
         DistributionStatisticsManager.updateTotalDistributionCount();
         for (final IArtifactInfo artifact : notificationData.getServiceArtifacts()) {
             try {
                 final IDistributionClientDownloadResult resultArtifact =
                         downloadTheArtifact(artifact, notificationData);
-                final Path filePath = writeArtifactToFile(artifact, resultArtifact);
-                final Csar csarObject = new Csar(filePath.toString());
+                final var filePath = writeArtifactToFile(artifact, resultArtifact);
+                final var csarObject = new Csar(filePath.toString());
                 inputReceived(csarObject);
                 sendDistributionStatus(DistributionStatusType.DEPLOY, artifact.getArtifactURL(),
                         notificationData.getDistributionID(), DistributionStatusEnum.DEPLOY_OK, null);
@@ -262,8 +262,8 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
             final IDistributionClientDownloadResult resultArtifact) throws ArtifactDownloadException {
         try {
             final byte[] payloadBytes = resultArtifact.getArtifactPayload();
-            final File tempArtifactFile = File.createTempFile(artifact.getArtifactName(), ".csar");
-            try (FileOutputStream fileOutputStream = new FileOutputStream(tempArtifactFile)) {
+            final var tempArtifactFile = File.createTempFile(artifact.getArtifactName(), ".csar");
+            try (var fileOutputStream = new FileOutputStream(tempArtifactFile)) {
                 fileOutputStream.write(payloadBytes, 0, payloadBytes.length);
                 return tempArtifactFile.toPath();
             }
@@ -315,7 +315,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
                 clientResult = distributionClient.sendDeploymentStatus(message);
             }
         }
-        final StringBuilder loggerMessage = new StringBuilder();
+        final var loggerMessage = new StringBuilder();
         loggerMessage.append("distribution status to SDC with values - ").append("DistributionId")
                 .append(distributionId).append(" Artifact: ").append(artifactUrl).append(" StatusType: ")
                 .append(statusType.name()).append(" Status: ").append(status.name());
@@ -351,7 +351,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
             clientResult = distributionClient.sendComponentDoneStatus(message, errorReason);
         }
 
-        final StringBuilder loggerMessage = new StringBuilder();
+        final var loggerMessage = new StringBuilder();
         loggerMessage.append("component done status to SDC with values - ").append("DistributionId")
                 .append(distributionId).append(" Status: ").append(status.name());
         if (errorReason != null) {

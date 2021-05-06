@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2020-2021 AT&T Inc.
+ *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,7 +74,7 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
     public Collection<ToscaEntity> decode(final Csar csar) throws PolicyDecodingException {
         final Collection<ToscaEntity> policyList = new ArrayList<>();
 
-        try (ZipFile zipFile = new ZipFile(csar.getCsarPath())) {
+        try (var zipFile = new ZipFile(csar.getCsarPath())) {
             final Enumeration<? extends ZipEntry> entries = zipFile.entries();
             while (entries.hasMoreElements()) {
                 //
@@ -121,7 +121,7 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
             //
             // Now ensure that there is no path injection
             //
-            Path path = Path.of(csarPath, entryName).normalize();
+            var path = Path.of(csarPath, entryName).normalize();
             //
             // Throw an exception if path is outside the csar
             //

@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
- *  Copyright (C) 2020 AT&T Inc.
+ *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ public abstract class AbstractReceptionHandler implements ReceptionHandler {
      */
     @Override
     public void initialize(final String parameterGroupName) throws PluginInitializationException {
-        final ReceptionHandlerParameters receptionHandlerParameters = ParameterService.get(parameterGroupName);
+        final var receptionHandlerParameters = (ReceptionHandlerParameters) ParameterService.get(parameterGroupName);
         pluginHandler = new PluginHandler(receptionHandlerParameters.getPluginHandlerParameters().getName());
         initializeReception(receptionHandlerParameters.getReceptionHandlerConfigurationName());
     }

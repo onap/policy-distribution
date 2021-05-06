@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Intel Crop. All rights reserved.
- *  Modifications Copyright (C) 2020 AT&T Inc.
+ *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,10 @@
 
 package org.onap.policy.distribution.forwarding.file;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
 import org.onap.policy.common.parameters.ParameterService;
@@ -53,7 +51,7 @@ public class FilePolicyForwarder implements PolicyForwarder {
     public void configure(final String parameterGroupName) {
         fileForwarderParameters = ParameterService.get(parameterGroupName);
         try {
-            final Path path = Paths.get(fileForwarderParameters.getPath());
+            final var path = Paths.get(fileForwarderParameters.getPath());
             if (!path.toFile().exists()) {
                 Files.createDirectories(path);
             }
@@ -87,8 +85,8 @@ public class FilePolicyForwarder implements PolicyForwarder {
      */
     private void forwardPolicy(final ToscaPolicy pol) throws PolicyForwardingException {
         final String name = pol.getName();
-        final Path path = Paths.get(fileForwarderParameters.getPath(), name);
-        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
+        final var path = Paths.get(fileForwarderParameters.getPath(), name);
+        try (var writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
             writer.write("policyName: " + name);
             if (fileForwarderParameters.isVerbose()) {
                 writer.newLine();

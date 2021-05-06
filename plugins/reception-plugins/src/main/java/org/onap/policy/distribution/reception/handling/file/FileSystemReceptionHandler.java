@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel Corp. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2019 AT&T Intellectual Property.
+ *  Modifications Copyright (C) 2019, 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,9 +61,9 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
         try {
             final FileSystemReceptionHandlerConfigurationParameterGroup handlerParameters =
                     ParameterService.get(parameterGroupName);
-            final FileClientHandler fileClientHandler =
+            final var fileClientHandler =
                     new FileClientHandler(this, handlerParameters.getWatchPath(), handlerParameters.getMaxThread());
-            final Thread fileWatcherThread = new Thread(fileClientHandler);
+            final var fileWatcherThread = new Thread(fileClientHandler);
             fileWatcherThread.start();
         } catch (final Exception ex) {
             LOGGER.error("FileSystemReceptionHandler initialization failed", ex);
@@ -93,8 +93,8 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
      * @param watchPath Path to watch
      */
     public void initFileWatcher(final String watchPath, final int maxThread) throws IOException {
-        try (final WatchService watcher = FileSystems.getDefault().newWatchService()) {
-            final Path dir = Paths.get(watchPath);
+        try (final var watcher = FileSystems.getDefault().newWatchService()) {
+            final var dir = Paths.get(watchPath);
             dir.register(watcher, ENTRY_CREATE);
             LOGGER.debug("Watch Service registered for dir: {}", dir.getFileName());
             startWatchService(watcher, dir, maxThread);
@@ -161,7 +161,7 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
      */
     protected void createPolicyInputAndCallHandler(final String fileName) {
         try {
-            final Csar csarObject = new Csar(fileName);
+            final var csarObject = new Csar(fileName);
             DistributionStatisticsManager.updateTotalDownloadCount();
             inputReceived(csarObject);
             DistributionStatisticsManager.updateDownloadSuccessCount();
@@ -174,10 +174,10 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
     }
 
     private void waitForFileToBeReady(final String fullFilePath) throws InterruptedException {
-        boolean flag = true;
+        var flag = true;
         while (flag) {
             TimeUnit.MILLISECONDS.sleep(100);
-            try (ZipFile zipFile = new ZipFile(fullFilePath)) {
+            try (var zipFile = new ZipFile(fullFilePath)) {
                 flag = false;
             } catch (final IOException exp) {
                 LOGGER.error("file is not ready for reading, wait for sometime and try again", exp);

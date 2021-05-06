@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2020 AT&T Inc.
+ *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -115,7 +115,7 @@ public class PluginHandler {
             try {
                 final Class<PolicyForwarder> policyForwarderClass =
                         (Class<PolicyForwarder>) Class.forName(forwarderParameters.getForwarderClassName());
-                final PolicyForwarder policyForwarder = policyForwarderClass.getDeclaredConstructor().newInstance();
+                final var policyForwarder = policyForwarderClass.getDeclaredConstructor().newInstance();
                 policyForwarder.configure(forwarderParameters.getForwarderConfigurationName());
                 policyForwarders.add(policyForwarder);
             } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException

@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2020 AT&T Inc.
+ *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ public class PolicyDecoderConfigurationParametersJsonAdapter
     @Override
     public PolicyDecoderConfigurationParameterGroup deserialize(final JsonElement json, final Type typeOfT,
             final JsonDeserializationContext context) {
-        final JsonObject jsonObject = json.getAsJsonObject();
+        final var jsonObject = json.getAsJsonObject();
 
         final String policyDecoderParameterClassName = getParameterGroupClassName(jsonObject);
         final Class<?> policyDecoderParameterClass = getParameterGroupClass(policyDecoderParameterClassName);
@@ -55,7 +55,7 @@ public class PolicyDecoderConfigurationParametersJsonAdapter
     }
 
     private String getParameterGroupClassName(final JsonObject jsonObject) {
-        final JsonPrimitive classNameJsonPrimitive = ((JsonPrimitive) jsonObject.get(PARAMETER_CLASS_NAME));
+        final var classNameJsonPrimitive = ((JsonPrimitive) jsonObject.get(PARAMETER_CLASS_NAME));
 
         if (classNameJsonPrimitive == null || classNameJsonPrimitive.getAsString().length() == 0) {
             final String errorMessage = "parameter \"" + PARAMETER_CLASS_NAME + "\" value \""

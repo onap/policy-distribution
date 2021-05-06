@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2020-2021 AT&T Inc.
+ *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,6 @@
 
 package org.onap.policy.distribution.forwarding.lifecycle.api;
 
-import com.google.common.collect.ImmutableMap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -87,7 +86,7 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
         Response policyCreated = null;
         try {
             if (entity instanceof ToscaServiceTemplate) {
-                final ToscaServiceTemplate toscaServiceTemplate = (ToscaServiceTemplate) entity;
+                final var toscaServiceTemplate = (ToscaServiceTemplate) entity;
                 if (null != toscaServiceTemplate.getPolicyTypes() && !toscaServiceTemplate.getPolicyTypes().isEmpty()) {
                     createPolicyType(toscaServiceTemplate);
                 }
@@ -123,13 +122,13 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
     }
 
     private Response deployPolicy(final ToscaServiceTemplate toscaServiceTemplate) throws PolicyForwardingException {
-        final PdpDeployPolicies pdpPolicies = new PdpDeployPolicies();
+        final var pdpPolicies = new PdpDeployPolicies();
         final List<ToscaConceptIdentifierOptVersion> policyIdentifierList = new ArrayList<>();
         for (final Map<String, ToscaPolicy> policyMap : toscaServiceTemplate.getToscaTopologyTemplate().getPolicies()) {
             final String policyId = policyMap.entrySet().iterator().next().getValue().getMetadata().get("policy-id");
             final String policyVersion =
                     policyMap.entrySet().iterator().next().getValue().getMetadata().get("policy-version");
-            final ToscaConceptIdentifierOptVersion toscaPolicyIdentifier =
+            final var toscaPolicyIdentifier =
                     new ToscaConceptIdentifierOptVersion(policyId, policyVersion);
             policyIdentifierList.add(toscaPolicyIdentifier);
         }
@@ -141,7 +140,7 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
             throws PolicyForwardingException {
         Response response = null;
         try {
-            response = getHttpClient(wantApi).post(path, entity, ImmutableMap.of(HttpHeaders.ACCEPT,
+            response = getHttpClient(wantApi).post(path, entity, Map.of(HttpHeaders.ACCEPT,
                     MediaType.APPLICATION_JSON, HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
             if (response.getStatus() / 100 != 2) {
                 LOGGER.error(
