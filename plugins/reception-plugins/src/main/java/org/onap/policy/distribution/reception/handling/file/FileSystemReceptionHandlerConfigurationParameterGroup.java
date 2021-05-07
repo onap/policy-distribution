@@ -70,7 +70,7 @@ public class FileSystemReceptionHandlerConfigurationParameterGroup extends Recep
      */
     private ValidationResult validatePathElement(final String element, final String elementName) {
         if (element != null) {
-            final File file = new File(element);
+            final var file = new File(element);
             if (file.exists() && file.isDirectory()) {
                 return null;
             }
