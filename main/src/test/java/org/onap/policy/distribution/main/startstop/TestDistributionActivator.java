@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.CommonTestData;
 import org.onap.policy.distribution.main.parameters.DistributionParameterGroup;
@@ -39,6 +41,11 @@ import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParamet
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
 public class TestDistributionActivator {
+
+    @Before
+    public void setUp() {
+        ParameterService.clear();
+    }
 
     @Test
     public void testDistributionActivator() throws PolicyDistributionException, IOException {

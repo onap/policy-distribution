@@ -36,8 +36,10 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
+import org.junit.Before;
 import org.junit.Test;
 import org.onap.policy.common.endpoints.report.HealthCheckReport;
+import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.network.NetworkUtil;
 import org.onap.policy.common.utils.security.SelfSignedKeyStore;
 import org.onap.policy.distribution.main.PolicyDistributionException;
@@ -57,15 +59,19 @@ public class TestHttpsDistributionRestServer {
 
     private int port;
 
+    @Before
+    public void setUp() {
+        ParameterService.clear();
+    }
+
     @Test
-    public void testHttpsHealthCheckSuccess() {
-        final String reportString = "Report [name=Policy SSD, url=" + SELF + ", healthy=true, code=200, message=alive]";
-        assertThatCode(() -> {
-            final Main main = startDistributionService();
-            final HealthCheckReport report = performHealthCheck();
-            validateReport(NAME, SELF, true, 200, ALIVE, reportString, report);
-            stopDistributionService(main);
-        }).doesNotThrowAnyException();
+    public void testHttpsHealthCheckSuccess() throws Exception {
+        final String reportString =
+                        "HealthCheckReport(name=Policy SSD, url=" + SELF + ", healthy=true, code=200, message=alive)";
+        final Main main = startDistributionService();
+        final HealthCheckReport report = performHealthCheck();
+        validateReport(NAME, SELF, true, 200, ALIVE, reportString, report);
+        assertThatCode(() -> stopDistributionService(main)).doesNotThrowAnyException();
     }
 
     private Main startDistributionService() throws IOException, InterruptedException {

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2020 AT&T Inc.
+ *  Modifications Copyright (C) 2020-2021 AT&T Inc.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,7 +28,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.resources.MessageConstants;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.PolicyDistributionRuntimeException;
@@ -40,6 +42,11 @@ import org.onap.policy.distribution.main.parameters.CommonTestData;
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
 public class TestMain {
+
+    @Before
+    public void setUp() {
+        ParameterService.clear();
+    }
 
     @Test
     public void testMain() throws PolicyDistributionException, IOException {
