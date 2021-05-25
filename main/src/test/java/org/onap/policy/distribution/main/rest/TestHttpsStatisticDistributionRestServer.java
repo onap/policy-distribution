@@ -37,7 +37,9 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
+import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.network.NetworkUtil;
 import org.onap.policy.common.utils.security.SelfSignedKeyStore;
 import org.onap.policy.distribution.main.PolicyDistributionException;
@@ -52,6 +54,11 @@ import org.onap.policy.distribution.main.startstop.Main;
 public class TestHttpsStatisticDistributionRestServer {
 
     private int port;
+
+    @Before
+    public void setUp() {
+        ParameterService.clear();
+    }
 
     @Test
     public void testHttpsDistributionStatistic() {

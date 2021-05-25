@@ -26,7 +26,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import org.junit.Before;
 import org.junit.Test;
+import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.CommonTestData;
 import org.onap.policy.distribution.main.parameters.DistributionParameterGroup;
@@ -39,6 +41,11 @@ import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParamet
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
 public class TestDistributionActivator {
+
+    @Before
+    public void setUp() {
+        ParameterService.clear();
+    }
 
     @Test
     public void testDistributionActivator() throws PolicyDistributionException, IOException {
