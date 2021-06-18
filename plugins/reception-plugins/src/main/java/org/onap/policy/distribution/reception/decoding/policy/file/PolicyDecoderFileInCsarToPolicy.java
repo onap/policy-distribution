@@ -101,8 +101,9 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
      * ensures validation of entries in the Zipfile. Attempts to solve path
      * injection java security issues.
      *
-     * @param entry the ZipEntry to check
+     * @param entryName name of the ZipEntry to check
      * @param csarPath Absolute path to the csar the ZipEntry is in
+     * @param entrySize size of the ZipEntry
      * @return true if no injection detected, and it is a policy type  or policy file.
      * @throws PolicyDecodingException if the file size is too large
      */
