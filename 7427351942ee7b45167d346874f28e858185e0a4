@@ -52,6 +52,24 @@
       "revId": "7427351942ee7b45167d346874f28e858185e0a4",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1b19cae_0f0cc952",
+        "filename": "releases/2.5.3-container.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2021-06-25T16:43:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c3f17d1_53c4d562",
+      "revId": "7427351942ee7b45167d346874f28e858185e0a4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
