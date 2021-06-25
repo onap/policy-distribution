@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '2.5.3'
+project: 'policy-distribution'
+log_dir: 'policy-distribution-maven-docker-stage-honolulu/105'
+ref: ae15e04d959f18d20c094fabf087d629533667c6
+containers:
+    - name: 'policy-distribution'
+      version: '2.5.3-20210623T2132'
