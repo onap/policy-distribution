@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 AT&T Inc.
  *  Modifications Copyright (C) 2020 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,8 +54,8 @@ public class TestMain {
         CommonTestData.makeConfigFile("parameters/DistributionConfigParameters.json");
         final String[] distributionConfigParameters = { "-c", CommonTestData.CONFIG_FILE };
         final Main main = new Main(distributionConfigParameters);
-        assertTrue(main.getParameters().isValid());
-        assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, main.getParameters().getName());
+        assertTrue(main.getDistributionParameterGroup().isValid());
+        assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, main.getDistributionParameterGroup().getName());
         main.shutdown();
     }
 

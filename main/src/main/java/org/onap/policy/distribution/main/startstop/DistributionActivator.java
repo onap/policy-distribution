@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2019-2020 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +27,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import lombok.Getter;
+import lombok.Setter;
 import org.onap.policy.common.endpoints.http.server.RestServer;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.main.PolicyDistributionException;
@@ -50,11 +53,14 @@ public class DistributionActivator {
     private static final Logger LOGGER = LoggerFactory.getLogger(DistributionActivator.class);
 
     // The parameters of this policy distribution activator
+    @Getter
     private final DistributionParameterGroup distributionParameterGroup;
 
     // The map of reception handlers initialized by this distribution activator
     private final Map<String, AbstractReceptionHandler> receptionHandlersMap = new HashMap<>();
 
+    @Getter
+    @Setter
     private static boolean alive = false;
 
     private RestServer restServer;
@@ -134,15 +140,6 @@ public class DistributionActivator {
     }
 
     /**
-     * Get the parameters used by the activator.
-     *
-     * @return the parameters of the activator
-     */
-    public DistributionParameterGroup getParameterGroup() {
-        return distributionParameterGroup;
-    }
-
-    /**
      * Method to register the parameters to Common Parameter Service.
      *
      * @param distributionParameterGroup the distribution parameter group
@@ -204,23 +201,5 @@ public class DistributionActivator {
             ParameterService.deregister(decoderConfiguration.getKey());
         }
         //@formatter:on
-    }
-
-    /**
-     * Returns the alive status of distribution service.
-     *
-     * @return the alive
-     */
-    public static boolean isAlive() {
-        return alive;
-    }
-
-    /**
-     * Change the alive status of distribution service.
-     *
-     * @param status the status
-     */
-    public static void setAlive(final boolean status) {
-        alive = status;
     }
 }
