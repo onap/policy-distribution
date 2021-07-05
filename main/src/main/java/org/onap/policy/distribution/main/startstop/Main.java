@@ -25,6 +25,7 @@
 package org.onap.policy.distribution.main.startstop;
 
 import java.util.Arrays;
+import lombok.Getter;
 import org.onap.policy.common.utils.cmd.CommandLineException;
 import org.onap.policy.common.utils.resources.MessageConstants;
 import org.onap.policy.distribution.main.PolicyDistributionException;
@@ -46,7 +47,8 @@ public class Main {
     private DistributionActivator activator;
 
     // The parameters read in from JSON
-    private DistributionParameterGroup parameterGroup;
+    @Getter
+    private DistributionParameterGroup distributionParameterGroup;
 
     /**
      * Instantiates the policy distribution service.
@@ -71,10 +73,10 @@ public class Main {
             arguments.validate();
 
             // Read the parameters
-            parameterGroup = new DistributionParameterHandler().getParameters(arguments);
+            distributionParameterGroup = new DistributionParameterHandler().getParameters(arguments);
 
             // Now, create the activator for the policy distribution service
-            activator = new DistributionActivator(parameterGroup);
+            activator = new DistributionActivator(distributionParameterGroup);
 
             // Start the activator
             activator.initialize();
@@ -90,22 +92,13 @@ public class Main {
     }
 
     /**
-     * Get the parameters specified in JSON.
-     *
-     * @return the parameters
-     */
-    public DistributionParameterGroup getParameters() {
-        return parameterGroup;
-    }
-
-    /**
      * Shut down Execution.
      *
      * @throws PolicyDistributionException on shutdown errors
      */
     public void shutdown() throws PolicyDistributionException {
         // clear the parameterGroup variable
-        parameterGroup = null;
+        distributionParameterGroup = null;
 
         // clear the distribution activator
         if (activator != null) {

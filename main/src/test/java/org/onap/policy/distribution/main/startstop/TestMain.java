@@ -53,8 +53,8 @@ public class TestMain {
         CommonTestData.makeConfigFile("parameters/DistributionConfigParameters.json");
         final String[] distributionConfigParameters = { "-c", CommonTestData.CONFIG_FILE };
         final Main main = new Main(distributionConfigParameters);
-        assertTrue(main.getParameters().isValid());
-        assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, main.getParameters().getName());
+        assertTrue(main.getDistributionParameterGroup().isValid());
+        assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, main.getDistributionParameterGroup().getName());
         main.shutdown();
     }
 
