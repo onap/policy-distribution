@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,17 +28,17 @@ import org.onap.sdc.utils.DistributionStatusEnum;
 
 public class TestDistributionStatusMessage {
 
+    private final String artifactUrl = "http://dummyurl";
+    private final String consumerId = "dummyId";
+    private final String distributionId = "dummyDistribution";
+
     @Test
     public void testDistributionStatusMessage_Download() {
-        final String artifactUrl = "http://dummyurl";
-        final String consumerId = "dummyId";
-        final String distributionId = "dummyDistribution";
         final long timestamp = System.currentTimeMillis();
 
-        final DistributionStatusMessageBuilder messageBuilder = new DistributionStatusMessageBuilder()
-                .setArtifactUrl(artifactUrl).setConsumerId(consumerId).setDistributionId(distributionId)
-                .setDistributionStatus(DistributionStatusEnum.DOWNLOAD_OK).setTimestamp(timestamp);
-        final DistributionStatusMessage message = new DistributionStatusMessage(messageBuilder);
+        final DistributionStatusMessage message = DistributionStatusMessage.builder().artifactUrl(artifactUrl)
+                        .consumerId(consumerId).distributionId(distributionId)
+                        .distributionStatus(DistributionStatusEnum.DOWNLOAD_OK).timestamp(timestamp).build();
         assertEquals(artifactUrl, message.getArtifactURL());
         assertEquals(consumerId, message.getConsumerID());
         assertEquals(distributionId, message.getDistributionID());
@@ -47,15 +48,11 @@ public class TestDistributionStatusMessage {
 
     @Test
     public void testDistributionStatusMessage_Deploy() {
-        final String artifactUrl = "http://dummyurl";
-        final String consumerId = "dummyId";
-        final String distributionId = "dummyDistribution";
         final long timestamp = System.currentTimeMillis();
 
-        final DistributionStatusMessageBuilder messageBuilder = new DistributionStatusMessageBuilder()
-                .setArtifactUrl(artifactUrl).setConsumerId(consumerId).setDistributionId(distributionId)
-                .setDistributionStatus(DistributionStatusEnum.DEPLOY_OK).setTimestamp(timestamp);
-        final DistributionStatusMessage message = new DistributionStatusMessage(messageBuilder);
+        final DistributionStatusMessage message = DistributionStatusMessage.builder().artifactUrl(artifactUrl)
+                        .consumerId(consumerId).distributionId(distributionId)
+                        .distributionStatus(DistributionStatusEnum.DEPLOY_OK).timestamp(timestamp).build();
         assertEquals(artifactUrl, message.getArtifactURL());
         assertEquals(consumerId, message.getConsumerID());
         assertEquals(distributionId, message.getDistributionID());

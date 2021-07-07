@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2018 Intel. All rights reserved.
+ *  Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,34 +20,16 @@
 
 package org.onap.policy.distribution.reception.handling.sdc.exceptions;
 
-/**
- * Exception of the Pssd controller.
- */
-public class PssdControllerException extends Exception {
+import static org.junit.Assert.assertNotNull;
 
-    /**
-     * serialization id.
-     */
-    private static final long serialVersionUID = -8507246953751956974L;
+import java.io.IOException;
+import org.junit.Test;
 
-    /**
-     * Constructor for creating PssdControllerException using message.
-     *
-     * @param message The message to dump
-     */
-    public PssdControllerException(final String message) {
-        super(message);
+public class TestExceptions {
 
-    }
-
-    /**
-     * Constructor for creating PssdControllerException using message and exception.
-     *
-     * @param message The message to dump
-     * @param ex the exception that caused this exception to be thrown
-     */
-    public PssdControllerException(final String message, final Exception ex) {
-        super(message, ex);
-
+    @Test
+    public void test() {
+        assertNotNull(new ArtifactDownloadException("Message"));
+        assertNotNull(new ArtifactDownloadException("Message", new IOException()));
     }
 }

@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,7 @@
 
 package org.onap.policy.distribution.forwarding.parameters;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.onap.policy.common.parameters.BeanValidationResult;
 import org.onap.policy.common.parameters.BeanValidator;
@@ -37,25 +39,12 @@ import org.onap.policy.common.parameters.annotations.NotNull;
  */
 @Getter
 @NotBlank
+@AllArgsConstructor
 public class PolicyForwarderParameters implements ParameterGroup {
 
     private @NotNull String forwarderType;
     private @NotNull @ClassName String forwarderClassName;
     private String forwarderConfigurationName;
-
-    /**
-     * Constructor for instantiating PolicyForwarderParameters.
-     *
-     * @param forwarderType the policy forwarder type
-     * @param forwarderClassName the policy forwarder class name
-     * @param forwarderConfigurationName the name of the configuration for the policy forwarder
-     */
-    public PolicyForwarderParameters(final String forwarderType, final String forwarderClassName,
-            final String forwarderConfigurationName) {
-        this.forwarderType = forwarderType;
-        this.forwarderClassName = forwarderClassName;
-        this.forwarderConfigurationName = forwarderConfigurationName;
-    }
 
     /**
      * {@inheritDoc}.

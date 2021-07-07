@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 package org.onap.policy.distribution.reception.handling.file;
 
 import java.io.IOException;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +31,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Ram Krishna Verma (ram.krishna.verma@est.tech)
  */
+@AllArgsConstructor
 public class FileClientHandler implements Runnable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileClientHandler.class);
@@ -36,18 +39,6 @@ public class FileClientHandler implements Runnable {
     private FileSystemReceptionHandler fileReceptionHandler;
     private String watchPath;
     private int maxThread;
-
-    /**
-     * Constructs an instance of {@link FileClientHandler} class.
-     *
-     * @param fileReceptionHandler the fileReceptionHandler
-     */
-    public FileClientHandler(final FileSystemReceptionHandler fileReceptionHandler, final String watchPath,
-            final int maxThread) {
-        this.fileReceptionHandler = fileReceptionHandler;
-        this.watchPath = watchPath;
-        this.maxThread = maxThread;
-    }
 
     /**
      * {@inheritDoc}.

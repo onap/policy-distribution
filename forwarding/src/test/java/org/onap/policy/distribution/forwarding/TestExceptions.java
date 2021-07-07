@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2018 Intel. All rights reserved.
+ *  Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,18 +18,18 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.reception.handling.sdc.exceptions;
+package org.onap.policy.distribution.forwarding;
 
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import org.junit.Test;
 
-public class ArtifactInstallerExceptionTest {
+public class TestExceptions {
 
     @Test
     public void test() {
-        assertNotNull(new ArtifactInstallerException("Message"));
-        assertNotNull(new ArtifactInstallerException("Message", new IOException()));
+        assertNotNull(new PolicyForwardingException("Message"));
+        assertNotNull(new PolicyForwardingException("Message", new IOException()));
     }
 }

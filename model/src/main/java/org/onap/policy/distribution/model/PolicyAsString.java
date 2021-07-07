@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,51 +21,18 @@
 
 package org.onap.policy.distribution.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * This class represents a policy which can be decoded by a relevant {@link PolicyDecoder}.
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
+@Getter
+@AllArgsConstructor
 public class PolicyAsString implements Policy {
     private String policyName;
     private String policyType;
     private String policy;
-
-    /**
-     * Constructor for creating instance of {@link PolicyAsString}.
-     *
-     * @param policyName the policy file name
-     * @param policyType the policy type
-     * @param policy the policy
-     */
-    public PolicyAsString(final String policyName, final String policyType, final String policy) {
-        this.policyName = policyName;
-        this.policyType = policyType;
-        this.policy = policy;
-    }
-
-    /**
-     * Returns the policy of this {@link PolicyAsString} instance.
-     *
-     * @return the policy
-     */
-    public String getPolicy() {
-        return policy;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String getPolicyName() {
-        return policyName;
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public String getPolicyType() {
-        return policyType;
-    }
 }

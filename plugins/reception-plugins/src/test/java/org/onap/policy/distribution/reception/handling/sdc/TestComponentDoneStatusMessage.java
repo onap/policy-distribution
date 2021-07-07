@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,15 +28,15 @@ import org.onap.sdc.utils.DistributionStatusEnum;
 
 public class TestComponentDoneStatusMessage {
 
+    private final String consumerId = "dummyId";
+    private final String distributionId = "dummyDistribution";
+
     @Test
     public void testComponentDoneStatusMessage_Success() {
-        final String consumerId = "dummyId";
-        final String distributionId = "dummyDistribution";
         final long timestamp = System.currentTimeMillis();
-        final ComponentDoneStatusMessageBuilder messageBuilder =
-                new ComponentDoneStatusMessageBuilder().setConsumerId(consumerId).setDistributionId(distributionId)
-                        .setDistributionStatus(DistributionStatusEnum.COMPONENT_DONE_OK).setTimestamp(timestamp);
-        final ComponentDoneStatusMessage message = new ComponentDoneStatusMessage(messageBuilder);
+        final ComponentDoneStatusMessage message = ComponentDoneStatusMessage.builder().consumerId(consumerId)
+                        .distributionId(distributionId).distributionStatus(DistributionStatusEnum.COMPONENT_DONE_OK)
+                        .timestamp(timestamp).build();
         assertEquals("POLICY", message.getComponentName());
         assertEquals(consumerId, message.getConsumerID());
         assertEquals(distributionId, message.getDistributionID());
@@ -45,13 +46,10 @@ public class TestComponentDoneStatusMessage {
 
     @Test
     public void testComponentDoneStatusMessage_Failure() {
-        final String consumerId = "dummyId";
-        final String distributionId = "dummyDistribution";
         final long timestamp = System.currentTimeMillis();
-        final ComponentDoneStatusMessageBuilder messageBuilder =
-                new ComponentDoneStatusMessageBuilder().setConsumerId(consumerId).setDistributionId(distributionId)
-                        .setDistributionStatus(DistributionStatusEnum.COMPONENT_DONE_ERROR).setTimestamp(timestamp);
-        final ComponentDoneStatusMessage message = new ComponentDoneStatusMessage(messageBuilder);
+        final ComponentDoneStatusMessage message = ComponentDoneStatusMessage.builder().consumerId(consumerId)
+                        .distributionId(distributionId).distributionStatus(DistributionStatusEnum.COMPONENT_DONE_ERROR)
+                        .timestamp(timestamp).build();
         assertEquals("POLICY", message.getComponentName());
         assertEquals(consumerId, message.getConsumerID());
         assertEquals(distributionId, message.getDistributionID());
