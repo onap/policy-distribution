@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,24 +21,15 @@
 
 package org.onap.policy.distribution.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * Represents a CSAR file that a {@link Policy} can be decoded from.
  */
+@Getter
+@AllArgsConstructor
 public class Csar implements PolicyInput {
 
     private String csarFilePath;
-
-    public Csar(final String csarFilePath) {
-        this.csarFilePath = csarFilePath;
-    }
-
-    /**
-     * Get the path to the CSAR file.
-     *
-     * @return the path of the CSAR file
-     */
-    public String getCsarPath() {
-        return csarFilePath;
-    }
-
 }

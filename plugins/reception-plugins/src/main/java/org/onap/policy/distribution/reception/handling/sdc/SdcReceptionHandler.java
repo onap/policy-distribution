@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,6 +44,7 @@ import org.onap.sdc.api.notification.IArtifactInfo;
 import org.onap.sdc.api.notification.INotificationData;
 import org.onap.sdc.api.results.IDistributionClientDownloadResult;
 import org.onap.sdc.api.results.IDistributionClientResult;
+import org.onap.sdc.impl.DistributionClientFactory;
 import org.onap.sdc.impl.DistributionClientImpl;
 import org.onap.sdc.utils.DistributionActionResultEnum;
 import org.onap.sdc.utils.DistributionStatusEnum;
@@ -298,10 +300,9 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
             final String distributionId, final DistributionStatusEnum status, final String errorReason) {
 
         IDistributionClientResult clientResult;
-        final DistributionStatusMessageBuilder messageBuilder = new DistributionStatusMessageBuilder()
-                .setArtifactUrl(artifactUrl).setConsumerId(sdcConfig.getConsumerID()).setDistributionId(distributionId)
-                .setDistributionStatus(status).setTimestamp(System.currentTimeMillis());
-        final IDistributionStatusMessage message = new DistributionStatusMessage(messageBuilder);
+        final IDistributionStatusMessage message = DistributionStatusMessage.builder().artifactUrl(artifactUrl)
+                        .consumerId(sdcConfig.getConsumerID()).distributionId(distributionId).distributionStatus(status)
+                        .timestamp(System.currentTimeMillis()).build();
         if (DistributionStatusType.DOWNLOAD.equals(statusType)) {
             if (errorReason != null) {
                 clientResult = distributionClient.sendDownloadStatus(message, errorReason);
@@ -341,10 +342,9 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
     private void sendComponentDoneStatus(final String distributionId, final DistributionStatusEnum status,
             final String errorReason) {
         IDistributionClientResult clientResult;
-        final ComponentDoneStatusMessageBuilder messageBuilder = new ComponentDoneStatusMessageBuilder()
-                .setConsumerId(sdcConfig.getConsumerID()).setDistributionId(distributionId)
-                .setDistributionStatus(status).setTimestamp(System.currentTimeMillis());
-        final IComponentDoneStatusMessage message = new ComponentDoneStatusMessage(messageBuilder);
+        final IComponentDoneStatusMessage message = ComponentDoneStatusMessage.builder()
+                        .consumerId(sdcConfig.getConsumerID()).distributionId(distributionId).distributionStatus(status)
+                        .timestamp(System.currentTimeMillis()).build();
         if (errorReason == null) {
             clientResult = distributionClient.sendComponentDoneStatus(message);
         } else {

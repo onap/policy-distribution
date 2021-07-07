@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 
 package org.onap.policy.distribution.reception.handling.sdc;
 
+import lombok.Builder;
 import org.onap.sdc.api.consumer.IComponentDoneStatusMessage;
 import org.onap.sdc.utils.DistributionStatusEnum;
 
@@ -28,24 +30,13 @@ import org.onap.sdc.utils.DistributionStatusEnum;
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
+@Builder
 public class ComponentDoneStatusMessage implements IComponentDoneStatusMessage {
 
     private String consumerId;
     private String distributionId;
     private DistributionStatusEnum distributionStatus;
     private long timestamp;
-
-    /**
-     * Constructor for instantiating {@link ComponentDoneStatusMessage} class.
-     *
-     * @param messageBuilder the message builder
-     */
-    public ComponentDoneStatusMessage(final ComponentDoneStatusMessageBuilder messageBuilder) {
-        this.consumerId = messageBuilder.getConsumerId();
-        this.distributionId = messageBuilder.getDistributionId();
-        this.distributionStatus = messageBuilder.getDistributionStatus();
-        this.timestamp = messageBuilder.getTimestamp();
-    }
 
     @Override
     public DistributionStatusEnum getStatus() {

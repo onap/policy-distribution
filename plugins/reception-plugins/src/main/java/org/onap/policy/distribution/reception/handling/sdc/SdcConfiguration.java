@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,24 +22,17 @@
 package org.onap.policy.distribution.reception.handling.sdc;
 
 import java.util.List;
+import lombok.AllArgsConstructor;
 import org.onap.sdc.api.consumer.IConfiguration;
 
 /**
  * This class represents the configurations needed for SDC Client.
  *
  */
+@AllArgsConstructor
 public class SdcConfiguration implements IConfiguration {
 
-    private SdcReceptionHandlerConfigurationParameterGroup configParameters = null;
-
-    /**
-     * Constructor for instantiating {@link SdcConfiguration}.
-     *
-     * @param configParameters the SDC Client configuration parameters
-     */
-    public SdcConfiguration(final SdcReceptionHandlerConfigurationParameterGroup configParameters) {
-        this.configParameters = configParameters;
-    }
+    private SdcReceptionHandlerConfigurationParameterGroup configParameters;
 
     @Override
     public String getAsdcAddress() {

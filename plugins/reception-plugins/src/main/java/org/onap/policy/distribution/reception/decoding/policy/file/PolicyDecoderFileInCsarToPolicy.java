@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,7 +75,7 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
     public Collection<ToscaEntity> decode(final Csar csar) throws PolicyDecodingException {
         final Collection<ToscaEntity> policyList = new ArrayList<>();
 
-        try (var zipFile = new ZipFile(csar.getCsarPath())) {
+        try (var zipFile = new ZipFile(csar.getCsarFilePath())) {
             final Enumeration<? extends ZipEntry> entries = zipFile.entries();
             while (entries.hasMoreElements()) {
                 //
@@ -83,7 +84,7 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
                 // isZipEntryValid ensures the file being read exists in the archive
                 //
                 final ZipEntry entry = entries.nextElement(); // NOSONAR
-                if (isZipEntryValid(entry.getName(), csar.getCsarPath(), entry.getSize())) {
+                if (isZipEntryValid(entry.getName(), csar.getCsarFilePath(), entry.getSize())) {
                     final ToscaServiceTemplate policy =
                             coder.decode(zipFile.getInputStream(entry), ToscaServiceTemplate.class);
                     policyList.add(policy);

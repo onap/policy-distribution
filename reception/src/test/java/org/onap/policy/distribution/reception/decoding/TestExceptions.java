@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2018 Intel. All rights reserved.
+ *  Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,18 +18,17 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.reception.handling.sdc.exceptions;
+package org.onap.policy.distribution.reception.decoding;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.io.IOException;
 import org.junit.Test;
+import org.onap.policy.common.utils.test.ExceptionsTester;
 
-public class PssdControllerExceptionTest {
+public class TestExceptions {
 
     @Test
     public void test() {
-        assertNotNull(new PssdControllerException("Message"));
-        assertNotNull(new PssdControllerException("Message", new IOException()));
+        new ExceptionsTester().test(PluginInitializationException.class);
+        new ExceptionsTester().test(PluginTerminationException.class);
+        new ExceptionsTester().test(PolicyDecodingException.class);
     }
 }

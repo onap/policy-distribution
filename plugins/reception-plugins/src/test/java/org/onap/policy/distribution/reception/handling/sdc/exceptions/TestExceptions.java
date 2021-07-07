@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2018 Intel. All rights reserved.
+ *  Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,34 +20,13 @@
 
 package org.onap.policy.distribution.reception.handling.sdc.exceptions;
 
-/**
- * Exception of the Pssd controller.
- */
-public class PssdControllerException extends Exception {
+import org.junit.Test;
+import org.onap.policy.common.utils.test.ExceptionsTester;
 
-    /**
-     * serialization id.
-     */
-    private static final long serialVersionUID = -8507246953751956974L;
+public class TestExceptions {
 
-    /**
-     * Constructor for creating PssdControllerException using message.
-     *
-     * @param message The message to dump
-     */
-    public PssdControllerException(final String message) {
-        super(message);
-
-    }
-
-    /**
-     * Constructor for creating PssdControllerException using message and exception.
-     *
-     * @param message The message to dump
-     * @param ex the exception that caused this exception to be thrown
-     */
-    public PssdControllerException(final String message, final Exception ex) {
-        super(message, ex);
-
+    @Test
+    public void test() {
+        new ExceptionsTester().test(ArtifactDownloadException.class);
     }
 }
