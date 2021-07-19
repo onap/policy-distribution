@@ -31,10 +31,10 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.onap.policy.common.endpoints.event.comm.bus.internal.BusTopicParams;
 import org.onap.policy.common.endpoints.http.client.HttpClient;
 import org.onap.policy.common.endpoints.http.client.HttpClientConfigException;
 import org.onap.policy.common.endpoints.http.client.HttpClientFactoryInstance;
+import org.onap.policy.common.endpoints.parameters.RestClientParameters;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
@@ -65,6 +65,9 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
     @Override
     public void configure(final String parameterGroupName) {
         forwarderParameters = ParameterService.get(parameterGroupName);
+
+        forwarderParameters.getApiParameters().setClientName("policy-api");
+        forwarderParameters.getPapParameters().setClientName("policy-pap");
     }
 
     /**
@@ -156,14 +159,9 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
     }
 
     private HttpClient getHttpClient(final boolean wantApi) throws HttpClientConfigException {
-        final boolean https = forwarderParameters.isHttps();
-        final LifecycleApiParameters parameters =
+        final RestClientParameters parameters =
                 (wantApi ? forwarderParameters.getApiParameters() : forwarderParameters.getPapParameters());
-        final BusTopicParams params = BusTopicParams.builder().clientName("Policy Distribution").useHttps(https)
-                .hostname(parameters.getHostName()).port(parameters.getPort()).userName(parameters.getUserName())
-                .password(parameters.getPassword()).allowSelfSignedCerts(forwarderParameters.isAllowSelfSignedCerts())
-                .build();
-        return HttpClientFactoryInstance.getClientFactory().build(params);
+        return HttpClientFactoryInstance.getClientFactory().build(parameters);
     }
 }
 
