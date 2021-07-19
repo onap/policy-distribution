@@ -21,6 +21,7 @@
 package org.onap.policy.distribution.forwarding;
 
 import java.util.Collection;
+import org.onap.policy.common.endpoints.http.client.HttpClientConfigException;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
@@ -40,8 +41,9 @@ public interface PolicyForwarder {
      *
      * @param parameterGroupName the name of the parameter group which contains the configuration
      *        for the policy forwarder
+     * @throws HttpClientConfigException if an exception occurs
      */
-    void configure(String parameterGroupName);
+    void configure(String parameterGroupName) throws HttpClientConfigException;
 
     /**
      * Forward the given policies.
