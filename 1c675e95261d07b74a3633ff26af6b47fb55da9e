@@ -34,6 +34,24 @@
       "revId": "1c675e95261d07b74a3633ff26af6b47fb55da9e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "411079bb_36ca1f77",
+        "filename": "forwarding/src/main/java/org/onap/policy/distribution/forwarding/PolicyForwarder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-07-20T14:10:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "333a364e_fa80b7f4",
+      "revId": "1c675e95261d07b74a3633ff26af6b47fb55da9e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
