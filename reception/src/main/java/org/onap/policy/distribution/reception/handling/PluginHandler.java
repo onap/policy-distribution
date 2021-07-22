@@ -26,7 +26,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-import org.onap.policy.common.endpoints.http.client.HttpClientConfigException;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
@@ -121,7 +120,7 @@ public class PluginHandler {
                 policyForwarders.add(policyForwarder);
             } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException
                     | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
-                    | SecurityException | HttpClientConfigException exp) {
+                    | SecurityException exp) {
                 throw new PluginInitializationException(exp.getMessage(), exp.getCause());
             }
         }

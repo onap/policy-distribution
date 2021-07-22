@@ -1,7 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +21,9 @@
 package org.onap.policy.distribution.forwarding.lifecycle.api;
 
 import lombok.Getter;
+import org.onap.policy.common.parameters.annotations.Min;
 import org.onap.policy.common.parameters.annotations.NotBlank;
 import org.onap.policy.common.parameters.annotations.NotNull;
-import org.onap.policy.common.parameters.annotations.Valid;
 import org.onap.policy.distribution.main.parameters.PolicyForwarderConfigurationParameterGroup;
 
 /**
@@ -35,16 +34,15 @@ import org.onap.policy.distribution.main.parameters.PolicyForwarderConfiguration
 @Getter
 @NotNull
 @NotBlank
-public class LifecycleApiForwarderParameters extends PolicyForwarderConfigurationParameterGroup {
-    public static final String POLICY_FORWARDER_PLUGIN_CLASS = LifecycleApiPolicyForwarder.class.getName();
+public class LifecycleApiParameters extends PolicyForwarderConfigurationParameterGroup {
 
-    private @Valid LifecycleApiParameters apiParameters;
-    private @Valid LifecycleApiParameters papParameters;
-    private boolean isHttps;
-    private boolean allowSelfSignedCerts;
-    private boolean deployPolicies = true;
+    private String hostName;
+    @Min(value = 1)
+    private int port;
+    private String userName;
+    private String password;
 
-    public LifecycleApiForwarderParameters() {
-        super(LifecycleApiForwarderParameters.class.getSimpleName());
+    public LifecycleApiParameters() {
+        super(LifecycleApiParameters.class.getSimpleName());
     }
 }
