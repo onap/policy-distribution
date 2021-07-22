@@ -1,7 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +21,6 @@
 package org.onap.policy.distribution.forwarding;
 
 import java.util.Collection;
-import org.onap.policy.common.endpoints.http.client.HttpClientConfigException;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
@@ -42,9 +40,8 @@ public interface PolicyForwarder {
      *
      * @param parameterGroupName the name of the parameter group which contains the configuration
      *        for the policy forwarder
-     * @throws HttpClientConfigException if an exception occurs
      */
-    void configure(String parameterGroupName) throws HttpClientConfigException;
+    void configure(String parameterGroupName);
 
     /**
      * Forward the given policies.
