@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2020 AT&T Inc.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,22 +84,19 @@ public class LifecycleApiPolicyForwarderTest {
 
     @Test
     public void testForwardPolicyUsingSimulator() throws Exception {
-        assertThatCode(() -> {
-            final ToscaServiceTemplate toscaServiceTemplate1 =
-                    standardCoder.decode(ResourceUtils.getResourceAsString(POLICY_TYPE), ToscaServiceTemplate.class);
-            final ToscaServiceTemplate toscaServiceTemplate2 =
-                    standardCoder.decode(ResourceUtils.getResourceAsString(POLICY), ToscaServiceTemplate.class);
+        final ToscaServiceTemplate toscaServiceTemplate1 =
+                standardCoder.decode(ResourceUtils.getResourceAsString(POLICY_TYPE), ToscaServiceTemplate.class);
+        final ToscaServiceTemplate toscaServiceTemplate2 =
+                standardCoder.decode(ResourceUtils.getResourceAsString(POLICY), ToscaServiceTemplate.class);
 
-            final LifecycleApiPolicyForwarder forwarder = new LifecycleApiPolicyForwarder();
-            forwarder.configure(LifecycleApiForwarderParameters.class.getSimpleName());
+        final LifecycleApiPolicyForwarder forwarder = new LifecycleApiPolicyForwarder();
+        forwarder.configure(LifecycleApiForwarderParameters.class.getSimpleName());
 
-            final Collection<ToscaEntity> policies = new ArrayList<>();
-            policies.add(toscaServiceTemplate1);
-            policies.add(toscaServiceTemplate2);
+        final Collection<ToscaEntity> policies = new ArrayList<>();
+        policies.add(toscaServiceTemplate1);
+        policies.add(toscaServiceTemplate2);
 
-            forwarder.forward(policies);
-
-        }).doesNotThrowAnyException();
+        assertThatCode(() -> forwarder.forward(policies)).doesNotThrowAnyException();
     }
 
     @Test

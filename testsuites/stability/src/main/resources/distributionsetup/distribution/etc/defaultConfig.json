@@ -53,18 +53,19 @@
             "parameterClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiForwarderParameters",
             "parameters": {
                 "apiParameters": {
-                    "hostName": "policy-api",
+                    "hostname": "policy-api",
                     "port": 6969,
                     "userName": "healthcheck",
-                    "password": "zb!XztG34"
+                    "password": "zb!XztG34",
+                    "useHttps": true
                 },
                 "papParameters": {
-                    "hostName": "policy-pap",
+                    "hostname": "policy-pap",
                     "port": 7000,
                     "userName": "healthcheck",
-                    "password": "zb!XztG34"
+                    "password": "zb!XztG34",
+                    "useHttps": true
                 },
-                "isHttps": true,
                 "deployPolicies": true
             }
         }
