@@ -1,16 +1,17 @@
 {
   "apiParameters": {
-    "hostName": "0.0.0.0",
+    "hostname": "0.0.0.0",
     "port": 6969,
     "userName": "healthcheck",
-    "password": "zb!XztG34"
+    "password": "zb!XztG34",
+    "isUseHttps": false
   },
   "papParameters": {
-    "hostName": "0.0.0.0",
+    "hostname": "0.0.0.0",
     "port": 6969,
     "userName": "healthcheck",
-    "password": "zb!XztG34"
+    "password": "zb!XztG34",
+    "isUseHttps": false
   },
-  "isHttps": false,
   "deployPolicies": true
 }
