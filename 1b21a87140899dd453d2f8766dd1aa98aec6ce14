@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b375432_7f022501",
+        "filename": "packages/policy-distribution-tarball/src/main/resources/etc/defaultConfig.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2021-07-30T17:12:10Z",
+      "side": 1,
+      "message": "If you can apply the changes in the in progress oom review for istanbul (https://gerrit.onap.org/r/c/oom/+/120577) and the CSITs which I am sure you were already planning to do.",
+      "revId": "1b21a87140899dd453d2f8766dd1aa98aec6ce14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
