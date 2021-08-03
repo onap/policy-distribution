@@ -1,16 +1,19 @@
 {
   "apiParameters": {
-    "hostName": "",
+    "clientName": "policy-api",
+    "hostname": "",
     "port": -1,
+    "useHttps": false,
     "userName": "healthcheck",
     "password": "zb!XztG34"
   },
   "papParameters": {
-    "hostName": "",
+    "clientName": "policy-pap",
+    "hostname": "",
     "port": -2,
+    "useHttps": false,
     "userName": "healthcheck",
     "password": "zb!XztG34"
   },
-  "isHttps": false,
   "deployPolicies": true
 }

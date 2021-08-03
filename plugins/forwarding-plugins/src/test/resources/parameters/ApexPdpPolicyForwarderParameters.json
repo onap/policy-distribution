@@ -1,6 +1,0 @@
-{
-    "hostname":"10.10.10.10",
-    "port":"1234",
-    "ignoreConflicts": false,
-    "forceUpdate": true
-}

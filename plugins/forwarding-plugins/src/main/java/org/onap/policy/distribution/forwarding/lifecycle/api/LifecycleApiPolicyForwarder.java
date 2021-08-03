@@ -31,7 +31,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.onap.policy.common.endpoints.event.comm.bus.internal.BusTopicParams;
 import org.onap.policy.common.endpoints.http.client.HttpClient;
 import org.onap.policy.common.endpoints.http.client.HttpClientConfigException;
 import org.onap.policy.common.endpoints.http.client.HttpClientFactoryInstance;
@@ -57,14 +56,20 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
     private static final String DEPLOY_POLICY_URI = "/policy/pap/v1/pdps/policies";
     private static final String CREATE_POLICY_TYPE_URI = "/policy/api/v1/policytypes/";
     private static final Logger LOGGER = LoggerFactory.getLogger(LifecycleApiPolicyForwarder.class);
+
     private LifecycleApiForwarderParameters forwarderParameters;
+    private HttpClient apiClient;
+    private HttpClient papClient;
 
     /**
      * {@inheritDoc}.
      */
     @Override
-    public void configure(final String parameterGroupName) {
+    public void configure(final String parameterGroupName) throws HttpClientConfigException {
         forwarderParameters = ParameterService.get(parameterGroupName);
+
+        apiClient = HttpClientFactoryInstance.getClientFactory().build(forwarderParameters.getApiParameters());
+        papClient = HttpClientFactoryInstance.getClientFactory().build(forwarderParameters.getPapParameters());
     }
 
     /**
@@ -138,32 +143,19 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
 
     private Response invokeHttpClient(final Entity<?> entity, final String path, final boolean wantApi)
             throws PolicyForwardingException {
-        Response response = null;
-        try {
-            response = getHttpClient(wantApi).post(path, entity, Map.of(HttpHeaders.ACCEPT,
-                    MediaType.APPLICATION_JSON, HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
-            if (response.getStatus() / 100 != 2) {
-                LOGGER.error(
-                        "Invocation of path {} failed for entity {}. Response status: {}, Response status info: {}",
-                        path, entity, response.getStatus(), response.getStatusInfo());
-                throw new PolicyForwardingException("Failed creating the entity - " + entity);
-            }
-        } catch (final HttpClientConfigException exception) {
-            throw new PolicyForwardingException("Invocation of path " + path + " failed for entity " + entity,
-                    exception);
+        Response response = getHttpClient(wantApi).post(path, entity, Map.of(HttpHeaders.ACCEPT,
+                        MediaType.APPLICATION_JSON, HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
+        if (response.getStatus() / 100 != 2) {
+            LOGGER.error(
+                    "Invocation of path {} failed for entity {}. Response status: {}, Response status info: {}",
+                    path, entity, response.getStatus(), response.getStatusInfo());
+            throw new PolicyForwardingException("Failed creating the entity - " + entity);
         }
         return response;
     }
 
-    private HttpClient getHttpClient(final boolean wantApi) throws HttpClientConfigException {
-        final boolean https = forwarderParameters.isHttps();
-        final LifecycleApiParameters parameters =
-                (wantApi ? forwarderParameters.getApiParameters() : forwarderParameters.getPapParameters());
-        final BusTopicParams params = BusTopicParams.builder().clientName("Policy Distribution").useHttps(https)
-                .hostname(parameters.getHostName()).port(parameters.getPort()).userName(parameters.getUserName())
-                .password(parameters.getPassword()).allowSelfSignedCerts(forwarderParameters.isAllowSelfSignedCerts())
-                .build();
-        return HttpClientFactoryInstance.getClientFactory().build(params);
+    private HttpClient getHttpClient(final boolean wantApi) {
+        return (wantApi ? apiClient : papClient);
     }
 }
 

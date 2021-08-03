@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 
 package org.onap.policy.distribution.forwarding.lifecycle.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -54,17 +56,19 @@ public class LifecycleApiForwarderParametersTest {
 
         assertEquals(LifecycleApiForwarderParameters.class.getSimpleName(),
                 configurationParameters.getName());
-        assertFalse(configurationParameters.isHttps());
         assertTrue(configurationParameters.isDeployPolicies());
-        assertEquals(POLICY_API_HOST_NAME, configurationParameters.getApiParameters().getHostName());
+        assertEquals(POLICY_API_HOST_NAME, configurationParameters.getApiParameters().getHostname());
         assertEquals(POLICY_API_PORT, configurationParameters.getApiParameters().getPort());
+        assertFalse(configurationParameters.getApiParameters().isUseHttps());
         assertEquals(POLICY_API_USER, configurationParameters.getApiParameters().getUserName());
         assertEquals(POLICY_API_PASSWORD, configurationParameters.getApiParameters().getPassword());
-        assertEquals(POLICY_PAP_HOST_NAME, configurationParameters.getPapParameters().getHostName());
+        assertEquals(POLICY_PAP_HOST_NAME, configurationParameters.getPapParameters().getHostname());
         assertEquals(POLICY_PAP_PORT, configurationParameters.getPapParameters().getPort());
+        assertFalse(configurationParameters.getPapParameters().isUseHttps());
         assertEquals(POLICY_PAP_USER, configurationParameters.getPapParameters().getUserName());
         assertEquals(POLICY_PAP_PASSWORD, configurationParameters.getPapParameters().getPassword());
 
+        assertThat(configurationParameters.validate().getResult()).isNull();
         assertEquals(ValidationStatus.CLEAN, configurationParameters.validate().getStatus());
     }
 
