@@ -33,6 +33,7 @@ import java.util.zip.ZipFile;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.coder.StandardCoder;
+import org.onap.policy.common.utils.coder.StandardYamlCoder;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
@@ -49,6 +50,7 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
 
     private PolicyDecoderFileInCsarToPolicyParameterGroup decoderParameters;
     private StandardCoder coder;
+    private StandardYamlCoder yamlCoder;
     private static final long MAX_FILE_SIZE = 512L * 1024;
 
     /**
@@ -58,6 +60,7 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
     public void configure(final String parameterGroupName) {
         decoderParameters = ParameterService.get(parameterGroupName);
         coder = new StandardCoder();
+        yamlCoder = new StandardYamlCoder();
     }
 
     /**
@@ -86,7 +89,7 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
                 final ZipEntry entry = entries.nextElement(); // NOSONAR
                 if (isZipEntryValid(entry.getName(), csar.getCsarFilePath(), entry.getSize())) {
                     final ToscaServiceTemplate policy =
-                            coder.decode(zipFile.getInputStream(entry), ToscaServiceTemplate.class);
+                            decodeFile(zipFile, entry);
                     policyList.add(policy);
                 }
             }
@@ -134,5 +137,23 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
         }
 
         return false;
+    }
+
+    /**
+     * Method to decode either a json or yaml file into an object.
+     *
+     * @param zipFile the zip file
+     * @param entry the entry to read in the zip file.
+     * @return the decoded ToscaServiceTemplate object.
+     * @throws CoderException IOException if the file decoding fails.
+     */
+    private ToscaServiceTemplate decodeFile(ZipFile zipFile, final ZipEntry entry) throws IOException, CoderException {
+        ToscaServiceTemplate policy = null;
+        if (entry.getName().contains(".json")) {
+            policy = coder.decode(zipFile.getInputStream(entry), ToscaServiceTemplate.class);
+        } else if (entry.getName().contains(".yaml")) {
+            policy = yamlCoder.decode(zipFile.getInputStream(entry), ToscaServiceTemplate.class);
+        }
+        return policy;
     }
 }
