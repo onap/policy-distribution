@@ -81,6 +81,20 @@ public class PolicyDecoderFileInCsarToPolicyTest {
     }
 
     @Test
+    public void testDecodeYamlPolicy() throws PolicyDecodingException {
+
+        final PolicyDecoderFileInCsarToPolicy decoder = new PolicyDecoderFileInCsarToPolicy();
+        decoder.configure(PolicyDecoderFileInCsarToPolicyParameterGroup.class.getSimpleName());
+
+        final File file = new File("src/test/resources/service-Sampleservice-yaml.csar");
+        final Csar csar = new Csar(file.getAbsolutePath());
+
+        assertTrue(decoder.canHandle(csar));
+        final Collection<ToscaEntity> policyHolders = decoder.decode(csar);
+        assertEquals(2, policyHolders.size());
+    }
+
+    @Test
     public void testDecodePolicyZipError() {
 
         final PolicyDecoderFileInCsarToPolicy decoder = new PolicyDecoderFileInCsarToPolicy();
