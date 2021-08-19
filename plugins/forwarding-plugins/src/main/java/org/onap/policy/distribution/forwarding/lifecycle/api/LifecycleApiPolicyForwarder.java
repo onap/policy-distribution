@@ -56,7 +56,8 @@ import org.slf4j.LoggerFactory;
 public class LifecycleApiPolicyForwarder implements PolicyForwarder {
 
     private static final String DEPLOY_POLICY_URI = "/policy/pap/v1/pdps/policies";
-    private static final String CREATE_POLICY_TYPE_URI = "/policy/api/v1/policytypes/";
+    private static final String CREATE_POLICY_TYPE_URI = "/policy/api/v1/policytypes";
+    private static final String CREATE_POLICY_URI = "/policy/api/v1/policies";
     private static final Logger LOGGER = LoggerFactory.getLogger(LifecycleApiPolicyForwarder.class);
     private LifecycleApiForwarderParameters forwarderParameters;
 
@@ -116,10 +117,8 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
     }
 
     private Response createPolicy(final ToscaServiceTemplate toscaServiceTemplate) throws PolicyForwardingException {
-        final ToscaPolicy policy = toscaServiceTemplate.getToscaTopologyTemplate().getPolicies().get(0).entrySet()
-                .iterator().next().getValue();
         return invokeHttpClient(Entity.entity(toscaServiceTemplate, MediaType.APPLICATION_JSON),
-                CREATE_POLICY_TYPE_URI + policy.getType() + "/versions/" + policy.getTypeVersion() + "/policies", true);
+                CREATE_POLICY_URI, true);
     }
 
     private Response deployPolicy(final ToscaServiceTemplate toscaServiceTemplate) throws PolicyForwardingException {

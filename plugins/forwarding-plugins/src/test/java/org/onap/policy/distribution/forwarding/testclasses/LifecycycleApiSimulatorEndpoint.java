@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2021 Bell Canada.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +65,7 @@ public class LifecycycleApiSimulatorEndpoint {
      * @return the response object
      */
     @POST
-    @Path("/api/v1/policytypes/{policyTypeId}/versions/{policyTypeVersion}/policies")
+    @Path("/api/v1/policies")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createPolicies(@PathParam("policyTypeId") final String policyTypeId,
