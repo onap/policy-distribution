@@ -22,6 +22,30 @@
       "revId": "0c7cc9efbd5ce96687485c4ddc6f3641a588660a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77120a9d_1180d9a6",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/PolicyDecoderFileInCsarToPolicy.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2021-08-19T13:02:35Z",
+      "side": 1,
+      "message": "Sounds like a good idea Pam, let me check that today.",
+      "parentUuid": "b4f4dabb_1e3596f6",
+      "range": {
+        "startLine": 150,
+        "startChar": 76,
+        "endLine": 150,
+        "endChar": 82
+      },
+      "revId": "0c7cc9efbd5ce96687485c4ddc6f3641a588660a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
