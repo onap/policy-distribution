@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "283e14e2_0a468be9",
+        "filename": "plugins/forwarding-plugins/src/test/java/org/onap/policy/distribution/forwarding/testclasses/LifecycycleApiSimulatorEndpoint.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-08-19T20:07:42Z",
+      "side": 1,
+      "message": "license",
+      "revId": "f4f3e83f7a4da3832ae9c19067af41a0a885a240",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
