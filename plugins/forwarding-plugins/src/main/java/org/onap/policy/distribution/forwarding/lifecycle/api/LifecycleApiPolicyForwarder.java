@@ -142,7 +142,7 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
 
     private Response invokeHttpClient(final Entity<?> entity, final String path, final boolean wantApi)
             throws PolicyForwardingException {
-        Response response = getHttpClient(wantApi).post(path, entity, Map.of(HttpHeaders.ACCEPT,
+        var response = getHttpClient(wantApi).post(path, entity, Map.of(HttpHeaders.ACCEPT,
                         MediaType.APPLICATION_JSON, HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
         if (response.getStatus() / 100 != 2) {
             LOGGER.error(
