@@ -94,6 +94,30 @@
       "revId": "aa29a28901dbc8eb892990a71e321880159500ad",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "452e6250_f5925468",
+        "filename": "packages/policy-distribution-tarball/src/main/resources/etc/defaultConfig.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-08-30T19:55:52Z",
+      "side": 1,
+      "message": "if SDC expects the literal string, \"null\", then no need to change anything.",
+      "parentUuid": "9609619f_47158a34",
+      "range": {
+        "startLine": 53,
+        "startChar": 32,
+        "endLine": 53,
+        "endChar": 38
+      },
+      "revId": "aa29a28901dbc8eb892990a71e321880159500ad",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
