@@ -22,6 +22,30 @@
       "revId": "aa29a28901dbc8eb892990a71e321880159500ad",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f7aa500_e72d8c3f",
+        "filename": "packages/policy-distribution-tarball/src/main/resources/etc/defaultConfig.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2021-08-30T19:08:19Z",
+      "side": 1,
+      "message": "I think it was done because of @NotNull validation at class level in the parameter group - https://github.com/onap/policy-distribution/blob/master/plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandlerConfigurationParameterGroup.java",
+      "parentUuid": "fd5c969e_61a7c48b",
+      "range": {
+        "startLine": 53,
+        "startChar": 32,
+        "endLine": 53,
+        "endChar": 38
+      },
+      "revId": "aa29a28901dbc8eb892990a71e321880159500ad",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
