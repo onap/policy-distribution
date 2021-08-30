@@ -50,8 +50,8 @@
                 ],
                 "consumerGroup": "policy-group",
                 "environmentName": "AUTO",
-                "keystorePath": "null",
-                "keystorePassword": "null",
+                "keyStorePath": "null",
+                "keyStorePassword": "null",
                 "activeserverTlsAuth": false,
                 "isFilterinEmptyResources": true,
                 "isUseHttpsWithDmaap": false
