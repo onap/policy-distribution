@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd5c969e_61a7c48b",
+        "filename": "packages/policy-distribution-tarball/src/main/resources/etc/defaultConfig.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 811
+      },
+      "writtenOn": "2021-08-30T18:52:35Z",
+      "side": 1,
+      "message": "should null be enclosed in quotes?  that seems weird",
+      "range": {
+        "startLine": 53,
+        "startChar": 32,
+        "endLine": 53,
+        "endChar": 38
+      },
+      "revId": "aa29a28901dbc8eb892990a71e321880159500ad",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
