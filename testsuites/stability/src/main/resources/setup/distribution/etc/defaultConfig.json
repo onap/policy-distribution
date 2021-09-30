@@ -56,15 +56,15 @@
                     "clientName": "policy-api",
                     "hostname": "policy-api",
                     "port": 6969,
-                    "useHttps": true,
+                    "useHttps": false,
                     "userName": "healthcheck",
                     "password": "zb!XztG34"
                 },
                 "papParameters": {
                     "clientName": "policy-pap",
                     "hostname": "policy-pap",
-                    "port": 7000,
-                    "useHttps": true,
+                    "port": 6969,
+                    "useHttps": false,
                     "userName": "healthcheck",
                     "password": "zb!XztG34"
                 },
