@@ -1,0 +1,10 @@
+subjectAltName = \
+    DNS:policy, \
+    DNS:policy-api, \
+    DNS:policy-api.onap, \
+    DNS:policy-distribution, \
+    DNS:policy-distribution.onap, \
+    DNS:policy-pap, \
+    DNS:policy-pap.onap, \
+    DNS:simulator, \
+    DNS:message-router

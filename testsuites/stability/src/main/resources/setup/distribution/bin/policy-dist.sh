@@ -36,9 +36,9 @@ if [ -z "$CONFIG_FILE" ]; then
     CONFIG_FILE="${POLICY_HOME}/etc/defaultConfig.json"
 fi
 
-if [[ -f "${POLICY_HOME}"/etc/mounted/policy-truststore ]]; then
+if [[ -f "${POLICY_HOME}"/etc/mounted/old-policy-truststore ]]; then
     echo "overriding policy-truststore"
-    cp -f "${POLICY_HOME}"/etc/mounted/policy-truststore "${TRUSTSTORE}"
+    cp -f "${POLICY_HOME}"/etc/mounted/old-policy-truststore "${TRUSTSTORE}"
 fi
 
 if [[ -f "${POLICY_HOME}"/etc/mounted/policy-keystore ]]; then
