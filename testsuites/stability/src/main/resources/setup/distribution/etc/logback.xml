@@ -21,7 +21,7 @@
 
 <configuration scan="true" scanPeriod="30 seconds" debug="false">
 
-    <property name="logDir" value="/home/policydistribution/logs" />
+    <property name="logDir" value="/home/policydistribution" />
 
     <property name="errorLog" value="error" />
     <property name="debugLog" value="debug" />

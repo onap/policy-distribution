@@ -63,7 +63,7 @@
             "parameterClassName": "org.onap.policy.distribution.reception.decoding.policy.file.PolicyDecoderFileInCsarToPolicyParameterGroup",
             "parameters": {
                 "policyFileName": "tosca_policy",
-                "policyTypeFileName": "tosca_policy_type",
+                "policyTypeFileName": "tosca_policy_type"
             }
         }
     },
