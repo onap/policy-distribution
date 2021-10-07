@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "50040e86_aaa7a43f",
+        "filename": "packages/policy-distribution-tarball/src/main/resources/etc/defaultConfig.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2021-10-07T08:59:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8492297f_02ca2933",
+      "range": {
+        "startLine": 8,
+        "startChar": 17,
+        "endLine": 8,
+        "endChar": 21
+      },
+      "revId": "22036c33208ce4e8c9a145120aea9f0a400d7846",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55ed9203_2b5db2de",
         "filename": "testsuites/stability/src/main/resources/setup/docker-compose.yml",
         "patchSetId": 2
@@ -93,6 +117,30 @@
       "revId": "22036c33208ce4e8c9a145120aea9f0a400d7846",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dac3c1c6_00198264",
+        "filename": "testsuites/stability/src/main/resources/setup/docker-compose.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2021-10-07T08:59:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36a9eedd_22638b40",
+      "range": {
+        "startLine": 59,
+        "startChar": 31,
+        "endLine": 59,
+        "endChar": 49
+      },
+      "revId": "22036c33208ce4e8c9a145120aea9f0a400d7846",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "d278b9ac_2860898c",
+        "filename": "testsuites/stability/src/main/resources/setup/docker-compose.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2021-10-07T08:59:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c81545f_d8313263",
+      "range": {
+        "startLine": 87,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 49
+      },
+      "revId": "22036c33208ce4e8c9a145120aea9f0a400d7846",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8493052a_20866de2",
         "filename": "testsuites/stability/src/main/resources/setup/docker-compose.yml",
         "patchSetId": 2
@@ -190,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "7a1acd56_581b28e3",
+        "filename": "testsuites/stability/src/main/resources/setup/docker-compose.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2021-10-07T08:59:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23b1cf6e_55c218d3",
+      "range": {
+        "startLine": 89,
+        "startChar": 11,
+        "endLine": 90,
+        "endChar": 93
+      },
+      "revId": "22036c33208ce4e8c9a145120aea9f0a400d7846",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ab63fd7_afa2126f",
         "filename": "testsuites/stability/src/main/resources/setup/docker-compose.yml",
         "patchSetId": 2
@@ -213,6 +309,30 @@
     },
     {
       "key": {
+        "uuid": "227633c4_50b10b6e",
+        "filename": "testsuites/stability/src/main/resources/setup/docker-compose.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2021-10-07T08:59:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ab63fd7_afa2126f",
+      "range": {
+        "startLine": 109,
+        "startChar": 11,
+        "endLine": 110,
+        "endChar": 93
+      },
+      "revId": "22036c33208ce4e8c9a145120aea9f0a400d7846",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab9de9c5_1e8f0fa7",
         "filename": "testsuites/stability/src/main/resources/setup/docker-compose.yml",
         "patchSetId": 2
@@ -233,6 +353,30 @@
       "revId": "22036c33208ce4e8c9a145120aea9f0a400d7846",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77ff790a_660557f8",
+        "filename": "testsuites/stability/src/main/resources/setup/docker-compose.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2021-10-07T08:59:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab9de9c5_1e8f0fa7",
+      "range": {
+        "startLine": 127,
+        "startChar": 11,
+        "endLine": 128,
+        "endChar": 102
+      },
+      "revId": "22036c33208ce4e8c9a145120aea9f0a400d7846",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
