@@ -17,6 +17,8 @@
 # SPDX-License-Identifier: Apache-2.0
 # ============LICENSE_END=========================================================
 
+echo "Starting stability test against distribution component..."
+
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JMETER_HOME=~/jmeter/apache-jmeter-5.4.1/
 
@@ -27,4 +29,4 @@ POLICY_DISTRIBUTION_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{
 ${JMETER_HOME}/bin/jmeter -n -t "${DIR}"/stability.jmx -Jduration=259200 \
     -Japihost="${POLICY_API_IP}" \
     -Jpaphost="${POLICY_PAP_IP}" \
-    -Jdisthost="${POLICY_DISTRIBUTION_IP}"
+    -Jdisthost="${POLICY_DISTRIBUTION_IP}" -l distribution_stability.jtl &
