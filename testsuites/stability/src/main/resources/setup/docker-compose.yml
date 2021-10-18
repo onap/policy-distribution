@@ -42,7 +42,7 @@ services:
       entrypoint: /opt/app/policy/bin/wait_for_port.sh
       command: [
             '-c',
-            '/opt/app/policy/bin/db_migrator_policy_init.sh',
+            './opt/app/policy/bin/db_migrator_policy_init.sh',
             'mariadb', '3306'
       ]
    simulator:
@@ -66,11 +66,6 @@ services:
       volumes:
          - ./config/wait_for_port.sh:/opt/app/policy/pdp-sim/bin/wait_for_port.sh:ro
          - ./config/jsonConfigs/pdpSimConfig.json:/opt/app/policy/pdp-sim/etc/config/OnapPfConfig.json:ro
-      entrypoint: /opt/app/policy/pdp-sim/bin/wait_for_port.sh
-      command: [
-            '-c', '/opt/app/policy/pdp-sim/bin/pdp-sim.sh',
-            'message-router', '3904',
-      ]
    policy-api:
       image: nexus3.onap.org:10001/onap/policy-api:${POLICY_API_VERSION}
       container_name: policy-api

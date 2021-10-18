@@ -58,5 +58,5 @@ sudo chmod -R a+trwx /tmp
 docker-compose up --detach
 echo ""
 
-# check if all containers are up
+# check if all containers are up - db-migrator will shutdown after a while
 docker ps
