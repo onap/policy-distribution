@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-#  Copyright (c) 2020 Nordix Foundation.
+#  Copyright (c) 2020-2021 Nordix Foundation.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 # the directory of the script
 if [  $# -le 3 ]
   then
-    echo "Usage ./addcsars.sh \$POLICY_API_IP \$POLICY_API_PORT \$POLICY_PAP_IP \$POLICY_PAP_PORT"
+    echo "Usage ./clearuppolicies.sh \$POLICY_API_IP \$POLICY_API_PORT \$POLICY_PAP_IP \$POLICY_PAP_PORT"
     exit 1
 fi
 POLICY_API_IP=$1
@@ -36,9 +36,9 @@ send_delete_request(){
 COUNTER=1
 while [ $COUNTER != 11 ]
 do
-  send_delete_request https://"$POLICY_PAP_IP":"$POLICY_PAP_PORT"/policy/pap/v1/pdps/policies/\
+  send_delete_request http://"$POLICY_PAP_IP":"$POLICY_PAP_PORT"/policy/pap/v1/pdps/policies/\
   operational.apex.sampledomain.test$COUNTER
-  send_delete_request https://"$POLICY_API_IP":"$POLICY_API_PORT"/policy/api/v1/policytypes/operational\
+  send_delete_request http://"$POLICY_API_IP":"$POLICY_API_PORT"/policy/api/v1/policytypes/operational\
   .apex.sampledomain.test$COUNTER/versions/1.0.0/policies/operational.apex.sampledomain.test$COUNTER/versions/1.0.0
   COUNTER=$((COUNTER +1))
 done

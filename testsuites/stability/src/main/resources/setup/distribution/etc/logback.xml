@@ -21,7 +21,7 @@
 
 <configuration scan="true" scanPeriod="30 seconds" debug="false">
 
-    <property name="logDir" value="/home/policydistribution" />
+    <property name="logDir" value="/home/policydistribution/logs" />
 
     <property name="errorLog" value="error" />
     <property name="debugLog" value="debug" />
@@ -102,7 +102,7 @@
         <appender-ref ref="AsyncNetworkOut" />
     </logger>
 
-    <root level="INFO">
+    <root level="ERROR">
         <appender-ref ref="AsyncDebugOut" />
         <appender-ref ref="AsyncErrorOut" />
     </root>

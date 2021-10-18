@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-#  Copyright (c) 2020 Nordix Foundation.
+#  Copyright (c) 2020-2021 Nordix Foundation.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,11 +15,6 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 # ============LICENSE_END=========================================================
-
-# the directory of the script
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-echo "${DIR}"
 
 if [  $# -le 1 ]
 then

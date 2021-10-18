@@ -15,3 +15,8 @@ debug-logs
 # IntelliJ files
 .idea/
 **/*.iml
+
+# test files
+**/*.factorypath
+**/*.log
+**/*.jtl

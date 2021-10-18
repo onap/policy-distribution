@@ -1,26 +1,19 @@
 Performance Test for Policy Distribution
 ## Steps to Run performance test
 1. Download Apache JMeter
-Download JMeter 5.0 from https://jmeter.apache.org/download_jmeter.cgi, and extracted it locally.
+Download JMeter 5.x.x from https://jmeter.apache.org/download_jmeter.cgi, and extracted it locally.
 
 2. Run the setup-components script found within simulator setup in the stability test folder.
 This will launch MariaDB, PDPSimulator, PAP, Policy-API and DMaaP Simulator as docker containers.
 
-3. Launch the policy distribution service by running the setup-distribution script found within distributionsetup
+3. Launch the policy distribution service by running the start script found within setup folder
 in the stability test folder.
-If you are running all of the components locally you will need to edit the port that distribution starts on as it is
-currently 6969 which conflicts with the policy API port.
-This will launch policy-distribution as a docker container and takes 2 arguments, PAP IP and API IP.
-If you are running locally these will be 127.0.0.1. If on a VM enter the VM IP.
-```
-setup-distribution.sh 127.0.0.1 127.0.0.1
-```
 
-4. Run the JMeter performance test
+4. Run the JMeter performance test from testplans folder.
 ```
-rm -f performance.log; <jmeter_dir>/bin/jmeter.sh -t performance.jmx -n -Jhost=<pdp service hostname> -Jduration=100 -l performance.log
+./run_test.sh
 ```
-Search for 'get policy failed' in the performance.log file to see if there is any errors found during the performance test.
+Search for 'get policy failed' in the log file to see if there is any errors found during the performance test.
 
 ## JMeter properties
 We can configure the following properties when running the JMeter performance test for policy distribution
