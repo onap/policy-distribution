@@ -10,7 +10,7 @@
         "prometheus": true
     },
     "pdpParameters": {
-        "heartBeatMs": 20000,
+        "heartBeatMs": 300000,
         "updateParameters": {
             "maxRetryCount": 1,
             "maxWaitMs": 30000
