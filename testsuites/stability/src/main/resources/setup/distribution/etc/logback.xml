@@ -21,7 +21,7 @@
 
 <configuration scan="true" scanPeriod="30 seconds" debug="false">
 
-    <property name="logDir" value="/home/policydistribution" />
+    <property name="logDir" value="/home/policydistribution/logs" />
 
     <property name="errorLog" value="error" />
     <property name="debugLog" value="debug" />
@@ -43,8 +43,8 @@
             <fileNamePattern>${logDir}/${errorLog}.%d{yyyy-MM-dd}.%i.log.zip
             </fileNamePattern>
             <maxFileSize>50MB</maxFileSize>
-            <maxHistory>30</maxHistory>
-            <totalSizeCap>10GB</totalSizeCap>
+            <maxHistory>2</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
         </rollingPolicy>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>WARN</level>
@@ -64,8 +64,8 @@
             <fileNamePattern>${logDir}/${debugLog}.%d{yyyy-MM-dd}.%i.log.zip
             </fileNamePattern>
             <maxFileSize>50MB</maxFileSize>
-            <maxHistory>30</maxHistory>
-            <totalSizeCap>10GB</totalSizeCap>
+            <maxHistory>2</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>${debugPattern}</pattern>
@@ -82,8 +82,8 @@
             <fileNamePattern>${logDir}/${networkLog}.%d{yyyy-MM-dd}.%i.log.zip
             </fileNamePattern>
             <maxFileSize>50MB</maxFileSize>
-            <maxHistory>30</maxHistory>
-            <totalSizeCap>10GB</totalSizeCap>
+            <maxHistory>2</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>${networkPattern}</pattern>

@@ -27,4 +27,4 @@ POLICY_DISTRIBUTION_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{
 ${JMETER_HOME}/bin/jmeter -n -t "${DIR}"/performance.jmx -Jduration=14400 \
     -Japihost="${POLICY_API_IP}" \
     -Jpaphost="${POLICY_PAP_IP}" \
-    -Jdisthost="${POLICY_DISTRIBUTION_IP}"
+    -Jdisthost="${POLICY_DISTRIBUTION_IP}" -l distribution_performance.jtl &

@@ -19,7 +19,7 @@
 # the directory of the script
 if [  $# -le 3 ]
   then
-    echo "Usage ./addcsars.sh \$POLICY_API_IP \$POLICY_API_PORT \$POLICY_PAP_IP \$POLICY_PAP_PORT"
+    echo "Usage ./clearuppolicies.sh \$POLICY_API_IP \$POLICY_API_PORT \$POLICY_PAP_IP \$POLICY_PAP_PORT"
     exit 1
 fi
 POLICY_API_IP=$1
