@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "2db2cfc5_5942d74d",
+        "filename": "testsuites/performance/src/main/resources/testplans/clearuppolicies.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2021-10-21T15:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21573739_4ca04590",
+      "revId": "5bd3f931d3569a5ff6ea4b9456b4cf3917875b25",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d3a8217_2e026660",
         "filename": "testsuites/stability/src/main/resources/setup/config/jsonConfigs/papConfigFile.json",
         "patchSetId": 4
@@ -105,6 +123,30 @@
       "revId": "5bd3f931d3569a5ff6ea4b9456b4cf3917875b25",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af738e47_ddb00223",
+        "filename": "testsuites/stability/src/main/resources/setup/config/jsonConfigs/papConfigFile.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2021-10-21T15:26:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "82139132_be05e90b",
+      "range": {
+        "startLine": 13,
+        "startChar": 23,
+        "endLine": 13,
+        "endChar": 29
+      },
+      "revId": "5bd3f931d3569a5ff6ea4b9456b4cf3917875b25",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
