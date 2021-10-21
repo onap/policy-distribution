@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "21573739_4ca04590",
+        "filename": "testsuites/performance/src/main/resources/testplans/clearuppolicies.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2021-10-21T07:42:38Z",
+      "side": 1,
+      "message": "sure, will change those",
+      "parentUuid": "ca8d65e5_527a50a6",
+      "revId": "5bd3f931d3569a5ff6ea4b9456b4cf3917875b25",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d3a8217_2e026660",
         "filename": "testsuites/stability/src/main/resources/setup/config/jsonConfigs/papConfigFile.json",
         "patchSetId": 4
@@ -53,6 +71,30 @@
       "writtenOn": "2021-10-20T19:55:43Z",
       "side": 1,
       "message": "Instead of size you could have taken this to Error to reduce the log generation itself.",
+      "range": {
+        "startLine": 105,
+        "startChar": 17,
+        "endLine": 105,
+        "endChar": 21
+      },
+      "revId": "5bd3f931d3569a5ff6ea4b9456b4cf3917875b25",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8edb617f_2d3efac3",
+        "filename": "testsuites/stability/src/main/resources/setup/distribution/etc/logback.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2021-10-21T07:42:38Z",
+      "side": 1,
+      "message": "I can actually undo it, I changed that to check if it was an issue with log itself or just any zip file",
+      "parentUuid": "ee83a3ef_d5cbb37e",
       "range": {
         "startLine": 105,
         "startChar": 17,
