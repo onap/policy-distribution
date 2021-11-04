@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2020 AT&T Inc.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,8 +51,8 @@ public class LifecycleApiPolicyForwarderTest {
     private static final String POLICY = "src/test/resources/parameters/sample_policy.json";
     private static final String POLICY_ERROR = "src/test/resources/parameters/sample_policy_failure.json";
     private static final String POLICY_TYPE = "src/test/resources/parameters/sample_policy_type.json";
-    private StandardCoder standardCoder = new StandardCoder();
-    private static LifecycleApiSimulatorMain simulator = new LifecycleApiSimulatorMain();
+    private final StandardCoder standardCoder = new StandardCoder();
+    private static final LifecycleApiSimulatorMain simulator = new LifecycleApiSimulatorMain();
 
     /**
      * Set up.
@@ -126,7 +126,7 @@ public class LifecycleApiPolicyForwarderTest {
                 .hasMessageContaining("Failed forwarding the following entities:");
     }
 
-    class UnsupportedPolicy extends ToscaEntity {
+    static class UnsupportedPolicy extends ToscaEntity {
 
         @Override
         public String getName() {

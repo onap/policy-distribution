@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@
 package org.onap.policy.distribution.forwarding.testclasses;
 
 import java.io.File;
-import org.onap.policy.common.utils.coder.Coder;
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.coder.StandardCoder;
 
@@ -31,8 +30,6 @@ import org.onap.policy.common.utils.coder.StandardCoder;
  * @author Ram Krishna Verma (ram.krishna.verma@est.tech)
  */
 public class CommonTestData {
-
-    public static final Coder coder = new StandardCoder();
 
     /**
      * Returns PolicyForwarderParameters for test cases.

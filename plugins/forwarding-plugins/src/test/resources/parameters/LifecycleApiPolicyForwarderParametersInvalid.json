@@ -4,7 +4,7 @@
     "hostname": "",
     "port": -1,
     "useHttps": false,
-    "userName": "healthcheck",
+    "userName": "policyadmin",
     "password": "zb!XztG34"
   },
   "papParameters": {
@@ -12,7 +12,7 @@
     "hostname": "",
     "port": -2,
     "useHttps": false,
-    "userName": "healthcheck",
+    "userName": "policyadmin",
     "password": "zb!XztG34"
   },
   "deployPolicies": true

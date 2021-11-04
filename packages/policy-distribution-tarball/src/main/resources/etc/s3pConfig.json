@@ -55,7 +55,7 @@
                     "hostname": "policy-api",
                     "port": 6969,
                     "useHttps": true,
-                    "userName": "healthcheck",
+                    "userName": "policyadmin",
                     "password": "zb!XztG34"
                 },
                 "papParameters": {
@@ -63,7 +63,7 @@
                     "hostname": "policy-pap",
                     "port": 6969,
                     "useHttps": true,
-                    "userName": "healthcheck",
+                    "userName": "policyadmin",
                     "password": "zb!XztG34"
                 },
                 "deployPolicies": true

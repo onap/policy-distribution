@@ -30,7 +30,7 @@ POLICY_PAP_PORT=$4
 send_delete_request(){
   ARG=$(echo $@ | sed 's/ //g')
   echo $ARG
-  curl -k -u 'healthcheck:zb!XztG34' -X DELETE "$ARG"
+  curl -k -u 'policyadmin:zb!XztG34' -X DELETE "$ARG"
 }
 
 COUNTER=1
