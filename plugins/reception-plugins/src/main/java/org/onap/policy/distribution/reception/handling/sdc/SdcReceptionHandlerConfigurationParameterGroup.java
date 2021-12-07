@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,21 +32,18 @@ import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigu
  * format, which strictly adheres to the interface:IConfiguration, defined by SDC SDK.
  */
 @Getter
-@NotNull
-@NotBlank
 public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHandlerConfigurationParameterGroup {
-
-    private String asdcAddress;
-    private List<String> messageBusAddress;
-    private String user;
-    private String password;
-    private int pollingInterval;
-    private int pollingTimeout;
-    private int retryDelay;
-    private String consumerId;
-    private List<String> artifactTypes;
-    private String consumerGroup;
-    private String environmentName;
+    private @NotNull @NotBlank String asdcAddress;
+    private @NotNull @NotBlank List<String> messageBusAddress;
+    private @NotNull @NotBlank String user;
+    private @NotNull @NotBlank String password;
+    private @NotNull @NotBlank int pollingInterval;
+    private @NotNull @NotBlank int pollingTimeout;
+    private @NotNull @NotBlank int retryDelay;
+    private @NotNull @NotBlank String consumerId;
+    private @NotNull @NotBlank List<String> artifactTypes;
+    private @NotNull @NotBlank String consumerGroup;
+    private @NotNull @NotBlank String environmentName;
     private String keyStorePath;
     private String keyStorePassword;
     private boolean activeServerTlsAuth;
@@ -57,4 +54,3 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
         super(SdcReceptionHandlerConfigurationParameterGroup.class.getSimpleName());
     }
 }
-
