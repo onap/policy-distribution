@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -65,6 +65,24 @@ public class TestSdcReceptionHandlerConfigurationParameterGroup {
         assertEquals("null", config.getKeyStorePassword());
         assertEquals(false, config.activateServerTLSAuth());
         assertEquals(true, config.isFilterInEmptyResources());
+        assertEquals(false, config.isUseHttpsWithDmaap());
+    }
+
+    @Test
+    public void testSdcConfigurationNullParameters() throws IOException {
+        SdcReceptionHandlerConfigurationParameterGroup configParameters = null;
+        final Gson gson = new GsonBuilder().create();
+        configParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdc-null-parameters.json"),
+               SdcReceptionHandlerConfigurationParameterGroup.class);
+
+        final ValidationResult validationResult = configParameters.validate();
+        assertTrue(validationResult.isValid());
+        final SdcConfiguration config = new SdcConfiguration(configParameters);
+        assertEquals(null, config.getKeyStorePath());
+        assertEquals(null, config.getKeyStorePassword());
+        //if boolean parameters are null they are set to false
+        assertEquals(false, config.activateServerTLSAuth());
+        assertEquals(false, config.isFilterInEmptyResources());
         assertEquals(false, config.isUseHttpsWithDmaap());
     }
 
