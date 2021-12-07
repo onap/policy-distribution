@@ -22,6 +22,29 @@
       "revId": "acf2d18950141d50d28e37fb9f71d3d3657f3be3",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b267e591_36f20a8b",
+        "filename": "plugins/reception-plugins/src/test/resources/handling-sdc-null-parameters.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2021-12-07T21:08:41Z",
+      "side": 1,
+      "message": "extra space",
+      "range": {
+        "startLine": 16,
+        "startChar": 21,
+        "endLine": 16,
+        "endChar": 22
+      },
+      "revId": "acf2d18950141d50d28e37fb9f71d3d3657f3be3",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
