@@ -66,6 +66,14 @@
                     "userName": "policyadmin",
                     "password": "zb!XztG34"
                 },
+                "controlLoopRuntimeParameters": {
+                    "clientName": "policy-clamp-cl-runtime",
+                    "hostname": "policy-clamp-cl-runtime",
+                    "port": 6969,
+                    "useHttps": true,
+                    "userName": "policyadmin",
+                    "password": "zb!XztG34"
+                },
                 "deployPolicies": true
             }
         }

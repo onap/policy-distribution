@@ -41,6 +41,7 @@ public class LifecycleApiForwarderParameters extends PolicyForwarderConfiguratio
 
     private @Valid RestClientParameters apiParameters;
     private @Valid RestClientParameters papParameters;
+    private @Valid RestClientParameters controlLoopRuntimeParameters;
     private boolean deployPolicies = true;
 
     public LifecycleApiForwarderParameters() {

@@ -56,11 +56,13 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
     private static final String DEPLOY_POLICY_URI = "/policy/pap/v1/pdps/policies";
     private static final String CREATE_POLICY_TYPE_URI = "/policy/api/v1/policytypes";
     private static final String CREATE_POLICY_URI = "/policy/api/v1/policies";
+    private static final String COMMISSION_CONTROLLOOP_URI = "/onap/controlloop/v2/commission";
     private static final Logger LOGGER = LoggerFactory.getLogger(LifecycleApiPolicyForwarder.class);
 
     private LifecycleApiForwarderParameters forwarderParameters;
     private HttpClient apiClient;
     private HttpClient papClient;
+    private HttpClient controlLoopClient;
 
     /**
      * {@inheritDoc}.
@@ -71,6 +73,8 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
 
         apiClient = HttpClientFactoryInstance.getClientFactory().build(forwarderParameters.getApiParameters());
         papClient = HttpClientFactoryInstance.getClientFactory().build(forwarderParameters.getPapParameters());
+        controlLoopClient = HttpClientFactoryInstance.getClientFactory().build(
+            forwarderParameters.getControlLoopRuntimeParameters());
     }
 
     /**
@@ -105,6 +109,11 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
                 if (forwarderParameters.isDeployPolicies() && policyCreated != null) {
                     deployPolicy(policyCreated.readEntity(ToscaServiceTemplate.class));
                 }
+                if (null != toscaServiceTemplate.getToscaTopologyTemplate()
+                        && null != toscaServiceTemplate.getNodeTypes()
+                        && null != toscaServiceTemplate.getDataTypes()) {
+                    commissionControlLoop(toscaServiceTemplate);
+                }
             } else {
                 throw new PolicyForwardingException("The entity is not of type ToscaServiceTemplate - " + entity);
             }
@@ -117,12 +126,12 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
     private Response createPolicyType(final ToscaServiceTemplate toscaServiceTemplate)
             throws PolicyForwardingException {
         return invokeHttpClient(Entity.entity(toscaServiceTemplate, MediaType.APPLICATION_JSON), CREATE_POLICY_TYPE_URI,
-                true);
+                "api");
     }
 
     private Response createPolicy(final ToscaServiceTemplate toscaServiceTemplate) throws PolicyForwardingException {
         return invokeHttpClient(Entity.entity(toscaServiceTemplate, MediaType.APPLICATION_JSON),
-                CREATE_POLICY_URI, true);
+                CREATE_POLICY_URI, "api");
     }
 
     private Response deployPolicy(final ToscaServiceTemplate toscaServiceTemplate) throws PolicyForwardingException {
@@ -137,10 +146,16 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
             policyIdentifierList.add(toscaPolicyIdentifier);
         }
         pdpPolicies.setPolicies(policyIdentifierList);
-        return invokeHttpClient(Entity.entity(pdpPolicies, MediaType.APPLICATION_JSON), DEPLOY_POLICY_URI, false);
+        return invokeHttpClient(Entity.entity(pdpPolicies, MediaType.APPLICATION_JSON), DEPLOY_POLICY_URI, "pap");
     }
 
-    private Response invokeHttpClient(final Entity<?> entity, final String path, final boolean wantApi)
+    private Response commissionControlLoop(final ToscaServiceTemplate toscaServiceTemplate)
+            throws PolicyForwardingException {
+        return invokeHttpClient(Entity.entity(toscaServiceTemplate, MediaType.APPLICATION_JSON),
+                COMMISSION_CONTROLLOOP_URI, "controlLoop");
+    }
+
+    private Response invokeHttpClient(final Entity<?> entity, final String path, final String wantApi)
             throws PolicyForwardingException {
         var response = getHttpClient(wantApi).post(path, entity, Map.of(HttpHeaders.ACCEPT,
                         MediaType.APPLICATION_JSON, HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
@@ -153,8 +168,17 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
         return response;
     }
 
-    private HttpClient getHttpClient(final boolean wantApi) {
-        return (wantApi ? apiClient : papClient);
+    private HttpClient getHttpClient(final String wantApi) throws PolicyForwardingException {
+        switch (wantApi) {
+            case "api":
+                return apiClient;
+            case "pap":
+                return papClient;
+            case "controlLoop":
+                return controlLoopClient;
+            default:
+                throw new PolicyForwardingException("Error wrong input string to return httpClient");
+        }
     }
 }
 
