@@ -1,9 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2022 Nordix Foundation.
- *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
- *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,13 +38,15 @@ import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
 
 /**
- * This class extracts policy files from a CSAR file.
+ * This class extracts controlloop information from a CSAR file.
  *
- * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
+ * @author Sirisha Manchikanti (sirisha.manchikanti@est.tech)
  */
-public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, ToscaEntity> {
+public class ControlLoopDecoderFileInCsar implements PolicyDecoder<Csar, ToscaEntity> {
 
-    private PolicyDecoderFileInCsarToPolicyParameterGroup decoderParameters;
+    private ControlLoopDecoderFileInCsarParameterGroup decoderParameters;
+    private static final String NODE_TYPES = "nodes.yml";
+    private static final String DATA_TYPES = "data.yml";
 
     /**
      * {@inheritDoc}.
@@ -69,7 +69,9 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
      */
     @Override
     public Collection<ToscaEntity> decode(final Csar csar) throws PolicyDecodingException {
-        final Collection<ToscaEntity> policyList = new ArrayList<>();
+        final Collection<ToscaEntity> controlLoopList = new ArrayList<>();
+        ToscaServiceTemplate nodeTypes = null;
+        ToscaServiceTemplate dataTypes = null;
 
         try (var zipFile = new ZipFile(csar.getCsarFilePath())) {
             final Enumeration<? extends ZipEntry> entries = zipFile.entries();
@@ -82,20 +84,34 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
                 final ZipEntry entry = entries.nextElement(); // NOSONAR
                 final String entryName = entry.getName();
 
-                //
-                // We only care about policy types and policies
-                //
-                if (entryName.contains(decoderParameters.getPolicyTypeFileName())
-                        || entryName.contains(decoderParameters.getPolicyFileName())) {
+                // Store node_types
+                if (entryName.contains(NODE_TYPES)) {
+                    nodeTypes = ReceptionUtil.decodeFile(zipFile, entry);
+                }
+
+                // Store data_types
+                if (entryName.contains(DATA_TYPES)) {
+                    dataTypes = ReceptionUtil.decodeFile(zipFile, entry);
+                }
+
+                if (entryName.contains(decoderParameters.getControlLoopType())) {
                     ReceptionUtil.validateZipEntry(entryName, csar.getCsarFilePath(), entry.getSize());
-                    final ToscaServiceTemplate policy = ReceptionUtil.decodeFile(zipFile, entry);
-                    policyList.add(policy);
+                    final ToscaServiceTemplate controlLoop = ReceptionUtil.decodeFile(zipFile, entry);
+                    if (null != controlLoop.getToscaTopologyTemplate()) {
+                        if (null != nodeTypes) {
+                            controlLoop.setNodeTypes(nodeTypes.getNodeTypes());
+                        }
+                        if (null != dataTypes) {
+                            controlLoop.setDataTypes(dataTypes.getDataTypes());
+                        }
+                        controlLoopList.add(controlLoop);
+                    }
                 }
             }
         } catch (final IOException | CoderException exp) {
-            throw new PolicyDecodingException("Failed decoding the policy", exp);
+            throw new PolicyDecodingException("Failed decoding the controlloop", exp);
         }
 
-        return policyList;
+        return controlLoopList;
     }
 }

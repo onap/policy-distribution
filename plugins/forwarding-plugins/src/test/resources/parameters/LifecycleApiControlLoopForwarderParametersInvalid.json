@@ -1,0 +1,10 @@
+{
+  "controlLoopRuntimeParameters": {
+    "clientName": "policy-clamp-cl-runtime",
+    "hostname": "",
+    "port": 6969,
+    "useHttps": false,
+    "userName": "policyadmin",
+    "password": "zb!XztG34"
+  }
+}

@@ -17,13 +17,23 @@
                         "decoderType": "ToscaPolicyDecoder",
                         "decoderClassName": "org.onap.policy.distribution.reception.decoding.policy.file.PolicyDecoderFileInCsarToPolicy",
                         "decoderConfigurationName": "toscaPolicyDecoderConfiguration"
+                    },
+                "ToscaControlLoopDecoder": {
+                        "decoderType": "ToscaControlLoopDecoder",
+                        "decoderClassName": "org.onap.policy.distribution.reception.decoding.policy.file.ControlLoopDecoderFileInCsar",
+                        "decoderConfigurationName": "toscaControlLoopDecoderConfiguration"
                     }
                 },
                 "policyForwarders": {
-                    "LifeCycleApiForwarder": {
-                        "forwarderType": "LifeCycleAPI",
+                    "LifeCycleApiPolicyForwarder": {
+                        "forwarderType": "LifeCyclePolicyAPI",
                         "forwarderClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiPolicyForwarder",
-                        "forwarderConfigurationName": "lifecycleApiConfiguration"
+                        "forwarderConfigurationName": "lifecycleApiPolicyConfiguration"
+                    },
+                    "LifeCycleApiControlLoopForwarder": {
+                        "forwarderType": "LifeCycleControlLoopAPI",
+                        "forwarderClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiControlLoopForwarder",
+                        "forwarderConfigurationName": "lifecycleApiControlLoopConfiguration"
                     }
                 }
             }
@@ -44,10 +54,16 @@
                 "policyFileName": "tosca_policy",
                 "policyTypeFileName": "tosca_policy_type"
             }
+        },
+        "toscaControlLoopDecoderConfiguration": {
+            "parameterClassName": "org.onap.policy.distribution.reception.decoding.policy.file.ControlLoopDecoderFileInCsarParameterGroup",
+            "parameters": {
+                "controlLoopType": "controlloop"
+            }
         }
     },
     "policyForwarderConfigurationParameters": {
-        "lifecycleApiConfiguration": {
+        "lifecycleApiPolicyConfiguration": {
             "parameterClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiForwarderParameters",
             "parameters": {
                 "apiParameters": {
@@ -67,6 +83,19 @@
                     "password": "zb!XztG34"
                 },
                 "deployPolicies": true
+            }
+        },
+        "lifecycleApiControlLoopConfiguration": {
+            "parameterClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiControlLoopForwarderParameters",
+            "parameters": {
+                "controlLoopRuntimeParameters": {
+                    "clientName": "policy-clamp-cl-runtime",
+                    "hostname": "policy-clamp-cl-runtime",
+                    "port": 6969,
+                    "useHttps": true,
+                    "userName": "policyadmin",
+                    "password": "zb!XztG34"
+                }
             }
         }
     }
