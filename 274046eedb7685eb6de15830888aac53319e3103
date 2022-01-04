@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77619d17_e074384f",
+        "filename": "packages/policy-distribution-tarball/src/main/resources/etc/defaultConfig.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-01-04T19:04:44Z",
+      "side": 1,
+      "message": "You will need to add your decoder here to have it available during run-time.",
+      "range": {
+        "startLine": 18,
+        "startChar": 20,
+        "endLine": 18,
+        "endChar": 39
+      },
+      "revId": "274046eedb7685eb6de15830888aac53319e3103",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcda953d_c71dc1d2",
+        "filename": "packages/policy-distribution-tarball/src/main/resources/etc/defaultConfig.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-01-04T19:04:44Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 25,
+        "startChar": 20,
+        "endLine": 25,
+        "endChar": 43
+      },
+      "revId": "274046eedb7685eb6de15830888aac53319e3103",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "401dfa83_75160b07",
+        "filename": "plugins/forwarding-plugins/src/main/java/org/onap/policy/distribution/forwarding/lifecycle/api/LifecycleApiPolicyForwarder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-01-04T19:04:44Z",
+      "side": 1,
+      "message": "What about creating a new forwarder plugin for controlloop with it\u0027s own forwarderparametergroup ?",
+      "range": {
+        "startLine": 177,
+        "startChar": 12,
+        "endLine": 177,
+        "endChar": 31
+      },
+      "revId": "274046eedb7685eb6de15830888aac53319e3103",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10ff73d1_68abfaed",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/ControlLoopDecoderFileInCsar.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-01-04T19:04:44Z",
+      "side": 1,
+      "message": "update pls",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 70
+      },
+      "revId": "274046eedb7685eb6de15830888aac53319e3103",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3425537_5d70d3e3",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/ControlLoopDecoderFileInCsar.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-01-04T19:04:44Z",
+      "side": 1,
+      "message": "May be we can remove duplication by adding these methods to a common utility class under reception-plugins.",
+      "range": {
+        "startLine": 137,
+        "startChar": 4,
+        "endLine": 177,
+        "endChar": 5
+      },
+      "revId": "274046eedb7685eb6de15830888aac53319e3103",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a416268_3793f920",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/ControlLoopDecoderFileInCsarParameterGroup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-01-04T19:04:44Z",
+      "side": 1,
+      "message": "update pls",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 4,
+        "endChar": 55
+      },
+      "revId": "274046eedb7685eb6de15830888aac53319e3103",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0044c089_56597f52",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/ControlLoopDecoderFileInCsarParameterGroup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-01-04T19:04:44Z",
+      "side": 1,
+      "message": "update pls",
+      "range": {
+        "startLine": 30,
+        "startChar": 38,
+        "endLine": 30,
+        "endChar": 69
+      },
+      "revId": "274046eedb7685eb6de15830888aac53319e3103",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2cce05a_994d1491",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/decoding/policy/file/ControlLoopDecoderFileInCsarParameterGroup.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-01-04T19:04:44Z",
+      "side": 1,
+      "message": "Can this field be named more specific? ex- controlLoopName, controlLoopType, etc.",
+      "range": {
+        "startLine": 39,
+        "startChar": 19,
+        "endLine": 39,
+        "endChar": 30
+      },
+      "revId": "274046eedb7685eb6de15830888aac53319e3103",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "130a08df_ca7328f9",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/policy/file/ControlLoopDecoderFileInCsarParameterGroupTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-01-04T19:04:44Z",
+      "side": 1,
+      "message": "update pls",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 4,
+        "endChar": 55
+      },
+      "revId": "274046eedb7685eb6de15830888aac53319e3103",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41108b72_0900d8f8",
+        "filename": "plugins/reception-plugins/src/test/java/org/onap/policy/distribution/reception/decoding/policy/file/ControlLoopDecoderFileInCsarTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-01-04T19:04:44Z",
+      "side": 1,
+      "message": "update pls",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 4,
+        "endChar": 60
+      },
+      "revId": "274046eedb7685eb6de15830888aac53319e3103",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
