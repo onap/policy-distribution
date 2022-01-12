@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +21,8 @@
 
 package org.onap.policy.distribution.reception.statistics;
 
+import io.prometheus.client.Counter;
+
 /**
  * Class to hold statistical data for distribution component.
  *
@@ -27,12 +30,28 @@ package org.onap.policy.distribution.reception.statistics;
  */
 public class DistributionStatisticsManager {
 
-    private static long totalDistributionCount;
-    private static long distributionSuccessCount;
-    private static long distributionFailureCount;
-    private static long totalDownloadCount;
-    private static long downloadSuccessCount;
-    private static long downloadFailureCount;
+    private static final Counter TOTAL_DISTRIBUTION_RECEIVED_COUNT = Counter.build()
+                    .name("total_distribution_received_count")
+                    .help("Total number of distribution received.").register();
+    private static final Counter DISTRIBUTION_SUCCESS_COUNT = Counter.build()
+                    .name("distribution_success_count")
+                    .help("Total number of distribution successfully processed.").register();
+
+    private static final Counter DISTRIBUTION_FAILURE_COUNT = Counter.build()
+                    .name("distribution_failure_count")
+                    .help("Total number of distribution failures.").register();
+
+    private static final Counter TOTAL_DOWNLOAD_RECEIVED_COUNT = Counter.build()
+                    .name("total_download_received_count")
+                    .help("Total number of download received.").register();
+
+    private static final Counter DOWNLOAD_SUCCESS_COUNT = Counter.build()
+                    .name("download_success_count")
+                    .help("Total number of download successfully processed.").register();
+
+    private static final Counter DOWNLOAD_FAILURE_COUNT = Counter.build()
+                    .name("download_failure_count")
+                    .help("Total number of download failures.").register();
 
     private DistributionStatisticsManager() {
         throw new IllegalStateException("Instantiation of the class is not allowed");
@@ -41,55 +60,49 @@ public class DistributionStatisticsManager {
     /**
      * Method to update the total distribution count.
      *
-     * @return the updated value of totalDistributionCount
      */
-    public static long updateTotalDistributionCount() {
-        return ++totalDistributionCount;
+    public static void updateTotalDistributionCount() {
+        TOTAL_DISTRIBUTION_RECEIVED_COUNT.inc();
     }
 
     /**
      * Method to update the distribution success count.
      *
-     * @return the updated value of distributionSuccessCount
      */
-    public static long updateDistributionSuccessCount() {
-        return ++distributionSuccessCount;
+    public static void updateDistributionSuccessCount() {
+        DISTRIBUTION_SUCCESS_COUNT.inc();
     }
 
     /**
      * Method to update the distribution failure count.
      *
-     * @return the updated value of distributionFailureCount
      */
-    public static long updateDistributionFailureCount() {
-        return ++distributionFailureCount;
+    public static void updateDistributionFailureCount() {
+        DISTRIBUTION_FAILURE_COUNT.inc();
     }
 
     /**
      * Method to update the total download count.
      *
-     * @return the updated value of totalDownloadCount
      */
-    public static long updateTotalDownloadCount() {
-        return ++totalDownloadCount;
+    public static void updateTotalDownloadCount() {
+        TOTAL_DOWNLOAD_RECEIVED_COUNT.inc();
     }
 
     /**
      * Method to update the download success count.
      *
-     * @return the updated value of downloadSuccessCount
      */
-    public static long updateDownloadSuccessCount() {
-        return ++downloadSuccessCount;
+    public static void updateDownloadSuccessCount() {
+        DOWNLOAD_SUCCESS_COUNT.inc();
     }
 
     /**
      * Method to update the download failure count.
      *
-     * @return the updated value of downloadFailureCount
      */
-    public static long updateDownloadFailureCount() {
-        return ++downloadFailureCount;
+    public static void updateDownloadFailureCount() {
+        DOWNLOAD_FAILURE_COUNT.inc();
     }
 
     /**
@@ -98,7 +111,7 @@ public class DistributionStatisticsManager {
      * @return the totalDistributionCount
      */
     public static long getTotalDistributionCount() {
-        return totalDistributionCount;
+        return (long) TOTAL_DISTRIBUTION_RECEIVED_COUNT.get();
     }
 
     /**
@@ -107,7 +120,7 @@ public class DistributionStatisticsManager {
      * @return the distributionSuccessCount
      */
     public static long getDistributionSuccessCount() {
-        return distributionSuccessCount;
+        return (long) DISTRIBUTION_SUCCESS_COUNT.get();
     }
 
     /**
@@ -116,7 +129,7 @@ public class DistributionStatisticsManager {
      * @return the distributionFailureCount
      */
     public static long getDistributionFailureCount() {
-        return distributionFailureCount;
+        return (long) DISTRIBUTION_FAILURE_COUNT.get();
     }
 
     /**
@@ -125,7 +138,7 @@ public class DistributionStatisticsManager {
      * @return the totalDownloadCount
      */
     public static long getTotalDownloadCount() {
-        return totalDownloadCount;
+        return (long) TOTAL_DOWNLOAD_RECEIVED_COUNT.get();
     }
 
     /**
@@ -134,7 +147,7 @@ public class DistributionStatisticsManager {
      * @return the downloadSuccessCount
      */
     public static long getDownloadSuccessCount() {
-        return downloadSuccessCount;
+        return (long) DOWNLOAD_SUCCESS_COUNT.get();
     }
 
     /**
@@ -143,18 +156,18 @@ public class DistributionStatisticsManager {
      * @return the downloadFailureCount
      */
     public static long getDownloadFailureCount() {
-        return downloadFailureCount;
+        return (long) DOWNLOAD_FAILURE_COUNT.get();
     }
 
     /**
      * Reset all the statistics counts to 0.
      */
     public static void resetAllStatistics() {
-        totalDistributionCount = 0L;
-        distributionSuccessCount = 0L;
-        distributionFailureCount = 0L;
-        totalDownloadCount = 0L;
-        downloadSuccessCount = 0L;
-        downloadFailureCount = 0L;
+        TOTAL_DISTRIBUTION_RECEIVED_COUNT.clear();
+        DISTRIBUTION_SUCCESS_COUNT.clear();
+        DISTRIBUTION_FAILURE_COUNT.clear();
+        TOTAL_DOWNLOAD_RECEIVED_COUNT.clear();
+        DOWNLOAD_SUCCESS_COUNT.clear();
+        DOWNLOAD_FAILURE_COUNT.clear();
     }
 }
