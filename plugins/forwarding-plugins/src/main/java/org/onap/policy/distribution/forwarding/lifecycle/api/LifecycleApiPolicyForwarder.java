@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019,2022 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada.
  * ================================================================================
@@ -129,9 +129,11 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
         final var pdpPolicies = new PdpDeployPolicies();
         final List<ToscaConceptIdentifierOptVersion> policyIdentifierList = new ArrayList<>();
         for (final Map<String, ToscaPolicy> policyMap : toscaServiceTemplate.getToscaTopologyTemplate().getPolicies()) {
-            final String policyId = policyMap.entrySet().iterator().next().getValue().getMetadata().get("policy-id");
+            final String policyId =
+                String.valueOf(policyMap.entrySet().iterator().next().getValue().getMetadata().get("policy-id"));
             final String policyVersion =
-                    policyMap.entrySet().iterator().next().getValue().getMetadata().get("policy-version");
+                    String.valueOf(policyMap.entrySet().iterator().next().getValue().getMetadata()
+                        .get("policy-version"));
             final var toscaPolicyIdentifier =
                     new ToscaConceptIdentifierOptVersion(policyId, policyVersion);
             policyIdentifierList.add(toscaPolicyIdentifier);
