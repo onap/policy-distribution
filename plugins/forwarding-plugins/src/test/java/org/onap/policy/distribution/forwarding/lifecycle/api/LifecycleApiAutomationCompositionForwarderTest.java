@@ -37,20 +37,22 @@ import org.onap.policy.common.utils.network.NetworkUtil;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.distribution.forwarding.testclasses.CommonTestData;
-import org.onap.policy.distribution.forwarding.testclasses.LifecycleApiControlLoopSimulatorMain;
+import org.onap.policy.distribution.forwarding.testclasses.LifecycleApiAutomationCompositionSimulatorMain;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
 
 /**
- * Class to perform unit test of {@link LifecycleApiControlLoopForwarder}.
+ * Class to perform unit test of {@link LifecycleApiAutomationCompositionForwarder}.
  *
  * @author Sirisha Manchikanti (sirisha.manchikanti@est.tech)
  */
-public class LifecycleApiControlLoopForwarderTest {
+public class LifecycleApiAutomationCompositionForwarderTest {
 
-    private static final String CONTROL_LOOP = "src/test/resources/parameters/sample_control_loop.json";
+    private static final String AUTOMATION_COMPOSITION =
+            "src/test/resources/parameters/sample_automation_composition.json";
     private final StandardCoder standardCoder = new StandardCoder();
-    private static final LifecycleApiControlLoopSimulatorMain simulator = new LifecycleApiControlLoopSimulatorMain();
+    private static final LifecycleApiAutomationCompositionSimulatorMain simulator =
+            new LifecycleApiAutomationCompositionSimulatorMain();
 
     /**
      * Set up.
@@ -62,8 +64,8 @@ public class LifecycleApiControlLoopForwarderTest {
     @BeforeClass
     public static void setUp() throws PolicyForwardingException, CoderException, InterruptedException {
         final ParameterGroup parameterGroup = CommonTestData.getPolicyForwarderParameters(
-                "src/test/resources/parameters/LifecycleApiControlLoopForwarderParameters.json",
-                LifecycleApiControlLoopForwarderParameters.class);
+                "src/test/resources/parameters/LifecycleApiAutomationCompositionForwarderParameters.json",
+                LifecycleApiAutomationCompositionForwarderParameters.class);
         ParameterService.register(parameterGroup);
         simulator.startLifecycycleApiSimulator();
         if (!NetworkUtil.isTcpPortOpen("0.0.0.0", 6969, 50, 200L)) {
@@ -76,40 +78,42 @@ public class LifecycleApiControlLoopForwarderTest {
      */
     @AfterClass
     public static void tearDown() {
-        ParameterService.deregister(LifecycleApiControlLoopForwarderParameters.class.getSimpleName());
+        ParameterService.deregister(LifecycleApiAutomationCompositionForwarderParameters.class.getSimpleName());
         simulator.stopLifecycycleApiSimulator();
     }
 
     @Test
-    public void testForwardControlLoopUsingSimulator() throws Exception {
+    public void testForwardAutomationCompositionUsingSimulator() throws Exception {
         assertThatCode(() -> {
-            final ToscaServiceTemplate toscaServiceTemplate =
-                    standardCoder.decode(ResourceUtils.getResourceAsString(CONTROL_LOOP), ToscaServiceTemplate.class);
+            final ToscaServiceTemplate toscaServiceTemplate = standardCoder.decode(
+                ResourceUtils.getResourceAsString(AUTOMATION_COMPOSITION), ToscaServiceTemplate.class);
 
-            final LifecycleApiControlLoopForwarder forwarder = new LifecycleApiControlLoopForwarder();
-            forwarder.configure(LifecycleApiControlLoopForwarderParameters.class.getSimpleName());
+            final LifecycleApiAutomationCompositionForwarder forwarder =
+                    new LifecycleApiAutomationCompositionForwarder();
+            forwarder.configure(LifecycleApiAutomationCompositionForwarderParameters.class.getSimpleName());
 
-            final Collection<ToscaEntity> controlLoopList = new ArrayList<>();
-            controlLoopList.add(toscaServiceTemplate);
+            final Collection<ToscaEntity> automationCompositionList = new ArrayList<>();
+            automationCompositionList.add(toscaServiceTemplate);
 
-            forwarder.forward(controlLoopList);
+            forwarder.forward(automationCompositionList);
 
         }).doesNotThrowAnyException();
     }
 
     @Test
-    public void testForwardControlLoopFailureUsingSimulator() throws Exception {
+    public void testForwardAutomationCompositionFailureUsingSimulator() throws Exception {
 
         final ToscaEntity toscaEntity = new ToscaEntity();
         toscaEntity.setName("FailureCase");
 
-        final LifecycleApiControlLoopForwarder forwarder = new LifecycleApiControlLoopForwarder();
-        forwarder.configure(LifecycleApiControlLoopForwarderParameters.class.getSimpleName());
+        final LifecycleApiAutomationCompositionForwarder forwarder = new LifecycleApiAutomationCompositionForwarder();
+        forwarder.configure(LifecycleApiAutomationCompositionForwarderParameters.class.getSimpleName());
 
-        final Collection<ToscaEntity> controlLoopList = new ArrayList<>();
-        controlLoopList.add(toscaEntity);
+        final Collection<ToscaEntity> automationCompositionList = new ArrayList<>();
+        automationCompositionList.add(toscaEntity);
 
-        assertThatThrownBy(() -> forwarder.forward(controlLoopList)).isInstanceOf(PolicyForwardingException.class)
+        assertThatThrownBy(() -> forwarder.forward(automationCompositionList))
+                .isInstanceOf(PolicyForwardingException.class)
                 .hasMessageContaining("Failed forwarding the following entities:");
     }
 }

@@ -28,39 +28,40 @@ import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.distribution.reception.handling.sdc.CommonTestData;
 
 /**
- * Class to perform unit test of {@link ControlLoopDecoderFileInCsarParameterGroup}.
+ * Class to perform unit test of {@link AutomationCompositionDecoderFileInCsarParameterGroup}.
  *
  * @author Sirisha Manchikanti (sirisha.manchikanti@est.tech)
  */
-public class ControlLoopDecoderFileInCsarParameterGroupTest {
+public class AutomationCompositionDecoderFileInCsarParameterGroupTest {
 
     @Test
     public void testValidParameters() {
-        final ControlLoopDecoderFileInCsarParameterGroup configurationParameters = CommonTestData
-                .getPolicyDecoderParameters("src/test/resources/parameters/FileInCsarControlLoopDecoderParameters.json",
-                    ControlLoopDecoderFileInCsarParameterGroup.class);
+        final AutomationCompositionDecoderFileInCsarParameterGroup configurationParameters = CommonTestData
+                .getPolicyDecoderParameters(
+                    "src/test/resources/parameters/FileInCsarAutomationCompositionDecoderParameters.json",
+                    AutomationCompositionDecoderFileInCsarParameterGroup.class);
 
-        assertEquals(ControlLoopDecoderFileInCsarParameterGroup.class.getSimpleName(),
+        assertEquals(AutomationCompositionDecoderFileInCsarParameterGroup.class.getSimpleName(),
                 configurationParameters.getName());
-        assertEquals("controlloop", configurationParameters.getControlLoopType());
+        assertEquals("acm", configurationParameters.getAutomationCompositionType());
         assertEquals(ValidationStatus.CLEAN, configurationParameters.validate().getStatus());
     }
 
     @Test
     public void testInvalidParameters() {
-        final ControlLoopDecoderFileInCsarParameterGroup configurationParameters =
+        final AutomationCompositionDecoderFileInCsarParameterGroup configurationParameters =
                 CommonTestData.getPolicyDecoderParameters(
-                        "src/test/resources/parameters/FileInCsarControlLoopDecoderParametersInvalid.json",
-                        ControlLoopDecoderFileInCsarParameterGroup.class);
+                        "src/test/resources/parameters/FileInCsarAutomationCompositionDecoderParametersInvalid.json",
+                        AutomationCompositionDecoderFileInCsarParameterGroup.class);
 
         assertEquals(ValidationStatus.INVALID, configurationParameters.validate().getStatus());
     }
 
     @Test
     public void testEmptyParameters() {
-        final ControlLoopDecoderFileInCsarParameterGroup configurationParameters =
+        final AutomationCompositionDecoderFileInCsarParameterGroup configurationParameters =
                 CommonTestData.getPolicyDecoderParameters("src/test/resources/parameters/EmptyParameters.json",
-                    ControlLoopDecoderFileInCsarParameterGroup.class);
+                    AutomationCompositionDecoderFileInCsarParameterGroup.class);
 
         assertEquals(ValidationStatus.INVALID, configurationParameters.validate().getStatus());
     }

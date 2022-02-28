@@ -43,17 +43,17 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This class provides an implementation of {@link PolicyForwarder} interface for forwarding the
- * controlloop design template to the life cycle api's of controlloop components.
+ * automationComposition design template to the life cycle api's of automationComposition components.
  *
  * @author Sirisha Manchikanti (sirisha.manchikanti@est.tech)
  */
-public class LifecycleApiControlLoopForwarder implements PolicyForwarder {
+public class LifecycleApiAutomationCompositionForwarder implements PolicyForwarder {
 
-    private static final String COMMISSION_CONTROLLOOP_URI = "/onap/controlloop/v2/commission";
-    private static final Logger LOGGER = LoggerFactory.getLogger(LifecycleApiControlLoopForwarder.class);
+    private static final String COMMISSION_AUTOMATION_COMPOSITION_URI = "/onap/acm/v2/commission";
+    private static final Logger LOGGER = LoggerFactory.getLogger(LifecycleApiAutomationCompositionForwarder.class);
 
-    private LifecycleApiControlLoopForwarderParameters forwarderParameters;
-    private HttpClient controlLoopClient;
+    private LifecycleApiAutomationCompositionForwarderParameters forwarderParameters;
+    private HttpClient automationCompositionClient;
 
     /**
      * {@inheritDoc}.
@@ -62,8 +62,8 @@ public class LifecycleApiControlLoopForwarder implements PolicyForwarder {
     public void configure(final String parameterGroupName) throws HttpClientConfigException {
         forwarderParameters = ParameterService.get(parameterGroupName);
 
-        controlLoopClient = HttpClientFactoryInstance.getClientFactory().build(
-                forwarderParameters.getControlLoopRuntimeParameters());
+        automationCompositionClient = HttpClientFactoryInstance.getClientFactory().build(
+                forwarderParameters.getAutomationCompositionRuntimeParameters());
     }
 
     /**
@@ -88,7 +88,7 @@ public class LifecycleApiControlLoopForwarder implements PolicyForwarder {
                 if (null != toscaServiceTemplate.getToscaTopologyTemplate()
                         && null != toscaServiceTemplate.getNodeTypes()
                         && null != toscaServiceTemplate.getDataTypes()) {
-                    commissionControlLoop(toscaServiceTemplate);
+                    commissionAutomationComposition(toscaServiceTemplate);
                 }
             } else {
                 throw new PolicyForwardingException("The entity is not of type ToscaServiceTemplate - " + entity);
@@ -99,15 +99,15 @@ public class LifecycleApiControlLoopForwarder implements PolicyForwarder {
         }
     }
 
-    private Response commissionControlLoop(final ToscaServiceTemplate toscaServiceTemplate)
+    private Response commissionAutomationComposition(final ToscaServiceTemplate toscaServiceTemplate)
             throws PolicyForwardingException {
         return invokeHttpClient(Entity.entity(toscaServiceTemplate, MediaType.APPLICATION_JSON),
-                COMMISSION_CONTROLLOOP_URI);
+                COMMISSION_AUTOMATION_COMPOSITION_URI);
     }
 
     private Response invokeHttpClient(final Entity<?> entity, final String path)
             throws PolicyForwardingException {
-        var response = controlLoopClient.post(path, entity, Map.of(HttpHeaders.ACCEPT,
+        var response = automationCompositionClient.post(path, entity, Map.of(HttpHeaders.ACCEPT,
                         MediaType.APPLICATION_JSON, HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
         if (response.getStatus() / 100 != 2) {
             LOGGER.error(

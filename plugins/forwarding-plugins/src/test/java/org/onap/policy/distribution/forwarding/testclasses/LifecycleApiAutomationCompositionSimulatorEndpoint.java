@@ -19,26 +19,36 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.reception.decoding.policy.file;
+package org.onap.policy.distribution.forwarding.testclasses;
 
-import lombok.Getter;
-import org.onap.policy.common.parameters.annotations.NotBlank;
-import org.onap.policy.common.parameters.annotations.NotNull;
-import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
 
 /**
- * Holds the parameters for the{@link ControlLoopDecoderFileInCsar}.
+ * Class to provide rest end points for LifecycleApiAutomationCompositionSimulator.
  *
  * @author Sirisha Manchikanti (sirisha.manchikanti@est.tech)
  */
-@Getter
-@NotNull
-@NotBlank
-public class ControlLoopDecoderFileInCsarParameterGroup extends PolicyDecoderConfigurationParameterGroup {
+@Path("/onap")
+@Produces(MediaType.APPLICATION_JSON)
+public class LifecycleApiAutomationCompositionSimulatorEndpoint {
 
-    private String controlLoopType;
-
-    public ControlLoopDecoderFileInCsarParameterGroup() {
-        super(ControlLoopDecoderFileInCsarParameterGroup.class.getSimpleName());
+    /**
+     * AutomationComposition commissioning end-point.
+     *
+     * @param body the post body
+     * @return the response object
+     */
+    @POST
+    @Path("/acm/v2/commission")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response commissionAutomationComposition(final ToscaServiceTemplate body) {
+        return Response.status(Response.Status.OK).entity(body).build();
     }
 }

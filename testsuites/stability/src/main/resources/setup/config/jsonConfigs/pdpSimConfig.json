@@ -6,7 +6,7 @@
     "pdpType":"apex",
     "description":"Pdp Heartbeat",
     "supportedPolicyTypes":[
-      {"name":"onap.policies.controlloop.operational.common.Apex","version":"1.0.0"},
+      {"name":"onap.policies.acm.operational.common.Apex","version":"1.0.0"},
       {"name":"onap.policies.native.Apex","version":"1.0.0"}
     ]
   },

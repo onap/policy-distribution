@@ -38,13 +38,13 @@ import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
 
 /**
- * This class extracts controlloop information from a CSAR file.
+ * This class extracts acm information from a CSAR file.
  *
  * @author Sirisha Manchikanti (sirisha.manchikanti@est.tech)
  */
-public class ControlLoopDecoderFileInCsar implements PolicyDecoder<Csar, ToscaEntity> {
+public class AutomationCompositionDecoderFileInCsar implements PolicyDecoder<Csar, ToscaEntity> {
 
-    private ControlLoopDecoderFileInCsarParameterGroup decoderParameters;
+    private AutomationCompositionDecoderFileInCsarParameterGroup decoderParameters;
     private static final String NODE_TYPES = "nodes.yml";
     private static final String DATA_TYPES = "data.yml";
 
@@ -69,7 +69,7 @@ public class ControlLoopDecoderFileInCsar implements PolicyDecoder<Csar, ToscaEn
      */
     @Override
     public Collection<ToscaEntity> decode(final Csar csar) throws PolicyDecodingException {
-        final Collection<ToscaEntity> controlLoopList = new ArrayList<>();
+        final Collection<ToscaEntity> automationCompositionList = new ArrayList<>();
         ToscaServiceTemplate nodeTypes = null;
         ToscaServiceTemplate dataTypes = null;
 
@@ -94,24 +94,24 @@ public class ControlLoopDecoderFileInCsar implements PolicyDecoder<Csar, ToscaEn
                     dataTypes = ReceptionUtil.decodeFile(zipFile, entry);
                 }
 
-                if (entryName.contains(decoderParameters.getControlLoopType())) {
+                if (entryName.contains(decoderParameters.getAutomationCompositionType())) {
                     ReceptionUtil.validateZipEntry(entryName, csar.getCsarFilePath(), entry.getSize());
-                    final ToscaServiceTemplate controlLoop = ReceptionUtil.decodeFile(zipFile, entry);
-                    if (null != controlLoop.getToscaTopologyTemplate()) {
+                    final ToscaServiceTemplate automationComposition = ReceptionUtil.decodeFile(zipFile, entry);
+                    if (null != automationComposition.getToscaTopologyTemplate()) {
                         if (null != nodeTypes) {
-                            controlLoop.setNodeTypes(nodeTypes.getNodeTypes());
+                            automationComposition.setNodeTypes(nodeTypes.getNodeTypes());
                         }
                         if (null != dataTypes) {
-                            controlLoop.setDataTypes(dataTypes.getDataTypes());
+                            automationComposition.setDataTypes(dataTypes.getDataTypes());
                         }
-                        controlLoopList.add(controlLoop);
+                        automationCompositionList.add(automationComposition);
                     }
                 }
             }
         } catch (final IOException | CoderException exp) {
-            throw new PolicyDecodingException("Failed decoding the controlloop", exp);
+            throw new PolicyDecodingException("Failed decoding the acm", exp);
         }
 
-        return controlLoopList;
+        return automationCompositionList;
     }
 }

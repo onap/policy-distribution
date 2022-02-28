@@ -1,6 +1,6 @@
 {
-  "controlLoopRuntimeParameters": {
-    "clientName": "policy-clamp-cl-runtime",
+  "automationCompositionRuntimeParameters": {
+    "clientName": "policy-clamp-runtime-acm",
     "hostname": "",
     "port": 6969,
     "useHttps": false,

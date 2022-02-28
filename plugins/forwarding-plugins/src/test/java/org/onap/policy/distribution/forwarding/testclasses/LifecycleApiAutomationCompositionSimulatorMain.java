@@ -27,15 +27,15 @@ import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.coder.StandardCoder;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
-import org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiControlLoopForwarder;
+import org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiAutomationCompositionForwarder;
 import org.onap.policy.distribution.main.rest.aaf.AafDistributionFilter;
 
 /**
- * The class for starting/stopping simulator for testing {@link LifecycleApiControlLoopForwarder} .
+ * The class for starting/stopping simulator for testing {@link LifecycleApiAutomationCompositionForwarder} .
  *
  * @author Sirisha Manchikanti (sirisha.manchikanti@est.tech)
  */
-public class LifecycleApiControlLoopSimulatorMain {
+public class LifecycleApiAutomationCompositionSimulatorMain {
     private RestServer restServer;
 
     /**
@@ -50,7 +50,7 @@ public class LifecycleApiControlLoopSimulatorMain {
                 ResourceUtils.getResourceAsString("src/test/resources/parameters/RestServerParameters.json"),
                 RestServerParameters.class);
         restServer = new RestServer(restServerParameters, AafDistributionFilter.class,
-                LifecycleApiControlLoopSimulatorEndpoint.class);
+                LifecycleApiAutomationCompositionSimulatorEndpoint.class);
         if (!restServer.start()) {
             throw new PolicyForwardingException("Failed to start rest simulator. Check log for more details...");
         }

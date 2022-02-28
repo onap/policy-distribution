@@ -19,29 +19,26 @@
  * ============LICENSE_END=========================================================
  */
 
-package org.onap.policy.distribution.forwarding.lifecycle.api;
+package org.onap.policy.distribution.reception.decoding.policy.file;
 
 import lombok.Getter;
-import org.onap.policy.common.endpoints.parameters.RestClientParameters;
 import org.onap.policy.common.parameters.annotations.NotBlank;
 import org.onap.policy.common.parameters.annotations.NotNull;
-import org.onap.policy.common.parameters.annotations.Valid;
-import org.onap.policy.distribution.main.parameters.PolicyForwarderConfigurationParameterGroup;
+import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;
 
 /**
- * Holds the parameters for the {@link LifecycleApiControlLoopForwarder}.
+ * Holds the parameters for the{@link AutomationCompositionDecoderFileInCsar}.
  *
  * @author Sirisha Manchikanti (sirisha.manchikanti@est.tech)
  */
 @Getter
 @NotNull
 @NotBlank
-public class LifecycleApiControlLoopForwarderParameters extends PolicyForwarderConfigurationParameterGroup {
-    public static final String CONTROLLOOP_FORWARDER_PLUGIN_CLASS = LifecycleApiControlLoopForwarder.class.getName();
+public class AutomationCompositionDecoderFileInCsarParameterGroup extends PolicyDecoderConfigurationParameterGroup {
 
-    private @Valid RestClientParameters controlLoopRuntimeParameters;
+    private String automationCompositionType;
 
-    public LifecycleApiControlLoopForwarderParameters() {
-        super(LifecycleApiControlLoopForwarderParameters.class.getSimpleName());
+    public AutomationCompositionDecoderFileInCsarParameterGroup() {
+        super(AutomationCompositionDecoderFileInCsarParameterGroup.class.getSimpleName());
     }
 }

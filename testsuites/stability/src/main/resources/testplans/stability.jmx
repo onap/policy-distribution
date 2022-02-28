@@ -364,7 +364,7 @@
           <hashTree>
             <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Policy Type" enabled="true">
               <stringProp name="JSON_PATH">$[:2].policy-type</stringProp>
-              <stringProp name="EXPECTED_VALUE">onap.policies.controlloop.operational.common.Apex</stringProp>
+              <stringProp name="EXPECTED_VALUE">onap.policies.acm.operational.common.Apex</stringProp>
               <boolProp name="JSONVALIDATION">true</boolProp>
               <boolProp name="EXPECT_NULL">false</boolProp>
               <boolProp name="INVERT">false</boolProp>

@@ -4,12 +4,12 @@
     "policies": [
       {
         "operational.sampledomain": {
-          "type": "onap.policies.controlloop.operational.Apex",
+          "type": "onap.policies.acm.operational.Apex",
           "typeVersion": "1.0.0",
-          "name": "onap.policies.controlloop.operational.apex.Sampledomain",
+          "name": "onap.policies.acm.operational.apex.Sampledomain",
           "version": "1.0.0",
           "metadata": {
-                        "policy-id": "onap.policies.controlloop.operational.apex.Sampledomain"
+                        "policy-id": "onap.policies.acm.operational.apex.Sampledomain"
                     },
           "properties": {
             "content": {
@@ -37,7 +37,7 @@
                         "jsonAdapters": {
                           "Instant": {
                             "adaptedClass": "java.time.Instant",
-                            "adaptorClass": "org.onap.policy.controlloop.util.Serialization$GsonInstantAdapter"
+                            "adaptorClass": "org.onap.policy.acm.util.Serialization$GsonInstantAdapter"
                           },
                           "APPC_LCM_REQUEST": {
                             "adaptedClass": "org.onap.policy.appclcm.LcmRequest",

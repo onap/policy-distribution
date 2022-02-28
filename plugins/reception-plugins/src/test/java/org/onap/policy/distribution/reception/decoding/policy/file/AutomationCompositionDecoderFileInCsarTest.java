@@ -39,22 +39,23 @@ import org.onap.policy.distribution.reception.handling.sdc.CommonTestData;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
- * Class to perform unit test of {@link ControlLoopDecoderFileInCsar}.
+ * Class to perform unit test of {@link AutomationCompositionDecoderFileInCsar}.
  *
  * @author Sirisha Manchikanti (sirisha.manchikanti@est.tech)
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ControlLoopDecoderFileInCsarTest {
+public class AutomationCompositionDecoderFileInCsarTest {
 
     /**
      * Set up.
      */
     @BeforeClass
     public static void setUp() {
-        final ControlLoopDecoderFileInCsarParameterGroup configurationParameters = CommonTestData
-                .getPolicyDecoderParameters("src/test/resources/parameters/FileInCsarControlLoopDecoderParameters.json",
-                    ControlLoopDecoderFileInCsarParameterGroup.class);
-        configurationParameters.setName(ControlLoopDecoderFileInCsarParameterGroup.class.getSimpleName());
+        final AutomationCompositionDecoderFileInCsarParameterGroup configurationParameters = CommonTestData
+                .getPolicyDecoderParameters(
+                    "src/test/resources/parameters/FileInCsarAutomationCompositionDecoderParameters.json",
+                    AutomationCompositionDecoderFileInCsarParameterGroup.class);
+        configurationParameters.setName(AutomationCompositionDecoderFileInCsarParameterGroup.class.getSimpleName());
         ParameterService.register(configurationParameters);
     }
 
@@ -63,34 +64,34 @@ public class ControlLoopDecoderFileInCsarTest {
      */
     @AfterClass
     public static void tearDown() {
-        ParameterService.deregister(ControlLoopDecoderFileInCsarParameterGroup.class.getSimpleName());
+        ParameterService.deregister(AutomationCompositionDecoderFileInCsarParameterGroup.class.getSimpleName());
     }
 
     @Test
-    public void testDecodeControlLoop() throws PolicyDecodingException {
+    public void testDecodeAutomationComposition() throws PolicyDecodingException {
 
-        final ControlLoopDecoderFileInCsar decoder = new ControlLoopDecoderFileInCsar();
-        decoder.configure(ControlLoopDecoderFileInCsarParameterGroup.class.getSimpleName());
+        final AutomationCompositionDecoderFileInCsar decoder = new AutomationCompositionDecoderFileInCsar();
+        decoder.configure(AutomationCompositionDecoderFileInCsarParameterGroup.class.getSimpleName());
 
-        final File file = new File("src/test/resources/service-Sampleservice-controlloop.csar");
+        final File file = new File("src/test/resources/service-Sampleservice-acm.csar");
         final Csar csar = new Csar(file.getAbsolutePath());
 
         assertTrue(decoder.canHandle(csar));
-        final Collection<ToscaEntity> controlLoopHolders = decoder.decode(csar);
-        assertEquals(1, controlLoopHolders.size());
+        final Collection<ToscaEntity> automationCompositionHolders = decoder.decode(csar);
+        assertEquals(1, automationCompositionHolders.size());
     }
 
     @Test
-    public void testDecodeControlLoopZipError() {
+    public void testDecodeAutomationCompositionZipError() {
 
-        final ControlLoopDecoderFileInCsar decoder = new ControlLoopDecoderFileInCsar();
-        decoder.configure(ControlLoopDecoderFileInCsarParameterGroup.class.getSimpleName());
+        final AutomationCompositionDecoderFileInCsar decoder = new AutomationCompositionDecoderFileInCsar();
+        decoder.configure(AutomationCompositionDecoderFileInCsarParameterGroup.class.getSimpleName());
 
         final File file = new File("unknown.csar");
         final Csar csar = new Csar(file.getAbsolutePath());
 
         assertTrue(decoder.canHandle(csar));
         assertThatThrownBy(() -> decoder.decode(csar)).isInstanceOf(PolicyDecodingException.class)
-        .hasMessageContaining("Failed decoding the controlloop");
+        .hasMessageContaining("Failed decoding the acm");
     }
 }

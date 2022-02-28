@@ -71,7 +71,7 @@ public class LifecycycleApiSimulatorEndpoint {
     public Response createPolicies(@PathParam("policyTypeId") final String policyTypeId,
             @PathParam("policyTypeVersion") final String policyTypeVersion,
             @ApiParam(value = "Entity body of policy", required = true) final ToscaServiceTemplate body) {
-        if ("onap.policies.controlloop.operational.ApexFailure".equals(policyTypeId)) {
+        if ("onap.policies.acm.operational.ApexFailure".equals(policyTypeId)) {
             return Response.status(Response.Status.NOT_FOUND).build();
         } else {
             return Response.status(Response.Status.OK).entity(body).build();

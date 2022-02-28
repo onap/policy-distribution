@@ -20,10 +20,10 @@
                         "decoderClassName": "org.onap.policy.distribution.reception.decoding.policy.file.PolicyDecoderFileInCsarToPolicy",
                         "decoderConfigurationName": "toscaPolicyDecoderConfiguration"
                     },
-                    "ToscaControlLoopDecoder": {
-                        "decoderType": "ToscaControlLoopDecoder",
-                        "decoderClassName": "org.onap.policy.distribution.reception.decoding.policy.file.ControlLoopDecoderFileInCsar",
-                        "decoderConfigurationName": "toscaControlLoopDecoderConfiguration"
+                    "ToscaAutomationCompositionDecoder": {
+                        "decoderType": "ToscaAutomationCompositionDecoder",
+                        "decoderClassName": "org.onap.policy.distribution.reception.decoding.policy.file.AutomationCompositionDecoderFileInCsar",
+                        "decoderConfigurationName": "toscaAutomationCompositionDecoderConfiguration"
                     }
                 },
                 "policyForwarders": {
@@ -32,10 +32,10 @@
                         "forwarderClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiPolicyForwarder",
                         "forwarderConfigurationName": "lifecycleApiPolicyConfiguration"
                     },
-                    "LifeCycleApiControlLoopForwarder": {
-                        "forwarderType": "LifeCycleControlLoopAPI",
-                        "forwarderClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiControlLoopForwarder",
-                        "forwarderConfigurationName": "lifecycleApiControlLoopConfiguration"
+                    "LifeCycleApiAutomationCompositionForwarder": {
+                        "forwarderType": "LifeCycleAutomationCompositionAPI",
+                        "forwarderClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiAutomationCompositionForwarder",
+                        "forwarderConfigurationName": "lifecycleApiAutomationCompositionConfiguration"
                     }
                 }
             }
@@ -76,10 +76,10 @@
                 "policyTypeFileName": "tosca_policy_type"
             }
         },
-        "toscaControlLoopDecoderConfiguration": {
-            "parameterClassName": "org.onap.policy.distribution.reception.decoding.policy.file.ControlLoopDecoderFileInCsarParameterGroup",
+        "toscaAutomationCompositionDecoderConfiguration": {
+            "parameterClassName": "org.onap.policy.distribution.reception.decoding.policy.file.AutomationCompositionDecoderFileInCsarParameterGroup",
             "parameters": {
-                "controlLoopType": "controlloop"
+                "automationCompositionType": "acm"
             }
         }
     },
@@ -106,12 +106,12 @@
                 "deployPolicies": true
             }
         },
-        "lifecycleApiControlLoopConfiguration": {
-            "parameterClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiControlLoopForwarderParameters",
+        "lifecycleApiAutomationCompositionConfiguration": {
+            "parameterClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiAutomationCompositionForwarderParameters",
             "parameters": {
-                "controlLoopRuntimeParameters": {
-                    "clientName": "policy-clamp-cl-runtime",
-                    "hostname": "policy-clamp-cl-runtime",
+                "automationCompositionRuntimeParameters": {
+                    "clientName": "policy-clamp-runtime-acm",
+                    "hostname": "policy-clamp-runtime-acm",
                     "port": 6969,
                     "useHttps": true,
                     "userName": "policyadmin",

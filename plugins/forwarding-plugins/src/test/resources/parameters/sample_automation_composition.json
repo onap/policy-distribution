@@ -14,9 +14,9 @@
         }
       }
     },
-    "onap.datatype.controlloop.Target": {
+    "onap.datatype.acm.Target": {
       "derived_from": "tosca.datatypes.Root",
-      "description": "Definition for a entity in A&AI to perform a control loop operation on",
+      "description": "Definition for a entity in A&AI to perform a acm operation on",
       "properties": {
         "targetType": {
           "type": "string",
@@ -46,7 +46,7 @@
         }
       }
     },
-    "onap.datatype.controlloop.Actor": {
+    "onap.datatype.acm.Actor": {
       "derived_from": "tosca.datatypes.Root",
       "description": "An actor/operation/target definition",
       "properties": {
@@ -67,7 +67,7 @@
           "required": true
         },
         "target": {
-          "type": "onap.datatype.controlloop.Target",
+          "type": "onap.datatype.acm.Target",
           "description": "The resource the operation should be performed on.",
           "required": true
         },
@@ -84,7 +84,7 @@
         }
       }
     },
-    "onap.datatype.controlloop.Operation": {
+    "onap.datatype.acm.Operation": {
       "derived_from": "tosca.datatypes.Root",
       "description": "An operation supported by an actor",
       "properties": {
@@ -99,7 +99,7 @@
           "required": false
         },
         "operation": {
-          "type": "onap.datatype.controlloop.Actor",
+          "type": "onap.datatype.acm.Actor",
           "description": "The definition of the operation to be performed.",
           "required": true
         },
@@ -439,7 +439,7 @@
       "derived_from": "tosca.datatypes.Root",
       "metadata": {}
     },
-    "org.onap.datatypes.policy.clamp.controlloop.httpControlLoopElement.RestRequest": {
+    "org.onap.datatypes.policy.clamp.acm.httpAutomationCompositionElement.RestRequest": {
       "version": "1.0.0",
       "derived_from": "tosca.datatypes.Root",
       "properties": {
@@ -481,7 +481,7 @@
           "description": "THe expected HTTP status code for the REST request"
         }
       },
-      "org.onap.datatypes.policy.clamp.controlloop.httpControlLoopElement.ConfigurationEntity": {
+      "org.onap.datatypes.policy.clamp.acm.httpAutomationCompositionElement.ConfigurationEntity": {
         "version": "1.0.0",
         "derived_from": "tosca.datatypes.Root",
         "properties": {
@@ -489,12 +489,12 @@
             "type": "onap.datatypes.ToscaConceptIdentifier",
             "typeVersion": "1.0.0",
             "required": true,
-            "description": "The name and version of a Configuration Entity to be handled by the HTTP Control Loop Element"
+            "description": "The name and version of a Configuration Entity to be handled by the HTTP Automation Composition Element"
           },
           "restSequence": {
             "type": "list",
             "entry_schema": {
-              "type": "org.onap.datatypes.policy.clamp.controlloop.httpControlLoopElement.RestRequest",
+              "type": "org.onap.datatypes.policy.clamp.acm.httpAutomationCompositionElement.RestRequest",
               "typeVersion": "1.0.0"
             },
             "description": "A sequence of REST commands to send to the REST endpoint"
@@ -504,7 +504,7 @@
     }
   },
   "node_types": {
-    "org.onap.policy.clamp.controlloop.Participant": {
+    "org.onap.policy.clamp.acm.Participant": {
       "version": "1.0.1",
       "derived_from": "tosca.nodetypes.Root",
       "properties": {
@@ -514,7 +514,7 @@
         }
       }
     },
-    "org.onap.policy.clamp.controlloop.ControlLoopElement": {
+    "org.onap.policy.clamp.acm.AutomationCompositionElement": {
       "version": "1.0.1",
       "derived_from": "tosca.nodetypes.Root",
       "properties": {
@@ -524,7 +524,7 @@
           "metadata": {
             "common": true
           },
-          "description": "Specifies the organization that provides the control loop element"
+          "description": "Specifies the organization that provides the acm element"
         },
         "participant_id": {
           "type": "onap.datatypes.ToscaConceptIdentifier",
@@ -539,7 +539,7 @@
           "metadata": {
             "common": true
           },
-          "description": "The identity of the participant type that hosts this type of Control Loop Element"
+          "description": "The identity of the participant type that hosts this type of Automation Composition Element"
         },
         "startPhase": {
           "type": "integer",
@@ -552,7 +552,7 @@
           "metadata": {
             "common": true
           },
-          "description": "A value indicating the start phase in which this control loop element will be started, the first start phase is zero. Control Loop Elements are started in their start_phase order and stopped in reverse start phase order. Control Loop Elements with the same start phase are started and stopped simultaneously"
+          "description": "A value indicating the start phase in which this acm element will be started, the first start phase is zero. Automation Composition Elements are started in their start_phase order and stopped in reverse start phase order. Automation Composition Elements with the same start phase are started and stopped simultaneously"
         },
         "uninitializedToPassiveTimeout": {
           "type": "integer",
@@ -612,7 +612,7 @@
         }
       }
     },
-    "org.onap.policy.clamp.controlloop.ControlLoop": {
+    "org.onap.policy.clamp.acm.AutomationComposition": {
       "version": "1.0.1",
       "derived_from": "tosca.nodetypes.Root",
       "properties": {
@@ -622,7 +622,7 @@
           "metadata": {
             "common": true
           },
-          "description": "Specifies the organization that provides the control loop element"
+          "description": "Specifies the organization that provides the acm element"
         },
         "elements": {
           "type": "list",
@@ -633,13 +633,13 @@
           "entry_schema": {
             "type": "onap.datatypes.ToscaConceptIdentifier"
           },
-          "description": "Specifies a list of control loop element definitions that make up this control loop definition"
+          "description": "Specifies a list of acm element definitions that make up this acm definition"
         }
       }
     },
-    "org.onap.policy.clamp.controlloop.PolicyControlLoopElement": {
+    "org.onap.policy.clamp.acm.PolicyAutomationCompositionElement": {
       "version": "1.0.1",
-      "derived_from": "org.onap.policy.clamp.controlloop.ControlLoopElement",
+      "derived_from": "org.onap.policy.clamp.acm.AutomationCompositionElement",
       "properties": {
         "policy_type_id": {
           "type": "onap.datatypes.ToscaConceptIdentifier",
@@ -651,9 +651,9 @@
         }
       }
     },
-    "org.onap.policy.clamp.controlloop.DerivedPolicyControlLoopElement": {
+    "org.onap.policy.clamp.acm.DerivedPolicyAutomationCompositionElement": {
       "version": "1.0.1",
-      "derived_from": "org.onap.policy.clamp.controlloop.PolicyControlLoopElement",
+      "derived_from": "org.onap.policy.clamp.acm.PolicyAutomationCompositionElement",
       "properties": {
         "policy_type_id": {
           "type": "onap.datatypes.ToscaConceptIdentifier",
@@ -665,9 +665,9 @@
         }
       }
     },
-    "org.onap.policy.clamp.controlloop.DerivedDerivedPolicyControlLoopElement": {
+    "org.onap.policy.clamp.acm.DerivedDerivedPolicyAutomationCompositionElement": {
       "version": "1.0.1",
-      "derived_from": "org.onap.policy.clamp.controlloop.DerivedPolicyControlLoopElement",
+      "derived_from": "org.onap.policy.clamp.acm.DerivedPolicyAutomationCompositionElement",
       "properties": {
         "policy_type_id": {
           "type": "onap.datatypes.ToscaConceptIdentifier",
@@ -679,9 +679,9 @@
         }
       }
     },
-    "org.onap.policy.clamp.controlloop.CDSControlLoopElement": {
+    "org.onap.policy.clamp.acm.CDSAutomationCompositionElement": {
       "version": "1.0.1",
-      "derived_from": "org.onap.policy.clamp.controlloop.ControlLoopElement",
+      "derived_from": "org.onap.policy.clamp.acm.AutomationCompositionElement",
       "properties": {
         "cds_blueprint_id": {
           "type": "onap.datatypes.ToscaConceptIdentifier",
@@ -689,9 +689,9 @@
         }
       }
     },
-    "org.onap.policy.clamp.controlloop.K8SMicroserviceControlLoopElement": {
+    "org.onap.policy.clamp.acm.K8SMicroserviceAutomationCompositionElement": {
       "version": "1.0.1",
-      "derived_from": "org.onap.policy.clamp.controlloop.ControlLoopElement",
+      "derived_from": "org.onap.policy.clamp.acm.AutomationCompositionElement",
       "properties": {
         "chart": {
           "type": "string",
@@ -716,9 +716,9 @@
         }
       }
     },
-    "org.onap.policy.clamp.controlloop.HttpControlLoopElement": {
+    "org.onap.policy.clamp.acm.HttpAutomationCompositionElement": {
       "version": "1.0.1",
-      "derived_from": "org.onap.policy.clamp.controlloop.ControlLoopElement",
+      "derived_from": "org.onap.policy.clamp.acm.AutomationCompositionElement",
       "properties": {
         "baseUrl": {
           "type": "string",
@@ -737,10 +737,10 @@
           "type": "map",
           "required": true,
           "entry_schema": {
-            "type": "org.onap.datatypes.policy.clamp.controlloop.httpControlLoopElement.ConfigurationEntity",
+            "type": "org.onap.datatypes.policy.clamp.acm.httpAutomationCompositionElement.ConfigurationEntity",
             "typeVersion": "1.0.0"
           },
-          "description": "The connfiguration entities the Control Loop Element is managing and their associated REST requests"
+          "description": "The connfiguration entities the Automation Composition Element is managing and their associated REST requests"
         }
       }
     }
@@ -765,20 +765,20 @@
       }
     },
     "node_templates": {
-      "org.onap.policy.controlloop.PolicyControlLoopParticipant": {
+      "org.onap.policy.acm.PolicyAutomationCompositionParticipant": {
         "version": "2.3.1",
-        "type": "org.onap.policy.clamp.controlloop.Participant",
+        "type": "org.onap.policy.clamp.acm.Participant",
         "type_version": "1.0.1",
         "description": "Participant for DCAE microservices",
         "properties": {
           "provider": "ONAP"
         }
       },
-      "org.onap.domain.pmsh.PMSH_MonitoringPolicyControlLoopElement": {
+      "org.onap.domain.pmsh.PMSH_MonitoringPolicyAutomationCompositionElement": {
         "version": "1.2.3",
-        "type": "org.onap.policy.clamp.controlloop.PolicyControlLoopElement",
+        "type": "org.onap.policy.clamp.acm.PolicyAutomationCompositionElement",
         "type_version": "1.0.0",
-        "description": "Control loop element for the monitoring policy for Performance Management Subscription Handling",
+        "description": "Automation Composition element for the monitoring policy for Performance Management Subscription Handling",
         "properties": {
           "provider": "Ericsson",
           "participant_id": {
@@ -786,7 +786,7 @@
             "version": "1.0.0"
           },
           "participantType": {
-            "name": "org.onap.policy.controlloop.PolicyControlLoopParticipant",
+            "name": "org.onap.policy.acm.PolicyAutomationCompositionParticipant",
             "version": "2.3.1"
           },
           "policy_type_id": {
@@ -798,11 +798,11 @@
           }
         }
       },
-      "org.onap.domain.pmsh.PMSH_OperationalPolicyControlLoopElement": {
+      "org.onap.domain.pmsh.PMSH_OperationalPolicyAutomationCompositionElement": {
         "version": "1.2.3",
-        "type": "org.onap.policy.clamp.controlloop.PolicyControlLoopElement",
+        "type": "org.onap.policy.clamp.acm.PolicyAutomationCompositionElement",
         "type_version": "1.0.0",
-        "description": "Control loop element for the operational policy for Performance Management Subscription Handling",
+        "description": "Automation Composition element for the operational policy for Performance Management Subscription Handling",
         "properties": {
           "provider": "Ericsson",
           "participant_id": {
@@ -810,7 +810,7 @@
             "version": "1.0.0"
           },
           "participantType": {
-            "name": "org.onap.policy.controlloop.PolicyControlLoopParticipant",
+            "name": "org.onap.policy.acm.PolicyAutomationCompositionParticipant",
             "version": "2.3.1"
           },
           "policy_type_id": {
@@ -822,15 +822,15 @@
           }
         }
       },
-      "org.onap.domain.pmsh.DerivedPolicyControlLoopElement": {
+      "org.onap.domain.pmsh.DerivedPolicyAutomationCompositionElement": {
         "version": "1.2.3",
-        "type": "org.onap.policy.clamp.controlloop.DerivedPolicyControlLoopElement",
+        "type": "org.onap.policy.clamp.acm.DerivedPolicyAutomationCompositionElement",
         "type_version": "1.0.0",
-        "description": "Control loop for Performance Management Subscription Handling",
+        "description": "Automation Composition for Performance Management Subscription Handling",
         "properties": {
           "provider": "Ericsson",
           "participantType": {
-            "name": "org.onap.policy.controlloop.PolicyControlLoopParticipant",
+            "name": "org.onap.policy.acm.PolicyAutomationCompositionParticipant",
             "version": "2.3.1"
           },
           "participant_id": {
@@ -839,15 +839,15 @@
           }
         }
       },
-      "org.onap.domain.pmsh.DerivedDerivedPolicyControlLoopElement": {
+      "org.onap.domain.pmsh.DerivedDerivedPolicyAutomationCompositionElement": {
         "version": "1.2.3",
-        "type": "org.onap.policy.clamp.controlloop.DerivedDerivedPolicyControlLoopElement",
+        "type": "org.onap.policy.clamp.acm.DerivedDerivedPolicyAutomationCompositionElement",
         "type_version": "1.0.0",
-        "description": "Control loop for Performance Management Subscription Handling",
+        "description": "Automation Composition for Performance Management Subscription Handling",
         "properties": {
           "provider": "Ericsson",
           "participantType": {
-            "name": "org.onap.policy.controlloop.PolicyControlLoopParticipant",
+            "name": "org.onap.policy.acm.PolicyAutomationCompositionParticipant",
             "version": "2.3.1"
           },
           "participant_id": {
@@ -856,20 +856,20 @@
           }
         }
       },
-      "org.onap.k8s.controlloop.K8SControlLoopParticipant": {
+      "org.onap.k8s.acm.K8SAutomationCompositionParticipant": {
         "version": "2.3.4",
-        "type": "org.onap.policy.clamp.controlloop.Participant",
+        "type": "org.onap.policy.clamp.acm.Participant",
         "type_version": "1.0.1",
         "description": "Participant for K8S",
         "properties": {
           "provider": "ONAP"
         }
       },
-      "org.onap.domain.database.PMSH_K8SMicroserviceControlLoopElement": {
+      "org.onap.domain.database.PMSH_K8SMicroserviceAutomationCompositionElement": {
         "version": "1.2.3",
-        "type": "org.onap.policy.clamp.controlloop.K8SMicroserviceControlLoopElement",
+        "type": "org.onap.policy.clamp.acm.K8SMicroserviceAutomationCompositionElement",
         "type_version": "1.0.0",
-        "description": "Control loop element for the K8S microservice for PMSH",
+        "description": "Automation Composition element for the K8S microservice for PMSH",
         "properties": {
           "provider": "ONAP",
           "participant_id": {
@@ -877,7 +877,7 @@
             "version": "1.0.0"
           },
           "participantType": {
-            "name": "org.onap.k8s.controlloop.K8SControlLoopParticipant",
+            "name": "org.onap.k8s.acm.K8SAutomationCompositionParticipant",
             "version": "2.3.4"
           },
           "chart": {
@@ -901,11 +901,11 @@
           }
         }
       },
-      "org.onap.domain.database.Local_K8SMicroserviceControlLoopElement": {
+      "org.onap.domain.database.Local_K8SMicroserviceAutomationCompositionElement": {
         "version": "1.2.3",
-        "type": "org.onap.policy.clamp.controlloop.K8SMicroserviceControlLoopElement",
+        "type": "org.onap.policy.clamp.acm.K8SMicroserviceAutomationCompositionElement",
         "type_version": "1.0.0",
-        "description": "Control loop element for the K8S microservice for local chart",
+        "description": "Automation Composition element for the K8S microservice for local chart",
         "properties": {
           "provider": "ONAP",
           "participant_id": {
@@ -913,7 +913,7 @@
             "version": "1.0.0"
           },
           "participantType": {
-            "name": "org.onap.k8s.controlloop.K8SControlLoopParticipant",
+            "name": "org.onap.k8s.acm.K8SAutomationCompositionParticipant",
             "version": "2.3.4"
           },
           "chart": {
@@ -926,20 +926,20 @@
           }
         }
       },
-      "org.onap.controlloop.HttpControlLoopParticipant": {
+      "org.onap.acm.HttpAutomationCompositionParticipant": {
         "version": "2.3.4",
-        "type": "org.onap.policy.clamp.controlloop.Participant",
+        "type": "org.onap.policy.clamp.acm.Participant",
         "type_version": "1.0.1",
         "description": "Participant for Http requests",
         "properties": {
           "provider": "ONAP"
         }
       },
-      "org.onap.domain.database.Http_PMSHMicroserviceControlLoopElement": {
+      "org.onap.domain.database.Http_PMSHMicroserviceAutomationCompositionElement": {
         "version": "1.2.3",
-        "type": "org.onap.policy.clamp.controlloop.HttpControlLoopElement",
+        "type": "org.onap.policy.clamp.acm.HttpAutomationCompositionElement",
         "type_version": "1.0.1",
-        "description": "Control loop element for the http requests of PMSH microservice",
+        "description": "Automation Composition element for the http requests of PMSH microservice",
         "properties": {
           "provider": "ONAP",
           "participant_id": {
@@ -947,7 +947,7 @@
             "version": "1.0.0"
           },
           "participantType": {
-            "name": "org.onap.k8s.controlloop.HttpControlLoopParticipant",
+            "name": "org.onap.k8s.acm.HttpAutomationCompositionParticipant",
             "version": "2.3.4"
           },
           "uninitializedToPassiveTimeout": 180,
@@ -970,7 +970,7 @@
                   },
                   "httpMethod": "PUT",
                   "path": "v1/kv/dcae-pmsh2",
-                  "body": "{ \"control_loop_name\":\"pmsh-control-loop\", \"operational_policy_name\":\"pmsh-operational-policy\", \"aaf_password\":\"demo123456!\", \"aaf_identity\":\"dcae@dcae.onap.org\", \"cert_path\":\"/opt/app/pmsh/etc/certs/cert.pem\", \"key_path\":\"/opt/app/pmsh/etc/certs/key.pem\", \"ca_cert_path\":\"/opt/app/pmsh/etc/certs/cacert.pem\", \"enable_tls\":\"true\", \"pmsh_policy\":{ \"subscription\":{ \"subscriptionName\":\"ExtraPM-All-gNB-R2B\", \"administrativeState\":\"UNLOCKED\", \"fileBasedGP\":15, \"fileLocation\":\"\\/pm\\/pm.xml\", \"nfFilter\":{ \"nfNames\":[ \"^pnf.*\", \"^vnf.*\" ], \"modelInvariantIDs\":[ ], \"modelVersionIDs\":[ ], \"modelNames\":[ ] }, \"measurementGroups\":[ { \"measurementGroup\":{ \"measurementTypes\":[ { \"measurementType\":\"countera\" }, { \"measurementType\":\"counterb\" } ], \"managedObjectDNsBasic\":[ { \"DN\":\"dna\" }, { \"DN\":\"dnb\" } ] } }, { \"measurementGroup\":{ \"measurementTypes\":[ { \"measurementType\":\"counterc\" }, { \"measurementType\":\"counterd\" } ], \"managedObjectDNsBasic\":[ { \"DN\":\"dnc\" }, { \"DN\":\"dnd\" } ] } } ] } }, \"streams_subscribes\":{ \"aai_subscriber\":{ \"type\":\"message_router\", \"dmaap_info\":{ \"topic_url\":\"https://10.152.183.151:3905/events/AAI_EVENT\", \"client_role\":\"org.onap.dcae.aaiSub\", \"location\":\"san-francisco\", \"client_id\":\"1575976809466\" } }, \"policy_pm_subscriber\":{ \"type\":\"message_router\", \"dmaap_info\":{ \"topic_url\":\"https://10.152.183.151:3905/events/org.onap.dmaap.mr.PM_SUBSCRIPTIONS\", \"client_role\":\"org.onap.dcae.pmSubscriber\", \"location\":\"san-francisco\", \"client_id\":\"1575876809456\" } } }, \"streams_publishes\":{ \"policy_pm_publisher\":{ \"type\":\"message_router\", \"dmaap_info\":{ \"topic_url\":\"https://10.152.183.151:3905/events/org.onap.dmaap.mr.PM_SUBSCRIPTIONS\", \"client_role\":\"org.onap.dcae.pmPublisher\", \"location\":\"san-francisco\", \"client_id\":\"1475976809466\" } }, \"other_publisher\":{ \"type\":\"message_router\", \"dmaap_info\":{ \"topic_url\":\"https://10.152.183.151:3905/events/org.onap.dmaap.mr.SOME_OTHER_TOPIC\", \"client_role\":\"org.onap.dcae.pmControlPub\", \"location\":\"san-francisco\", \"client_id\":\"1875976809466\" } } } }",
+                  "body": "{ \"automation_composition_name\":\"pmsh-automation_composition\", \"operational_policy_name\":\"pmsh-operational-policy\", \"aaf_password\":\"demo123456!\", \"aaf_identity\":\"dcae@dcae.onap.org\", \"cert_path\":\"/opt/app/pmsh/etc/certs/cert.pem\", \"key_path\":\"/opt/app/pmsh/etc/certs/key.pem\", \"ca_cert_path\":\"/opt/app/pmsh/etc/certs/cacert.pem\", \"enable_tls\":\"true\", \"pmsh_policy\":{ \"subscription\":{ \"subscriptionName\":\"ExtraPM-All-gNB-R2B\", \"administrativeState\":\"UNLOCKED\", \"fileBasedGP\":15, \"fileLocation\":\"\\/pm\\/pm.xml\", \"nfFilter\":{ \"nfNames\":[ \"^pnf.*\", \"^vnf.*\" ], \"modelInvariantIDs\":[ ], \"modelVersionIDs\":[ ], \"modelNames\":[ ] }, \"measurementGroups\":[ { \"measurementGroup\":{ \"measurementTypes\":[ { \"measurementType\":\"countera\" }, { \"measurementType\":\"counterb\" } ], \"managedObjectDNsBasic\":[ { \"DN\":\"dna\" }, { \"DN\":\"dnb\" } ] } }, { \"measurementGroup\":{ \"measurementTypes\":[ { \"measurementType\":\"counterc\" }, { \"measurementType\":\"counterd\" } ], \"managedObjectDNsBasic\":[ { \"DN\":\"dnc\" }, { \"DN\":\"dnd\" } ] } } ] } }, \"streams_subscribes\":{ \"aai_subscriber\":{ \"type\":\"message_router\", \"dmaap_info\":{ \"topic_url\":\"https://10.152.183.151:3905/events/AAI_EVENT\", \"client_role\":\"org.onap.dcae.aaiSub\", \"location\":\"san-francisco\", \"client_id\":\"1575976809466\" } }, \"policy_pm_subscriber\":{ \"type\":\"message_router\", \"dmaap_info\":{ \"topic_url\":\"https://10.152.183.151:3905/events/org.onap.dmaap.mr.PM_SUBSCRIPTIONS\", \"client_role\":\"org.onap.dcae.pmSubscriber\", \"location\":\"san-francisco\", \"client_id\":\"1575876809456\" } } }, \"streams_publishes\":{ \"policy_pm_publisher\":{ \"type\":\"message_router\", \"dmaap_info\":{ \"topic_url\":\"https://10.152.183.151:3905/events/org.onap.dmaap.mr.PM_SUBSCRIPTIONS\", \"client_role\":\"org.onap.dcae.pmPublisher\", \"location\":\"san-francisco\", \"client_id\":\"1475976809466\" } }, \"other_publisher\":{ \"type\":\"message_router\", \"dmaap_info\":{ \"topic_url\":\"https://10.152.183.151:3905/events/org.onap.dmaap.mr.SOME_OTHER_TOPIC\", \"client_role\":\"org.onap.dcae.pmControlPub\", \"location\":\"san-francisco\", \"client_id\":\"1875976809466\" } } } }",
                   "expectedResponse": 200
                 }
               ]
@@ -978,40 +978,40 @@
           ]
         }
       },
-      "org.onap.domain.sample.GenericK8s_ControlLoopDefinition": {
+      "org.onap.domain.sample.GenericK8s_AutomationCompositionDefinition": {
         "version": "1.2.3",
-        "type": "org.onap.policy.clamp.controlloop.ControlLoop",
+        "type": "org.onap.policy.clamp.acm.AutomationComposition",
         "type_version": "1.0.0",
-        "description": "Control loop for Hello World",
+        "description": "Automation Composition for Hello World",
         "properties": {
           "provider": "ONAP",
           "elements": [
             {
-              "name": "org.onap.domain.database.PMSH_K8SMicroserviceControlLoopElement",
+              "name": "org.onap.domain.database.PMSH_K8SMicroserviceAutomationCompositionElement",
               "version": "1.2.3"
             },
             {
-              "name": "org.onap.domain.database.Local_K8SMicroserviceControlLoopElement",
+              "name": "org.onap.domain.database.Local_K8SMicroserviceAutomationCompositionElement",
               "version": "1.2.3"
             },
             {
-              "name": "org.onap.domain.database.Http_PMSHMicroserviceControlLoopElement",
+              "name": "org.onap.domain.database.Http_PMSHMicroserviceAutomationCompositionElement",
               "version": "1.2.3"
             },
             {
-              "name": "org.onap.domain.pmsh.DerivedPolicyControlLoopElement",
+              "name": "org.onap.domain.pmsh.DerivedPolicyAutomationCompositionElement",
               "version": "1.2.3"
             },
             {
-              "name": "org.onap.domain.pmsh.DerivedDerivedPolicyControlLoopElement",
+              "name": "org.onap.domain.pmsh.DerivedDerivedPolicyAutomationCompositionElement",
               "version": "1.2.3"
             },
             {
-              "name": "org.onap.domain.pmsh.PMSH_MonitoringPolicyControlLoopElement",
+              "name": "org.onap.domain.pmsh.PMSH_MonitoringPolicyAutomationCompositionElement",
               "version": "1.2.3"
             },
             {
-              "name": "org.onap.domain.pmsh.PMSH_OperationalPolicyControlLoopElement",
+              "name": "org.onap.domain.pmsh.PMSH_OperationalPolicyAutomationCompositionElement",
               "version": "1.2.3"
             }
           ]

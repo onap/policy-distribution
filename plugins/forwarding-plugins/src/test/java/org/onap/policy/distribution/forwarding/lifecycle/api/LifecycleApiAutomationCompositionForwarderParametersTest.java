@@ -31,37 +31,37 @@ import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.distribution.forwarding.testclasses.CommonTestData;
 
 /**
- * Class to perform unit test of {@link LifecycleApiControlLoopForwarderParameters}.
+ * Class to perform unit test of {@link LifecycleApiAutomationCompositionForwarderParameters}.
  *
  * @author Sirisha Manchikanti (sirisha.manchikanti@est.tech)
  */
-public class LifecycleApiControlLoopForwarderParametersTest {
+public class LifecycleApiAutomationCompositionForwarderParametersTest {
 
-    private static final String CONTROLLOOP_RUNTIME_HOST_NAME = "0.0.0.0";
-    private static final int CONTROLLOOP_RUNTIME_PORT = 6969;
-    private static final String CONTROLLOOP_RUNTIME_USER = "policyadmin";
-    private static final String CONTROLLOOP_RUNTIME_PASSWORD = "zb!XztG34";
+    private static final String AUTOMATION_COMPOSITION_RUNTIME_HOST_NAME = "0.0.0.0";
+    private static final int AUTOMATION_COMPOSITION_RUNTIME_PORT = 6969;
+    private static final String AUTOMATION_COMPOSITION_RUNTIME_USER = "policyadmin";
+    private static final String AUTOMATION_COMPOSITION_RUNTIME_PASSWORD = "zb!XztG34";
 
 
     @Test
     public void testValidParameters() {
-        final LifecycleApiControlLoopForwarderParameters configurationParameters =
+        final LifecycleApiAutomationCompositionForwarderParameters configurationParameters =
                 CommonTestData.getPolicyForwarderParameters(
-                        "src/test/resources/parameters/LifecycleApiControlLoopForwarderParameters.json",
-                        LifecycleApiControlLoopForwarderParameters.class);
+                        "src/test/resources/parameters/LifecycleApiAutomationCompositionForwarderParameters.json",
+                        LifecycleApiAutomationCompositionForwarderParameters.class);
 
-        assertEquals(LifecycleApiControlLoopForwarderParameters.class.getSimpleName(),
+        assertEquals(LifecycleApiAutomationCompositionForwarderParameters.class.getSimpleName(),
                 configurationParameters.getName());
 
-        assertEquals(CONTROLLOOP_RUNTIME_HOST_NAME,
-                configurationParameters.getControlLoopRuntimeParameters().getHostname());
-        assertEquals(CONTROLLOOP_RUNTIME_PORT,
-                configurationParameters.getControlLoopRuntimeParameters().getPort());
-        assertFalse(configurationParameters.getControlLoopRuntimeParameters().isUseHttps());
-        assertEquals(CONTROLLOOP_RUNTIME_USER,
-                configurationParameters.getControlLoopRuntimeParameters().getUserName());
-        assertEquals(CONTROLLOOP_RUNTIME_PASSWORD,
-                configurationParameters.getControlLoopRuntimeParameters().getPassword());
+        assertEquals(AUTOMATION_COMPOSITION_RUNTIME_HOST_NAME,
+                configurationParameters.getAutomationCompositionRuntimeParameters().getHostname());
+        assertEquals(AUTOMATION_COMPOSITION_RUNTIME_PORT,
+                configurationParameters.getAutomationCompositionRuntimeParameters().getPort());
+        assertFalse(configurationParameters.getAutomationCompositionRuntimeParameters().isUseHttps());
+        assertEquals(AUTOMATION_COMPOSITION_RUNTIME_USER,
+                configurationParameters.getAutomationCompositionRuntimeParameters().getUserName());
+        assertEquals(AUTOMATION_COMPOSITION_RUNTIME_PASSWORD,
+                configurationParameters.getAutomationCompositionRuntimeParameters().getPassword());
 
         assertThat(configurationParameters.validate().getResult()).isNull();
         assertEquals(ValidationStatus.CLEAN, configurationParameters.validate().getStatus());
