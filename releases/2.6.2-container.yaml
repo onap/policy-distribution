@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '2.6.2'
+project: 'policy-distribution'
+log_dir: 'policy-distribution-maven-docker-stage-istanbul/138'
+ref: 48212d43efc3c61cbb42f91cf5d6819fb3af2ff5
+containers:
+    - name: 'policy-distribution'
+      version: '2.6.2-20220301T1059'
