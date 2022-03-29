@@ -33,9 +33,10 @@ if [[ ! "$WORK_DIR" || ! -d "$WORK_DIR" ]]; then
 fi
 
 # bring down maven
-curl -O -s -S https://dlcdn.apache.org/maven/maven-3/3.8.3/binaries/apache-maven-3.8.3-bin.tar.gz
-tar -xzvf apache-maven-3.8.3-bin.tar.gz
-MAVEN="${WORK_DIR}"/apache-maven-3.8.3/bin/mvn
+curl -s -S https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz > apache-maven.tar.gz
+mkdir -p apache-maven && tar -xzvf apache-maven.tar.gz -C apache-maven --strip-components 1
+
+MAVEN="${WORK_DIR}"/apache-maven/bin/mvn
 $MAVEN -v
 echo ""
 

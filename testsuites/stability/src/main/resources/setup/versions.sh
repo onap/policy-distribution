@@ -19,11 +19,11 @@
 
 # update versions here
 export POLICY_MARIADB_VER=10.5.8
-export POLICY_DB_MIGRATOR=2.3.1
-export POLICY_API_VERSION=2.5.1
-export POLICY_PAP_VERSION=2.5.1
-export POLICY_MODELS_SIMULATOR=latest
-export POLICY_DIST_VERSION=2.6.1
+export POLICY_DB_MIGRATOR=2.4-SNAPSHOT-latest
+export POLICY_API_VERSION=2.6-SNAPSHOT-latest
+export POLICY_PAP_VERSION=2.6-SNAPSHOT-latest
+export POLICY_MODELS_SIMULATOR=2.6-SNAPSHOT-latest
+export POLICY_DIST_VERSION=2.7-SNAPSHOT-latest
 
 echo "                MariaDB Version: ${POLICY_MARIADB_VER}"
 echo "     Policy DB Migrator Version: ${POLICY_DB_MIGRATOR}"
