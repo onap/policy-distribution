@@ -1,15 +1,15 @@
 {
-  "dmaapProvider": {
-    "name": "DMaaP simulator",
-    "topicSweepSec": 900
-  },
-  "restServers": [
-    {
-      "name": "DMaaP simulator",
-      "providerClass": "org.onap.policy.models.sim.dmaap.rest.DmaapSimRestControllerV1",
-      "host": "0.0.0.0",
-      "port": 3904,
-      "https": false
-    }
-  ]
+    "dmaapProvider": {
+        "name": "DMaaP simulator",
+        "topicSweepSec": 900
+    },
+    "restServers": [
+        {
+            "name": "DMaaP simulator",
+            "providerClass": "org.onap.policy.models.sim.dmaap.rest.DmaapSimRestControllerV1",
+            "host": "0.0.0.0",
+            "port": 3904,
+            "https": false
+        }
+    ]
 }
