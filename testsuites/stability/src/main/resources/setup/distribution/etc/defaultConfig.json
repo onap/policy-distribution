@@ -4,7 +4,9 @@
         "host": "0.0.0.0",
         "port": 6969,
         "userName": "healthcheck",
-        "password": "zb!XztG34"
+        "password": "zb!XztG34",
+        "https": false,
+        "prometheus": true
     },
     "receptionHandlerParameters": {
         "S3PReceptionHandler": {
@@ -13,12 +15,12 @@
             "receptionHandlerConfigurationName": "fileConfiguration",
             "pluginHandlerParameters": {
                 "policyDecoders": {
-                    "ToscaPolicyDecoder":{
-                        "decoderType":"ToscaPolicyDecoder",
-                        "decoderClassName":"org.onap.policy.distribution.reception.decoding.policy.file.PolicyDecoderFileInCsarToPolicy",
+                    "ToscaPolicyDecoder": {
+                        "decoderType": "ToscaPolicyDecoder",
+                        "decoderClassName": "org.onap.policy.distribution.reception.decoding.policy.file.PolicyDecoderFileInCsarToPolicy",
                         "decoderConfigurationName": "toscaPolicyDecoderConfiguration"
                     },
-                "ToscaAutomationCompositionDecoder": {
+                    "ToscaAutomationCompositionDecoder": {
                         "decoderType": "ToscaAutomationCompositionDecoder",
                         "decoderClassName": "org.onap.policy.distribution.reception.decoding.policy.file.AutomationCompositionDecoderFileInCsar",
                         "decoderConfigurationName": "toscaAutomationCompositionDecoderConfiguration"
@@ -49,9 +51,9 @@
         }
     },
     "policyDecoderConfigurationParameters": {
-        "toscaPolicyDecoderConfiguration":{
-            "parameterClassName":"org.onap.policy.distribution.reception.decoding.policy.file.PolicyDecoderFileInCsarToPolicyParameterGroup",
-            "parameters":{
+        "toscaPolicyDecoderConfiguration": {
+            "parameterClassName": "org.onap.policy.distribution.reception.decoding.policy.file.PolicyDecoderFileInCsarToPolicyParameterGroup",
+            "parameters": {
                 "policyFileName": "tosca_policy",
                 "policyTypeFileName": "tosca_policy_type"
             }
@@ -63,7 +65,6 @@
             }
         }
     },
-
     "policyForwarderConfigurationParameters": {
         "lifecycleApiPolicyConfiguration": {
             "parameterClassName": "org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiForwarderParameters",
@@ -94,8 +95,8 @@
                     "clientName": "policy-clamp-runtime-acm",
                     "hostname": "policy-clamp-runtime-acm",
                     "port": 6969,
-                    "useHttps": true,
-                    "userName": "policyadmin",
+                    "useHttps": false,
+                    "userName": "runtimeUser",
                     "password": "zb!XztG34"
                 }
             }
