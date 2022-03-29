@@ -2,7 +2,7 @@
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.1">
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="stability test plan" enabled="true">
-      <stringProp name="TestPlan.comments"></stringProp>
+      <stringProp name="TestPlan.comments"/>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
@@ -75,12 +75,12 @@
           </elementProp>
           <elementProp name="DEPLOY_STATUS" elementType="Argument">
             <stringProp name="Argument.name">DEPLOY_STATUS</stringProp>
-            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.value"/>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
       </elementProp>
-      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+      <stringProp name="TestPlan.user_define_classpath"/>
     </TestPlan>
     <hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
@@ -116,22 +116,22 @@
               <stringProp name="Authorization.url">http://${PAP_HOST}:${PAP_PORT}/policy/pap/v1</stringProp>
               <stringProp name="Authorization.username">policyadmin</stringProp>
               <stringProp name="Authorization.password">zb!XztG34</stringProp>
-              <stringProp name="Authorization.domain"></stringProp>
-              <stringProp name="Authorization.realm"></stringProp>
+              <stringProp name="Authorization.domain"/>
+              <stringProp name="Authorization.realm"/>
             </elementProp>
             <elementProp name="" elementType="Authorization">
               <stringProp name="Authorization.url">http://${API_HOST}:${API_PORT}/policy/api/v1</stringProp>
               <stringProp name="Authorization.username">policyadmin</stringProp>
               <stringProp name="Authorization.password">zb!XztG34</stringProp>
-              <stringProp name="Authorization.domain"></stringProp>
-              <stringProp name="Authorization.realm"></stringProp>
+              <stringProp name="Authorization.domain"/>
+              <stringProp name="Authorization.realm"/>
             </elementProp>
             <elementProp name="" elementType="Authorization">
               <stringProp name="Authorization.url">http://${DISTRIBUTION_HOST}:${DISTRIBUTION_PORT}/</stringProp>
               <stringProp name="Authorization.username">healthcheck</stringProp>
               <stringProp name="Authorization.password">zb!XztG34</stringProp>
-              <stringProp name="Authorization.domain"></stringProp>
-              <stringProp name="Authorization.realm"></stringProp>
+              <stringProp name="Authorization.domain"/>
+              <stringProp name="Authorization.realm"/>
             </elementProp>
           </collectionProp>
           <boolProp name="AuthManager.clearEachIteration">true</boolProp>
@@ -150,7 +150,7 @@
             <elementProp name="SystemSampler.environment" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="SystemSampler.directory"></stringProp>
+            <stringProp name="SystemSampler.directory"/>
           </SystemSampler>
           <hashTree/>
         </hashTree>
@@ -163,7 +163,7 @@
             <elementProp name="SystemSampler.arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="Argument">
-                  <stringProp name="Argument.name"></stringProp>
+                  <stringProp name="Argument.name"/>
                   <stringProp name="Argument.value">${SCRIPT_DIR}/sample_csar_with_apex_policy.csar</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
@@ -172,14 +172,14 @@
             <elementProp name="SystemSampler.environment" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="SystemSampler.directory"></stringProp>
+            <stringProp name="SystemSampler.directory"/>
           </SystemSampler>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="1737356164">CSAR Copied Successfully</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.custom_message"/>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
               <intProp name="Assertion.test_type">2</intProp>
@@ -196,23 +196,23 @@
             <stringProp name="HTTPSampler.domain">${DISTRIBUTION_HOST}</stringProp>
             <stringProp name="HTTPSampler.port">${DISTRIBUTION_PORT}</stringProp>
             <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"/>
             <stringProp name="HTTPSampler.path">healthcheck</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.embedded_url_re"/>
+            <stringProp name="HTTPSampler.connect_timeout"/>
+            <stringProp name="HTTPSampler.response_timeout"/>
           </HTTPSamplerProxy>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="49586">200</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.custom_message"/>
               <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
               <intProp name="Assertion.test_type">8</intProp>
@@ -226,23 +226,23 @@
             <stringProp name="HTTPSampler.domain">${DISTRIBUTION_HOST}</stringProp>
             <stringProp name="HTTPSampler.port">${DISTRIBUTION_PORT}</stringProp>
             <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"/>
             <stringProp name="HTTPSampler.path">statistics</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.embedded_url_re"/>
+            <stringProp name="HTTPSampler.connect_timeout"/>
+            <stringProp name="HTTPSampler.response_timeout"/>
           </HTTPSamplerProxy>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="49586">200</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.custom_message"/>
               <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
               <intProp name="Assertion.test_type">8</intProp>
@@ -254,8 +254,8 @@
         <hashTree>
           <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Clean check variables" enabled="true">
             <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"/>
+            <stringProp name="parameters"/>
             <stringProp name="script">vars.put(&quot;DEPLOY_STATUS&quot;, &quot;notset&quot;);</stringProp>
             <stringProp name="scriptLanguage">beanshell</stringProp>
           </JSR223Sampler>
@@ -271,16 +271,16 @@
               <stringProp name="HTTPSampler.domain">${PAP_HOST}</stringProp>
               <stringProp name="HTTPSampler.port">${PAP_PORT}</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"/>
               <stringProp name="HTTPSampler.path">/policy/pap/v1/policies/status/defaultGroup/operational.apex.sampledomain/1.0.0</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
               <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
               <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              <stringProp name="HTTPSampler.embedded_url_re"/>
+              <stringProp name="HTTPSampler.connect_timeout"/>
+              <stringProp name="HTTPSampler.response_timeout"/>
             </HTTPSamplerProxy>
             <hashTree>
               <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Deploy status" enabled="true">
@@ -321,16 +321,16 @@
             <stringProp name="HTTPSampler.domain">${PAP_HOST}</stringProp>
             <stringProp name="HTTPSampler.port">${PAP_PORT}</stringProp>
             <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"/>
             <stringProp name="HTTPSampler.path">/policy/pap/v1/pdps</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.embedded_url_re"/>
+            <stringProp name="HTTPSampler.connect_timeout"/>
+            <stringProp name="HTTPSampler.response_timeout"/>
           </HTTPSamplerProxy>
           <hashTree>
             <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Policy in apex subgroup" enabled="true">
@@ -350,21 +350,21 @@
             <stringProp name="HTTPSampler.domain">${PAP_HOST}</stringProp>
             <stringProp name="HTTPSampler.port">${PAP_PORT}</stringProp>
             <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"/>
             <stringProp name="HTTPSampler.path">policy/pap/v1/policies/deployed</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.embedded_url_re"/>
+            <stringProp name="HTTPSampler.connect_timeout"/>
+            <stringProp name="HTTPSampler.response_timeout"/>
           </HTTPSamplerProxy>
           <hashTree>
             <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Policy Type" enabled="true">
               <stringProp name="JSON_PATH">$[:2].policy-type</stringProp>
-              <stringProp name="EXPECTED_VALUE">onap.policies.acm.operational.common.Apex</stringProp>
+              <stringProp name="EXPECTED_VALUE">onap.policies.controlloop.operational.common.Apex</stringProp>
               <boolProp name="JSONVALIDATION">true</boolProp>
               <boolProp name="EXPECT_NULL">false</boolProp>
               <boolProp name="INVERT">false</boolProp>
@@ -391,23 +391,23 @@
             <stringProp name="HTTPSampler.domain">${PAP_HOST}</stringProp>
             <stringProp name="HTTPSampler.port">${PAP_PORT}</stringProp>
             <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"/>
             <stringProp name="HTTPSampler.path">/policy/pap/v1/pdps/policies/operational.apex.sampledomain</stringProp>
             <stringProp name="HTTPSampler.method">DELETE</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.embedded_url_re"/>
+            <stringProp name="HTTPSampler.connect_timeout"/>
+            <stringProp name="HTTPSampler.response_timeout"/>
           </HTTPSamplerProxy>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Undeploy Accepted" enabled="true">
               <collectionProp name="Asserion.test_strings">
                 <stringProp name="49588">202</stringProp>
               </collectionProp>
-              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.custom_message"/>
               <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
               <boolProp name="Assertion.assume_success">false</boolProp>
               <intProp name="Assertion.test_type">8</intProp>
@@ -419,8 +419,8 @@
         <hashTree>
           <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Clean check variables" enabled="true">
             <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"/>
+            <stringProp name="parameters"/>
             <stringProp name="script">vars.put(&quot;DEPLOY_STATUS&quot;, &quot;notset&quot;);</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
           </JSR223Sampler>
@@ -436,16 +436,16 @@
               <stringProp name="HTTPSampler.domain">${PAP_HOST}</stringProp>
               <stringProp name="HTTPSampler.port">${PAP_PORT}</stringProp>
               <stringProp name="HTTPSampler.protocol">http</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"/>
               <stringProp name="HTTPSampler.path">/policy/pap/v1/policies/status/</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
               <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
               <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+              <stringProp name="HTTPSampler.embedded_url_re"/>
+              <stringProp name="HTTPSampler.connect_timeout"/>
+              <stringProp name="HTTPSampler.response_timeout"/>
             </HTTPSamplerProxy>
             <hashTree>
               <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Deploy status" enabled="true">
@@ -490,16 +490,16 @@
             <stringProp name="HTTPSampler.domain">${PAP_HOST}</stringProp>
             <stringProp name="HTTPSampler.port">${PAP_PORT}</stringProp>
             <stringProp name="HTTPSampler.protocol">http</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"/>
             <stringProp name="HTTPSampler.path">/policy/pap/v1/pdps</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.embedded_url_re"/>
+            <stringProp name="HTTPSampler.connect_timeout"/>
+            <stringProp name="HTTPSampler.response_timeout"/>
           </HTTPSamplerProxy>
           <hashTree>
             <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Policy not in apex subgroup" enabled="true">
@@ -547,7 +547,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename"></stringProp>
+          <stringProp name="filename"/>
         </ResultCollector>
         <hashTree/>
         <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
@@ -584,7 +584,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename"></stringProp>
+          <stringProp name="filename"/>
         </ResultCollector>
         <hashTree/>
       </hashTree>

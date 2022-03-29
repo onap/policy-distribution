@@ -1,25 +1,39 @@
 {
-  "name":"OnapPfParameterGroup",
-  "pdpStatusParameters": {
-    "pdpGroup": "defaultGroup",
-    "timeIntervalMs": 120000,
-    "pdpType":"apex",
-    "description":"Pdp Heartbeat",
-    "supportedPolicyTypes":[
-      {"name":"onap.policies.acm.operational.common.Apex","version":"1.0.0"},
-      {"name":"onap.policies.native.Apex","version":"1.0.0"}
-    ]
-  },
-  "topicParameterGroup": {
-    "topicSources" : [{
-      "topic" : "POLICY-PDP-PAP",
-      "servers" : [ "message-router:3904" ],
-      "topicCommInfrastructure" : "dmaap"
-    }],
-    "topicSinks" : [{
-      "topic" : "POLICY-PDP-PAP",
-      "servers" : [ "message-router:3904" ],
-      "topicCommInfrastructure" : "dmaap"
-    }]
-  }
+    "name": "OnapPfParameterGroup",
+    "pdpStatusParameters": {
+        "pdpGroup": "defaultGroup",
+        "timeIntervalMs": 120000,
+        "pdpType": "apex",
+        "description": "Pdp Heartbeat",
+        "supportedPolicyTypes": [
+            {
+                "name": "onap.policies.controlloop.operational.common.Apex",
+                "version": "1.0.0"
+            },
+            {
+                "name": "onap.policies.native.Apex",
+                "version": "1.0.0"
+            }
+        ]
+    },
+    "topicParameterGroup": {
+        "topicSources": [
+            {
+                "topic": "POLICY-PDP-PAP",
+                "servers": [
+                    "message-router:3904"
+                ],
+                "topicCommInfrastructure": "dmaap"
+            }
+        ],
+        "topicSinks": [
+            {
+                "topic": "POLICY-PDP-PAP",
+                "servers": [
+                    "message-router:3904"
+                ],
+                "topicCommInfrastructure": "dmaap"
+            }
+        ]
+    }
 }
