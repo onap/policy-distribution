@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Copyright (C) 2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2021-2022 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
@@ -26,7 +26,8 @@ package org.onap.policy.distribution.reception.decoding.policy.file;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Enumeration;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import org.onap.policy.common.parameters.ParameterService;
@@ -72,25 +73,14 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
         final Collection<ToscaEntity> policyList = new ArrayList<>();
 
         try (var zipFile = new ZipFile(csar.getCsarFilePath())) {
-            final Enumeration<? extends ZipEntry> entries = zipFile.entries();
-            while (entries.hasMoreElements()) {
-                //
-                // Sonar will flag this as a Security Hotspot
-                // "Expanding archive files is security-sensitive"
-                // isZipEntryValid ensures the file being read exists in the archive
-                //
-                final ZipEntry entry = entries.nextElement(); // NOSONAR
-                final String entryName = entry.getName();
+            final List<? extends ZipEntry> entries = zipFile.stream()
+                .filter(entry -> entry.getName().contains(decoderParameters.getPolicyTypeFileName())
+                    || entry.getName().contains(decoderParameters.getPolicyFileName())).collect(Collectors.toList());
 
-                //
-                // We only care about policy types and policies
-                //
-                if (entryName.contains(decoderParameters.getPolicyTypeFileName())
-                        || entryName.contains(decoderParameters.getPolicyFileName())) {
-                    ReceptionUtil.validateZipEntry(entryName, csar.getCsarFilePath(), entry.getSize());
-                    final ToscaServiceTemplate policy = ReceptionUtil.decodeFile(zipFile, entry);
-                    policyList.add(policy);
-                }
+            for (ZipEntry entry : entries) {
+                ReceptionUtil.validateZipEntry(entry.getName(), csar.getCsarFilePath(), entry.getSize());
+                final ToscaServiceTemplate policy = ReceptionUtil.decodeFile(zipFile, entry);
+                policyList.add(policy);
             }
         } catch (final IOException | CoderException exp) {
             throw new PolicyDecodingException("Failed decoding the policy", exp);

@@ -1,7 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2022 Nordix Foundation.
- *  Modifications Copyright (C) 2022 Nordix Foundation.
+ *  Copyright (C) 2021-2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +23,9 @@ package org.onap.policy.distribution.reception.decoding.policy.file;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Enumeration;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import org.onap.policy.common.parameters.ParameterService;
@@ -70,42 +71,24 @@ public class AutomationCompositionDecoderFileInCsar implements PolicyDecoder<Csa
     @Override
     public Collection<ToscaEntity> decode(final Csar csar) throws PolicyDecodingException {
         final Collection<ToscaEntity> automationCompositionList = new ArrayList<>();
-        ToscaServiceTemplate nodeTypes = null;
-        ToscaServiceTemplate dataTypes = null;
 
         try (var zipFile = new ZipFile(csar.getCsarFilePath())) {
-            final Enumeration<? extends ZipEntry> entries = zipFile.entries();
-            while (entries.hasMoreElements()) {
-                //
-                // Sonar will flag this as a Security Hotspot
-                // "Expanding archive files is security-sensitive"
-                // isZipEntryValid ensures the file being read exists in the archive
-                //
-                final ZipEntry entry = entries.nextElement(); // NOSONAR
-                final String entryName = entry.getName();
+            final List<? extends ZipEntry> entries = zipFile.stream()
+                .filter(entry -> entry.getName().contains(decoderParameters.getAutomationCompositionType()))
+                .collect(Collectors.toList());
 
-                // Store node_types
-                if (entryName.contains(NODE_TYPES)) {
-                    nodeTypes = ReceptionUtil.decodeFile(zipFile, entry);
-                }
+            for (ZipEntry entry : entries) {
+                ReceptionUtil.validateZipEntry(entry.getName(), csar.getCsarFilePath(), entry.getSize());
+                final ToscaServiceTemplate automationComposition = ReceptionUtil.decodeFile(zipFile, entry);
 
-                // Store data_types
-                if (entryName.contains(DATA_TYPES)) {
-                    dataTypes = ReceptionUtil.decodeFile(zipFile, entry);
-                }
+                if (null != automationComposition.getToscaTopologyTemplate()) {
+                    validateTypes(zipFile, NODE_TYPES)
+                        .ifPresent(node -> automationComposition.setNodeTypes(node.getNodeTypes()));
 
-                if (entryName.contains(decoderParameters.getAutomationCompositionType())) {
-                    ReceptionUtil.validateZipEntry(entryName, csar.getCsarFilePath(), entry.getSize());
-                    final ToscaServiceTemplate automationComposition = ReceptionUtil.decodeFile(zipFile, entry);
-                    if (null != automationComposition.getToscaTopologyTemplate()) {
-                        if (null != nodeTypes) {
-                            automationComposition.setNodeTypes(nodeTypes.getNodeTypes());
-                        }
-                        if (null != dataTypes) {
-                            automationComposition.setDataTypes(dataTypes.getDataTypes());
-                        }
-                        automationCompositionList.add(automationComposition);
-                    }
+                    validateTypes(zipFile, DATA_TYPES)
+                        .ifPresent(data -> automationComposition.setDataTypes(data.getDataTypes()));
+
+                    automationCompositionList.add(automationComposition);
                 }
             }
         } catch (final IOException | CoderException exp) {
@@ -113,5 +96,29 @@ public class AutomationCompositionDecoderFileInCsar implements PolicyDecoder<Csa
         }
 
         return automationCompositionList;
+    }
+
+    /**
+     * Decode and validate if node or data type is available withing ACM csar file.
+     *
+     * @param zipFile full csar file
+     * @return tosca template with parsed node/data type
+     * @throws CoderException if file can't be parsed
+     */
+    private Optional<ToscaServiceTemplate> validateTypes(final ZipFile zipFile, String type)
+        throws CoderException {
+
+        try {
+            ToscaServiceTemplate template = null;
+            final Optional<? extends ZipEntry> file = zipFile.stream()
+                .filter(entry -> entry.getName().contains(type)).findFirst();
+
+            if (file.isPresent()) {
+                template = ReceptionUtil.decodeFile(zipFile, file.get());
+            }
+            return Optional.ofNullable(template);
+        } catch (final IOException | CoderException exp) {
+            throw new CoderException("Couldn't decode " + type + " type", exp);
+        }
     }
 }

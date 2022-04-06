@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2022 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -72,17 +72,28 @@ public abstract class AbstractReceptionHandler implements ReceptionHandler {
      * handler.
      *
      * @param policyInput the input that has been received
-     * @throws PolicyDecodingException if an error occurs in decoding a policy from the received input
+     * @throws PolicyDecodingException if an error occurs when no decoders are available
      */
     protected void inputReceived(final PolicyInput policyInput) throws PolicyDecodingException {
 
         final Collection<ToscaEntity> policies = new ArrayList<>();
-        for (final PolicyDecoder<PolicyInput, ToscaEntity> policyDecoder : getRelevantPolicyDecoders(policyInput)) {
-            policies.addAll(policyDecoder.decode(policyInput));
+
+        try {
+            for (final PolicyDecoder<PolicyInput, ToscaEntity> policyDecoder : getRelevantPolicyDecoders(policyInput)) {
+                LOGGER.debug("Policy decoder: {}", policyDecoder.getClass());
+                policies.addAll(policyDecoder.decode(policyInput));
+            }
+        } catch (PolicyDecodingException decodingException) {
+            if (decodingException.getMessage().contains("No decoder")) {
+                throw decodingException;
+            } else {
+                LOGGER.error("Couldn't decode the policy", decodingException);
+            }
         }
 
         for (final PolicyForwarder policyForwarder : pluginHandler.getPolicyForwarders()) {
             try {
+                LOGGER.debug("Trying to forward policy to {}", policyForwarder.getClass());
                 policyForwarder.forward(policies);
             } catch (final PolicyForwardingException policyForwardingException) {
                 LOGGER.error("Error when forwarding policies to {}", policyForwarder, policyForwardingException);
