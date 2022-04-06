@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7fe6a870_924db2c6",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/util/ReceptionUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2787
+      },
+      "writtenOn": "2022-04-06T10:36:25Z",
+      "side": 1,
+      "message": "Maybe put in a more helpful exception message",
+      "range": {
+        "startLine": 42,
+        "startChar": 41,
+        "endLine": 42,
+        "endChar": 64
+      },
+      "revId": "6cc4eebf24a3b0194ca4c61f70e57f14691e5dda",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
