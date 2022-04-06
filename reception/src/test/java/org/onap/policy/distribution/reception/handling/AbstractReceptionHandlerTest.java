@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -118,10 +119,10 @@ public class AbstractReceptionHandlerTest {
         handler.inputReceived(new DummyPolicyInput());
     }
 
-    class DummyPolicyInput implements PolicyInput {
+    static class DummyPolicyInput implements PolicyInput {
     }
 
-    class DummyPolicy1 extends ToscaEntity {
+    static class DummyPolicy1 extends ToscaEntity {
 
         @Override
         public String getName() {
@@ -129,7 +130,7 @@ public class AbstractReceptionHandlerTest {
         }
     }
 
-    class DummyPolicy2 extends ToscaEntity {
+    static class DummyPolicy2 extends ToscaEntity {
 
         @Override
         public String getName() {
@@ -161,7 +162,7 @@ public class AbstractReceptionHandlerTest {
     }
 
     private Map<String, PolicyDecoderParameters> getPolicyDecoders() {
-        final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<String, PolicyDecoderParameters>();
+        final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<>();
         final PolicyDecoderParameters pDParameters =
                 new PolicyDecoderParameters(DECODER_TYPE, DECODER_CLASS_NAME, DECODER_CONFIGURATION_PARAMETERS);
         policyDecoders.put(DECODER_KEY, pDParameters);
@@ -170,7 +171,7 @@ public class AbstractReceptionHandlerTest {
 
     private Map<String, PolicyForwarderParameters> getPolicyForwarders() {
         final Map<String, PolicyForwarderParameters> policyForwarders =
-                new HashMap<String, PolicyForwarderParameters>();
+            new HashMap<>();
         final PolicyForwarderParameters pFParameters =
                 new PolicyForwarderParameters(FORWARDER_TYPE, FORWARDER_CLASS_NAME, FORWARDER_CONFIGURATION_PARAMETERS);
         policyForwarders.put(FORWARDER_KEY, pFParameters);
@@ -180,9 +181,7 @@ public class AbstractReceptionHandlerTest {
     private PluginHandlerParameters getPluginHandlerParameters() {
         final Map<String, PolicyDecoderParameters> policyDecoders = getPolicyDecoders();
         final Map<String, PolicyForwarderParameters> policyForwarders = getPolicyForwarders();
-        final PluginHandlerParameters pluginHandlerParameters =
-                new PluginHandlerParameters(policyDecoders, policyForwarders);
-        return pluginHandlerParameters;
+        return new PluginHandlerParameters(policyDecoders, policyForwarders);
     }
 
 }

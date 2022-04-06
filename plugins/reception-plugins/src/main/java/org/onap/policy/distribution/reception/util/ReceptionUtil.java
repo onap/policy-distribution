@@ -1,7 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2022 Nordix Foundation.
- *  Modifications Copyright (C) 2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +21,7 @@
 package org.onap.policy.distribution.reception.util;
 
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.nio.file.Path;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -38,8 +38,12 @@ import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
  */
 public class ReceptionUtil {
 
-    private static StandardCoder coder = new StandardCoder();
-    private static StandardYamlCoder yamlCoder = new StandardYamlCoder();
+    private ReceptionUtil() throws InvalidClassException {
+        throw new InvalidClassException("Can't start this class!");
+    }
+
+    private static final StandardCoder coder = new StandardCoder();
+    private static final StandardYamlCoder yamlCoder = new StandardYamlCoder();
     private static final long MAX_FILE_SIZE = 512L * 1024;
 
     /**
