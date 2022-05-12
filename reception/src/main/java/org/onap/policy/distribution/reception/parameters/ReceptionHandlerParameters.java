@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,10 +42,10 @@ import org.onap.policy.common.parameters.annotations.Valid;
 @Getter
 public class ReceptionHandlerParameters implements ParameterGroup {
     private @Setter String name;
-    private String receptionHandlerType;
-    private @ClassName String receptionHandlerClassName;
-    private String receptionHandlerConfigurationName;
-    private @Valid PluginHandlerParameters pluginHandlerParameters;
+    private final String receptionHandlerType;
+    private final @ClassName String receptionHandlerClassName;
+    private final String receptionHandlerConfigurationName;
+    private final @Valid PluginHandlerParameters pluginHandlerParameters;
 
     /**
      * Constructor for instantiating ReceptionHandlerParameters.

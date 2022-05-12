@@ -3,6 +3,7 @@
   ONAP Policy Distribution Stability
   ================================================================================
   Copyright (C) 2019 AT&T Intellectual Property. All rights reserved.
+  Modifications Copyright (C) 2022. Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -30,10 +31,6 @@
         <fileSet>
             <directory>${project.basedir}/src/main/resources/testplans/</directory>
             <outputDirectory>tests/testplans</outputDirectory>
-            <!-- <includes>
-                <include>*.jmx</include>
-                <include>*.sh</include>
-            </includes> -->
             <lineEnding>unix</lineEnding>
             <fileMode>0644</fileMode>
             <filtered>true</filtered>

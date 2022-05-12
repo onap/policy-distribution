@@ -92,6 +92,6 @@ public class AutomationCompositionDecoderFileInCsarTest {
 
         assertTrue(decoder.canHandle(csar));
         assertThatThrownBy(() -> decoder.decode(csar)).isInstanceOf(PolicyDecodingException.class)
-        .hasMessageContaining("Failed decoding the acm");
+        .hasMessageContaining("Couldn't read the zipFile");
     }
 }

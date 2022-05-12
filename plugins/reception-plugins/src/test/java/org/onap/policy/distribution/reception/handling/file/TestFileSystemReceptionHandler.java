@@ -1,8 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
- *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Copyright (C) 2019-2020, 2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,11 +38,9 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 import org.onap.policy.common.parameters.ParameterService;
-import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,13 +65,10 @@ public class TestFileSystemReceptionHandler {
      *
      * @throws IOException if it occurs
      * @throws SecurityException if it occurs
-     * @throws NoSuchFieldException if it occurs
-     * @throws IllegalAccessException if it occurs
      * @throws IllegalArgumentException if it occurs
      */
     @Before
-    public final void init() throws IOException, NoSuchFieldException, SecurityException, IllegalArgumentException,
-            IllegalAccessException {
+    public final void init() throws IOException, SecurityException, IllegalArgumentException {
         DistributionStatisticsManager.resetAllStatistics();
 
         final Gson gson = new GsonBuilder().create();
@@ -90,7 +84,7 @@ public class TestFileSystemReceptionHandler {
     }
 
     @Test
-    public final void testInit() throws IOException, InterruptedException {
+    public final void testInit() throws IOException {
         final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
         Mockito.doNothing().when(sypHandler).initFileWatcher(Mockito.isA(String.class),
                 Mockito.anyInt());
@@ -110,9 +104,9 @@ public class TestFileSystemReceptionHandler {
     }
 
     @Test
-    public void testMain() throws IOException, PolicyDecodingException {
+    public void testMain() throws IOException {
         final Object lock = new Object();
-        final String watchPath = tempFolder.getRoot().getAbsolutePath().toString();
+        final String watchPath = tempFolder.getRoot().getAbsolutePath();
 
         class Processed {
             public boolean processed = false;
@@ -121,15 +115,12 @@ public class TestFileSystemReceptionHandler {
         final Processed cond = new Processed();
 
         final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
-        Mockito.doAnswer(new Answer<Object>() {
-            @Override
-            public Object answer(final InvocationOnMock invocation) {
-                synchronized (lock) {
-                    cond.processed = true;
-                    lock.notifyAll();
-                }
-                return null;
+        Mockito.doAnswer((Answer<Object>) invocation -> {
+            synchronized (lock) {
+                cond.processed = true;
+                lock.notifyAll();
             }
+            return null;
         }).when(sypHandler).createPolicyInputAndCallHandler(Mockito.isA(String.class));
 
         final Thread th = new Thread(() -> {

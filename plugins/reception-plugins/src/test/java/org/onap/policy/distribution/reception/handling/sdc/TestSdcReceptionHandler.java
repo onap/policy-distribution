@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019, 2022 Nordix Foundation.
  *  Modifications Copyright (C) 2020 Nordix Foundation
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,6 +24,7 @@ package org.onap.policy.distribution.reception.handling.sdc;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 
@@ -33,9 +34,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
@@ -92,19 +93,16 @@ public class TestSdcReceptionHandler {
     /**
      * Setup for the test cases.
      *
-     * @throws IOException if it occurs
-     * @throws SecurityException if it occurs
-     * @throws NoSuchFieldException if it occurs
-     * @throws IllegalAccessException if it occurs
+     * @throws IOException              if it occurs
+     * @throws SecurityException        if it occurs
      * @throws IllegalArgumentException if it occurs
      */
     @Before
-    public final void init() throws IOException, NoSuchFieldException, SecurityException, IllegalArgumentException,
-            IllegalAccessException {
+    public final void init() throws IOException, SecurityException, IllegalArgumentException {
         DistributionStatisticsManager.resetAllStatistics();
         final Gson gson = new GsonBuilder().create();
         pssdConfigParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdc.json"),
-                SdcReceptionHandlerConfigurationParameterGroup.class);
+            SdcReceptionHandlerConfigurationParameterGroup.class);
         ParameterService.register(pssdConfigParameters);
         final SdcReceptionHandler sdcHandler = new SdcReceptionHandler();
         sypHandler = Mockito.spy(sdcHandler);
@@ -120,15 +118,15 @@ public class TestSdcReceptionHandler {
         Mockito.when(distributionClient.sendDeploymentStatus(any())).thenReturn(successfulClientInitResult);
         Mockito.when(distributionClient.sendDeploymentStatus(any(), any())).thenReturn(successfulClientInitResult);
         Mockito.when(distributionClient.download(any())).thenReturn(successfulClientDownloadResult);
-        Mockito.when(notificationData.getServiceArtifacts()).thenReturn(Arrays.asList(artifactInfo));
+        Mockito.when(notificationData.getServiceArtifacts()).thenReturn(List.of(artifactInfo));
         Mockito.when(artifactInfo.getArtifactName()).thenReturn(DUMMY_SERVICE_CSAR);
         Mockito.when(successfulClientDownloadResult.getArtifactPayload()).thenReturn(new byte[1]);
         Mockito.when(successfulClientInitResult.getDistributionActionResult())
-                .thenReturn(DistributionActionResultEnum.SUCCESS);
+            .thenReturn(DistributionActionResultEnum.SUCCESS);
         Mockito.when(successfulClientDownloadResult.getDistributionActionResult())
-                .thenReturn(DistributionActionResultEnum.SUCCESS);
+            .thenReturn(DistributionActionResultEnum.SUCCESS);
         Mockito.when(failureClientInitResult.getDistributionActionResult())
-                .thenReturn(DistributionActionResultEnum.FAIL);
+            .thenReturn(DistributionActionResultEnum.FAIL);
 
     }
 
@@ -139,7 +137,7 @@ public class TestSdcReceptionHandler {
 
     @Test
     public final void testInitializeSdcClient() {
-        assertThatCode(() ->  sypHandler.initializeReception(pssdConfigParameters.getName()))
+        assertThatCode(() -> sypHandler.initializeReception(pssdConfigParameters.getName()))
             .doesNotThrowAnyException();
     }
 
@@ -147,7 +145,7 @@ public class TestSdcReceptionHandler {
     public final void testInitializeSdcClient_Failure() {
 
         Mockito.when(successfulClientInitResult.getDistributionActionResult())
-                .thenReturn(DistributionActionResultEnum.FAIL).thenReturn(DistributionActionResultEnum.SUCCESS);
+            .thenReturn(DistributionActionResultEnum.FAIL).thenReturn(DistributionActionResultEnum.SUCCESS);
         assertThatCode(() -> sypHandler.initializeReception(pssdConfigParameters.getName()))
             .doesNotThrowAnyException();
     }
@@ -156,7 +154,7 @@ public class TestSdcReceptionHandler {
     public final void testStartSdcClient_Failure() {
         assertThatCode(() -> {
             Mockito.when(distributionClient.start()).thenReturn(failureClientInitResult)
-            .thenReturn(successfulClientInitResult);
+                .thenReturn(successfulClientInitResult);
             sypHandler.initializeReception(pssdConfigParameters.getName());
         }).doesNotThrowAnyException();
     }
@@ -170,10 +168,10 @@ public class TestSdcReceptionHandler {
     }
 
     @Test
-    public final void testStopSdcClient_Failure() throws PluginInitializationException {
+    public final void testStopSdcClient_Failure() {
         sypHandler.initializeReception(pssdConfigParameters.getName());
         Mockito.when(distributionClient.stop()).thenReturn(failureClientInitResult)
-                .thenReturn(successfulClientInitResult);
+            .thenReturn(successfulClientInitResult);
         assertThatCode(() -> sypHandler.destroy()).doesNotThrowAnyException();
     }
 
@@ -184,7 +182,7 @@ public class TestSdcReceptionHandler {
 
     @Test
     public void testNotificationCallBack() throws NoSuchFieldException, SecurityException, IllegalArgumentException,
-            IllegalAccessException, PluginInitializationException {
+        IllegalAccessException, PluginInitializationException {
 
         final DummyDecoder policyDecoder = new DummyDecoder();
         final Collection<PolicyDecoder<Csar, DummyPolicy>> policyDecoders = new ArrayList<>();
@@ -211,10 +209,10 @@ public class TestSdcReceptionHandler {
 
     @Test
     public void testDownloadArtifactFailure() throws NoSuchFieldException, SecurityException, IllegalArgumentException,
-            IllegalAccessException, PluginInitializationException {
+        IllegalAccessException, PluginInitializationException {
 
         Mockito.when(successfulClientDownloadResult.getDistributionActionResult())
-                .thenReturn(DistributionActionResultEnum.FAIL);
+            .thenReturn(DistributionActionResultEnum.FAIL);
 
         final DummyDecoder policyDecoder = new DummyDecoder();
         final Collection<PolicyDecoder<Csar, DummyPolicy>> policyDecoders = new ArrayList<>();
@@ -228,7 +226,7 @@ public class TestSdcReceptionHandler {
         sypHandler.initializeReception(pssdConfigParameters.getName());
         sypHandler.activateCallback(notificationData);
 
-        assertEquals(null, policyDecoder.getDecodedPolicy());
+        assertNull(policyDecoder.getDecodedPolicy());
         assertEquals(0, policyForwarder.getNumberOfPoliciesReceived());
         assertEquals(1, DistributionStatisticsManager.getTotalDistributionCount());
         assertEquals(0, DistributionStatisticsManager.getDistributionSuccessCount());
@@ -240,10 +238,10 @@ public class TestSdcReceptionHandler {
 
     @Test
     public void testSendDistributionStatusFailure() throws NoSuchFieldException, SecurityException,
-            IllegalArgumentException, IllegalAccessException, PluginInitializationException {
+        IllegalArgumentException, IllegalAccessException, PluginInitializationException {
 
         Mockito.when(successfulClientDownloadResult.getDistributionActionResult())
-                .thenReturn(DistributionActionResultEnum.FAIL);
+            .thenReturn(DistributionActionResultEnum.FAIL);
         Mockito.when(distributionClient.sendDownloadStatus(any(), any())).thenReturn(failureClientInitResult);
         Mockito.when(distributionClient.sendDeploymentStatus(any(), any())).thenReturn(failureClientInitResult);
         Mockito.when(distributionClient.sendComponentDoneStatus(any(), any())).thenReturn(failureClientInitResult);
@@ -260,14 +258,15 @@ public class TestSdcReceptionHandler {
         sypHandler.initializeReception(pssdConfigParameters.getName());
         sypHandler.activateCallback(notificationData);
 
-        assertEquals(null, policyDecoder.getDecodedPolicy());
+        assertNull(policyDecoder.getDecodedPolicy());
         assertEquals(0, policyForwarder.getNumberOfPoliciesReceived());
     }
 
     private void setUpPlugins(final AbstractReceptionHandler receptionHandler,
-            final Collection<PolicyDecoder<Csar, DummyPolicy>> decoders, final Collection<PolicyForwarder> forwarders)
-            throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException,
-            PluginInitializationException {
+                              final Collection<PolicyDecoder<Csar, DummyPolicy>> decoders,
+                              final Collection<PolicyForwarder> forwarders)
+        throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException,
+        PluginInitializationException {
         final PluginHandlerParameters pluginParameters = getPluginHandlerParameters();
         pluginParameters.setName("DummyDistributionGroup");
         ParameterService.register(pluginParameters);
@@ -290,24 +289,21 @@ public class TestSdcReceptionHandler {
     private PluginHandlerParameters getPluginHandlerParameters() {
         final Map<String, PolicyDecoderParameters> policyDecoders = getPolicyDecoders();
         final Map<String, PolicyForwarderParameters> policyForwarders = getPolicyForwarders();
-        final PluginHandlerParameters pluginHandlerParameters =
-                new PluginHandlerParameters(policyDecoders, policyForwarders);
-        return pluginHandlerParameters;
+        return new PluginHandlerParameters(policyDecoders, policyForwarders);
     }
 
     private Map<String, PolicyDecoderParameters> getPolicyDecoders() {
-        final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<String, PolicyDecoderParameters>();
+        final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<>();
         final PolicyDecoderParameters pDParameters = new PolicyDecoderParameters("DummyDecoder",
-                "org.onap.policy.distribution.reception.handling.sdc.DummyDecoder", "DummyDecoderConfiguration");
+            "org.onap.policy.distribution.reception.handling.sdc.DummyDecoder", "DummyDecoderConfiguration");
         policyDecoders.put("DummyDecoderKey", pDParameters);
         return policyDecoders;
     }
 
     private Map<String, PolicyForwarderParameters> getPolicyForwarders() {
-        final Map<String, PolicyForwarderParameters> policyForwarders =
-                new HashMap<String, PolicyForwarderParameters>();
+        final Map<String, PolicyForwarderParameters> policyForwarders = new HashMap<>();
         final PolicyForwarderParameters pFParameters = new PolicyForwarderParameters("DummyForwarder",
-                "org.onap.policy.distribution.reception.handling.sdc.DummyPolicyForwarder", "DummyConfiguration");
+            "org.onap.policy.distribution.reception.handling.sdc.DummyPolicyForwarder", "DummyConfiguration");
         policyForwarders.put("DummyForwarderKey", pFParameters);
         return policyForwarders;
     }

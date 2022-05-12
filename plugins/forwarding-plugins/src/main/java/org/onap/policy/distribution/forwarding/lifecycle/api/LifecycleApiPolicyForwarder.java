@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019,2022 Nordix Foundation.
+ *  Copyright (C) 2019, 2022 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada.
  * ================================================================================
@@ -114,10 +114,10 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
         }
     }
 
-    private Response createPolicyType(final ToscaServiceTemplate toscaServiceTemplate)
+    private void createPolicyType(final ToscaServiceTemplate toscaServiceTemplate)
             throws PolicyForwardingException {
-        return invokeHttpClient(Entity.entity(toscaServiceTemplate, MediaType.APPLICATION_JSON), CREATE_POLICY_TYPE_URI,
-                true);
+        invokeHttpClient(Entity.entity(toscaServiceTemplate, MediaType.APPLICATION_JSON), CREATE_POLICY_TYPE_URI,
+            true);
     }
 
     private Response createPolicy(final ToscaServiceTemplate toscaServiceTemplate) throws PolicyForwardingException {
@@ -125,7 +125,7 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
                 CREATE_POLICY_URI, true);
     }
 
-    private Response deployPolicy(final ToscaServiceTemplate toscaServiceTemplate) throws PolicyForwardingException {
+    private void deployPolicy(final ToscaServiceTemplate toscaServiceTemplate) throws PolicyForwardingException {
         final var pdpPolicies = new PdpDeployPolicies();
         final List<ToscaConceptIdentifierOptVersion> policyIdentifierList = new ArrayList<>();
         for (final Map<String, ToscaPolicy> policyMap : toscaServiceTemplate.getToscaTopologyTemplate().getPolicies()) {
@@ -139,7 +139,7 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
             policyIdentifierList.add(toscaPolicyIdentifier);
         }
         pdpPolicies.setPolicies(policyIdentifierList);
-        return invokeHttpClient(Entity.entity(pdpPolicies, MediaType.APPLICATION_JSON), DEPLOY_POLICY_URI, false);
+        invokeHttpClient(Entity.entity(pdpPolicies, MediaType.APPLICATION_JSON), DEPLOY_POLICY_URI, false);
     }
 
     private Response invokeHttpClient(final Entity<?> entity, final String path, final boolean wantApi)

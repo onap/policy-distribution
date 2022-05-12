@@ -23,13 +23,10 @@
 
 package org.onap.policy.distribution.reception.decoding.policy.file;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+import java.util.HashMap;
+import java.util.Map;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.distribution.model.Csar;
@@ -70,19 +67,15 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
      */
     @Override
     public Collection<ToscaEntity> decode(final Csar csar) throws PolicyDecodingException {
-        final Collection<ToscaEntity> policyList = new ArrayList<>();
+        final Collection<ToscaEntity> policyList;
 
-        try (var zipFile = new ZipFile(csar.getCsarFilePath())) {
-            final List<? extends ZipEntry> entries = zipFile.stream()
-                .filter(entry -> entry.getName().contains(decoderParameters.getPolicyTypeFileName())
-                    || entry.getName().contains(decoderParameters.getPolicyFileName())).collect(Collectors.toList());
+        try {
+            Map<String, ToscaServiceTemplate> templates = new HashMap<>();
+            ReceptionUtil.unzip(csar.getCsarFilePath(), templates, decoderParameters.getPolicyFileName(),
+                decoderParameters.getPolicyTypeFileName());
+            policyList = new ArrayList<>(templates.values());
 
-            for (ZipEntry entry : entries) {
-                ReceptionUtil.validateZipEntry(entry.getName(), csar.getCsarFilePath(), entry.getSize());
-                final ToscaServiceTemplate policy = ReceptionUtil.decodeFile(zipFile, entry);
-                policyList.add(policy);
-            }
-        } catch (final IOException | CoderException exp) {
+        } catch (final CoderException exp) {
             throw new PolicyDecodingException("Failed decoding the policy", exp);
         }
 

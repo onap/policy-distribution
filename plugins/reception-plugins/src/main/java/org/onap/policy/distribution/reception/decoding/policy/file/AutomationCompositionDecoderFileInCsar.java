@@ -20,14 +20,10 @@
 
 package org.onap.policy.distribution.reception.decoding.policy.file;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+import java.util.HashMap;
+import java.util.Map;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.distribution.model.Csar;
@@ -72,53 +68,28 @@ public class AutomationCompositionDecoderFileInCsar implements PolicyDecoder<Csa
     public Collection<ToscaEntity> decode(final Csar csar) throws PolicyDecodingException {
         final Collection<ToscaEntity> automationCompositionList = new ArrayList<>();
 
-        try (var zipFile = new ZipFile(csar.getCsarFilePath())) {
-            final List<? extends ZipEntry> entries = zipFile.stream()
-                .filter(entry -> entry.getName().contains(decoderParameters.getAutomationCompositionType()))
-                .collect(Collectors.toList());
+        try {
+            Map<String, ToscaServiceTemplate> templates = new HashMap<>();
+            ReceptionUtil.unzip(csar.getCsarFilePath(), templates,
+                decoderParameters.getAutomationCompositionType(), NODE_TYPES, DATA_TYPES);
 
-            for (ZipEntry entry : entries) {
-                ReceptionUtil.validateZipEntry(entry.getName(), csar.getCsarFilePath(), entry.getSize());
-                final ToscaServiceTemplate automationComposition = ReceptionUtil.decodeFile(zipFile, entry);
+            var node = templates.get(NODE_TYPES);
+            var data = templates.get(DATA_TYPES);
 
-                if (null != automationComposition.getToscaTopologyTemplate()) {
-                    validateTypes(zipFile, NODE_TYPES)
-                        .ifPresent(node -> automationComposition.setNodeTypes(node.getNodeTypes()));
+            templates.forEach((entry, t) -> {
+                if (entry.contains(decoderParameters.getAutomationCompositionType())
+                    && t.getToscaTopologyTemplate() != null) {
+                    t.setNodeTypes(node != null ? node.getNodeTypes() : null);
+                    t.setDataTypes(data != null ? data.getDataTypes() : null);
 
-                    validateTypes(zipFile, DATA_TYPES)
-                        .ifPresent(data -> automationComposition.setDataTypes(data.getDataTypes()));
-
-                    automationCompositionList.add(automationComposition);
+                    automationCompositionList.add(t);
                 }
-            }
-        } catch (final IOException | CoderException exp) {
+            });
+
+        } catch (final CoderException exp) {
             throw new PolicyDecodingException("Failed decoding the acm", exp);
         }
 
         return automationCompositionList;
-    }
-
-    /**
-     * Decode and validate if node or data type is available withing ACM csar file.
-     *
-     * @param zipFile full csar file
-     * @return tosca template with parsed node/data type
-     * @throws CoderException if file can't be parsed
-     */
-    private Optional<ToscaServiceTemplate> validateTypes(final ZipFile zipFile, String type)
-        throws CoderException {
-
-        try {
-            ToscaServiceTemplate template = null;
-            final Optional<? extends ZipEntry> file = zipFile.stream()
-                .filter(entry -> entry.getName().contains(type)).findFirst();
-
-            if (file.isPresent()) {
-                template = ReceptionUtil.decodeFile(zipFile, file.get());
-            }
-            return Optional.ofNullable(template);
-        } catch (final IOException | CoderException exp) {
-            throw new CoderException("Couldn't decode " + type + " type", exp);
-        }
     }
 }

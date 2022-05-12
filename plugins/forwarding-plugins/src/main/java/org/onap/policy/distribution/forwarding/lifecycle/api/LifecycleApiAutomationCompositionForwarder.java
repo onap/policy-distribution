@@ -1,7 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2022 Nordix Foundation.
- *  Modifications Copyright (C) 2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +28,6 @@ import java.util.Map;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import org.onap.policy.common.endpoints.http.client.HttpClient;
 import org.onap.policy.common.endpoints.http.client.HttpClientConfigException;
 import org.onap.policy.common.endpoints.http.client.HttpClientFactoryInstance;
@@ -52,7 +50,6 @@ public class LifecycleApiAutomationCompositionForwarder implements PolicyForward
     private static final String COMMISSION_AUTOMATION_COMPOSITION_URI = "/onap/acm/v2/commission";
     private static final Logger LOGGER = LoggerFactory.getLogger(LifecycleApiAutomationCompositionForwarder.class);
 
-    private LifecycleApiAutomationCompositionForwarderParameters forwarderParameters;
     private HttpClient automationCompositionClient;
 
     /**
@@ -60,10 +57,11 @@ public class LifecycleApiAutomationCompositionForwarder implements PolicyForward
      */
     @Override
     public void configure(final String parameterGroupName) throws HttpClientConfigException {
-        forwarderParameters = ParameterService.get(parameterGroupName);
+        LifecycleApiAutomationCompositionForwarderParameters forwarderParameters =
+            ParameterService.get(parameterGroupName);
 
         automationCompositionClient = HttpClientFactoryInstance.getClientFactory().build(
-                forwarderParameters.getAutomationCompositionRuntimeParameters());
+            forwarderParameters.getAutomationCompositionRuntimeParameters());
     }
 
     /**
@@ -77,7 +75,7 @@ public class LifecycleApiAutomationCompositionForwarder implements PolicyForward
         }
         if (!failedEntities.isEmpty()) {
             throw new PolicyForwardingException(
-                    "Failed forwarding the following entities: " + Arrays.toString(failedEntities.toArray()));
+                "Failed forwarding the following entities: " + Arrays.toString(failedEntities.toArray()));
         }
     }
 
@@ -86,8 +84,8 @@ public class LifecycleApiAutomationCompositionForwarder implements PolicyForward
             if (entity instanceof ToscaServiceTemplate) {
                 final var toscaServiceTemplate = (ToscaServiceTemplate) entity;
                 if (null != toscaServiceTemplate.getToscaTopologyTemplate()
-                        && null != toscaServiceTemplate.getNodeTypes()
-                        && null != toscaServiceTemplate.getDataTypes()) {
+                    && null != toscaServiceTemplate.getNodeTypes()
+                    && null != toscaServiceTemplate.getDataTypes()) {
                     commissionAutomationComposition(toscaServiceTemplate);
                 }
             } else {
@@ -99,23 +97,22 @@ public class LifecycleApiAutomationCompositionForwarder implements PolicyForward
         }
     }
 
-    private Response commissionAutomationComposition(final ToscaServiceTemplate toscaServiceTemplate)
-            throws PolicyForwardingException {
-        return invokeHttpClient(Entity.entity(toscaServiceTemplate, MediaType.APPLICATION_JSON),
-                COMMISSION_AUTOMATION_COMPOSITION_URI);
+    private void commissionAutomationComposition(final ToscaServiceTemplate toscaServiceTemplate)
+        throws PolicyForwardingException {
+        invokeHttpClient(Entity.entity(toscaServiceTemplate, MediaType.APPLICATION_JSON));
     }
 
-    private Response invokeHttpClient(final Entity<?> entity, final String path)
-            throws PolicyForwardingException {
-        var response = automationCompositionClient.post(path, entity, Map.of(HttpHeaders.ACCEPT,
-                        MediaType.APPLICATION_JSON, HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
+    private void invokeHttpClient(final Entity<?> entity) throws PolicyForwardingException {
+        var response = automationCompositionClient.post(
+            LifecycleApiAutomationCompositionForwarder.COMMISSION_AUTOMATION_COMPOSITION_URI, entity,
+            Map.of(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON, HttpHeaders.CONTENT_TYPE,
+                MediaType.APPLICATION_JSON));
         if (response.getStatus() / 100 != 2) {
-            LOGGER.error(
-                    "Invocation of path {} failed for entity {}. Response status: {}, Response status info: {}",
-                    path, entity, response.getStatus(), response.getStatusInfo());
+            LOGGER.error("Invocation of path {} failed for entity {}. Response status: {}, Response status info: {}",
+                LifecycleApiAutomationCompositionForwarder.COMMISSION_AUTOMATION_COMPOSITION_URI,
+                entity, response.getStatus(), response.getStatusInfo());
             throw new PolicyForwardingException("Failed creating the entity - " + entity);
         }
-        return response;
     }
 }
 

@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2019 Intel Crop. All rights reserved.
  *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2022 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -90,9 +91,9 @@ public class FilePolicyForwarder implements PolicyForwarder {
             writer.write("policyName: " + name);
             if (fileForwarderParameters.isVerbose()) {
                 writer.newLine();
-                writer.write("policy: " + pol.toString());
+                writer.write("policy: " + pol);
             }
-            LOGGER.debug("Sucessfully forwarded the policy to store into file {}.", path);
+            LOGGER.debug("Successfully forwarded the policy to store into file {}.", path);
         } catch (final InvalidPathException | IOException exp) {
             final String message = "Error sending policy to file under path:" + fileForwarderParameters.getPath();
             throw new PolicyForwardingException(message, exp);
