@@ -2,7 +2,7 @@
 #
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2018 Ericsson. All rights reserved.
-#  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+#  Modifications Copyright (C) 2019-2022 Nordix Foundation.
 #  Modifications Copyright (C) 2020-2021 AT&T.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,6 @@
 # ============LICENSE_END=========================================================
 #
 
-JAVA_HOME=/usr/lib/jvm/java-11-openjdk/
 KEYSTORE="${KEYSTORE:-$POLICY_HOME/etc/ssl/policy-keystore}"
 TRUSTSTORE="${TRUSTSTORE:-$POLICY_HOME/etc/ssl/policy-truststore}"
 KEYSTORE_PASSWD="${KEYSTORE_PASSWD:-Pol1cy_0nap}"
