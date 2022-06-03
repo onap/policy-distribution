@@ -3,6 +3,7 @@
    Copyright (C) 2018 Ericsson. All rights reserved.
    Modifications Copyright (C) 2020 AT&T Intellectual Property. All rights reserved.
    Modifications Copyright (C) 2020 Bell Canada.
+   Modifications Copyright (C) 2022 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -55,6 +56,18 @@
             </modules>
             <properties>
                 <docker.skip.push>false</docker.skip.push>
+                <dockerFile>Dockerfile</dockerFile>
+            </properties>
+        </profile>
+        <profile>
+            <id>dockersuse</id>
+            <modules>
+                <module>policy-distribution-tarball</module>
+                <module>policy-distribution-docker</module>
+            </modules>
+            <properties>
+                <docker.skip.push>false</docker.skip.push>
+                <dockerFile>suse.Dockerfile</dockerFile>
             </properties>
         </profile>
     </profiles>

@@ -3,6 +3,7 @@
    Copyright (C) 2018 Ericsson. All rights reserved.
    Modifications Copyright (C) 2020 Bell Canada.
    Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+   Modifications Copyright (C) 2022 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -81,7 +82,7 @@
                             <name>onap/policy-distribution</name>
                             <build>
                                 <cleanup>try</cleanup>
-                                <dockerFile>Dockerfile</dockerFile>
+                                <dockerFile>${dockerFile}</dockerFile>
                                 <tags>
                                     <tag>${project.version}</tag>
                                     <tag>${project.version}-${maven.build.timestamp}</tag>
