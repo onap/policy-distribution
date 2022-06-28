@@ -2,6 +2,7 @@
 # Dockerfile
 # ============LICENSE_START=======================================================
 #  Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
+#  Modifications Copyright (C) 2022 Nordix Foundation.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,6 +23,14 @@
 FROM onap/policy-jre-alpine:2.4.3
 
 LABEL maintainer="Policy Team"
+LABEL org.opencontainers.image.title="Policy SDC Service Distribution"
+LABEL org.opencontainers.image.description="Policy SDC Service Distribution image based on Alpine"
+LABEL org.opencontainers.image.url="https://github.com/onap/policy-distribution"
+LABEL org.opencontainers.image.vendor="ONAP Policy Team"
+LABEL org.opencontainers.image.licenses="Apache-2.0"
+LABEL org.opencontainers.image.created="${git.build.time}"
+LABEL org.opencontainers.image.version="${git.build.version}"
+LABEL org.opencontainers.image.revision="${git.commit.id.abbrev}"
 
 ARG POLICY_LOGS=/var/log/onap/policy/distribution
 
