@@ -20,6 +20,11 @@
 # ============LICENSE_END=========================================================
 #-------------------------------------------------------------------------------
 
+FROM busybox AS tarball
+RUN mkdir /packages /extracted
+COPY /maven/lib/policy-distribution.tar.gz /packages/
+RUN tar xvzf /packages/policy-distribution.tar.gz --directory /extracted/
+
 FROM onap/policy-jre-alpine:2.4.3
 
 LABEL maintainer="Policy Team"
@@ -37,17 +42,14 @@ ARG POLICY_LOGS=/var/log/onap/policy/distribution
 ENV POLICY_LOGS=$POLICY_LOGS
 ENV POLICY_HOME=$POLICY_HOME/distribution
 
-RUN mkdir -p $POLICY_HOME $POLICY_LOGS $POLICY_HOME/bin && \
-    chown -R policy:policy $POLICY_HOME $POLICY_LOGS &&\
-    mkdir /packages
+RUN mkdir -p $POLICY_HOME $POLICY_LOGS && \
+    chown -R policy:policy $POLICY_HOME $POLICY_LOGS
 
-COPY /maven/* /packages
-RUN tar xvfz /packages/policy-distribution.tar.gz --directory $POLICY_HOME \
-     && rm /packages/policy-distribution.tar.gz
+COPY --chown=policy:policy --from=tarball /extracted $POLICY_HOME
 
 WORKDIR $POLICY_HOME
-COPY policy-dist.sh  bin/.
-RUN chown -R policy:policy * && chmod 755 bin/*.sh
+COPY --chown=policy:policy policy-dist.sh bin/
+RUN chmod 755 bin/*.sh
 
 USER policy
 WORKDIR $POLICY_HOME/bin
