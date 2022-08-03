@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
- *  Modifications Copyright (C) 2020-2021 AT&T Inc.
+ *  Modifications Copyright (C) 2020-2022 AT&T Inc.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -104,8 +104,9 @@ public class PolicyDecoderFileInCsarToPolicy implements PolicyDecoder<Csar, Tosc
      * ensures validation of entries in the Zipfile. Attempts to solve path
      * injection java security issues.
      *
-     * @param entry the ZipEntry to check
+     * @param entryName the ZipEntry to check
      * @param csarPath Absolute path to the csar the ZipEntry is in
+     * @param entrySize the entry size
      * @return true if no injection detected, and it is a policy type  or policy file.
      * @throws PolicyDecodingException if the file size is too large
      */
