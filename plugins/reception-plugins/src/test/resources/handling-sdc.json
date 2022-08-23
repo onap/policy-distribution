@@ -22,6 +22,7 @@
     "keyStorePassword": "null",
     "activeServerTlsAuth": false,
     "isFilterInEmptyResources": true,
-    "isUseHttpsWithDmaap": false
+    "isUseHttpsWithDmaap": false,
+    "isUseHttpsWithSdc": false
 }
 

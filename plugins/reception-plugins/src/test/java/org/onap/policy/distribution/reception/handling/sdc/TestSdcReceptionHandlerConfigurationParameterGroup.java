@@ -66,6 +66,7 @@ public class TestSdcReceptionHandlerConfigurationParameterGroup {
         assertEquals(false, config.activateServerTLSAuth());
         assertEquals(true, config.isFilterInEmptyResources());
         assertEquals(false, config.isUseHttpsWithDmaap());
+        assertEquals(false, config.isUseHttpsWithSDC());
     }
 
     @Test

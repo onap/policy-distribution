@@ -49,6 +49,7 @@ public class SdcReceptionHandlerConfigurationParameterGroup extends ReceptionHan
     private boolean activeServerTlsAuth;
     private boolean isFilterInEmptyResources;
     private boolean isUseHttpsWithDmaap;
+    private boolean isUseHttpsWithSdc;
 
     public SdcReceptionHandlerConfigurationParameterGroup() {
         super(SdcReceptionHandlerConfigurationParameterGroup.class.getSimpleName());

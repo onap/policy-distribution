@@ -108,4 +108,9 @@ public class SdcConfiguration implements IConfiguration {
     public Boolean isUseHttpsWithDmaap() {
         return configParameters.isUseHttpsWithDmaap();
     }
+
+    @Override
+    public Boolean isUseHttpsWithSDC() {
+        return configParameters.isUseHttpsWithSdc();
+    }
 }
