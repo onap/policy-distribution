@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '2.7.4'
+project: 'policy-distribution'
+log_dir: 'policy-distribution-maven-docker-stage-jakarta/119'
+ref: e19dc52b7fb4a8d56c74c2e924a482d40e4fe830
+containers:
+    - name: 'policy-distribution'
+      version: '2.7.4-20220902T1309'
