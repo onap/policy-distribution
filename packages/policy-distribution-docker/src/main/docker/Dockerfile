@@ -25,7 +25,7 @@ RUN mkdir /packages /extracted
 COPY /maven/lib/policy-distribution.tar.gz /packages/
 RUN tar xvzf /packages/policy-distribution.tar.gz --directory /extracted/
 
-FROM onap/policy-jre-alpine:2.5.2-SNAPSHOT
+FROM onap/policy-jre-alpine:2.6.0-SNAPSHOT
 
 LABEL maintainer="Policy Team"
 LABEL org.opencontainers.image.title="Policy SDC Service Distribution"
