@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
- *  Modifications Copyright (C) 2019-2021 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2022 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,9 +51,8 @@ public class TestSdcReceptionHandlerConfigurationParameterGroup {
         final ValidationResult validationResult = configParameters.validate();
         assertTrue(validationResult.isValid());
         final SdcConfiguration config = new SdcConfiguration(configParameters);
-        assertEquals(Arrays.asList("a.com", "b.com", "c.com"), config.getMsgBusAddress());
         assertEquals(Arrays.asList("TOSCA_CSAR", "HEAT"), config.getRelevantArtifactTypes());
-        assertEquals("localhost", config.getAsdcAddress());
+        assertEquals("localhost", config.getSdcAddress());
         assertEquals("policy", config.getUser());
         assertEquals("policy", config.getPassword());
         assertEquals(20, config.getPollingInterval());
@@ -65,7 +64,6 @@ public class TestSdcReceptionHandlerConfigurationParameterGroup {
         assertEquals("null", config.getKeyStorePassword());
         assertEquals(false, config.activateServerTLSAuth());
         assertEquals(true, config.isFilterInEmptyResources());
-        assertEquals(false, config.isUseHttpsWithDmaap());
         assertEquals(false, config.isUseHttpsWithSDC());
     }
 
@@ -84,7 +82,6 @@ public class TestSdcReceptionHandlerConfigurationParameterGroup {
         //if boolean parameters are null they are set to false
         assertEquals(false, config.activateServerTLSAuth());
         assertEquals(false, config.isFilterInEmptyResources());
-        assertEquals(false, config.isUseHttpsWithDmaap());
     }
 
     @Test
