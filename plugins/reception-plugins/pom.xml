@@ -37,15 +37,13 @@
             <artifactId>reception</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.onap.sdc.sdc-distribution-client</groupId>
             <artifactId>sdc-distribution-client</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-          </exclusions>
         </dependency>
+
     </dependencies>
+
+
 </project>
