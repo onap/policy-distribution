@@ -1,11 +1,6 @@
 {
     "name" : "parameterConfig1",
-    "asdcAddress": "localhost",
-    "messageBusAddress": [
-        "a.com",
-        "b.com",
-        "c.com"
-    ],
+    "sdcAddress": "localhost",
     "user": "policy",
     "password": "policy",
     "pollingInterval":20,
@@ -13,7 +8,7 @@
     "retryDelay":30,
     "consumerId": "policy-id",
     "artifactTypes": [
-        "TOSCA_CSAR", 
+        "TOSCA_CSAR",
         "HEAT"
     ],
     "consumerGroup": "policy-group",
@@ -22,7 +17,6 @@
     "keyStorePassword": "null",
     "activeServerTlsAuth": false,
     "isFilterInEmptyResources": true,
-    "isUseHttpsWithDmaap": false,
     "isUseHttpsWithSdc": false
 }
 

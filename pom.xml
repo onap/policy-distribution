@@ -6,6 +6,7 @@
   Copyright (C) 2019 Nordix Foundation.
   Modifications Copyright (C) 2020 AT&T Inc.
   Modifications Copyright (C) 2021 Bell Canada.
+  Modifications Copyright (C) 2022 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -47,6 +48,7 @@
 
         <policy.common.version>1.12.0-SNAPSHOT</policy.common.version>
         <policy.models.version>2.8.0-SNAPSHOT</policy.models.version>
+        <sdc-distribution-client.version>2.0.0</sdc-distribution-client.version>
     </properties>
 
     <modules>
@@ -81,6 +83,21 @@
             <version>${policy.common.version}</version>
         </dependency>
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.onap.sdc.sdc-distribution-client</groupId>
+                <artifactId>sdc-distribution-client</artifactId>
+                <version>${sdc-distribution-client.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <distributionManagement>
         <site>
