@@ -51,9 +51,8 @@ public class TestSdcReceptionHandlerConfigurationParameterGroup {
         final ValidationResult validationResult = configParameters.validate();
         assertTrue(validationResult.isValid());
         final SdcConfiguration config = new SdcConfiguration(configParameters);
-        assertEquals(Arrays.asList("a.com", "b.com", "c.com"), config.getMsgBusAddress());
         assertEquals(Arrays.asList("TOSCA_CSAR", "HEAT"), config.getRelevantArtifactTypes());
-        assertEquals("localhost", config.getAsdcAddress());
+        assertEquals("localhost", config.getSdcAddress());
         assertEquals("policy", config.getUser());
         assertEquals("policy", config.getPassword());
         assertEquals(20, config.getPollingInterval());
@@ -65,7 +64,6 @@ public class TestSdcReceptionHandlerConfigurationParameterGroup {
         assertEquals("null", config.getKeyStorePassword());
         assertEquals(false, config.activateServerTLSAuth());
         assertEquals(true, config.isFilterInEmptyResources());
-        assertEquals(false, config.isUseHttpsWithDmaap());
         assertEquals(false, config.isUseHttpsWithSDC());
     }
 
@@ -84,7 +82,6 @@ public class TestSdcReceptionHandlerConfigurationParameterGroup {
         //if boolean parameters are null they are set to false
         assertEquals(false, config.activateServerTLSAuth());
         assertEquals(false, config.isFilterInEmptyResources());
-        assertEquals(false, config.isUseHttpsWithDmaap());
     }
 
     @Test
