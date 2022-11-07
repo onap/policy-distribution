@@ -85,7 +85,7 @@ public class TestFileSystemReceptionHandler {
 
     @Test
     public final void testInit() throws IOException {
-        final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
+        FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
         Mockito.doNothing().when(sypHandler).initFileWatcher(Mockito.isA(String.class),
                 Mockito.anyInt());
         assertThatCode(() -> sypHandler.initializeReception(pssdConfigParameters.getName()))

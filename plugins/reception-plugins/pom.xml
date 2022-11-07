@@ -3,6 +3,7 @@
    Copyright (C) 2018 Ericsson. All rights reserved.
    Modifications copyright (C) 2020 Bell Canada. All rights reserved.
    Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+   Modifications Copyright (C) 2022 Nordix Foundation.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -37,15 +38,13 @@
             <artifactId>reception</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.onap.sdc.sdc-distribution-client</groupId>
             <artifactId>sdc-distribution-client</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-          </exclusions>
         </dependency>
+
     </dependencies>
+
+
 </project>
