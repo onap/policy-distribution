@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbb5c20d_348dad8e",
+        "filename": "plugins/reception-plugins/pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 477
+      },
+      "writtenOn": "2022-11-14T15:37:02Z",
+      "side": 1,
+      "message": "forgot licenses in files changed",
+      "revId": "b5bfd5ba38f4db6fb04c6bb820ee9e80366ba232",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
