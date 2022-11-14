@@ -22,6 +22,30 @@
       "revId": "2167439935a9f5099a9a30e563388ca9897ca3d2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e901d5a3_0a073931",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandlerConfigurationParameterGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7617
+      },
+      "writtenOn": "2022-11-14T17:00:37Z",
+      "side": 0,
+      "message": "Hi Ram.\n\nWith the move to Strimzi/Kafka that this change is to facilitate, the \"isUseHttpsWithDmaap\" config parameter becomes redundant",
+      "parentUuid": "cc5ff465_37da4a0d",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 39
+      },
+      "revId": "2167439935a9f5099a9a30e563388ca9897ca3d2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
