@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc5ff465_37da4a0d",
+        "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandlerConfigurationParameterGroup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-11-14T16:43:26Z",
+      "side": 0,
+      "message": "I see that the configuration has been removed from sdc client, does that mean it will always talk over http?",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 39
+      },
+      "revId": "2167439935a9f5099a9a30e563388ca9897ca3d2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}

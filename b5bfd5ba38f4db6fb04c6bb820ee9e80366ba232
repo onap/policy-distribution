@@ -16,6 +16,29 @@
       "revId": "b5bfd5ba38f4db6fb04c6bb820ee9e80366ba232",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de2945c1_e828890d",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-11-14T16:43:26Z",
+      "side": 1,
+      "message": "I don\u0027t think we need to do this again, we are managing all the dependencies in policy using the parent repo, please take a look here - https://github.com/onap/policy-parent/blob/master/integration/pom.xml",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 27
+      },
+      "revId": "b5bfd5ba38f4db6fb04c6bb820ee9e80366ba232",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
