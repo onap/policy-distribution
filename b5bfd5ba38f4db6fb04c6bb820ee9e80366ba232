@@ -57,6 +57,30 @@
       "revId": "b5bfd5ba38f4db6fb04c6bb820ee9e80366ba232",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40084cc1_9a524da6",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 3239
+      },
+      "writtenOn": "2022-11-14T17:06:48Z",
+      "side": 1,
+      "message": "I think you missed this one in the latest patch",
+      "parentUuid": "de2945c1_e828890d",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 27
+      },
+      "revId": "b5bfd5ba38f4db6fb04c6bb820ee9e80366ba232",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
