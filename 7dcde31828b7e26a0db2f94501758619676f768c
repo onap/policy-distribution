@@ -16,6 +16,24 @@
       "revId": "7dcde31828b7e26a0db2f94501758619676f768c",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78a74b35_b5857763",
+        "filename": "version.properties",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7617
+      },
+      "writtenOn": "2022-11-14T15:04:08Z",
+      "side": 1,
+      "message": "Good spot! Thanks Pamela! 😊",
+      "parentUuid": "0a3fcca6_fe0cf68f",
+      "revId": "7dcde31828b7e26a0db2f94501758619676f768c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
