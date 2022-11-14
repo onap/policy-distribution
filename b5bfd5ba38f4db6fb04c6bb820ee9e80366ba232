@@ -81,6 +81,30 @@
       "revId": "b5bfd5ba38f4db6fb04c6bb820ee9e80366ba232",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa9ea082_d171f582",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7617
+      },
+      "writtenOn": "2022-11-14T17:07:58Z",
+      "side": 1,
+      "message": "I did indeed! 😄\nJust spotted, and having a look now. 😊",
+      "parentUuid": "40084cc1_9a524da6",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 27
+      },
+      "revId": "b5bfd5ba38f4db6fb04c6bb820ee9e80366ba232",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
