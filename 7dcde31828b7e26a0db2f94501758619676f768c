@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a3fcca6_fe0cf68f",
+        "filename": "version.properties",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 57
+      },
+      "writtenOn": "2022-11-14T15:02:27Z",
+      "side": 1,
+      "message": "forgot to remove this change",
+      "revId": "7dcde31828b7e26a0db2f94501758619676f768c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
