@@ -105,6 +105,30 @@
       "revId": "b5bfd5ba38f4db6fb04c6bb820ee9e80366ba232",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6d70505_2db7fcce",
+        "filename": "pom.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7617
+      },
+      "writtenOn": "2022-11-15T10:24:53Z",
+      "side": 1,
+      "message": "I have it done there now. But am yet to add the change of version to the parent repo (which I am just adding now this minute). So the build might fail here for the moment. Once the change is added to the parent, I\u0027ll re-kick off these jobs.\n\nI wonder is this overkill? The sdc-distro-client is only used here, and not in any sub projects. In saying that, i have no bother changing it if that\u0027s the way policy do it, and would prefer to keep it that way 😊",
+      "parentUuid": "fa9ea082_d171f582",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 27
+      },
+      "revId": "b5bfd5ba38f4db6fb04c6bb820ee9e80366ba232",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
