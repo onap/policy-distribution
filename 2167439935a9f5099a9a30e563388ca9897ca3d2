@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f34c4f30_daada418",
+        "filename": "plugins/reception-plugins/pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7617
+      },
+      "writtenOn": "2022-11-17T15:07:45Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "77807e45_1ff2add1",
+      "range": {
+        "startLine": 43,
+        "startChar": 12,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "2167439935a9f5099a9a30e563388ca9897ca3d2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc5ff465_37da4a0d",
         "filename": "plugins/reception-plugins/src/main/java/org/onap/policy/distribution/reception/handling/sdc/SdcReceptionHandlerConfigurationParameterGroup.java",
         "patchSetId": 3

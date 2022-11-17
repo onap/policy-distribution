@@ -22,6 +22,30 @@
       "revId": "60d0a463724632aef65eca31cb1d07df58a328f2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0f392b4_dda9d303",
+        "filename": "pom.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7617
+      },
+      "writtenOn": "2022-11-17T15:07:45Z",
+      "side": 1,
+      "message": "Correct.\n\nJust removed the changes, and forgot this. :)",
+      "parentUuid": "d835f606_44890620",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 9,
+        "endChar": 53
+      },
+      "revId": "60d0a463724632aef65eca31cb1d07df58a328f2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
