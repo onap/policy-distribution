@@ -1,7 +1,7 @@
 {
   "automationCompositionRuntimeParameters": {
     "clientName": "policy-clamp-runtime-acm",
-    "hostname": "0.0.0.0",
+    "hostname": "localhost",
     "port": 6969,
     "useHttps": false,
     "userName": "policyadmin",

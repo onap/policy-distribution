@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2021 Nordix Foundation.
+ *  Copyright (C) 2019-2021,2023 Nordix Foundation.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,11 +37,11 @@ import org.onap.policy.distribution.forwarding.testclasses.CommonTestData;
  */
 public class LifecycleApiForwarderParametersTest {
 
-    private static final String POLICY_API_HOST_NAME = "0.0.0.0";
+    private static final String POLICY_API_HOST_NAME = "localhost";
     private static final int POLICY_API_PORT = 6969;
     private static final String POLICY_API_USER = "policyadmin";
     private static final String POLICY_API_PASSWORD = "zb!XztG34";
-    private static final String POLICY_PAP_HOST_NAME = "0.0.0.0";
+    private static final String POLICY_PAP_HOST_NAME = "localhost";
     private static final int POLICY_PAP_PORT = 6969;
     private static final String POLICY_PAP_USER = "policyadmin";
     private static final String POLICY_PAP_PASSWORD = "zb!XztG34";

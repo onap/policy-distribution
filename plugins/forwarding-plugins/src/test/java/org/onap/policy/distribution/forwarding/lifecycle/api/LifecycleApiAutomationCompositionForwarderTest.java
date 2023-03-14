@@ -1,7 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2022 Nordix Foundation.
- *  Modifications Copyright (C) 2022 Nordix Foundation.
+ *  Copyright (C) 2022-2023 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,7 +67,7 @@ public class LifecycleApiAutomationCompositionForwarderTest {
                 LifecycleApiAutomationCompositionForwarderParameters.class);
         ParameterService.register(parameterGroup);
         simulator.startLifecycycleApiSimulator();
-        if (!NetworkUtil.isTcpPortOpen("0.0.0.0", 6969, 50, 200L)) {
+        if (!NetworkUtil.isTcpPortOpen("localhost", 6969, 50, 200L)) {
             throw new IllegalStateException("cannot connect to port 6969");
         }
     }

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2022 Nordix Foundation.
- *  Modifications Copyright (C) 2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2022-2023 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ import org.onap.policy.distribution.forwarding.testclasses.CommonTestData;
  */
 public class LifecycleApiAutomationCompositionForwarderParametersTest {
 
-    private static final String AUTOMATION_COMPOSITION_RUNTIME_HOST_NAME = "0.0.0.0";
+    private static final String AUTOMATION_COMPOSITION_RUNTIME_HOST_NAME = "localhost";
     private static final int AUTOMATION_COMPOSITION_RUNTIME_PORT = 6969;
     private static final String AUTOMATION_COMPOSITION_RUNTIME_USER = "policyadmin";
     private static final String AUTOMATION_COMPOSITION_RUNTIME_PASSWORD = "zb!XztG34";

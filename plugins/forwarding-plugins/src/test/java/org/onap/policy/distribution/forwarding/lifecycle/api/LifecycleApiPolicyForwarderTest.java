@@ -1,6 +1,6 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2019-2021 Nordix Foundation.
+ *  Copyright (C) 2019-2021,2023 Nordix Foundation.
  *  Modifications Copyright (C) 2020 AT&T Inc.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -68,7 +68,7 @@ public class LifecycleApiPolicyForwarderTest {
                 LifecycleApiForwarderParameters.class);
         ParameterService.register(parameterGroup);
         simulator.startLifecycycleApiSimulator();
-        if (!NetworkUtil.isTcpPortOpen("0.0.0.0", 6969, 50, 200L)) {
+        if (!NetworkUtil.isTcpPortOpen("localhost", 6969, 50, 200L)) {
             throw new IllegalStateException("cannot connect to port 6969");
         }
     }
