@@ -2,7 +2,8 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
  *  Copyright (C) 2019, 2022 Nordix Foundation.
- *  Modifications Copyright (C) 2020 Nordix Foundation
+ *  Modifications Copyright (C) 2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2023 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +56,6 @@ import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
 import org.onap.policy.distribution.reception.handling.PluginHandler;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
-import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
 import org.onap.sdc.api.IDistributionClient;
 import org.onap.sdc.api.notification.IArtifactInfo;
 import org.onap.sdc.api.notification.INotificationData;
@@ -99,7 +99,6 @@ public class TestSdcReceptionHandler {
      */
     @Before
     public final void init() throws IOException, SecurityException, IllegalArgumentException {
-        DistributionStatisticsManager.resetAllStatistics();
         final Gson gson = new GsonBuilder().create();
         pssdConfigParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdc.json"),
             SdcReceptionHandlerConfigurationParameterGroup.class);
@@ -199,12 +198,6 @@ public class TestSdcReceptionHandler {
         assertTrue(policyDecoder.getDecodedPolicy().getName().contains(DUMMY_SERVICE_CSAR));
         assertEquals(1, policyForwarder.getNumberOfPoliciesReceived());
         assertTrue(policyForwarder.receivedPolicyWithGivenType(DUMMY_SERVICE_CSAR));
-        assertEquals(1, DistributionStatisticsManager.getTotalDistributionCount());
-        assertEquals(1, DistributionStatisticsManager.getDistributionSuccessCount());
-        assertEquals(0, DistributionStatisticsManager.getDistributionFailureCount());
-        assertEquals(1, DistributionStatisticsManager.getTotalDownloadCount());
-        assertEquals(1, DistributionStatisticsManager.getDownloadSuccessCount());
-        assertEquals(0, DistributionStatisticsManager.getDownloadFailureCount());
     }
 
     @Test
@@ -228,12 +221,6 @@ public class TestSdcReceptionHandler {
 
         assertNull(policyDecoder.getDecodedPolicy());
         assertEquals(0, policyForwarder.getNumberOfPoliciesReceived());
-        assertEquals(1, DistributionStatisticsManager.getTotalDistributionCount());
-        assertEquals(0, DistributionStatisticsManager.getDistributionSuccessCount());
-        assertEquals(1, DistributionStatisticsManager.getDistributionFailureCount());
-        assertEquals(1, DistributionStatisticsManager.getTotalDownloadCount());
-        assertEquals(0, DistributionStatisticsManager.getDownloadSuccessCount());
-        assertEquals(1, DistributionStatisticsManager.getDownloadFailureCount());
     }
 
     @Test
