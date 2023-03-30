@@ -3,7 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Copyright (C) 2019, 2022 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
- *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2021, 2023 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,6 @@ import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
 import org.onap.policy.distribution.reception.handling.sdc.SdcClientHandler.SdcClientOperationType;
 import org.onap.policy.distribution.reception.handling.sdc.exceptions.ArtifactDownloadException;
-import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
 import org.onap.sdc.api.IDistributionClient;
 import org.onap.sdc.api.consumer.IComponentDoneStatusMessage;
 import org.onap.sdc.api.consumer.IDistributionStatusMessage;
@@ -193,7 +192,6 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
      */
     public void processCsarServiceArtifacts(final INotificationData notificationData) {
         var artifactsProcessedSuccessfully = true;
-        DistributionStatisticsManager.updateTotalDistributionCount();
         for (final IArtifactInfo artifact : notificationData.getServiceArtifacts()) {
             try {
                 final IDistributionClientDownloadResult resultArtifact =
@@ -213,11 +211,9 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
             }
         }
         if (artifactsProcessedSuccessfully) {
-            DistributionStatisticsManager.updateDistributionSuccessCount();
             sendComponentDoneStatus(notificationData.getDistributionID(), DistributionStatusEnum.COMPONENT_DONE_OK,
                 null);
         } else {
-            DistributionStatisticsManager.updateDistributionFailureCount();
             sendComponentDoneStatus(notificationData.getDistributionID(), DistributionStatusEnum.COMPONENT_DONE_ERROR,
                 "Failed to process the artifact");
         }
@@ -234,10 +230,8 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
                                                                   final INotificationData notificationData)
         throws ArtifactDownloadException {
 
-        DistributionStatisticsManager.updateTotalDownloadCount();
         final IDistributionClientDownloadResult downloadResult = distributionClient.download(artifact);
         if (!downloadResult.getDistributionActionResult().equals(DistributionActionResultEnum.SUCCESS)) {
-            DistributionStatisticsManager.updateDownloadFailureCount();
             final String message = "Failed to download artifact with name: " + artifact.getArtifactName() + " due to: "
                 + downloadResult.getDistributionMessageResult();
             LOGGER.error(message);
@@ -245,7 +239,6 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
                 notificationData.getDistributionID(), DistributionStatusEnum.DOWNLOAD_ERROR, message);
             throw new ArtifactDownloadException(message);
         }
-        DistributionStatisticsManager.updateDownloadSuccessCount();
         sendDistributionStatus(DistributionStatusType.DOWNLOAD, artifact.getArtifactURL(),
             notificationData.getDistributionID(), DistributionStatusEnum.DOWNLOAD_OK, null);
         return downloadResult;

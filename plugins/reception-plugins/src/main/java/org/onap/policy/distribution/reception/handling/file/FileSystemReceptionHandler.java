@@ -3,6 +3,7 @@
  *  Copyright (C) 2018 Intel Corp. All rights reserved.
  *  Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2019, 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2023 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +41,6 @@ import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
-import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -140,7 +140,6 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
             final Path fileName = ev.context();
             pool.execute(() -> {
                 LOGGER.debug("new CSAR found: {}", fileName);
-                DistributionStatisticsManager.updateTotalDistributionCount();
                 final String fullFilePath = dir.toString() + File.separator + fileName.toString();
                 try {
                     waitForFileToBeReady(fullFilePath);
@@ -162,13 +161,8 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
     protected void createPolicyInputAndCallHandler(final String fileName) {
         try {
             final var csarObject = new Csar(fileName);
-            DistributionStatisticsManager.updateTotalDownloadCount();
             inputReceived(csarObject);
-            DistributionStatisticsManager.updateDownloadSuccessCount();
-            DistributionStatisticsManager.updateDistributionSuccessCount();
         } catch (final PolicyDecodingException ex) {
-            DistributionStatisticsManager.updateDownloadFailureCount();
-            DistributionStatisticsManager.updateDistributionFailureCount();
             LOGGER.error("Policy creation failed", ex);
         }
     }

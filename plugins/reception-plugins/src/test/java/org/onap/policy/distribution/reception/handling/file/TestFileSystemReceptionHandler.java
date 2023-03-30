@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Intel. All rights reserved.
  *  Copyright (C) 2019-2020, 2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2023 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +42,6 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 import org.onap.policy.common.parameters.ParameterService;
-import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,8 +69,6 @@ public class TestFileSystemReceptionHandler {
      */
     @Before
     public final void init() throws IOException, SecurityException, IllegalArgumentException {
-        DistributionStatisticsManager.resetAllStatistics();
-
         final Gson gson = new GsonBuilder().create();
         pssdConfigParameters = gson.fromJson(new FileReader("src/test/resources/handling-filesystem.json"),
                 FileSystemReceptionHandlerConfigurationParameterGroup.class);
