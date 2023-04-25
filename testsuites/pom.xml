@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.onap.policy.distribution</groupId>
         <artifactId>policy-distribution</artifactId>
-        <version>2.9.2-SNAPSHOT</version>
+        <version>2.9.3-SNAPSHOT</version>
     </parent>
     <artifactId>distribution-testsuites</artifactId>
     <packaging>pom</packaging>
