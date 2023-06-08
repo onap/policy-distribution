@@ -1,6 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
+ *  Modifications Copyright (C) 2023 Bell Canada. All rights reserved.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,13 +57,4 @@ public class DistributionRestController {
         return Response.status(Response.Status.OK).entity(new HealthCheckProvider().performHealthCheck()).build();
     }
 
-    @GET
-    @Path("statistics")
-    @Produces(MediaType.APPLICATION_JSON)
-    @ApiOperation(value = "Fetch current statistics",
-            notes = "Provides current statistics of the Policy Distribution component",
-            response = StatisticsReport.class)
-    public Response statistics() {
-        return Response.status(Response.Status.OK).entity(new StatisticsProvider().fetchCurrentStatistics()).build();
-    }
 }
