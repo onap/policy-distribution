@@ -47,6 +47,9 @@
 
         <policy.common.version>2.0.0-SNAPSHOT</policy.common.version>
         <policy.models.version>3.0.0-SNAPSHOT</policy.models.version>
+        <surefireArgLine>
+            --add-opens java.base/java.lang=ALL-UNNAMED
+        </surefireArgLine>
     </properties>
 
     <modules>
@@ -72,7 +75,7 @@
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
+            <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

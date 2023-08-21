@@ -30,8 +30,6 @@ import java.util.Collection;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
@@ -43,7 +41,6 @@ import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
  *
  * @author Sirisha Manchikanti (sirisha.manchikanti@est.tech)
  */
-@RunWith(MockitoJUnitRunner.class)
 public class AutomationCompositionDecoderFileInCsarTest {
 
     /**

@@ -36,9 +36,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
@@ -48,7 +46,6 @@ import org.slf4j.LoggerFactory;
 /**
  * Class to perform unit test of {@link FileSystemReceptionHandler}.
  */
-@RunWith(MockitoJUnitRunner.class)
 public class TestFileSystemReceptionHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TestFileSystemReceptionHandler.class);
@@ -160,4 +157,3 @@ public class TestFileSystemReceptionHandler {
 
     }
 }
-

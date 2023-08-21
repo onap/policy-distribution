@@ -26,7 +26,10 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
+import static  org.mockito.Mockito.any;
+import static  org.mockito.Mockito.mock;
+import static  org.mockito.Mockito.spy;
+import static  org.mockito.Mockito.when;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -41,10 +44,6 @@ import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
@@ -68,23 +67,17 @@ import org.onap.sdc.utils.DistributionActionResultEnum;
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-@RunWith(MockitoJUnitRunner.class)
 public class TestSdcReceptionHandler {
 
     private static final String DUMMY_SERVICE_CSAR = "dummyService.csar";
 
-    @Mock
-    private IDistributionClientResult successfulClientInitResult;
-    @Mock
-    private IDistributionClientResult failureClientInitResult;
-    @Mock
-    private IDistributionClient distributionClient;
-    @Mock
-    private IDistributionClientDownloadResult successfulClientDownloadResult;
-    @Mock
-    private INotificationData notificationData;
-    @Mock
-    private IArtifactInfo artifactInfo;
+    private IDistributionClientResult successfulClientInitResult = mock(IDistributionClientResult.class);
+    private IDistributionClientResult failureClientInitResult = mock(IDistributionClientResult.class);
+    private IDistributionClient distributionClient = mock(IDistributionClient.class);
+    private IDistributionClientDownloadResult successfulClientDownloadResult
+        = mock(IDistributionClientDownloadResult.class);
+    private INotificationData notificationData = mock(INotificationData.class);
+    private IArtifactInfo artifactInfo = mock(IArtifactInfo.class);
 
     private SdcReceptionHandlerConfigurationParameterGroup pssdConfigParameters;
     private SdcReceptionHandler sypHandler;
@@ -105,27 +98,27 @@ public class TestSdcReceptionHandler {
             SdcReceptionHandlerConfigurationParameterGroup.class);
         ParameterService.register(pssdConfigParameters);
         final SdcReceptionHandler sdcHandler = new SdcReceptionHandler();
-        sypHandler = Mockito.spy(sdcHandler);
+        sypHandler = spy(sdcHandler);
 
-        Mockito.when(sypHandler.createSdcDistributionClient()).thenReturn(distributionClient);
-        Mockito.when(distributionClient.init(any(), any())).thenReturn(successfulClientInitResult);
-        Mockito.when(distributionClient.start()).thenReturn(successfulClientInitResult);
-        Mockito.when(distributionClient.stop()).thenReturn(successfulClientInitResult);
-        Mockito.when(distributionClient.sendComponentDoneStatus(any())).thenReturn(successfulClientInitResult);
-        Mockito.when(distributionClient.sendComponentDoneStatus(any(), any())).thenReturn(successfulClientInitResult);
-        Mockito.when(distributionClient.sendDownloadStatus(any())).thenReturn(successfulClientInitResult);
-        Mockito.when(distributionClient.sendDownloadStatus(any(), any())).thenReturn(successfulClientInitResult);
-        Mockito.when(distributionClient.sendDeploymentStatus(any())).thenReturn(successfulClientInitResult);
-        Mockito.when(distributionClient.sendDeploymentStatus(any(), any())).thenReturn(successfulClientInitResult);
-        Mockito.when(distributionClient.download(any())).thenReturn(successfulClientDownloadResult);
-        Mockito.when(notificationData.getServiceArtifacts()).thenReturn(List.of(artifactInfo));
-        Mockito.when(artifactInfo.getArtifactName()).thenReturn(DUMMY_SERVICE_CSAR);
-        Mockito.when(successfulClientDownloadResult.getArtifactPayload()).thenReturn(new byte[1]);
-        Mockito.when(successfulClientInitResult.getDistributionActionResult())
+        when(sypHandler.createSdcDistributionClient()).thenReturn(distributionClient);
+        when(distributionClient.init(any(), any())).thenReturn(successfulClientInitResult);
+        when(distributionClient.start()).thenReturn(successfulClientInitResult);
+        when(distributionClient.stop()).thenReturn(successfulClientInitResult);
+        when(distributionClient.sendComponentDoneStatus(any())).thenReturn(successfulClientInitResult);
+        when(distributionClient.sendComponentDoneStatus(any(), any())).thenReturn(successfulClientInitResult);
+        when(distributionClient.sendDownloadStatus(any())).thenReturn(successfulClientInitResult);
+        when(distributionClient.sendDownloadStatus(any(), any())).thenReturn(successfulClientInitResult);
+        when(distributionClient.sendDeploymentStatus(any())).thenReturn(successfulClientInitResult);
+        when(distributionClient.sendDeploymentStatus(any(), any())).thenReturn(successfulClientInitResult);
+        when(distributionClient.download(any())).thenReturn(successfulClientDownloadResult);
+        when(notificationData.getServiceArtifacts()).thenReturn(List.of(artifactInfo));
+        when(artifactInfo.getArtifactName()).thenReturn(DUMMY_SERVICE_CSAR);
+        when(successfulClientDownloadResult.getArtifactPayload()).thenReturn(new byte[1]);
+        when(successfulClientInitResult.getDistributionActionResult())
             .thenReturn(DistributionActionResultEnum.SUCCESS);
-        Mockito.when(successfulClientDownloadResult.getDistributionActionResult())
+        when(successfulClientDownloadResult.getDistributionActionResult())
             .thenReturn(DistributionActionResultEnum.SUCCESS);
-        Mockito.when(failureClientInitResult.getDistributionActionResult())
+        when(failureClientInitResult.getDistributionActionResult())
             .thenReturn(DistributionActionResultEnum.FAIL);
 
     }
@@ -144,7 +137,7 @@ public class TestSdcReceptionHandler {
     @Test
     public final void testInitializeSdcClient_Failure() {
 
-        Mockito.when(successfulClientInitResult.getDistributionActionResult())
+        when(successfulClientInitResult.getDistributionActionResult())
             .thenReturn(DistributionActionResultEnum.FAIL).thenReturn(DistributionActionResultEnum.SUCCESS);
         assertThatCode(() -> sypHandler.initializeReception(pssdConfigParameters.getName()))
             .doesNotThrowAnyException();
@@ -153,7 +146,7 @@ public class TestSdcReceptionHandler {
     @Test
     public final void testStartSdcClient_Failure() {
         assertThatCode(() -> {
-            Mockito.when(distributionClient.start()).thenReturn(failureClientInitResult)
+            when(distributionClient.start()).thenReturn(failureClientInitResult)
                 .thenReturn(successfulClientInitResult);
             sypHandler.initializeReception(pssdConfigParameters.getName());
         }).doesNotThrowAnyException();
@@ -170,7 +163,7 @@ public class TestSdcReceptionHandler {
     @Test
     public final void testStopSdcClient_Failure() {
         sypHandler.initializeReception(pssdConfigParameters.getName());
-        Mockito.when(distributionClient.stop()).thenReturn(failureClientInitResult)
+        when(distributionClient.stop()).thenReturn(failureClientInitResult)
             .thenReturn(successfulClientInitResult);
         assertThatCode(() -> sypHandler.destroy()).doesNotThrowAnyException();
     }
@@ -211,7 +204,7 @@ public class TestSdcReceptionHandler {
     public void testDownloadArtifactFailure() throws NoSuchFieldException, SecurityException, IllegalArgumentException,
         IllegalAccessException, PluginInitializationException {
 
-        Mockito.when(successfulClientDownloadResult.getDistributionActionResult())
+        when(successfulClientDownloadResult.getDistributionActionResult())
             .thenReturn(DistributionActionResultEnum.FAIL);
 
         final DummyDecoder policyDecoder = new DummyDecoder();
@@ -240,11 +233,11 @@ public class TestSdcReceptionHandler {
     public void testSendDistributionStatusFailure() throws NoSuchFieldException, SecurityException,
         IllegalArgumentException, IllegalAccessException, PluginInitializationException {
 
-        Mockito.when(successfulClientDownloadResult.getDistributionActionResult())
+        when(successfulClientDownloadResult.getDistributionActionResult())
             .thenReturn(DistributionActionResultEnum.FAIL);
-        Mockito.when(distributionClient.sendDownloadStatus(any(), any())).thenReturn(failureClientInitResult);
-        Mockito.when(distributionClient.sendDeploymentStatus(any(), any())).thenReturn(failureClientInitResult);
-        Mockito.when(distributionClient.sendComponentDoneStatus(any(), any())).thenReturn(failureClientInitResult);
+        when(distributionClient.sendDownloadStatus(any(), any())).thenReturn(failureClientInitResult);
+        when(distributionClient.sendDeploymentStatus(any(), any())).thenReturn(failureClientInitResult);
+        when(distributionClient.sendComponentDoneStatus(any(), any())).thenReturn(failureClientInitResult);
 
         final DummyDecoder policyDecoder = new DummyDecoder();
         final Collection<PolicyDecoder<Csar, DummyPolicy>> policyDecoders = new ArrayList<>();

@@ -133,6 +133,22 @@ public class CommonTestData {
     /**
      * Returns an instance of ReceptionHandlerParameters for test cases.
      *
+     * @param port the port
+     * @return the restServerParameters object
+     */
+    public RestServerParameters getRestServerParameters(final int port) {
+        final var fileName = "src/test/resources/parameters/RestServerParameters.json";
+        try {
+            var json = Files.readString(new File(fileName).toPath());
+            return coder.decode(json.replace("6969", String.valueOf(port)), RestServerParameters.class);
+        } catch (final Exception exp) {
+            throw new RuntimeException("cannot read/decode " + fileName, exp);
+        }
+    }
+
+    /**
+     * Returns an instance of ReceptionHandlerParameters for test cases.
+     *
      * @param isEmpty boolean value to represent that object created should be empty or not
      * @return the receptionHandlerParameters object
      */

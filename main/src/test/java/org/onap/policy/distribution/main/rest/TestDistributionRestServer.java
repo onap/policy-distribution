@@ -28,17 +28,16 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.MediaType;
 import java.io.IOException;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.internal.util.reflection.Whitebox;
 import org.onap.policy.common.endpoints.http.server.RestServer;
 import org.onap.policy.common.endpoints.parameters.RestServerParameters;
 import org.onap.policy.common.endpoints.report.HealthCheckReport;
@@ -82,8 +81,7 @@ public class TestDistributionRestServer {
         port = NetworkUtil.allocPort();
         final String reportString =
                 "HealthCheckReport(name=Policy SSD, url=" + SELF + ", healthy=false, code=500, message=not alive)";
-        final RestServerParameters restServerParams = new CommonTestData().getRestServerParameters(false);
-        Whitebox.setInternalState(restServerParams, "port", port);
+        final RestServerParameters restServerParams = new CommonTestData().getRestServerParameters(port);
         restServerParams.setName(CommonTestData.DISTRIBUTION_GROUP_NAME);
         final RestServer restServer = new RestServer(restServerParams, null, DistributionRestController.class);
         restServer.start();
