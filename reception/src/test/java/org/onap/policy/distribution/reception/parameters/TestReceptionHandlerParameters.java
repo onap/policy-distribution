@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 import org.onap.policy.distribution.reception.handling.DummyDecoder;
 
@@ -35,47 +35,47 @@ import org.onap.policy.distribution.reception.handling.DummyDecoder;
  * @author Adheli Tavares (adheli.tavares@est.tech)
  *
  */
-public class TestReceptionHandlerParameters {
+class TestReceptionHandlerParameters {
 
     @Test
-    public void testValidate_ClassNotFound() {
-        final String className = "org.onap.policy.distribution.reception.testclasses.NotExistent";
+    void testValidate_ClassNotFound() {
+        final var className = "org.onap.policy.distribution.reception.testclasses.NotExistent";
 
-        ReceptionHandlerParameters sutParams = getReceptionHandlerParameters(className);
+        var sutParams = getReceptionHandlerParameters(className);
         sutParams.setName(className);
 
         assertThat(sutParams.validate().getResult()).contains("class is not in the classpath");
     }
 
     @Test
-    public void testValidate_ReceptionHandlerTypeNullEmpty() {
-        final String className = DummyDecoder.class.getName();
-        final PluginHandlerParameters pHParameters =
+    void testValidate_ReceptionHandlerTypeNullEmpty() {
+        final var className = DummyDecoder.class.getName();
+        final var pHParameters =
                 new PluginHandlerParameters(getPolicyDecoders(), getPolicyForwarders());
 
-        ReceptionHandlerParameters nullType = new ReceptionHandlerParameters(null, className, className, pHParameters);
+        var nullType = new ReceptionHandlerParameters(null, className, className, pHParameters);
 
         assertThat(nullType.validate().getResult())
                         .contains("\"receptionHandlerType\" value \"null\" INVALID, is null");
 
-        ReceptionHandlerParameters emptyType = new ReceptionHandlerParameters("", className, className, pHParameters);
+        var emptyType = new ReceptionHandlerParameters("", className, className, pHParameters);
 
         assertThat(emptyType.validate().getResult()).contains("\"receptionHandlerType\" value \"\" INVALID, is blank")
                         .doesNotContain("classpath");
     }
 
     @Test
-    public void testValidate_ReceptionHandlerClassNameNullEmpty() {
+    void testValidate_ReceptionHandlerClassNameNullEmpty() {
         final PluginHandlerParameters pHParameters =
                 new PluginHandlerParameters(getPolicyDecoders(), getPolicyForwarders());
 
-        ReceptionHandlerParameters nullType = new ReceptionHandlerParameters("DummyReceptionHandler", null,
+        var nullType = new ReceptionHandlerParameters("DummyReceptionHandler", null,
                 "dummyReceptionHandlerConfiguration", pHParameters);
 
         assertThat(nullType.validate().getResult())
                 .contains("\"receptionHandlerClassName\" value \"null\" INVALID, is null");
 
-        ReceptionHandlerParameters emptyType = new ReceptionHandlerParameters("DummyReceptionHandler", "",
+        var emptyType = new ReceptionHandlerParameters("DummyReceptionHandler", "",
                 "dummyReceptionHandlerConfiguration", pHParameters);
 
         assertThat(emptyType.validate().getResult())
@@ -83,10 +83,10 @@ public class TestReceptionHandlerParameters {
     }
 
     @Test
-    public void testValidate_PluginHandlerParametersNull() {
-        final String className = "org.onap.policy.distribution.reception.testclasses.DummyReceptionHandler";
+    void testValidate_PluginHandlerParametersNull() {
+        final var className = "org.onap.policy.distribution.reception.testclasses.DummyReceptionHandler";
 
-        ReceptionHandlerParameters sutParams = new ReceptionHandlerParameters("DummyReceptionHandler", className,
+        var sutParams = new ReceptionHandlerParameters("DummyReceptionHandler", className,
                 "dummyReceptionHandlerConfiguration", null);
 
         assertThat(sutParams.validate().getResult())
@@ -94,10 +94,10 @@ public class TestReceptionHandlerParameters {
     }
 
     private ReceptionHandlerParameters getReceptionHandlerParameters(String className) {
-        final Map<String, PolicyDecoderParameters> policyDecoders = getPolicyDecoders();
-        final Map<String, PolicyForwarderParameters> policyForwarders = getPolicyForwarders();
-        final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
-        final ReceptionHandlerParameters rhParameters = new ReceptionHandlerParameters("DummyReceptionHandler",
+        final var policyDecoders = getPolicyDecoders();
+        final var policyForwarders = getPolicyForwarders();
+        final var pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
+        final var rhParameters = new ReceptionHandlerParameters("DummyReceptionHandler",
                 className, "dummyReceptionHandlerConfiguration", pHParameters);
         return rhParameters;
     }
@@ -105,7 +105,7 @@ public class TestReceptionHandlerParameters {
     private Map<String, PolicyDecoderParameters> getPolicyDecoders() {
         final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<>();
 
-        final PolicyDecoderParameters pDParameters =
+        final var pDParameters =
                 new PolicyDecoderParameters("DummyDecoder", DummyDecoder.class.getName(), "dummyDecoderConfiguration");
         policyDecoders.put("DummyDecoder", pDParameters);
 
@@ -115,7 +115,7 @@ public class TestReceptionHandlerParameters {
     private Map<String, PolicyForwarderParameters> getPolicyForwarders() {
         final Map<String, PolicyForwarderParameters> policyForwarders = new HashMap<>();
 
-        final PolicyForwarderParameters pFParameters = new PolicyForwarderParameters("DummyForwarder",
+        final var pFParameters = new PolicyForwarderParameters("DummyForwarder",
                         DummyDecoder.class.getName(), "dummyForwarderConfiguration");
         policyForwarders.put("DummyForwarder", pFParameters);
 

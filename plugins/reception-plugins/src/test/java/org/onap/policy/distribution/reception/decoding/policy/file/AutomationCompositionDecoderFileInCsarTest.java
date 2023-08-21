@@ -22,36 +22,31 @@
 package org.onap.policy.distribution.reception.decoding.policy.file;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
-import java.util.Collection;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.handling.sdc.CommonTestData;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
  * Class to perform unit test of {@link AutomationCompositionDecoderFileInCsar}.
  *
  * @author Sirisha Manchikanti (sirisha.manchikanti@est.tech)
  */
-@RunWith(MockitoJUnitRunner.class)
-public class AutomationCompositionDecoderFileInCsarTest {
+class AutomationCompositionDecoderFileInCsarTest {
 
     /**
      * Set up.
      */
-    @BeforeClass
-    public static void setUp() {
-        final AutomationCompositionDecoderFileInCsarParameterGroup configurationParameters = CommonTestData
+    @BeforeAll
+    static void setUp() {
+        final var configurationParameters = CommonTestData
                 .getPolicyDecoderParameters(
                     "src/test/resources/parameters/FileInCsarAutomationCompositionDecoderParameters.json",
                     AutomationCompositionDecoderFileInCsarParameterGroup.class);
@@ -62,33 +57,33 @@ public class AutomationCompositionDecoderFileInCsarTest {
     /**
      * Tear down.
      */
-    @AfterClass
-    public static void tearDown() {
+    @AfterAll
+    static void tearDown() {
         ParameterService.deregister(AutomationCompositionDecoderFileInCsarParameterGroup.class.getSimpleName());
     }
 
     @Test
-    public void testDecodeAutomationComposition() throws PolicyDecodingException {
+    void testDecodeAutomationComposition() throws PolicyDecodingException {
 
-        final AutomationCompositionDecoderFileInCsar decoder = new AutomationCompositionDecoderFileInCsar();
+        final var decoder = new AutomationCompositionDecoderFileInCsar();
         decoder.configure(AutomationCompositionDecoderFileInCsarParameterGroup.class.getSimpleName());
 
-        final File file = new File("src/test/resources/service-Sampleservice-acm.csar");
-        final Csar csar = new Csar(file.getAbsolutePath());
+        final var file = new File("src/test/resources/service-Sampleservice-acm.csar");
+        final var csar = new Csar(file.getAbsolutePath());
 
         assertTrue(decoder.canHandle(csar));
-        final Collection<ToscaEntity> automationCompositionHolders = decoder.decode(csar);
+        final var automationCompositionHolders = decoder.decode(csar);
         assertEquals(1, automationCompositionHolders.size());
     }
 
     @Test
-    public void testDecodeAutomationCompositionZipError() {
+    void testDecodeAutomationCompositionZipError() {
 
-        final AutomationCompositionDecoderFileInCsar decoder = new AutomationCompositionDecoderFileInCsar();
+        final var decoder = new AutomationCompositionDecoderFileInCsar();
         decoder.configure(AutomationCompositionDecoderFileInCsarParameterGroup.class.getSimpleName());
 
-        final File file = new File("unknown.csar");
-        final Csar csar = new Csar(file.getAbsolutePath());
+        final var file = new File("unknown.csar");
+        final var csar = new Csar(file.getAbsolutePath());
 
         assertTrue(decoder.canHandle(csar));
         assertThatThrownBy(() -> decoder.decode(csar)).isInstanceOf(PolicyDecodingException.class)

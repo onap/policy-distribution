@@ -25,22 +25,17 @@ package org.onap.policy.distribution.main.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.MediaType;
 import java.io.IOException;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.internal.util.reflection.Whitebox;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.endpoints.http.server.RestServer;
-import org.onap.policy.common.endpoints.parameters.RestServerParameters;
 import org.onap.policy.common.endpoints.report.HealthCheckReport;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.network.NetworkUtil;
@@ -53,7 +48,7 @@ import org.onap.policy.distribution.main.startstop.Main;
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class TestDistributionRestServer {
+class TestDistributionRestServer {
 
     private static final String NOT_ALIVE = "not alive";
     private static final String ALIVE = "alive";
@@ -62,32 +57,31 @@ public class TestDistributionRestServer {
 
     private int port;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         ParameterService.clear();
     }
 
     @Test
-    public void testHealthCheckSuccess() throws IOException, InterruptedException {
-        final String reportString =
+    void testHealthCheckSuccess() throws IOException, InterruptedException {
+        final var reportString =
                         "HealthCheckReport(name=Policy SSD, url=" + SELF + ", healthy=true, code=200, message=alive)";
-        final Main main = startDistributionService();
-        final HealthCheckReport report = performHealthCheck();
+        final var main = startDistributionService();
+        final var report = performHealthCheck();
         validateReport(NAME, SELF, true, 200, ALIVE, reportString, report);
         assertThatCode(() -> stopDistributionService(main)).doesNotThrowAnyException();
     }
 
     @Test
-    public void testHealthCheckFailure() throws IOException, InterruptedException {
+    void testHealthCheckFailure() throws IOException, InterruptedException {
         port = NetworkUtil.allocPort();
-        final String reportString =
+        final var reportString =
                 "HealthCheckReport(name=Policy SSD, url=" + SELF + ", healthy=false, code=500, message=not alive)";
-        final RestServerParameters restServerParams = new CommonTestData().getRestServerParameters(false);
-        Whitebox.setInternalState(restServerParams, "port", port);
+        final var restServerParams = new CommonTestData().getRestServerParameters(port);
         restServerParams.setName(CommonTestData.DISTRIBUTION_GROUP_NAME);
-        final RestServer restServer = new RestServer(restServerParams, null, DistributionRestController.class);
+        final var restServer = new RestServer(restServerParams, null, DistributionRestController.class);
         restServer.start();
-        final HealthCheckReport report = performHealthCheck();
+        final var report = performHealthCheck();
         validateReport(NAME, SELF, false, 500, NOT_ALIVE, reportString, report);
         assertTrue(restServer.isAlive());
         assertThat(restServer.toString()).startsWith("RestServer(servers=");
@@ -104,16 +98,16 @@ public class TestDistributionRestServer {
         main.shutdown();
     }
 
-    private HealthCheckReport performHealthCheck() throws InterruptedException, IOException {
-        final ClientConfig clientConfig = new ClientConfig();
+    private HealthCheckReport performHealthCheck() throws InterruptedException {
+        final var clientConfig = new ClientConfig();
 
-        final HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("healthcheck", "zb!XztG34");
+        final var feature = HttpAuthenticationFeature.basic("healthcheck", "zb!XztG34");
         clientConfig.register(feature);
 
-        final Client client = ClientBuilder.newClient(clientConfig);
-        final WebTarget webTarget = client.target("http://localhost:" + port + "/healthcheck");
+        final var client = ClientBuilder.newClient(clientConfig);
+        final var webTarget = client.target("http://localhost:" + port + "/healthcheck");
 
-        final Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
+        final var invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 
         CommonTestData.awaitServer(port);
         return invocationBuilder.get(HealthCheckReport.class);

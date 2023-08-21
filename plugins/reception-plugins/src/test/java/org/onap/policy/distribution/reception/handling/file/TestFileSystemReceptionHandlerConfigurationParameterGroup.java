@@ -24,64 +24,58 @@
 package org.onap.policy.distribution.reception.handling.file;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-import org.onap.policy.common.parameters.ValidationResult;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 /**
  * Class to perform unit test of {@link FileSystemReceptionHandlerConfigurationParameterGroup}.
  *
  */
-public class TestFileSystemReceptionHandlerConfigurationParameterGroup {
-    @Rule
-    public TemporaryFolder tempFolder = new TemporaryFolder();
+class TestFileSystemReceptionHandlerConfigurationParameterGroup {
+
+    @TempDir
+    private File tempFolder;
 
     @Test
-    public void testFileSystemConfiguration() throws IOException {
-        FileSystemReceptionHandlerConfigurationParameterGroup configParameters = null;
-        String validPath = null;
+    void testFileSystemConfiguration() throws IOException {
+        String validPath = tempFolder.getPath();
 
-        validPath = tempFolder.getRoot().getAbsolutePath();
-
-        configParameters = new FileSystemReceptionHandlerConfigurationParameterGroup();
+        var configParameters = new FileSystemReceptionHandlerConfigurationParameterGroup();
         configParameters.setWatchPath(validPath);
         configParameters.setMaxThread(2);
 
-        final ValidationResult validationResult = configParameters.validate();
+        final var validationResult = configParameters.validate();
         assertTrue(validationResult.isValid());
         assertEquals(validPath, configParameters.getWatchPath());
         assertEquals(2, configParameters.getMaxThread());
     }
 
     @Test
-    public void testInvalidFileSystemConfiguration() throws IOException {
-        FileSystemReceptionHandlerConfigurationParameterGroup configParameters = null;
-        final Gson gson = new GsonBuilder().create();
-        configParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdcInvalid.json"),
+    void testInvalidFileSystemConfiguration() throws IOException {
+        final var gson = new GsonBuilder().create();
+        var configParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdcInvalid.json"),
                 FileSystemReceptionHandlerConfigurationParameterGroup.class);
-        final ValidationResult validationResult = configParameters.validate();
+        final var validationResult = configParameters.validate();
         assertFalse(validationResult.isValid());
 
     }
 
     @Test
-    public void testFileSystemReceptionHandlerConfigurationParameterBuilderWithInvalidPath() throws IOException {
-        final String invalidPath = tempFolder.newFile("foobar").getAbsolutePath();
+    void testFileSystemReceptionHandlerConfigurationParameterBuilderWithInvalidPath() throws IOException {
+        final var invalidPath = new File(tempFolder, "foobar").getAbsolutePath();
 
-        final FileSystemReceptionHandlerConfigurationParameterGroup configParameters =
-                new FileSystemReceptionHandlerConfigurationParameterGroup();
+        final var configParameters = new FileSystemReceptionHandlerConfigurationParameterGroup();
         configParameters.setWatchPath(invalidPath);
 
-        final ValidationResult validateResult = configParameters.validate();
+        final var validateResult = configParameters.validate();
         assertFalse(validateResult.isValid());
         assertThat(validateResult.getResult()).contains("is not a valid directory");
     }

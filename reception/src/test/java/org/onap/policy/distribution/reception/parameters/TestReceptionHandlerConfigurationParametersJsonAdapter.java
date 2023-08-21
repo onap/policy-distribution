@@ -21,19 +21,16 @@
 package org.onap.policy.distribution.reception.parameters;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.distribution.reception.testclasses.DummyReceptionHandlerParameterGroup;
 
 /**
@@ -42,17 +39,17 @@ import org.onap.policy.distribution.reception.testclasses.DummyReceptionHandlerP
  * @author Adheli Tavares (adheli.tavares@est.tech)
  *
  */
-public class TestReceptionHandlerConfigurationParametersJsonAdapter {
+class TestReceptionHandlerConfigurationParametersJsonAdapter {
 
     @Test
-    public void testDeserialize() throws JsonSyntaxException, IOException {
-        final String validJsonFile = "src/test/resources/ReceptionHandlerConfiguration.json";
-        final JsonElement mockJsonElement = JsonParser.parseString(getJsonValues(validJsonFile));
+    void testDeserialize() throws JsonSyntaxException, IOException {
+        final var validJsonFile = "src/test/resources/ReceptionHandlerConfiguration.json";
+        final var mockJsonElement = JsonParser.parseString(getJsonValues(validJsonFile));
 
-        Gson gson = new GsonBuilder().registerTypeAdapter(ReceptionHandlerConfigurationParameterGroup.class,
+        var gson = new GsonBuilder().registerTypeAdapter(ReceptionHandlerConfigurationParameterGroup.class,
                 new ReceptionHandlerConfigurationParametersJsonAdapter()).create();
 
-        ReceptionHandlerConfigurationParameterGroup result =
+        var result =
                 gson.fromJson(mockJsonElement, ReceptionHandlerConfigurationParameterGroup.class);
 
         assertNotNull(result);
@@ -60,34 +57,34 @@ public class TestReceptionHandlerConfigurationParametersJsonAdapter {
     }
 
     @Test
-    public void testDeserialize_shouldThrowExceptionEmptyClassName() throws JsonSyntaxException, IOException {
-        final String jsonFile = "src/test/resources/EmptyClassName.json";
-        String expectedErrorMsg = "parameter \"parameterClassName\" value \"\" invalid in JSON file";
+    void testDeserialize_shouldThrowExceptionEmptyClassName() throws JsonSyntaxException, IOException {
+        final var jsonFile = "src/test/resources/EmptyClassName.json";
+        var expectedErrorMsg = "parameter \"parameterClassName\" value \"\" invalid in JSON file";
 
         validateParsing(jsonFile, expectedErrorMsg);
     }
 
     @Test
-    public void testDeserialize_shouldThrowExceptionNullClassName() throws JsonSyntaxException, IOException {
-        final String jsonFile = "src/test/resources/NullClassName.json";
-        String expectedErrorMsg = "parameter \"parameterClassName\" value \"null\" invalid in JSON file";
+    void testDeserialize_shouldThrowExceptionNullClassName() throws JsonSyntaxException, IOException {
+        final var jsonFile = "src/test/resources/NullClassName.json";
+        var expectedErrorMsg = "parameter \"parameterClassName\" value \"null\" invalid in JSON file";
 
         validateParsing(jsonFile, expectedErrorMsg);
     }
 
     @Test
-    public void testDeserialize_shouldThrowExceptionWrongClassName() throws JsonSyntaxException, IOException {
-        final String jsonFile = "src/test/resources/WrongClassName.json";
-        String expectedErrorMsg = "parameter \"parameterClassName\" value "
+    void testDeserialize_shouldThrowExceptionWrongClassName() throws JsonSyntaxException, IOException {
+        final var jsonFile = "src/test/resources/WrongClassName.json";
+        var expectedErrorMsg = "parameter \"parameterClassName\" value "
                 + "\"org.onap.policy.distribution.reception.testclasses.NotExistentClass\", could not find class";
 
         validateParsing(jsonFile, expectedErrorMsg);
     }
 
     private void validateParsing(final String jsonFile, String expectedErrorMsg) throws IOException {
-        final JsonElement mockJsonElement = JsonParser.parseString(getJsonValues(jsonFile));
+        final var mockJsonElement = JsonParser.parseString(getJsonValues(jsonFile));
 
-        Gson gson = new GsonBuilder().registerTypeAdapter(ReceptionHandlerConfigurationParameterGroup.class,
+        var gson = new GsonBuilder().registerTypeAdapter(ReceptionHandlerConfigurationParameterGroup.class,
                 new ReceptionHandlerConfigurationParametersJsonAdapter()).create();
 
         assertThatThrownBy(() -> gson.fromJson(mockJsonElement, ReceptionHandlerConfigurationParameterGroup.class))
@@ -95,7 +92,6 @@ public class TestReceptionHandlerConfigurationParametersJsonAdapter {
     }
 
     private String getJsonValues(String path) throws IOException {
-        return new String(Files.readAllBytes(new File(path).toPath()), StandardCharsets.UTF_8);
+        return Files.readString(new File(path).toPath());
     }
-
 }

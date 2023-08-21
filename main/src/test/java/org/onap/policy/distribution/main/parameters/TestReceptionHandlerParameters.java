@@ -22,13 +22,11 @@
 package org.onap.policy.distribution.main.parameters;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
-import org.onap.policy.common.parameters.ValidationResult;
-import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
 
 /**
@@ -36,16 +34,16 @@ import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParamet
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class TestReceptionHandlerParameters {
+class TestReceptionHandlerParameters {
     CommonTestData commonTestData = new CommonTestData();
 
     @Test
-    public void testReceptionHandlerParameters() {
-        final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
-        final ReceptionHandlerParameters rHParameters = new ReceptionHandlerParameters(
+    void testReceptionHandlerParameters() {
+        final var pHParameters = commonTestData.getPluginHandlerParameters(false);
+        final var rHParameters = new ReceptionHandlerParameters(
                 CommonTestData.RECEPTION_HANDLER_TYPE, CommonTestData.RECEPTION_HANDLER_CLASS_NAME,
                 CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
-        final ValidationResult validationResult = rHParameters.validate();
+        final var validationResult = rHParameters.validate();
         assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, rHParameters.getReceptionHandlerType());
         assertEquals(CommonTestData.RECEPTION_HANDLER_CLASS_NAME, rHParameters.getReceptionHandlerClassName());
         assertEquals(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS,
@@ -55,13 +53,13 @@ public class TestReceptionHandlerParameters {
     }
 
     @Test
-    public void testReceptionHandlerParameters_NullReceptionHandlerType() {
-        final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
-        final ReceptionHandlerParameters rHParameters =
+    void testReceptionHandlerParameters_NullReceptionHandlerType() {
+        final var pHParameters = commonTestData.getPluginHandlerParameters(false);
+        final var rHParameters =
                 new ReceptionHandlerParameters(null, CommonTestData.RECEPTION_HANDLER_CLASS_NAME,
                         CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
-        final ValidationResult validationResult = rHParameters.validate();
-        assertEquals(null, rHParameters.getReceptionHandlerType());
+        final var validationResult = rHParameters.validate();
+        assertThat(rHParameters.getReceptionHandlerType()).isNull();
         assertEquals(CommonTestData.RECEPTION_HANDLER_CLASS_NAME, rHParameters.getReceptionHandlerClassName());
         assertEquals(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS,
                 rHParameters.getReceptionHandlerConfigurationName());
@@ -71,14 +69,14 @@ public class TestReceptionHandlerParameters {
     }
 
     @Test
-    public void testReceptionHandlerParameters_NullReceptionHandlerClassName() {
-        final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
-        final ReceptionHandlerParameters rHParameters =
+    void testReceptionHandlerParameters_NullReceptionHandlerClassName() {
+        final var pHParameters = commonTestData.getPluginHandlerParameters(false);
+        final var rHParameters =
                 new ReceptionHandlerParameters(CommonTestData.RECEPTION_HANDLER_TYPE, null,
                         CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
-        final ValidationResult validationResult = rHParameters.validate();
+        final var validationResult = rHParameters.validate();
         assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, rHParameters.getReceptionHandlerType());
-        assertEquals(null, rHParameters.getReceptionHandlerClassName());
+        assertThat(rHParameters.getReceptionHandlerClassName()).isNull();
         assertEquals(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS,
                 rHParameters.getReceptionHandlerConfigurationName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
@@ -88,12 +86,12 @@ public class TestReceptionHandlerParameters {
     }
 
     @Test
-    public void testReceptionHandlerParameters_EmptyReceptionHandlerType() {
-        final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
-        final ReceptionHandlerParameters rHParameters =
+    void testReceptionHandlerParameters_EmptyReceptionHandlerType() {
+        final var pHParameters = commonTestData.getPluginHandlerParameters(false);
+        final var rHParameters =
                 new ReceptionHandlerParameters("", CommonTestData.RECEPTION_HANDLER_CLASS_NAME,
                         CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
-        final ValidationResult validationResult = rHParameters.validate();
+        final var validationResult = rHParameters.validate();
         assertEquals("", rHParameters.getReceptionHandlerType());
         assertEquals(CommonTestData.RECEPTION_HANDLER_CLASS_NAME, rHParameters.getReceptionHandlerClassName());
         assertEquals(pHParameters, rHParameters.getPluginHandlerParameters());
@@ -102,12 +100,12 @@ public class TestReceptionHandlerParameters {
     }
 
     @Test
-    public void testReceptionHandlerParameters_EmptyReceptionHandlerClassName() {
-        final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
-        final ReceptionHandlerParameters rHParameters =
+    void testReceptionHandlerParameters_EmptyReceptionHandlerClassName() {
+        final var pHParameters = commonTestData.getPluginHandlerParameters(false);
+        final var rHParameters =
                 new ReceptionHandlerParameters(CommonTestData.RECEPTION_HANDLER_TYPE, "",
                         CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
-        final ValidationResult validationResult = rHParameters.validate();
+        final var validationResult = rHParameters.validate();
         assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, rHParameters.getReceptionHandlerType());
         assertEquals("", rHParameters.getReceptionHandlerClassName());
         assertEquals(CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS,
@@ -118,24 +116,24 @@ public class TestReceptionHandlerParameters {
     }
 
     @Test
-    public void testReceptionHandlerParameters_EmptyPluginHandler() {
-        final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(true);
-        final ReceptionHandlerParameters rHParameters = new ReceptionHandlerParameters(
+    void testReceptionHandlerParameters_EmptyPluginHandler() {
+        final var pHParameters = commonTestData.getPluginHandlerParameters(true);
+        final var rHParameters = new ReceptionHandlerParameters(
                 CommonTestData.RECEPTION_HANDLER_TYPE, CommonTestData.RECEPTION_HANDLER_CLASS_NAME,
                 CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
-        ValidationResult result = rHParameters.validate();
+        var result = rHParameters.validate();
         assertFalse(result.isValid());
         assertThat(result.getResult()).contains("\"policyForwarders\"", "minimum");
     }
 
     @Test
-    public void testReceptionHandlerParameters_InvalidReceptionHandlerClass() {
-        final PluginHandlerParameters pHParameters = commonTestData.getPluginHandlerParameters(false);
+    void testReceptionHandlerParameters_InvalidReceptionHandlerClass() {
+        final var pHParameters = commonTestData.getPluginHandlerParameters(false);
 
-        final ReceptionHandlerParameters rHParameters = new ReceptionHandlerParameters(
+        final var rHParameters = new ReceptionHandlerParameters(
                 CommonTestData.RECEPTION_HANDLER_TYPE, CommonTestData.RECEPTION_HANDLER_CLASS_NAME + "Invalid",
                 CommonTestData.RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
-        final ValidationResult validationResult = rHParameters.validate();
+        final var validationResult = rHParameters.validate();
         assertEquals(CommonTestData.RECEPTION_HANDLER_TYPE, rHParameters.getReceptionHandlerType());
         assertEquals(CommonTestData.RECEPTION_HANDLER_CLASS_NAME + "Invalid",
                 rHParameters.getReceptionHandlerClassName());

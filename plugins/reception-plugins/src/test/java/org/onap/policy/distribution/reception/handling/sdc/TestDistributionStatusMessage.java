@@ -21,22 +21,22 @@
 
 package org.onap.policy.distribution.reception.handling.sdc;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.sdc.utils.DistributionStatusEnum;
 
-public class TestDistributionStatusMessage {
+class TestDistributionStatusMessage {
 
     private static final String ARTIFACT_URL = "http://dummyurl";
     private static final String CONSUMER_ID = "dummyId";
     private static final String DISTRIBUTION_ID = "dummyDistribution";
 
     @Test
-    public void testDistributionStatusMessage_Download() {
-        final long timestamp = System.currentTimeMillis();
+    void testDistributionStatusMessage_Download() {
+        final var timestamp = System.currentTimeMillis();
 
-        final DistributionStatusMessage message = DistributionStatusMessage.builder().artifactUrl(ARTIFACT_URL)
+        final var message = DistributionStatusMessage.builder().artifactUrl(ARTIFACT_URL)
                         .consumerId(CONSUMER_ID).distributionId(DISTRIBUTION_ID)
                         .distributionStatus(DistributionStatusEnum.DOWNLOAD_OK).timestamp(timestamp).build();
         assertEquals(ARTIFACT_URL, message.getArtifactURL());
@@ -47,10 +47,10 @@ public class TestDistributionStatusMessage {
     }
 
     @Test
-    public void testDistributionStatusMessage_Deploy() {
-        final long timestamp = System.currentTimeMillis();
+    void testDistributionStatusMessage_Deploy() {
+        final var timestamp = System.currentTimeMillis();
 
-        final DistributionStatusMessage message = DistributionStatusMessage.builder().artifactUrl(ARTIFACT_URL)
+        final var message = DistributionStatusMessage.builder().artifactUrl(ARTIFACT_URL)
                         .consumerId(CONSUMER_ID).distributionId(DISTRIBUTION_ID)
                         .distributionStatus(DistributionStatusEnum.DEPLOY_OK).timestamp(timestamp).build();
         assertEquals(ARTIFACT_URL, message.getArtifactURL());

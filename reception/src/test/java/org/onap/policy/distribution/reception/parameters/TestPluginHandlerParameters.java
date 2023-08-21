@@ -25,8 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
-import org.onap.policy.common.parameters.ValidationResult;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 
 /**
@@ -35,29 +34,29 @@ import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParamet
  * @author Adheli Tavares (adheli.tavares@est.tech)
  *
  */
-public class TestPluginHandlerParameters {
+class TestPluginHandlerParameters {
 
     @Test
-    public void testValidate_PolicyDecodersEmpty() {
-        PluginHandlerParameters emptyDecoder = new PluginHandlerParameters(new HashMap<>(), getPolicyForwarders());
+    void testValidate_PolicyDecodersEmpty() {
+        var emptyDecoder = new PluginHandlerParameters(new HashMap<>(), getPolicyForwarders());
 
-        ValidationResult result = emptyDecoder.validate();
+        var result = emptyDecoder.validate();
 
         assertThat(result.getResult()).contains("\"policyDecoders\"", "minimum").doesNotContain("\"policyForwarders\"");
     }
 
     @Test
-    public void testValidate_PolicyForwardersNullEmpty() {
-        PluginHandlerParameters emptyDecoder = new PluginHandlerParameters(getPolicyDecoders(), new HashMap<>());
+    void testValidate_PolicyForwardersNullEmpty() {
+        var emptyDecoder = new PluginHandlerParameters(getPolicyDecoders(), new HashMap<>());
 
-        ValidationResult result = emptyDecoder.validate();
+        var result = emptyDecoder.validate();
 
         assertThat(result.getResult()).contains("\"policyForwarders\"", "minimum").doesNotContain("\"policyDecoders\"");
     }
 
     private Map<String, PolicyDecoderParameters> getPolicyDecoders() {
         final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<>();
-        final PolicyDecoderParameters pDParameters =
+        final var pDParameters =
                 new PolicyDecoderParameters("DummyDecoder", getClass().getName(), "dummyDecoderConfiguration");
         policyDecoders.put("DummyDecoder", pDParameters);
 
@@ -66,7 +65,7 @@ public class TestPluginHandlerParameters {
 
     private Map<String, PolicyForwarderParameters> getPolicyForwarders() {
         final Map<String, PolicyForwarderParameters> policyForwarders = new HashMap<>();
-        final PolicyForwarderParameters pFParameters =
+        final var pFParameters =
                 new PolicyForwarderParameters("DummyForwarder", getClass().getName(), "dummyForwarderConfiguration");
         policyForwarders.put("DummyForwarder", pFParameters);
 

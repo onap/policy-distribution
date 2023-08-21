@@ -22,8 +22,9 @@
 package org.onap.policy.distribution.reception.handling.file;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.io.FileReader;
@@ -31,14 +32,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
@@ -48,13 +46,12 @@ import org.slf4j.LoggerFactory;
 /**
  * Class to perform unit test of {@link FileSystemReceptionHandler}.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class TestFileSystemReceptionHandler {
+class TestFileSystemReceptionHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TestFileSystemReceptionHandler.class);
 
-    @Rule
-    public TemporaryFolder tempFolder = new TemporaryFolder();
+    @TempDir
+    public File tempFolder;
 
     private FileSystemReceptionHandlerConfigurationParameterGroup pssdConfigParameters;
     private FileSystemReceptionHandler fileSystemHandler;
@@ -67,25 +64,25 @@ public class TestFileSystemReceptionHandler {
      * @throws SecurityException if it occurs
      * @throws IllegalArgumentException if it occurs
      */
-    @Before
-    public final void init() throws IOException, SecurityException, IllegalArgumentException {
+    @BeforeEach
+    final void init() throws IOException, SecurityException, IllegalArgumentException {
         DistributionStatisticsManager.resetAllStatistics();
 
-        final Gson gson = new GsonBuilder().create();
+        final var gson = new GsonBuilder().create();
         pssdConfigParameters = gson.fromJson(new FileReader("src/test/resources/handling-filesystem.json"),
                 FileSystemReceptionHandlerConfigurationParameterGroup.class);
         ParameterService.register(pssdConfigParameters);
         fileSystemHandler = new FileSystemReceptionHandler();
     }
 
-    @After
-    public void teardown() {
+    @AfterEach
+    void teardown() {
         ParameterService.deregister(pssdConfigParameters);
     }
 
     @Test
-    public final void testInit() throws IOException {
-        FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
+    final void testInit() throws IOException {
+        var sypHandler = spy(fileSystemHandler);
         Mockito.doNothing().when(sypHandler).initFileWatcher(Mockito.isA(String.class),
                 Mockito.anyInt());
         assertThatCode(() -> sypHandler.initializeReception(pssdConfigParameters.getName()))
@@ -93,8 +90,8 @@ public class TestFileSystemReceptionHandler {
     }
 
     @Test
-    public final void testDestroy() throws IOException {
-        final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
+    final void testDestroy() throws IOException {
+        final var sypHandler = spy(fileSystemHandler);
         Mockito.doNothing().when(sypHandler).initFileWatcher(Mockito.isA(String.class),
                 Mockito.anyInt());
         assertThatCode(() -> {
@@ -104,17 +101,17 @@ public class TestFileSystemReceptionHandler {
     }
 
     @Test
-    public void testMain() throws IOException {
-        final Object lock = new Object();
-        final String watchPath = tempFolder.getRoot().getAbsolutePath();
+    void testMain() throws IOException {
+        final var lock = new Object();
+        final var watchPath = tempFolder.getAbsolutePath();
 
         class Processed {
             public boolean processed = false;
         }
 
-        final Processed cond = new Processed();
+        final var cond = new Processed();
 
-        final FileSystemReceptionHandler sypHandler = Mockito.spy(fileSystemHandler);
+        final var sypHandler = Mockito.spy(fileSystemHandler);
         Mockito.doAnswer((Answer<Object>) invocation -> {
             synchronized (lock) {
                 cond.processed = true;
@@ -123,7 +120,7 @@ public class TestFileSystemReceptionHandler {
             return null;
         }).when(sypHandler).createPolicyInputAndCallHandler(Mockito.isA(String.class));
 
-        final Thread th = new Thread(() -> {
+        final var th = new Thread(() -> {
             try {
                 sypHandler.initFileWatcher(watchPath, 2);
             } catch (final IOException ex) {
@@ -134,7 +131,7 @@ public class TestFileSystemReceptionHandler {
         th.start();
         try {
             // wait until internal watch service started or counter reached
-            final AtomicInteger counter = new AtomicInteger();
+            final var counter = new AtomicInteger();
             counter.set(0);
             synchronized (lock) {
                 while (!sypHandler.isRunning() && counter.getAndIncrement() < 10) {
@@ -156,8 +153,7 @@ public class TestFileSystemReceptionHandler {
         } catch (final InterruptedException ex) {
             LOGGER.error("testMain failed", ex);
         }
-        Mockito.verify(sypHandler, Mockito.times(1)).createPolicyInputAndCallHandler(Mockito.isA(String.class));
+        verify(sypHandler, Mockito.times(1)).createPolicyInputAndCallHandler(Mockito.isA(String.class));
 
     }
 }
-

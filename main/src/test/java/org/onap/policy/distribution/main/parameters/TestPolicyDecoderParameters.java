@@ -22,15 +22,14 @@
 package org.onap.policy.distribution.main.parameters;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.onap.policy.distribution.main.parameters.CommonTestData.DECODER_CLASS_NAME;
 import static org.onap.policy.distribution.main.parameters.CommonTestData.DECODER_CONFIGURATION_PARAMETERS;
 import static org.onap.policy.distribution.main.parameters.CommonTestData.DECODER_TYPE;
 
-import org.junit.Test;
-import org.onap.policy.common.parameters.ValidationResult;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
 
 /**
@@ -38,13 +37,13 @@ import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class TestPolicyDecoderParameters {
+class TestPolicyDecoderParameters {
 
     @Test
-    public void testPolicyDecoderParameters() {
-        final PolicyDecoderParameters pDParameters =
+    void testPolicyDecoderParameters() {
+        final var pDParameters =
                 new PolicyDecoderParameters(DECODER_TYPE, DECODER_CLASS_NAME, DECODER_CONFIGURATION_PARAMETERS);
-        final ValidationResult validationResult = pDParameters.validate();
+        final var validationResult = pDParameters.validate();
         assertEquals(DECODER_TYPE, pDParameters.getDecoderType());
         assertEquals(DECODER_CLASS_NAME, pDParameters.getDecoderClassName());
         assertEquals(DECODER_CONFIGURATION_PARAMETERS, pDParameters.getDecoderConfigurationName());
@@ -52,10 +51,10 @@ public class TestPolicyDecoderParameters {
     }
 
     @Test
-    public void testPolicyDecoderParameters_InvalidDecoderType() {
-        final PolicyDecoderParameters pDParameters =
+    void testPolicyDecoderParameters_InvalidDecoderType() {
+        final var pDParameters =
                 new PolicyDecoderParameters("", DECODER_CLASS_NAME, DECODER_CONFIGURATION_PARAMETERS);
-        final ValidationResult validationResult = pDParameters.validate();
+        final var validationResult = pDParameters.validate();
         assertEquals("", pDParameters.getDecoderType());
         assertEquals(DECODER_CLASS_NAME, pDParameters.getDecoderClassName());
         assertFalse(validationResult.isValid());
@@ -63,10 +62,10 @@ public class TestPolicyDecoderParameters {
     }
 
     @Test
-    public void testPolicyDecoderParameters_InvalidDecoderClassName() {
-        final PolicyDecoderParameters pDParameters =
+    void testPolicyDecoderParameters_InvalidDecoderClassName() {
+        final var pDParameters =
                 new PolicyDecoderParameters(DECODER_TYPE, "", DECODER_CONFIGURATION_PARAMETERS);
-        final ValidationResult validationResult = pDParameters.validate();
+        final var validationResult = pDParameters.validate();
         assertEquals(DECODER_TYPE, pDParameters.getDecoderType());
         assertEquals("", pDParameters.getDecoderClassName());
         assertFalse(validationResult.isValid());
@@ -74,10 +73,10 @@ public class TestPolicyDecoderParameters {
     }
 
     @Test
-    public void testPolicyDecoderParameters_InvalidDecoderTypeAndClassName() {
-        final PolicyDecoderParameters pDParameters =
+    void testPolicyDecoderParameters_InvalidDecoderTypeAndClassName() {
+        final var pDParameters =
                 new PolicyDecoderParameters("", "", DECODER_CONFIGURATION_PARAMETERS);
-        final ValidationResult validationResult = pDParameters.validate();
+        final var validationResult = pDParameters.validate();
         assertEquals("", pDParameters.getDecoderType());
         assertEquals("", pDParameters.getDecoderClassName());
         assertFalse(validationResult.isValid());
@@ -86,32 +85,32 @@ public class TestPolicyDecoderParameters {
     }
 
     @Test
-    public void testPolicyDecoderParameters_NullDecoderType() {
-        final PolicyDecoderParameters pDParameters =
+    void testPolicyDecoderParameters_NullDecoderType() {
+        final var pDParameters =
                 new PolicyDecoderParameters(null, DECODER_CLASS_NAME, DECODER_CONFIGURATION_PARAMETERS);
-        final ValidationResult validationResult = pDParameters.validate();
-        assertEquals(null, pDParameters.getDecoderType());
+        final var validationResult = pDParameters.validate();
+        assertThat(pDParameters.getDecoderType()).isNull();
         assertEquals(DECODER_CLASS_NAME, pDParameters.getDecoderClassName());
         assertFalse(validationResult.isValid());
         assertThat(validationResult.getResult()).contains("\"decoderType\" value \"null\" INVALID, is null");
     }
 
     @Test
-    public void testPolicyDecoderParameters_NullDecoderClassName() {
-        final PolicyDecoderParameters pDParameters =
+    void testPolicyDecoderParameters_NullDecoderClassName() {
+        final var pDParameters =
                 new PolicyDecoderParameters(DECODER_TYPE, null, DECODER_CONFIGURATION_PARAMETERS);
-        final ValidationResult validationResult = pDParameters.validate();
+        final var validationResult = pDParameters.validate();
         assertEquals(DECODER_TYPE, pDParameters.getDecoderType());
-        assertEquals(null, pDParameters.getDecoderClassName());
+        assertThat(pDParameters.getDecoderClassName()).isNull();
         assertFalse(validationResult.isValid());
         assertThat(validationResult.getResult()).contains("\"decoderClassName\" value \"null\" INVALID, is null");
     }
 
     @Test
-    public void testPolicyDecoderParameters_InvalidDecoderClass() {
-        final PolicyDecoderParameters pDParameters = new PolicyDecoderParameters(DECODER_TYPE,
+    void testPolicyDecoderParameters_InvalidDecoderClass() {
+        final var pDParameters = new PolicyDecoderParameters(DECODER_TYPE,
                 DECODER_CLASS_NAME + "Invalid", DECODER_CONFIGURATION_PARAMETERS);
-        final ValidationResult validationResult = pDParameters.validate();
+        final var validationResult = pDParameters.validate();
         assertEquals(DECODER_TYPE, pDParameters.getDecoderType());
         assertEquals(DECODER_CLASS_NAME + "Invalid", pDParameters.getDecoderClassName());
         assertFalse(validationResult.isValid());

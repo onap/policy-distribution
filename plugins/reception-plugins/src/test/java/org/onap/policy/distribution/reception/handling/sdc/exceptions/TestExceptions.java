@@ -20,13 +20,13 @@
 
 package org.onap.policy.distribution.reception.handling.sdc.exceptions;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.utils.test.ExceptionsTester;
 
-public class TestExceptions {
+class TestExceptions {
 
     @Test
-    public void test() {
+    void test() {
         new ExceptionsTester().test(ArtifactDownloadException.class);
     }
 }

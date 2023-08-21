@@ -22,10 +22,10 @@
 package org.onap.policy.distribution.forwarding.lifecycle.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.distribution.forwarding.testclasses.CommonTestData;
 
@@ -34,7 +34,7 @@ import org.onap.policy.distribution.forwarding.testclasses.CommonTestData;
  *
  * @author Sirisha Manchikanti (sirisha.manchikanti@est.tech)
  */
-public class LifecycleApiAutomationCompositionForwarderParametersTest {
+class LifecycleApiAutomationCompositionForwarderParametersTest {
 
     private static final String AUTOMATION_COMPOSITION_RUNTIME_HOST_NAME = "localhost";
     private static final int AUTOMATION_COMPOSITION_RUNTIME_PORT = 6969;
@@ -43,8 +43,8 @@ public class LifecycleApiAutomationCompositionForwarderParametersTest {
 
 
     @Test
-    public void testValidParameters() {
-        final LifecycleApiAutomationCompositionForwarderParameters configurationParameters =
+    void testValidParameters() {
+        final var configurationParameters =
                 CommonTestData.getPolicyForwarderParameters(
                         "src/test/resources/parameters/LifecycleApiAutomationCompositionForwarderParameters.json",
                         LifecycleApiAutomationCompositionForwarderParameters.class);
@@ -67,8 +67,8 @@ public class LifecycleApiAutomationCompositionForwarderParametersTest {
     }
 
     @Test
-    public void testInvalidParameters() {
-        final LifecycleApiForwarderParameters configurationParameters =
+    void testInvalidParameters() {
+        final var configurationParameters =
                 CommonTestData.getPolicyForwarderParameters(
                         "src/test/resources/parameters/LifecycleApiPolicyForwarderParametersInvalid.json",
                         LifecycleApiForwarderParameters.class);
@@ -77,8 +77,8 @@ public class LifecycleApiAutomationCompositionForwarderParametersTest {
     }
 
     @Test
-    public void testEmptyParameters() {
-        final LifecycleApiForwarderParameters configurationParameters =
+    void testEmptyParameters() {
+        final var configurationParameters =
                 CommonTestData.getPolicyForwarderParameters("src/test/resources/parameters/EmptyParameters.json",
                         LifecycleApiForwarderParameters.class);
 

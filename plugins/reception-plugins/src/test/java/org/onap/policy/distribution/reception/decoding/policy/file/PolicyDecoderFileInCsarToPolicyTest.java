@@ -22,35 +22,30 @@
 package org.onap.policy.distribution.reception.decoding.policy.file;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
-import java.util.Collection;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.handling.sdc.CommonTestData;
-import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 
 /**
  * Class to perform unit test of {@link PolicyDecoderFileInCsarToPolicy}.
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-@RunWith(MockitoJUnitRunner.class)
-public class PolicyDecoderFileInCsarToPolicyTest {
+class PolicyDecoderFileInCsarToPolicyTest {
 
     /**
      * Set up.
      */
-    @BeforeClass
-    public static void setUp() {
+    @BeforeAll
+    static void setUp() {
         final PolicyDecoderFileInCsarToPolicyParameterGroup configurationParameters = CommonTestData
                 .getPolicyDecoderParameters("src/test/resources/parameters/FileInCsarPolicyDecoderParameters.json",
                         PolicyDecoderFileInCsarToPolicyParameterGroup.class);
@@ -61,47 +56,47 @@ public class PolicyDecoderFileInCsarToPolicyTest {
     /**
      * Tear down.
      */
-    @AfterClass
-    public static void tearDown() {
+    @AfterAll
+    static void tearDown() {
         ParameterService.deregister(PolicyDecoderFileInCsarToPolicyParameterGroup.class.getSimpleName());
     }
 
     @Test
-    public void testDecodePolicy() throws PolicyDecodingException {
+    void testDecodePolicy() throws PolicyDecodingException {
 
-        final PolicyDecoderFileInCsarToPolicy decoder = new PolicyDecoderFileInCsarToPolicy();
+        final var decoder = new PolicyDecoderFileInCsarToPolicy();
         decoder.configure(PolicyDecoderFileInCsarToPolicyParameterGroup.class.getSimpleName());
 
-        final File file = new File("src/test/resources/service-Sampleservice.csar");
-        final Csar csar = new Csar(file.getAbsolutePath());
+        final var file = new File("src/test/resources/service-Sampleservice.csar");
+        final var csar = new Csar(file.getAbsolutePath());
 
         assertTrue(decoder.canHandle(csar));
-        final Collection<ToscaEntity> policyHolders = decoder.decode(csar);
+        final var policyHolders = decoder.decode(csar);
         assertEquals(2, policyHolders.size());
     }
 
     @Test
-    public void testDecodeYamlPolicy() throws PolicyDecodingException {
+    void testDecodeYamlPolicy() throws PolicyDecodingException {
 
-        final PolicyDecoderFileInCsarToPolicy decoder = new PolicyDecoderFileInCsarToPolicy();
+        final var decoder = new PolicyDecoderFileInCsarToPolicy();
         decoder.configure(PolicyDecoderFileInCsarToPolicyParameterGroup.class.getSimpleName());
 
-        final File file = new File("src/test/resources/service-Sampleservice-yaml.csar");
-        final Csar csar = new Csar(file.getAbsolutePath());
+        final var file = new File("src/test/resources/service-Sampleservice-yaml.csar");
+        final var csar = new Csar(file.getAbsolutePath());
 
         assertTrue(decoder.canHandle(csar));
-        final Collection<ToscaEntity> policyHolders = decoder.decode(csar);
+        final var policyHolders = decoder.decode(csar);
         assertEquals(2, policyHolders.size());
     }
 
     @Test
-    public void testDecodePolicyZipError() {
+    void testDecodePolicyZipError() {
 
-        final PolicyDecoderFileInCsarToPolicy decoder = new PolicyDecoderFileInCsarToPolicy();
+        final var decoder = new PolicyDecoderFileInCsarToPolicy();
         decoder.configure(PolicyDecoderFileInCsarToPolicyParameterGroup.class.getSimpleName());
 
-        final File file = new File("unknown.csar");
-        final Csar csar = new Csar(file.getAbsolutePath());
+        final var file = new File("unknown.csar");
+        final var csar = new Csar(file.getAbsolutePath());
 
         assertTrue(decoder.canHandle(csar));
         assertThatThrownBy(() -> decoder.decode(csar)).isInstanceOf(PolicyDecodingException.class)
@@ -110,13 +105,13 @@ public class PolicyDecoderFileInCsarToPolicyTest {
 
 
     @Test
-    public void testDecodePolicyCoderError() {
+    void testDecodePolicyCoderError() {
 
-        final PolicyDecoderFileInCsarToPolicy decoder = new PolicyDecoderFileInCsarToPolicy();
+        final var decoder = new PolicyDecoderFileInCsarToPolicy();
         decoder.configure(PolicyDecoderFileInCsarToPolicyParameterGroup.class.getSimpleName());
 
-        final File file = new File("src/test/resources/service-Sampleservice-test.csar");
-        final Csar csar = new Csar(file.getAbsolutePath());
+        final var file = new File("src/test/resources/service-Sampleservice-test.csar");
+        final var csar = new Csar(file.getAbsolutePath());
 
         assertTrue(decoder.canHandle(csar));
         assertThatThrownBy(() -> decoder.decode(csar)).isInstanceOf(PolicyDecodingException.class)

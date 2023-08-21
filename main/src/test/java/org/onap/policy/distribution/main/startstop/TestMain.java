@@ -25,12 +25,12 @@ package org.onap.policy.distribution.main.startstop;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.resources.MessageConstants;
 import org.onap.policy.distribution.main.PolicyDistributionException;
@@ -42,25 +42,25 @@ import org.onap.policy.distribution.main.parameters.CommonTestData;
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class TestMain {
+class TestMain {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         ParameterService.clear();
     }
 
     @Test
-    public void testMain() throws PolicyDistributionException, IOException {
+    void testMain() throws PolicyDistributionException, IOException {
         CommonTestData.makeConfigFile("parameters/DistributionConfigParameters.json");
         final String[] distributionConfigParameters = { "-c", CommonTestData.CONFIG_FILE };
-        final Main main = new Main(distributionConfigParameters);
+        final var main = new Main(distributionConfigParameters);
         assertTrue(main.getDistributionParameterGroup().isValid());
         assertEquals(CommonTestData.DISTRIBUTION_GROUP_NAME, main.getDistributionParameterGroup().getName());
         main.shutdown();
     }
 
     @Test
-    public void testMain_NoArguments() {
+    void testMain_NoArguments() {
         final String[] distributionConfigParameters = {};
         assertThatThrownBy(() -> new Main(distributionConfigParameters))
             .isInstanceOf(PolicyDistributionRuntimeException.class)
@@ -68,7 +68,7 @@ public class TestMain {
     }
 
     @Test
-    public void testMain_InvalidArguments() {
+    void testMain_InvalidArguments() {
         final String[] distributionConfigParameters = {"parameters/DistributionConfigParameters.json"};
         assertThatThrownBy(() -> new Main(distributionConfigParameters))
             .isInstanceOf(PolicyDistributionRuntimeException.class)
@@ -76,7 +76,7 @@ public class TestMain {
     }
 
     @Test
-    public void testMain_Help() {
+    void testMain_Help() {
         assertThatCode(() -> {
             final String[] distributionConfigParameters =
             { "-h" };
@@ -85,7 +85,7 @@ public class TestMain {
     }
 
     @Test
-    public void testMain_InvalidParameters() {
+    void testMain_InvalidParameters() {
         final String[] distributionConfigParameters =
             {"-c", "parameters/DistributionConfigParameters_InvalidName.json"};
         assertThatThrownBy(() -> new Main(distributionConfigParameters))

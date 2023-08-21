@@ -23,7 +23,7 @@ package org.onap.policy.distribution.reception.parameters;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.distribution.reception.handling.DummyDecoder;
 
 /**
@@ -32,15 +32,15 @@ import org.onap.policy.distribution.reception.handling.DummyDecoder;
  * @author Adheli Tavares (adheli.tavares@est.tech)
  *
  */
-public class TestPolicyDecoderParameters {
+class TestPolicyDecoderParameters {
 
     static final String DECODER_CLASS_NAME = DummyDecoder.class.getName();
     static final String DECODER_CONFIG = "decoderConfigName";
     static final String DECODER_TYPE = "DummyDecoder";
 
     @Test
-    public void testValidate_DecoderTypeEmptyNull() {
-        PolicyDecoderParameters sutParams = new PolicyDecoderParameters(null, DECODER_CLASS_NAME, DECODER_CONFIG);
+    void testValidate_DecoderTypeEmptyNull() {
+        var sutParams = new PolicyDecoderParameters(null, DECODER_CLASS_NAME, DECODER_CONFIG);
 
         assertThat(sutParams.validate().getResult()).contains("\"decoderType\" value \"null\" INVALID, is null");
 
@@ -51,13 +51,13 @@ public class TestPolicyDecoderParameters {
     }
 
     @Test
-    public void testValidate_ClassNameEmptyNull() {
-        PolicyDecoderParameters nullClassName = new PolicyDecoderParameters(DECODER_TYPE, null, DECODER_CONFIG);
+    void testValidate_ClassNameEmptyNull() {
+        var nullClassName = new PolicyDecoderParameters(DECODER_TYPE, null, DECODER_CONFIG);
 
         assertThat(nullClassName.validate().getResult())
                         .contains("\"decoderClassName\" value \"null\" INVALID, is null");
 
-        PolicyDecoderParameters emptyClassName = new PolicyDecoderParameters(DECODER_TYPE, "", DECODER_CONFIG);
+        var emptyClassName = new PolicyDecoderParameters(DECODER_TYPE, "", DECODER_CONFIG);
 
         assertThat(emptyClassName.validate().getResult()).contains("\"decoderClassName\" value \"\" INVALID, is blank");
     }
