@@ -22,17 +22,16 @@
 
 package org.onap.policy.distribution.main.startstop;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.CommonTestData;
-import org.onap.policy.distribution.main.parameters.DistributionParameterGroup;
 import org.onap.policy.distribution.main.parameters.DistributionParameterHandler;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup;
 
@@ -41,24 +40,24 @@ import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParamet
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class TestDistributionActivator {
+class TestDistributionActivator {
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         ParameterService.clear();
     }
 
     @Test
-    public void testDistributionActivator() throws PolicyDistributionException, IOException {
+    void testDistributionActivator() throws PolicyDistributionException, IOException {
         CommonTestData.makeConfigFile("parameters/DistributionConfigParameters.json");
         final String[] distributionConfigParameters = { "-c", CommonTestData.CONFIG_FILE };
 
-        final DistributionCommandLineArguments arguments =
+        final var arguments =
                 new DistributionCommandLineArguments(distributionConfigParameters);
 
-        final DistributionParameterGroup parGroup = new DistributionParameterHandler().getParameters(arguments);
+        final var parGroup = new DistributionParameterHandler().getParameters(arguments);
 
-        final DistributionActivator activator = new DistributionActivator(parGroup);
+        final var activator = new DistributionActivator(parGroup);
         activator.initialize();
         assertTrue(activator.getDistributionParameterGroup().isValid());
         assertTrue(DistributionActivator.isAlive());

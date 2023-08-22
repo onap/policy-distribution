@@ -20,19 +20,19 @@
 
 package org.onap.policy.distribution.main;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class TestExceptions {
+class TestExceptions {
 
     @Test
-    public void test() {
-        assertNotNull(new PolicyDistributionException("Message"));
-        assertNotNull(new PolicyDistributionException("Message", new IOException()));
+    void test() {
+        assertDoesNotThrow(() -> new PolicyDistributionException("Message"));
+        assertDoesNotThrow(() -> new PolicyDistributionException("Message", new IOException()));
 
-        assertNotNull(new PolicyDistributionRuntimeException("Message"));
-        assertNotNull(new PolicyDistributionRuntimeException("Message", new IOException()));
+        assertDoesNotThrow(() -> new PolicyDistributionRuntimeException("Message"));
+        assertDoesNotThrow(() -> new PolicyDistributionRuntimeException("Message", new IOException()));
     }
 }

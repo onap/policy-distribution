@@ -21,20 +21,20 @@
 
 package org.onap.policy.distribution.reception.handling.sdc;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.sdc.utils.DistributionStatusEnum;
 
-public class TestComponentDoneStatusMessage {
+class TestComponentDoneStatusMessage {
 
     private static final String CONSUMER_ID = "dummyId";
     private static final String DISTRIBUTION_ID = "dummyDistribution";
 
     @Test
-    public void testComponentDoneStatusMessage_Success() {
-        final long timestamp = System.currentTimeMillis();
-        final ComponentDoneStatusMessage message = ComponentDoneStatusMessage.builder().consumerId(CONSUMER_ID)
+    void testComponentDoneStatusMessage_Success() {
+        final var timestamp = System.currentTimeMillis();
+        final var message = ComponentDoneStatusMessage.builder().consumerId(CONSUMER_ID)
                         .distributionId(DISTRIBUTION_ID).distributionStatus(DistributionStatusEnum.COMPONENT_DONE_OK)
                         .timestamp(timestamp).build();
         assertEquals("POLICY", message.getComponentName());
@@ -45,9 +45,9 @@ public class TestComponentDoneStatusMessage {
     }
 
     @Test
-    public void testComponentDoneStatusMessage_Failure() {
-        final long timestamp = System.currentTimeMillis();
-        final ComponentDoneStatusMessage message = ComponentDoneStatusMessage.builder().consumerId(CONSUMER_ID)
+    void testComponentDoneStatusMessage_Failure() {
+        final var timestamp = System.currentTimeMillis();
+        final var message = ComponentDoneStatusMessage.builder().consumerId(CONSUMER_ID)
                         .distributionId(DISTRIBUTION_ID).distributionStatus(DistributionStatusEnum.COMPONENT_DONE_ERROR)
                         .timestamp(timestamp).build();
         assertEquals("POLICY", message.getComponentName());

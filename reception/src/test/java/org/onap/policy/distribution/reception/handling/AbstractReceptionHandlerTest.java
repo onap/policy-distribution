@@ -21,16 +21,16 @@
 
 package org.onap.policy.distribution.reception.handling;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
@@ -47,7 +47,7 @@ import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class AbstractReceptionHandlerTest {
+class AbstractReceptionHandlerTest {
 
     private static final String DISTRIBUTION_GROUP = "DummyDistributionGroup";
     private static final String DECODER_TYPE = "DummyDecoder";
@@ -61,24 +61,24 @@ public class AbstractReceptionHandlerTest {
     private static final String DECODER_CONFIGURATION_PARAMETERS = "DummyDecoderConfiguration";
 
     @Test
-    public void testInputReceived() throws PolicyDecodingException, NoSuchFieldException, SecurityException,
+    void testInputReceived() throws PolicyDecodingException, NoSuchFieldException, SecurityException,
             IllegalArgumentException, IllegalAccessException, PluginInitializationException {
-        final AbstractReceptionHandler handler = new DummyReceptionHandler();
+        final var handler = new DummyReceptionHandler();
 
-        final ToscaEntity generatedPolicy1 = new DummyPolicy1();
-        final ToscaEntity generatedPolicy2 = new DummyPolicy2();
+        final var generatedPolicy1 = new DummyPolicy1();
+        final var generatedPolicy2 = new DummyPolicy2();
 
-        final PolicyDecoder<PolicyInput, ToscaEntity> policyDecoder1 =
+        final var policyDecoder1 =
                 new DummyDecoder(true, Collections.singletonList(generatedPolicy1));
-        final PolicyDecoder<PolicyInput, ToscaEntity> policyDecoder2 =
+        final var policyDecoder2 =
                 new DummyDecoder(true, Collections.singletonList(generatedPolicy2));
 
         final Collection<PolicyDecoder<PolicyInput, ToscaEntity>> policyDecoders = new ArrayList<>();
         policyDecoders.add(policyDecoder1);
         policyDecoders.add(policyDecoder2);
 
-        final DummyPolicyForwarder policyForwarder1 = new DummyPolicyForwarder();
-        final DummyPolicyForwarder policyForwarder2 = new DummyPolicyForwarder();
+        final var policyForwarder1 = new DummyPolicyForwarder();
+        final var policyForwarder2 = new DummyPolicyForwarder();
 
         final Collection<PolicyForwarder> policyForwarders = new ArrayList<>();
         policyForwarders.add(policyForwarder1);
@@ -96,27 +96,28 @@ public class AbstractReceptionHandlerTest {
         assertTrue(policyForwarder2.receivedPolicy(generatedPolicy2));
     }
 
-    @Test(expected = PolicyDecodingException.class)
-    public void testInputReceivedNoSupportingDecoder() throws PolicyDecodingException, NoSuchFieldException,
+    @Test
+    void testInputReceivedNoSupportingDecoder() throws NoSuchFieldException,
             SecurityException, IllegalArgumentException, IllegalAccessException, PluginInitializationException {
-        final AbstractReceptionHandler handler = new DummyReceptionHandler();
+        final var handler = new DummyReceptionHandler();
 
-        final PolicyDecoder<PolicyInput, ToscaEntity> policyDecoder = new DummyDecoder(false, Collections.emptyList());
-        final DummyPolicyForwarder policyForwarder = new DummyPolicyForwarder();
+        final var policyDecoder = new DummyDecoder(false, Collections.emptyList());
+        final var policyForwarder = new DummyPolicyForwarder();
         setUpPlugins(handler, Collections.singleton(policyDecoder), Collections.singleton(policyForwarder));
-
-        handler.inputReceived(new DummyPolicyInput());
+        var policyInput = new DummyPolicyInput();
+        assertThrows(PolicyDecodingException.class, () -> handler.inputReceived(policyInput));
     }
 
-    @Test(expected = PolicyDecodingException.class)
-    public void testInputReceivedNoDecoder() throws PolicyDecodingException, NoSuchFieldException, SecurityException,
+    @Test
+    void testInputReceivedNoDecoder() throws NoSuchFieldException, SecurityException,
             IllegalArgumentException, IllegalAccessException, PluginInitializationException {
-        final AbstractReceptionHandler handler = new DummyReceptionHandler();
+        final var handler = new DummyReceptionHandler();
 
-        final DummyPolicyForwarder policyForwarder = new DummyPolicyForwarder();
+        final var policyForwarder = new DummyPolicyForwarder();
         setUpPlugins(handler, Collections.emptySet(), Collections.singleton(policyForwarder));
 
-        handler.inputReceived(new DummyPolicyInput());
+        var policyInput = new DummyPolicyInput();
+        assertThrows(PolicyDecodingException.class, () -> handler.inputReceived(policyInput));
     }
 
     static class DummyPolicyInput implements PolicyInput {
@@ -142,20 +143,20 @@ public class AbstractReceptionHandlerTest {
             final Collection<PolicyDecoder<PolicyInput, ToscaEntity>> decoders,
             final Collection<PolicyForwarder> forwarders) throws NoSuchFieldException, SecurityException,
             IllegalArgumentException, IllegalAccessException, PluginInitializationException {
-        final PluginHandlerParameters pluginParameters = getPluginHandlerParameters();
+        final var pluginParameters = getPluginHandlerParameters();
         pluginParameters.setName(DISTRIBUTION_GROUP);
         ParameterService.register(pluginParameters);
-        final PluginHandler pluginHandler = new PluginHandler(pluginParameters.getName());
+        final var pluginHandler = new PluginHandler(pluginParameters.getName());
 
-        final Field decodersField = pluginHandler.getClass().getDeclaredField("policyDecoders");
+        final var decodersField = pluginHandler.getClass().getDeclaredField("policyDecoders");
         decodersField.setAccessible(true);
         decodersField.set(pluginHandler, decoders);
 
-        final Field forwardersField = pluginHandler.getClass().getDeclaredField("policyForwarders");
+        final var forwardersField = pluginHandler.getClass().getDeclaredField("policyForwarders");
         forwardersField.setAccessible(true);
         forwardersField.set(pluginHandler, forwarders);
 
-        final Field pluginHandlerField = AbstractReceptionHandler.class.getDeclaredField("pluginHandler");
+        final var pluginHandlerField = AbstractReceptionHandler.class.getDeclaredField("pluginHandler");
         pluginHandlerField.setAccessible(true);
         pluginHandlerField.set(receptionHandler, pluginHandler);
         ParameterService.deregister(pluginParameters.getName());
@@ -163,24 +164,23 @@ public class AbstractReceptionHandlerTest {
 
     private Map<String, PolicyDecoderParameters> getPolicyDecoders() {
         final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<>();
-        final PolicyDecoderParameters pDParameters =
+        final var pDParameters =
                 new PolicyDecoderParameters(DECODER_TYPE, DECODER_CLASS_NAME, DECODER_CONFIGURATION_PARAMETERS);
         policyDecoders.put(DECODER_KEY, pDParameters);
         return policyDecoders;
     }
 
     private Map<String, PolicyForwarderParameters> getPolicyForwarders() {
-        final Map<String, PolicyForwarderParameters> policyForwarders =
-            new HashMap<>();
-        final PolicyForwarderParameters pFParameters =
+        final Map<String, PolicyForwarderParameters> policyForwarders = new HashMap<>();
+        final var pFParameters =
                 new PolicyForwarderParameters(FORWARDER_TYPE, FORWARDER_CLASS_NAME, FORWARDER_CONFIGURATION_PARAMETERS);
         policyForwarders.put(FORWARDER_KEY, pFParameters);
         return policyForwarders;
     }
 
     private PluginHandlerParameters getPluginHandlerParameters() {
-        final Map<String, PolicyDecoderParameters> policyDecoders = getPolicyDecoders();
-        final Map<String, PolicyForwarderParameters> policyForwarders = getPolicyForwarders();
+        final var policyDecoders = getPolicyDecoders();
+        final var policyForwarders = getPolicyForwarders();
         return new PluginHandlerParameters(policyDecoders, policyForwarders);
     }
 

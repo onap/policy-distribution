@@ -21,22 +21,21 @@
 package org.onap.policy.distribution.model;
 
 import com.openpojo.reflection.filters.FilterPackageInfo;
-import com.openpojo.validation.Validator;
 import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Class to perform unit testing of all policy models.
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class TestModels {
+class TestModels {
 
     @Test
-    public void testAllModels() {
-        final Validator validator = ValidatorBuilder.create().with(new SetterTester()).with(new GetterTester()).build();
+    void testAllModels() {
+        final var validator = ValidatorBuilder.create().with(new SetterTester()).with(new GetterTester()).build();
         validator.validate(PolicyInput.class.getPackage().getName(), new FilterPackageInfo());
     }
 }

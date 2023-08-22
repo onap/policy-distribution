@@ -23,21 +23,16 @@
 package org.onap.policy.distribution.main.rest;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Invocation;
-import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.security.SecureRandom;
-import java.util.Properties;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.endpoints.report.HealthCheckReport;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.network.NetworkUtil;
@@ -51,7 +46,7 @@ import org.onap.policy.distribution.main.startstop.Main;
  *
  * @author Libo Zhu (libo.zhu@intel.com)
  */
-public class TestHttpsDistributionRestServer {
+class TestHttpsDistributionRestServer {
 
     private static final String ALIVE = "alive";
     private static final String SELF = NetworkUtil.getHostname();
@@ -59,23 +54,23 @@ public class TestHttpsDistributionRestServer {
 
     private int port;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         ParameterService.clear();
     }
 
     @Test
-    public void testHttpsHealthCheckSuccess() throws Exception {
-        final String reportString =
+    void testHttpsHealthCheckSuccess() throws Exception {
+        final var reportString =
                         "HealthCheckReport(name=Policy SSD, url=" + SELF + ", healthy=true, code=200, message=alive)";
-        final Main main = startDistributionService();
-        final HealthCheckReport report = performHealthCheck();
+        final var main = startDistributionService();
+        final var report = performHealthCheck();
         validateReport(NAME, SELF, true, 200, ALIVE, reportString, report);
         assertThatCode(() -> stopDistributionService(main)).doesNotThrowAnyException();
     }
 
     private Main startDistributionService() throws IOException, InterruptedException {
-        final Properties systemProps = System.getProperties();
+        final var systemProps = System.getProperties();
         systemProps.put("javax.net.ssl.keyStore", new SelfSignedKeyStore().getKeystoreName());
         systemProps.put("javax.net.ssl.keyStorePassword", SelfSignedKeyStore.KEYSTORE_PASSWORD);
         System.setProperties(systemProps);
@@ -91,19 +86,19 @@ public class TestHttpsDistributionRestServer {
 
     private HealthCheckReport performHealthCheck() throws Exception {
 
-        final TrustManager[] noopTrustManager = NetworkUtil.getAlwaysTrustingManager();
+        final var noopTrustManager = NetworkUtil.getAlwaysTrustingManager();
 
-        final SSLContext sc = SSLContext.getInstance("TLSv1.2");
+        final var sc = SSLContext.getInstance("TLSv1.2");
         sc.init(null, noopTrustManager, new SecureRandom());
-        final ClientBuilder clientBuilder =
+        final var clientBuilder =
                 ClientBuilder.newBuilder().sslContext(sc).hostnameVerifier((host, session) -> true);
-        final Client client = clientBuilder.build();
-        final HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("healthcheck", "zb!XztG34");
+        final var client = clientBuilder.build();
+        final var feature = HttpAuthenticationFeature.basic("healthcheck", "zb!XztG34");
         client.register(feature);
 
-        final WebTarget webTarget = client.target("https://localhost:" + port + "/healthcheck");
+        final var webTarget = client.target("https://localhost:" + port + "/healthcheck");
 
-        final Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
+        final var invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 
         CommonTestData.awaitServer(port);
         return invocationBuilder.get(HealthCheckReport.class);

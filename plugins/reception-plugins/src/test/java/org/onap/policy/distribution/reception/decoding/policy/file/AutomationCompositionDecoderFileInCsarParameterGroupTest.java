@@ -21,9 +21,9 @@
 
 package org.onap.policy.distribution.reception.decoding.policy.file;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.distribution.reception.handling.sdc.CommonTestData;
 
@@ -32,11 +32,11 @@ import org.onap.policy.distribution.reception.handling.sdc.CommonTestData;
  *
  * @author Sirisha Manchikanti (sirisha.manchikanti@est.tech)
  */
-public class AutomationCompositionDecoderFileInCsarParameterGroupTest {
+class AutomationCompositionDecoderFileInCsarParameterGroupTest {
 
     @Test
-    public void testValidParameters() {
-        final AutomationCompositionDecoderFileInCsarParameterGroup configurationParameters = CommonTestData
+    void testValidParameters() {
+        final var configurationParameters = CommonTestData
                 .getPolicyDecoderParameters(
                     "src/test/resources/parameters/FileInCsarAutomationCompositionDecoderParameters.json",
                     AutomationCompositionDecoderFileInCsarParameterGroup.class);
@@ -48,8 +48,8 @@ public class AutomationCompositionDecoderFileInCsarParameterGroupTest {
     }
 
     @Test
-    public void testInvalidParameters() {
-        final AutomationCompositionDecoderFileInCsarParameterGroup configurationParameters =
+    void testInvalidParameters() {
+        final var configurationParameters =
                 CommonTestData.getPolicyDecoderParameters(
                         "src/test/resources/parameters/FileInCsarAutomationCompositionDecoderParametersInvalid.json",
                         AutomationCompositionDecoderFileInCsarParameterGroup.class);
@@ -58,8 +58,8 @@ public class AutomationCompositionDecoderFileInCsarParameterGroupTest {
     }
 
     @Test
-    public void testEmptyParameters() {
-        final AutomationCompositionDecoderFileInCsarParameterGroup configurationParameters =
+    void testEmptyParameters() {
+        final var configurationParameters =
                 CommonTestData.getPolicyDecoderParameters("src/test/resources/parameters/EmptyParameters.json",
                     AutomationCompositionDecoderFileInCsarParameterGroup.class);
 

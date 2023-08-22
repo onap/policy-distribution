@@ -20,87 +20,87 @@
 
 package org.onap.policy.distribution.reception.statistics;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Class to perform unit test of DistributionStatisticsManager.
  *
  * @author Adheli Tavares (adheli.tavares@est.tech)
  * */
-public class TestDistributionStatisticsManager {
+class TestDistributionStatisticsManager {
 
 
-    @Before
-    public void reset() {
+    @BeforeEach
+    void reset() {
         DistributionStatisticsManager.resetAllStatistics();
     }
 
     @Test
-    public void testUpdateTotalDistributionCount() {
+    void testUpdateTotalDistributionCount() {
         DistributionStatisticsManager.updateTotalDistributionCount();
         assertEquals(1L, DistributionStatisticsManager.getTotalDistributionCount());
     }
 
     @Test
-    public void testUpdateDistributionSuccessCount() {
+    void testUpdateDistributionSuccessCount() {
         DistributionStatisticsManager.updateDistributionSuccessCount();
         assertEquals(1L, DistributionStatisticsManager.getDistributionSuccessCount());
     }
 
     @Test
-    public void testUpdateDistributionFailureCount() {
+    void testUpdateDistributionFailureCount() {
         DistributionStatisticsManager.updateDistributionFailureCount();
         assertEquals(1L, DistributionStatisticsManager.getDistributionFailureCount());
     }
 
     @Test
-    public void testUpdateTotalDownloadCount() {
+    void testUpdateTotalDownloadCount() {
         DistributionStatisticsManager.updateTotalDownloadCount();
         assertEquals(1L, DistributionStatisticsManager.getTotalDownloadCount());
     }
 
     @Test
-    public void testUpdateDownloadSuccessCount() {
+    void testUpdateDownloadSuccessCount() {
         DistributionStatisticsManager.updateDownloadSuccessCount();
         assertEquals(1L, DistributionStatisticsManager.getDownloadSuccessCount());
     }
 
     @Test
-    public void testUpdateDownloadFailureCount() {
+    void testUpdateDownloadFailureCount() {
         DistributionStatisticsManager.updateDownloadFailureCount();
         assertEquals(1L, DistributionStatisticsManager.getDownloadFailureCount());
     }
 
     @Test
-    public void testGetTotalDistributionCount() {
+    void testGetTotalDistributionCount() {
         assertEquals(0L, DistributionStatisticsManager.getTotalDistributionCount());
     }
 
     @Test
-    public void testGetDistributionSuccessCount() {
+    void testGetDistributionSuccessCount() {
         assertEquals(0L, DistributionStatisticsManager.getDistributionSuccessCount());
     }
 
     @Test
-    public void testGetDistributionFailureCount() {
+    void testGetDistributionFailureCount() {
         assertEquals(0L, DistributionStatisticsManager.getDistributionFailureCount());
     }
 
     @Test
-    public void testGetTotalDownloadCount() {
+    void testGetTotalDownloadCount() {
         assertEquals(0L, DistributionStatisticsManager.getTotalDownloadCount());
     }
 
     @Test
-    public void testGetDownloadSuccessCount() {
+    void testGetDownloadSuccessCount() {
         assertEquals(0L, DistributionStatisticsManager.getDownloadSuccessCount());
     }
 
     @Test
-    public void testGetDownloadFailureCount() {
+    void testGetDownloadFailureCount() {
         assertEquals(0L, DistributionStatisticsManager.getDownloadFailureCount());
     }
 }

@@ -23,12 +23,12 @@
 package org.onap.policy.distribution.main.parameters;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.endpoints.parameters.RestServerParameters;
 import org.onap.policy.common.parameters.ValidationResult;
 import org.onap.policy.distribution.main.testclasses.DummyPolicyForwarderParameterGroup;
@@ -42,25 +42,24 @@ import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParamet
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class TestDistributionParameterGroup {
+class TestDistributionParameterGroup {
     CommonTestData commonTestData = new CommonTestData();
 
     @Test
-    public void testDistributionParameterGroup() {
-        final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(false);
-        final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
-                commonTestData.getReceptionHandlerParameters(false);
-        final Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurations =
+    void testDistributionParameterGroup() {
+        final var restServerParameters = commonTestData.getRestServerParameters(false);
+        final var receptionHandlerParameters = commonTestData.getReceptionHandlerParameters(false);
+        final var receptionHandlerConfigurations =
                 commonTestData.getReceptionHandlerConfigurationParameters(false);
-        final Map<String, PolicyForwarderConfigurationParameterGroup> forwarderConfigurations =
+        final var forwarderConfigurations =
                 commonTestData.getPolicyForwarderConfigurationParameters(false);
-        final Map<String, PolicyDecoderConfigurationParameterGroup> decoderConfigurations =
+        final var decoderConfigurations =
                 commonTestData.getPolicyDecoderConfigurationParameters(false);
 
-        final DistributionParameterGroup distributionParameters = new DistributionParameterGroup(
+        final var distributionParameters = new DistributionParameterGroup(
                 CommonTestData.DISTRIBUTION_GROUP_NAME, restServerParameters, receptionHandlerParameters,
                 receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
-        final ValidationResult validationResult = distributionParameters.validate();
+        final var validationResult = distributionParameters.validate();
         assertTrue(validationResult.isValid());
         assertEquals(restServerParameters.getHost(), distributionParameters.getRestServerParameters().getHost());
         assertEquals(restServerParameters.getPort(), distributionParameters.getRestServerParameters().getPort());
@@ -100,9 +99,9 @@ public class TestDistributionParameterGroup {
     }
 
     @Test
-    public void testDistributionParameterGroup_NullName() {
-        final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(false);
-        final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
+    void testDistributionParameterGroup_NullName() {
+        final var restServerParameters = commonTestData.getRestServerParameters(false);
+        final var receptionHandlerParameters =
                 commonTestData.getReceptionHandlerParameters(false);
         final Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurations =
                 commonTestData.getReceptionHandlerConfigurationParameters(false);
@@ -116,7 +115,7 @@ public class TestDistributionParameterGroup {
                         receptionHandlerConfigurations, forwarderConfigurations, decoderConfigurations);
         final ValidationResult validationResult = distributionParameters.validate();
         assertFalse(validationResult.isValid());
-        assertEquals(null, distributionParameters.getName());
+        assertThat(distributionParameters.getName()).isNull();
         assertEquals(
                 receptionHandlerParameters.get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY).getReceptionHandlerType(),
                 distributionParameters.getReceptionHandlerParameters().get(CommonTestData.DUMMY_RECEPTION_HANDLER_KEY)
@@ -134,7 +133,7 @@ public class TestDistributionParameterGroup {
     }
 
     @Test
-    public void testDistributionParameterGroup_EmptyName() {
+    void testDistributionParameterGroup_EmptyName() {
         final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(false);
         final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
                 commonTestData.getReceptionHandlerParameters(false);
@@ -168,7 +167,7 @@ public class TestDistributionParameterGroup {
     }
 
     @Test
-    public void testDistributionParameterGroup_NullReceptionHandlerParameters() {
+    void testDistributionParameterGroup_NullReceptionHandlerParameters() {
         final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(false);
         final Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurations =
                 commonTestData.getReceptionHandlerConfigurationParameters(false);
@@ -184,7 +183,7 @@ public class TestDistributionParameterGroup {
     }
 
     @Test
-    public void testDistributionParameterGroup_EmptyReceptionHandlerParameters() {
+    void testDistributionParameterGroup_EmptyReceptionHandlerParameters() {
         final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(false);
         final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
                 commonTestData.getReceptionHandlerParameters(true);
@@ -204,7 +203,7 @@ public class TestDistributionParameterGroup {
     }
 
     @Test
-    public void testDistributionParameterGroup_EmptyRestServerParameters() {
+    void testDistributionParameterGroup_EmptyRestServerParameters() {
         final RestServerParameters restServerParameters = commonTestData.getRestServerParameters(true);
         final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
                 commonTestData.getReceptionHandlerParameters(false);
@@ -224,7 +223,7 @@ public class TestDistributionParameterGroup {
     }
 
     @Test
-    public void testDistributionParameterGroup_NullRestServerParameters() {
+    void testDistributionParameterGroup_NullRestServerParameters() {
         final RestServerParameters restServerParameters = null;
         final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
                 commonTestData.getReceptionHandlerParameters(false);
