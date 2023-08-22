@@ -23,27 +23,25 @@
 package org.onap.policy.distribution.reception.handling.sdc;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static  org.mockito.Mockito.any;
 import static  org.mockito.Mockito.mock;
 import static  org.mockito.Mockito.spy;
 import static  org.mockito.Mockito.when;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
@@ -67,17 +65,17 @@ import org.onap.sdc.utils.DistributionActionResultEnum;
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class TestSdcReceptionHandler {
+class TestSdcReceptionHandler {
 
     private static final String DUMMY_SERVICE_CSAR = "dummyService.csar";
 
-    private IDistributionClientResult successfulClientInitResult = mock(IDistributionClientResult.class);
-    private IDistributionClientResult failureClientInitResult = mock(IDistributionClientResult.class);
-    private IDistributionClient distributionClient = mock(IDistributionClient.class);
-    private IDistributionClientDownloadResult successfulClientDownloadResult
+    private final IDistributionClientResult successfulClientInitResult = mock(IDistributionClientResult.class);
+    private final IDistributionClientResult failureClientInitResult = mock(IDistributionClientResult.class);
+    private final IDistributionClient distributionClient = mock(IDistributionClient.class);
+    private final IDistributionClientDownloadResult successfulClientDownloadResult
         = mock(IDistributionClientDownloadResult.class);
-    private INotificationData notificationData = mock(INotificationData.class);
-    private IArtifactInfo artifactInfo = mock(IArtifactInfo.class);
+    private final INotificationData notificationData = mock(INotificationData.class);
+    private final IArtifactInfo artifactInfo = mock(IArtifactInfo.class);
 
     private SdcReceptionHandlerConfigurationParameterGroup pssdConfigParameters;
     private SdcReceptionHandler sypHandler;
@@ -90,14 +88,14 @@ public class TestSdcReceptionHandler {
      * @throws SecurityException        if it occurs
      * @throws IllegalArgumentException if it occurs
      */
-    @Before
-    public final void init() throws IOException, SecurityException, IllegalArgumentException {
+    @BeforeEach
+    final void init() throws IOException, SecurityException, IllegalArgumentException {
         DistributionStatisticsManager.resetAllStatistics();
-        final Gson gson = new GsonBuilder().create();
+        final var gson = new GsonBuilder().create();
         pssdConfigParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdc.json"),
             SdcReceptionHandlerConfigurationParameterGroup.class);
         ParameterService.register(pssdConfigParameters);
-        final SdcReceptionHandler sdcHandler = new SdcReceptionHandler();
+        final var sdcHandler = new SdcReceptionHandler();
         sypHandler = spy(sdcHandler);
 
         when(sypHandler.createSdcDistributionClient()).thenReturn(distributionClient);
@@ -123,19 +121,19 @@ public class TestSdcReceptionHandler {
 
     }
 
-    @After
-    public void teardown() {
+    @AfterEach
+    void teardown() {
         ParameterService.deregister(pssdConfigParameters);
     }
 
     @Test
-    public final void testInitializeSdcClient() {
+    final void testInitializeSdcClient() {
         assertThatCode(() -> sypHandler.initializeReception(pssdConfigParameters.getName()))
             .doesNotThrowAnyException();
     }
 
     @Test
-    public final void testInitializeSdcClient_Failure() {
+    final void testInitializeSdcClient_Failure() {
 
         when(successfulClientInitResult.getDistributionActionResult())
             .thenReturn(DistributionActionResultEnum.FAIL).thenReturn(DistributionActionResultEnum.SUCCESS);
@@ -144,7 +142,7 @@ public class TestSdcReceptionHandler {
     }
 
     @Test
-    public final void testStartSdcClient_Failure() {
+    final void testStartSdcClient_Failure() {
         assertThatCode(() -> {
             when(distributionClient.start()).thenReturn(failureClientInitResult)
                 .thenReturn(successfulClientInitResult);
@@ -153,7 +151,7 @@ public class TestSdcReceptionHandler {
     }
 
     @Test
-    public final void testStopSdcClient() {
+    final void testStopSdcClient() {
         assertThatCode(() -> {
             sypHandler.initializeReception(pssdConfigParameters.getName());
             sypHandler.destroy();
@@ -161,7 +159,7 @@ public class TestSdcReceptionHandler {
     }
 
     @Test
-    public final void testStopSdcClient_Failure() {
+    final void testStopSdcClient_Failure() {
         sypHandler.initializeReception(pssdConfigParameters.getName());
         when(distributionClient.stop()).thenReturn(failureClientInitResult)
             .thenReturn(successfulClientInitResult);
@@ -169,19 +167,19 @@ public class TestSdcReceptionHandler {
     }
 
     @Test
-    public final void testStopSdcClientWithoutStart() {
+    final void testStopSdcClientWithoutStart() {
         assertThatCode(() -> sypHandler.destroy()).doesNotThrowAnyException();
     }
 
     @Test
-    public void testNotificationCallBack() throws NoSuchFieldException, SecurityException, IllegalArgumentException,
+    void testNotificationCallBack() throws NoSuchFieldException, SecurityException, IllegalArgumentException,
         IllegalAccessException, PluginInitializationException {
 
-        final DummyDecoder policyDecoder = new DummyDecoder();
+        final var policyDecoder = new DummyDecoder();
         final Collection<PolicyDecoder<Csar, DummyPolicy>> policyDecoders = new ArrayList<>();
         policyDecoders.add(policyDecoder);
 
-        final DummyPolicyForwarder policyForwarder = new DummyPolicyForwarder();
+        final var policyForwarder = new DummyPolicyForwarder();
         final Collection<PolicyForwarder> policyForwarders = new ArrayList<>();
         policyForwarders.add(policyForwarder);
 
@@ -201,17 +199,17 @@ public class TestSdcReceptionHandler {
     }
 
     @Test
-    public void testDownloadArtifactFailure() throws NoSuchFieldException, SecurityException, IllegalArgumentException,
+    void testDownloadArtifactFailure() throws NoSuchFieldException, SecurityException, IllegalArgumentException,
         IllegalAccessException, PluginInitializationException {
 
         when(successfulClientDownloadResult.getDistributionActionResult())
             .thenReturn(DistributionActionResultEnum.FAIL);
 
-        final DummyDecoder policyDecoder = new DummyDecoder();
+        final var policyDecoder = new DummyDecoder();
         final Collection<PolicyDecoder<Csar, DummyPolicy>> policyDecoders = new ArrayList<>();
         policyDecoders.add(policyDecoder);
 
-        final DummyPolicyForwarder policyForwarder = new DummyPolicyForwarder();
+        final var policyForwarder = new DummyPolicyForwarder();
         final Collection<PolicyForwarder> policyForwarders = new ArrayList<>();
         policyForwarders.add(policyForwarder);
 
@@ -230,7 +228,7 @@ public class TestSdcReceptionHandler {
     }
 
     @Test
-    public void testSendDistributionStatusFailure() throws NoSuchFieldException, SecurityException,
+    void testSendDistributionStatusFailure() throws NoSuchFieldException, SecurityException,
         IllegalArgumentException, IllegalAccessException, PluginInitializationException {
 
         when(successfulClientDownloadResult.getDistributionActionResult())
@@ -239,11 +237,11 @@ public class TestSdcReceptionHandler {
         when(distributionClient.sendDeploymentStatus(any(), any())).thenReturn(failureClientInitResult);
         when(distributionClient.sendComponentDoneStatus(any(), any())).thenReturn(failureClientInitResult);
 
-        final DummyDecoder policyDecoder = new DummyDecoder();
+        final var policyDecoder = new DummyDecoder();
         final Collection<PolicyDecoder<Csar, DummyPolicy>> policyDecoders = new ArrayList<>();
         policyDecoders.add(policyDecoder);
 
-        final DummyPolicyForwarder policyForwarder = new DummyPolicyForwarder();
+        final var policyForwarder = new DummyPolicyForwarder();
         final Collection<PolicyForwarder> policyForwarders = new ArrayList<>();
         policyForwarders.add(policyForwarder);
 
@@ -260,34 +258,34 @@ public class TestSdcReceptionHandler {
                               final Collection<PolicyForwarder> forwarders)
         throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException,
         PluginInitializationException {
-        final PluginHandlerParameters pluginParameters = getPluginHandlerParameters();
+        final var pluginParameters = getPluginHandlerParameters();
         pluginParameters.setName("DummyDistributionGroup");
         ParameterService.register(pluginParameters);
-        final PluginHandler pluginHandler = new PluginHandler(pluginParameters.getName());
+        final var pluginHandler = new PluginHandler(pluginParameters.getName());
 
-        final Field decodersField = pluginHandler.getClass().getDeclaredField("policyDecoders");
+        final var decodersField = pluginHandler.getClass().getDeclaredField("policyDecoders");
         decodersField.setAccessible(true);
         decodersField.set(pluginHandler, decoders);
 
-        final Field forwardersField = pluginHandler.getClass().getDeclaredField("policyForwarders");
+        final var forwardersField = pluginHandler.getClass().getDeclaredField("policyForwarders");
         forwardersField.setAccessible(true);
         forwardersField.set(pluginHandler, forwarders);
 
-        final Field pluginHandlerField = AbstractReceptionHandler.class.getDeclaredField("pluginHandler");
+        final var pluginHandlerField = AbstractReceptionHandler.class.getDeclaredField("pluginHandler");
         pluginHandlerField.setAccessible(true);
         pluginHandlerField.set(receptionHandler, pluginHandler);
         ParameterService.deregister(pluginParameters.getName());
     }
 
     private PluginHandlerParameters getPluginHandlerParameters() {
-        final Map<String, PolicyDecoderParameters> policyDecoders = getPolicyDecoders();
-        final Map<String, PolicyForwarderParameters> policyForwarders = getPolicyForwarders();
+        final var policyDecoders = getPolicyDecoders();
+        final var policyForwarders = getPolicyForwarders();
         return new PluginHandlerParameters(policyDecoders, policyForwarders);
     }
 
     private Map<String, PolicyDecoderParameters> getPolicyDecoders() {
         final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<>();
-        final PolicyDecoderParameters pDParameters = new PolicyDecoderParameters("DummyDecoder",
+        final var pDParameters = new PolicyDecoderParameters("DummyDecoder",
             "org.onap.policy.distribution.reception.handling.sdc.DummyDecoder", "DummyDecoderConfiguration");
         policyDecoders.put("DummyDecoderKey", pDParameters);
         return policyDecoders;
@@ -295,7 +293,7 @@ public class TestSdcReceptionHandler {
 
     private Map<String, PolicyForwarderParameters> getPolicyForwarders() {
         final Map<String, PolicyForwarderParameters> policyForwarders = new HashMap<>();
-        final PolicyForwarderParameters pFParameters = new PolicyForwarderParameters("DummyForwarder",
+        final var pFParameters = new PolicyForwarderParameters("DummyForwarder",
             "org.onap.policy.distribution.reception.handling.sdc.DummyPolicyForwarder", "DummyConfiguration");
         policyForwarders.put("DummyForwarderKey", pFParameters);
         return policyForwarders;

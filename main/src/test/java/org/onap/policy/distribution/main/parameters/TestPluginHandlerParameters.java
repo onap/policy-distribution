@@ -23,31 +23,27 @@
 package org.onap.policy.distribution.main.parameters;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Map;
-import org.junit.Test;
-import org.onap.policy.common.parameters.ValidationResult;
-import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
-import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
 
 /**
  * Class to perform unit test of PluginHandlerParameters.
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class TestPluginHandlerParameters {
+class TestPluginHandlerParameters {
     CommonTestData commonTestData = new CommonTestData();
 
     @Test
-    public void testPluginHandlerParameters() {
-        final Map<String, PolicyDecoderParameters> policyDecoders = commonTestData.getPolicyDecoders(false);
-        final Map<String, PolicyForwarderParameters> policyForwarders = commonTestData.getPolicyForwarders(false);
-        final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
-        final ValidationResult validationResult = pHParameters.validate();
+    void testPluginHandlerParameters() {
+        final var policyDecoders = commonTestData.getPolicyDecoders(false);
+        final var policyForwarders = commonTestData.getPolicyForwarders(false);
+        final var pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
+        final var validationResult = pHParameters.validate();
         assertEquals(policyDecoders.get(CommonTestData.DUMMY_DECODER_KEY),
                         pHParameters.getPolicyDecoders().get(CommonTestData.DUMMY_DECODER_KEY));
         assertEquals(policyForwarders.get(CommonTestData.DUMMY_ENGINE_FORWARDER_KEY),
@@ -56,36 +52,36 @@ public class TestPluginHandlerParameters {
     }
 
     @Test
-    public void testPluginHandlerParameters_NullPolicyDecoders() {
-        final Map<String, PolicyForwarderParameters> policyForwarders = commonTestData.getPolicyForwarders(false);
-        final PluginHandlerParameters pHParameters = new PluginHandlerParameters(null, policyForwarders);
+    void testPluginHandlerParameters_NullPolicyDecoders() {
+        final var policyForwarders = commonTestData.getPolicyForwarders(false);
+        final var pHParameters = new PluginHandlerParameters(null, policyForwarders);
         assertThat(pHParameters.validate().getResult()).contains("\"policyDecoders\" value \"null\" INVALID, is null");
     }
 
     @Test
-    public void testPluginHandlerParameters_NullPolicyForwarders() {
-        final Map<String, PolicyDecoderParameters> policyDecoders = commonTestData.getPolicyDecoders(false);
-        final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, null);
+    void testPluginHandlerParameters_NullPolicyForwarders() {
+        final var policyDecoders = commonTestData.getPolicyDecoders(false);
+        final var pHParameters = new PluginHandlerParameters(policyDecoders, null);
         assertThat(pHParameters.validate().getResult())
                         .contains("\"policyForwarders\" value \"null\" INVALID, is null");
     }
 
     @Test
-    public void testPluginHandlerParameters_EmptyPolicyDecoders() {
-        final Map<String, PolicyDecoderParameters> policyDecoders = commonTestData.getPolicyDecoders(true);
-        final Map<String, PolicyForwarderParameters> policyForwarders = commonTestData.getPolicyForwarders(false);
-        final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
-        ValidationResult result = pHParameters.validate();
+    void testPluginHandlerParameters_EmptyPolicyDecoders() {
+        final var policyDecoders = commonTestData.getPolicyDecoders(true);
+        final var policyForwarders = commonTestData.getPolicyForwarders(false);
+        final var pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
+        var result = pHParameters.validate();
         assertFalse(result.isValid());
         assertThat(pHParameters.validate().getResult()).contains("\"policyDecoders\"", "minimum");
     }
 
     @Test
-    public void testPluginHandlerParameters_EmptyPolicyForwarders() {
-        final Map<String, PolicyForwarderParameters> policyForwarders = commonTestData.getPolicyForwarders(true);
-        final Map<String, PolicyDecoderParameters> policyDecoders = commonTestData.getPolicyDecoders(false);
-        final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
-        ValidationResult result = pHParameters.validate();
+    void testPluginHandlerParameters_EmptyPolicyForwarders() {
+        final var policyForwarders = commonTestData.getPolicyForwarders(true);
+        final var policyDecoders = commonTestData.getPolicyDecoders(false);
+        final var pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
+        var result = pHParameters.validate();
         assertFalse(result.isValid());
         assertThat(pHParameters.validate().getResult()).contains("\"policyForwarders\"", "minimum");
     }

@@ -23,7 +23,7 @@
 package org.onap.policy.distribution.forwarding.file;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -31,14 +31,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
@@ -49,10 +46,9 @@ import org.onap.policy.models.tosca.authorative.concepts.ToscaPolicy;
  * Class to perform unit test of {@link FilePolicyForwarder}.
  *
  */
-@RunWith(MockitoJUnitRunner.class)
-public class FilePolicyForwarderTest {
-    @ClassRule
-    public static TemporaryFolder tempFolder = new TemporaryFolder();
+class FilePolicyForwarderTest {
+
+    private static Path tempFolder;
 
     private static final boolean VERBOSE = true;
     private static final String GROUP_NAME = "fileConfiguration";
@@ -60,10 +56,11 @@ public class FilePolicyForwarderTest {
     /**
      * Set up.
      */
-    @BeforeClass
-    public static void setUp() {
+    @BeforeAll
+    static void setUp(@TempDir Path tempDir) {
+        tempFolder = tempDir;
         final FilePolicyForwarderParameterGroup configurationParameters = new FilePolicyForwarderParameterGroup();
-        configurationParameters.setPath(tempFolder.getRoot().getAbsolutePath().toString());
+        configurationParameters.setPath(tempFolder.toFile().getAbsolutePath());
         configurationParameters.setVerbose(VERBOSE);
         configurationParameters.setName(GROUP_NAME);
         ParameterService.register(configurationParameters);
@@ -72,36 +69,36 @@ public class FilePolicyForwarderTest {
     /**
      * Tear down.
      */
-    @AfterClass
-    public static void tearDown() {
+    @AfterAll
+    static void tearDown() {
         ParameterService.deregister(GROUP_NAME);
     }
 
     @Test
-    public void testForwardPolicy() throws PolicyForwardingException {
+    void testForwardPolicy() throws PolicyForwardingException {
         final Collection<ToscaEntity> policies = new ArrayList<>();
-        final ToscaPolicy policy = createPolicy(policies, "test", "test");
+        final var policy = createPolicy(policies);
 
-        final FilePolicyForwarder forwarder = new FilePolicyForwarder();
+        final var forwarder = new FilePolicyForwarder();
         forwarder.configure(GROUP_NAME);
 
         forwarder.forward(policies);
-        final Path path = Paths.get(tempFolder.getRoot().getAbsolutePath().toString(), policy.getName());
+        final var path = Paths.get(tempFolder.toFile().getAbsolutePath(), policy.getName());
         assertTrue(Files.exists(path));
     }
 
     @Test
-    public void testForwardPolicyError() {
+    void testForwardPolicyError() {
         final Collection<ToscaEntity> policies = new ArrayList<>();
-        final ToscaPolicy policy = createPolicy(policies, "test", "test");
+        final var policy = createPolicy(policies);
 
-        final ToscaPolicy spy = Mockito.spy(policy);
+        final var spy = Mockito.spy(policy);
         Mockito.when(spy.toString()).thenAnswer(invocation -> {
             throw new IOException();
         });
         policies.add(spy);
 
-        final FilePolicyForwarder forwarder = new FilePolicyForwarder();
+        final var forwarder = new FilePolicyForwarder();
         forwarder.configure(GROUP_NAME);
 
         assertThatThrownBy(() -> forwarder.forward(policies)).isInstanceOf(PolicyForwardingException.class)
@@ -109,19 +106,19 @@ public class FilePolicyForwarderTest {
     }
 
     @Test
-    public void testForwardUnsupportedPolicy() {
+    void testForwardUnsupportedPolicy() {
         final Collection<ToscaEntity> policies = new ArrayList<>();
-        final FilePolicyForwarder forwarder = new FilePolicyForwarder();
+        final var forwarder = new FilePolicyForwarder();
         forwarder.configure(GROUP_NAME);
 
-        final ToscaEntity policy = new UnsupportedPolicy();
+        final var policy = new UnsupportedPolicy();
         policies.add(policy);
 
         assertThatThrownBy(() -> forwarder.forward(policies)).isInstanceOf(PolicyForwardingException.class)
         .hasMessageContaining("Cannot forward policy");
     }
 
-    class UnsupportedPolicy extends ToscaEntity {
+    static class UnsupportedPolicy extends ToscaEntity {
 
         @Override
         public String getName() {
@@ -129,8 +126,7 @@ public class FilePolicyForwarderTest {
         }
     }
 
-    private ToscaPolicy createPolicy(final Collection<ToscaEntity> policies, final String name,
-            final String description) {
+    private ToscaPolicy createPolicy(final Collection<ToscaEntity> policies) {
         final ToscaPolicy policy = new ToscaPolicy();
         policy.setName("test");
         policy.setDescription("test");

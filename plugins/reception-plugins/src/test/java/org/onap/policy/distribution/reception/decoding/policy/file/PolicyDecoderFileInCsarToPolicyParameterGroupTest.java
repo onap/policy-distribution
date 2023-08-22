@@ -21,9 +21,9 @@
 
 package org.onap.policy.distribution.reception.decoding.policy.file;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ValidationStatus;
 import org.onap.policy.distribution.reception.handling.sdc.CommonTestData;
 
@@ -32,11 +32,11 @@ import org.onap.policy.distribution.reception.handling.sdc.CommonTestData;
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class PolicyDecoderFileInCsarToPolicyParameterGroupTest {
+class PolicyDecoderFileInCsarToPolicyParameterGroupTest {
 
     @Test
-    public void testValidParameters() {
-        final PolicyDecoderFileInCsarToPolicyParameterGroup configurationParameters = CommonTestData
+    void testValidParameters() {
+        final var configurationParameters = CommonTestData
                 .getPolicyDecoderParameters("src/test/resources/parameters/FileInCsarPolicyDecoderParameters.json",
                         PolicyDecoderFileInCsarToPolicyParameterGroup.class);
 
@@ -48,8 +48,8 @@ public class PolicyDecoderFileInCsarToPolicyParameterGroupTest {
     }
 
     @Test
-    public void testInvalidParameters() {
-        final PolicyDecoderFileInCsarToPolicyParameterGroup configurationParameters =
+    void testInvalidParameters() {
+        final var configurationParameters =
                 CommonTestData.getPolicyDecoderParameters(
                         "src/test/resources/parameters/FileInCsarPolicyDecoderParametersInvalid.json",
                         PolicyDecoderFileInCsarToPolicyParameterGroup.class);
@@ -58,8 +58,8 @@ public class PolicyDecoderFileInCsarToPolicyParameterGroupTest {
     }
 
     @Test
-    public void testEmptyParameters() {
-        final PolicyDecoderFileInCsarToPolicyParameterGroup configurationParameters =
+    void testEmptyParameters() {
+        final var configurationParameters =
                 CommonTestData.getPolicyDecoderParameters("src/test/resources/parameters/EmptyParameters.json",
                         PolicyDecoderFileInCsarToPolicyParameterGroup.class);
 

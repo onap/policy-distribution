@@ -26,10 +26,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.onap.policy.common.parameters.ParameterGroup;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.coder.StandardCoder;
@@ -46,7 +45,7 @@ import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
  *
  * @author Ram Krishna Verma (ram.krishna.verma@est.tech)
  */
-public class LifecycleApiPolicyForwarderTest {
+class LifecycleApiPolicyForwarderTest {
 
     private static final String POLICY = "src/test/resources/parameters/sample_policy.json";
     private static final String POLICY_ERROR = "src/test/resources/parameters/sample_policy_failure.json";
@@ -61,9 +60,9 @@ public class LifecycleApiPolicyForwarderTest {
      * @throws PolicyForwardingException if any error occurs
      * @throws InterruptedException if any error occurs
      */
-    @BeforeClass
-    public static void setUp() throws PolicyForwardingException, CoderException, InterruptedException {
-        final ParameterGroup parameterGroup = CommonTestData.getPolicyForwarderParameters(
+    @BeforeAll
+    static void setUp() throws PolicyForwardingException, CoderException, InterruptedException {
+        final var parameterGroup = CommonTestData.getPolicyForwarderParameters(
                 "src/test/resources/parameters/LifecycleApiPolicyForwarderParameters.json",
                 LifecycleApiForwarderParameters.class);
         ParameterService.register(parameterGroup);
@@ -76,21 +75,21 @@ public class LifecycleApiPolicyForwarderTest {
     /**
      * Tear down.
      */
-    @AfterClass
-    public static void tearDown() {
+    @AfterAll
+    static void tearDown() {
         ParameterService.deregister(LifecycleApiForwarderParameters.class.getSimpleName());
         simulator.stopLifecycycleApiSimulator();
     }
 
     @Test
-    public void testForwardPolicyUsingSimulator() throws Exception {
+    void testForwardPolicyUsingSimulator() throws Exception {
         assertThatCode(() -> {
-            final ToscaServiceTemplate toscaServiceTemplate1 =
+            final var toscaServiceTemplate1 =
                     standardCoder.decode(ResourceUtils.getResourceAsString(POLICY_TYPE), ToscaServiceTemplate.class);
-            final ToscaServiceTemplate toscaServiceTemplate2 =
+            final var toscaServiceTemplate2 =
                     standardCoder.decode(ResourceUtils.getResourceAsString(POLICY), ToscaServiceTemplate.class);
 
-            final LifecycleApiPolicyForwarder forwarder = new LifecycleApiPolicyForwarder();
+            final var forwarder = new LifecycleApiPolicyForwarder();
             forwarder.configure(LifecycleApiForwarderParameters.class.getSimpleName());
 
             final Collection<ToscaEntity> policies = new ArrayList<>();
@@ -103,17 +102,17 @@ public class LifecycleApiPolicyForwarderTest {
     }
 
     @Test
-    public void testForwardPolicyFailureUsingSimulator() throws Exception {
+    void testForwardPolicyFailureUsingSimulator() throws Exception {
 
-        final ToscaServiceTemplate toscaServiceTemplate1 =
+        final var toscaServiceTemplate1 =
                 standardCoder.decode(ResourceUtils.getResourceAsString(POLICY_TYPE), ToscaServiceTemplate.class);
-        final ToscaServiceTemplate toscaServiceTemplate2 =
+        final var toscaServiceTemplate2 =
                 standardCoder.decode(ResourceUtils.getResourceAsString(POLICY), ToscaServiceTemplate.class);
-        final ToscaServiceTemplate toscaServiceTemplate3 =
+        final var toscaServiceTemplate3 =
                 standardCoder.decode(ResourceUtils.getResourceAsString(POLICY_ERROR), ToscaServiceTemplate.class);
-        final ToscaEntity unsupportedPolicy = new UnsupportedPolicy();
+        final var unsupportedPolicy = new UnsupportedPolicy();
 
-        final LifecycleApiPolicyForwarder forwarder = new LifecycleApiPolicyForwarder();
+        final var forwarder = new LifecycleApiPolicyForwarder();
         forwarder.configure(LifecycleApiForwarderParameters.class.getSimpleName());
 
         final Collection<ToscaEntity> policies = new ArrayList<>();

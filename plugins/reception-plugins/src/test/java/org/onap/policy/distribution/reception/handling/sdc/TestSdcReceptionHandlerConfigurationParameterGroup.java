@@ -22,35 +22,33 @@
 
 package org.onap.policy.distribution.reception.handling.sdc;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
-import org.junit.Test;
-import org.onap.policy.common.parameters.ValidationResult;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ValidationStatus;
 
 /**
  * Class to perform unit test of {@link SdcConfiguration}.
  *
  */
-public class TestSdcReceptionHandlerConfigurationParameterGroup {
+class TestSdcReceptionHandlerConfigurationParameterGroup {
 
     @Test
-    public void testSdcConfiguration() throws IOException {
-        SdcReceptionHandlerConfigurationParameterGroup configParameters = null;
-        final Gson gson = new GsonBuilder().create();
-        configParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdc.json"),
+    void testSdcConfiguration() throws IOException {
+        final var gson = new GsonBuilder().create();
+        var configParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdc.json"),
                SdcReceptionHandlerConfigurationParameterGroup.class);
 
-        final ValidationResult validationResult = configParameters.validate();
+        final var validationResult = configParameters.validate();
         assertTrue(validationResult.isValid());
-        final SdcConfiguration config = new SdcConfiguration(configParameters);
+        final var config = new SdcConfiguration(configParameters);
         assertEquals(Arrays.asList("TOSCA_CSAR", "HEAT"), config.getRelevantArtifactTypes());
         assertEquals("localhost", config.getSdcAddress());
         assertEquals("policy", config.getUser());
@@ -62,44 +60,41 @@ public class TestSdcReceptionHandlerConfigurationParameterGroup {
         assertEquals("TEST", config.getEnvironmentName());
         assertEquals("null", config.getKeyStorePath());
         assertEquals("null", config.getKeyStorePassword());
-        assertEquals(false, config.activateServerTLSAuth());
-        assertEquals(true, config.isFilterInEmptyResources());
-        assertEquals(false, config.isUseHttpsWithSDC());
+        assertFalse(config.activateServerTLSAuth());
+        assertTrue(config.isFilterInEmptyResources());
+        assertFalse(config.isUseHttpsWithSDC());
     }
 
     @Test
-    public void testSdcConfigurationNullParameters() throws IOException {
-        SdcReceptionHandlerConfigurationParameterGroup configParameters = null;
-        final Gson gson = new GsonBuilder().create();
-        configParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdc-null-parameters.json"),
+    void testSdcConfigurationNullParameters() throws IOException {
+        final var gson = new GsonBuilder().create();
+        var configParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdc-null-parameters.json"),
                SdcReceptionHandlerConfigurationParameterGroup.class);
 
-        final ValidationResult validationResult = configParameters.validate();
+        final var validationResult = configParameters.validate();
         assertTrue(validationResult.isValid());
-        final SdcConfiguration config = new SdcConfiguration(configParameters);
-        assertEquals(null, config.getKeyStorePath());
-        assertEquals(null, config.getKeyStorePassword());
+        final var config = new SdcConfiguration(configParameters);
+        assertThat(config.getKeyStorePath()).isNull();
+        assertThat(config.getKeyStorePassword()).isNull();
         //if boolean parameters are null they are set to false
-        assertEquals(false, config.activateServerTLSAuth());
-        assertEquals(false, config.isFilterInEmptyResources());
+        assertFalse(config.activateServerTLSAuth());
+        assertFalse(config.isFilterInEmptyResources());
     }
 
     @Test
-    public void testInvalidSdcConfiguration() throws IOException {
-        SdcReceptionHandlerConfigurationParameterGroup configParameters = null;
-
-        final Gson gson = new GsonBuilder().create();
-        configParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdcInvalid.json"),
+    void testInvalidSdcConfiguration() throws IOException {
+        final var gson = new GsonBuilder().create();
+        var configParameters = gson.fromJson(new FileReader("src/test/resources/handling-sdcInvalid.json"),
                 SdcReceptionHandlerConfigurationParameterGroup.class);
 
-        final ValidationResult validationResult = configParameters.validate();
+        final var validationResult = configParameters.validate();
         assertFalse(validationResult.isValid());
 
     }
 
     @Test
-    public void testEmptyParameters() {
-        final SdcReceptionHandlerConfigurationParameterGroup configurationParameters =
+    void testEmptyParameters() {
+        final var configurationParameters =
                 CommonTestData.getPolicyDecoderParameters("src/test/resources/parameters/EmptyParameters.json",
                         SdcReceptionHandlerConfigurationParameterGroup.class);
 

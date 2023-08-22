@@ -25,10 +25,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.onap.policy.common.parameters.ParameterGroup;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.coder.StandardCoder;
@@ -45,7 +44,7 @@ import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
  *
  * @author Sirisha Manchikanti (sirisha.manchikanti@est.tech)
  */
-public class LifecycleApiAutomationCompositionForwarderTest {
+class LifecycleApiAutomationCompositionForwarderTest {
 
     private static final String AUTOMATION_COMPOSITION =
             "src/test/resources/parameters/sample_automation_composition.json";
@@ -60,9 +59,9 @@ public class LifecycleApiAutomationCompositionForwarderTest {
      * @throws PolicyForwardingException if any error occurs
      * @throws InterruptedException if any error occurs
      */
-    @BeforeClass
-    public static void setUp() throws PolicyForwardingException, CoderException, InterruptedException {
-        final ParameterGroup parameterGroup = CommonTestData.getPolicyForwarderParameters(
+    @BeforeAll
+    static void setUp() throws PolicyForwardingException, CoderException, InterruptedException {
+        final var parameterGroup = CommonTestData.getPolicyForwarderParameters(
                 "src/test/resources/parameters/LifecycleApiAutomationCompositionForwarderParameters.json",
                 LifecycleApiAutomationCompositionForwarderParameters.class);
         ParameterService.register(parameterGroup);
@@ -75,19 +74,19 @@ public class LifecycleApiAutomationCompositionForwarderTest {
     /**
      * Tear down.
      */
-    @AfterClass
-    public static void tearDown() {
+    @AfterAll
+    static void tearDown() {
         ParameterService.deregister(LifecycleApiAutomationCompositionForwarderParameters.class.getSimpleName());
         simulator.stopLifecycycleApiSimulator();
     }
 
     @Test
-    public void testForwardAutomationCompositionUsingSimulator() throws Exception {
+    void testForwardAutomationCompositionUsingSimulator() throws Exception {
         assertThatCode(() -> {
-            final ToscaServiceTemplate toscaServiceTemplate = standardCoder.decode(
+            final var toscaServiceTemplate = standardCoder.decode(
                 ResourceUtils.getResourceAsString(AUTOMATION_COMPOSITION), ToscaServiceTemplate.class);
 
-            final LifecycleApiAutomationCompositionForwarder forwarder =
+            final var forwarder =
                     new LifecycleApiAutomationCompositionForwarder();
             forwarder.configure(LifecycleApiAutomationCompositionForwarderParameters.class.getSimpleName());
 
@@ -100,12 +99,12 @@ public class LifecycleApiAutomationCompositionForwarderTest {
     }
 
     @Test
-    public void testForwardAutomationCompositionFailureUsingSimulator() throws Exception {
+    void testForwardAutomationCompositionFailureUsingSimulator() throws Exception {
 
-        final ToscaEntity toscaEntity = new ToscaEntity();
+        final var toscaEntity = new ToscaEntity();
         toscaEntity.setName("FailureCase");
 
-        final LifecycleApiAutomationCompositionForwarder forwarder = new LifecycleApiAutomationCompositionForwarder();
+        final var forwarder = new LifecycleApiAutomationCompositionForwarder();
         forwarder.configure(LifecycleApiAutomationCompositionForwarderParameters.class.getSimpleName());
 
         final Collection<ToscaEntity> automationCompositionList = new ArrayList<>();

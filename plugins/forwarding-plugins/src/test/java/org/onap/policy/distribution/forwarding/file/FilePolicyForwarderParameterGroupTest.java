@@ -22,20 +22,20 @@
 
 package org.onap.policy.distribution.forwarding.file;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ValidationStatus;
 
 /**
  * Class to perform unit test of {@link FilePolicyForwarderParameterGroup}.
  */
-public class FilePolicyForwarderParameterGroupTest {
+class FilePolicyForwarderParameterGroupTest {
 
     @Test
-    public void testBuilderAndGetters() {
-        final FilePolicyForwarderParameterGroup configurationParameters = new FilePolicyForwarderParameterGroup();
+    void testBuilderAndGetters() {
+        final var configurationParameters = new FilePolicyForwarderParameterGroup();
         configurationParameters.setPath("/tmp");
         configurationParameters.setVerbose(true);
         configurationParameters.setName("myConfiguration");
@@ -47,8 +47,8 @@ public class FilePolicyForwarderParameterGroupTest {
     }
 
     @Test
-    public void testInvalidPath() {
-        final FilePolicyForwarderParameterGroup configurationParameters = new FilePolicyForwarderParameterGroup();
+    void testInvalidPath() {
+        final var configurationParameters = new FilePolicyForwarderParameterGroup();
         configurationParameters.setPath("");
         configurationParameters.setVerbose(false);
         configurationParameters.setName("myConfiguration");

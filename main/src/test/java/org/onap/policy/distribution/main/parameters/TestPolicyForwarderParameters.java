@@ -22,14 +22,14 @@
 package org.onap.policy.distribution.main.parameters;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.onap.policy.distribution.main.parameters.CommonTestData.FORWARDER_CLASS_NAME;
 import static org.onap.policy.distribution.main.parameters.CommonTestData.FORWARDER_CONFIGURATION_PARAMETERS;
 import static org.onap.policy.distribution.main.parameters.CommonTestData.FORWARDER_TYPE;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ValidationResult;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 
@@ -38,23 +38,23 @@ import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParamet
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
-public class TestPolicyForwarderParameters {
+class TestPolicyForwarderParameters {
 
     @Test
-    public void testPolicyForwarderParameters() {
-        final PolicyForwarderParameters pFParameters =
+    void testPolicyForwarderParameters() {
+        final var pFParameters =
                 new PolicyForwarderParameters(FORWARDER_TYPE, FORWARDER_CLASS_NAME, FORWARDER_CONFIGURATION_PARAMETERS);
-        final ValidationResult validationResult = pFParameters.validate();
+        final var validationResult = pFParameters.validate();
         assertEquals(FORWARDER_TYPE, pFParameters.getForwarderType());
         assertEquals(FORWARDER_CLASS_NAME, pFParameters.getForwarderClassName());
         assertTrue(validationResult.isValid());
     }
 
     @Test
-    public void testPolicyForwarderParameters_InvalidForwarderType() {
-        final PolicyForwarderParameters pFParameters =
+    void testPolicyForwarderParameters_InvalidForwarderType() {
+        final var pFParameters =
                 new PolicyForwarderParameters("", FORWARDER_CLASS_NAME, FORWARDER_CONFIGURATION_PARAMETERS);
-        final ValidationResult validationResult = pFParameters.validate();
+        final var validationResult = pFParameters.validate();
         assertEquals("", pFParameters.getForwarderType());
         assertEquals(FORWARDER_CLASS_NAME, pFParameters.getForwarderClassName());
         assertFalse(validationResult.isValid());
@@ -62,10 +62,10 @@ public class TestPolicyForwarderParameters {
     }
 
     @Test
-    public void testPolicyForwarderParameters_InvalidForwarderClassName() {
-        final PolicyForwarderParameters pFParameters =
+    void testPolicyForwarderParameters_InvalidForwarderClassName() {
+        final var pFParameters =
                 new PolicyForwarderParameters(FORWARDER_TYPE, "", FORWARDER_CONFIGURATION_PARAMETERS);
-        final ValidationResult validationResult = pFParameters.validate();
+        final var validationResult = pFParameters.validate();
         assertEquals(CommonTestData.FORWARDER_TYPE, pFParameters.getForwarderType());
         assertEquals("", pFParameters.getForwarderClassName());
         assertFalse(validationResult.isValid());
@@ -73,10 +73,10 @@ public class TestPolicyForwarderParameters {
     }
 
     @Test
-    public void testPolicyForwarderParameters_InvalidForwarderTypeAndClassName() {
-        final PolicyForwarderParameters pFParameters =
+    void testPolicyForwarderParameters_InvalidForwarderTypeAndClassName() {
+        final var pFParameters =
                 new PolicyForwarderParameters("", "", FORWARDER_CONFIGURATION_PARAMETERS);
-        final ValidationResult validationResult = pFParameters.validate();
+        final var validationResult = pFParameters.validate();
         assertEquals("", pFParameters.getForwarderType());
         assertEquals("", pFParameters.getForwarderClassName());
         assertFalse(validationResult.isValid());
@@ -85,32 +85,32 @@ public class TestPolicyForwarderParameters {
     }
 
     @Test
-    public void testPolicyForwarderParameters_NullForwarderType() {
-        final PolicyForwarderParameters pFParameters =
+    void testPolicyForwarderParameters_NullForwarderType() {
+        final var pFParameters =
                 new PolicyForwarderParameters(null, FORWARDER_CLASS_NAME, FORWARDER_CONFIGURATION_PARAMETERS);
-        final ValidationResult validationResult = pFParameters.validate();
-        assertEquals(null, pFParameters.getForwarderType());
+        final var validationResult = pFParameters.validate();
+        assertThat(pFParameters.getForwarderType()).isNull();
         assertEquals(FORWARDER_CLASS_NAME, pFParameters.getForwarderClassName());
         assertFalse(validationResult.isValid());
         assertThat(validationResult.getResult()).contains("\"forwarderType\" value \"null\" INVALID, is null");
     }
 
     @Test
-    public void testPolicyForwarderParameters_NullForwarderClassName() {
-        final PolicyForwarderParameters pFParameters =
+    void testPolicyForwarderParameters_NullForwarderClassName() {
+        final var pFParameters =
                 new PolicyForwarderParameters(FORWARDER_TYPE, null, FORWARDER_CONFIGURATION_PARAMETERS);
-        final ValidationResult validationResult = pFParameters.validate();
+        final var validationResult = pFParameters.validate();
         assertEquals(FORWARDER_TYPE, pFParameters.getForwarderType());
-        assertEquals(null, pFParameters.getForwarderClassName());
+        assertThat(pFParameters.getForwarderClassName()).isNull();
         assertFalse(validationResult.isValid());
         assertThat(validationResult.getResult()).contains("\"forwarderClassName\" value \"null\" INVALID, is null");
     }
 
     @Test
-    public void testPolicyForwarderParameters_InvalidForwarderClass() {
-        final PolicyForwarderParameters pFParameters = new PolicyForwarderParameters(FORWARDER_TYPE,
+    void testPolicyForwarderParameters_InvalidForwarderClass() {
+        final var pFParameters = new PolicyForwarderParameters(FORWARDER_TYPE,
                 FORWARDER_CLASS_NAME + "Invalid", FORWARDER_CONFIGURATION_PARAMETERS);
-        final ValidationResult validationResult = pFParameters.validate();
+        final var validationResult = pFParameters.validate();
         assertEquals(FORWARDER_TYPE, pFParameters.getForwarderType());
         assertEquals(FORWARDER_CLASS_NAME + "Invalid", pFParameters.getForwarderClassName());
         assertFalse(validationResult.isValid());
