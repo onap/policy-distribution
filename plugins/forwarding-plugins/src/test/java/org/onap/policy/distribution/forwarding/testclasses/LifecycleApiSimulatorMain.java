@@ -20,6 +20,7 @@
 
 package org.onap.policy.distribution.forwarding.testclasses;
 
+import java.util.List;
 import org.onap.policy.common.endpoints.http.server.RestServer;
 import org.onap.policy.common.endpoints.parameters.RestServerParameters;
 import org.onap.policy.common.utils.coder.CoderException;
@@ -27,7 +28,6 @@ import org.onap.policy.common.utils.coder.StandardCoder;
 import org.onap.policy.common.utils.resources.ResourceUtils;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.distribution.forwarding.lifecycle.api.LifecycleApiPolicyForwarder;
-import org.onap.policy.distribution.main.rest.aaf.AafDistributionFilter;
 
 /**
  * The class for starting/stopping simulator for testing {@link LifecycleApiPolicyForwarder} .
@@ -43,13 +43,13 @@ public class LifecycleApiSimulatorMain {
      * @throws PolicyForwardingException if error occurs
      * @throws CoderException if error occurs
      */
-    public void startLifecycycleApiSimulator() throws PolicyForwardingException, CoderException {
+    public void startLifecycleApiSimulator() throws PolicyForwardingException, CoderException {
         final StandardCoder standardCoder = new StandardCoder();
         final RestServerParameters restServerParameters = standardCoder.decode(
                 ResourceUtils.getResourceAsString("src/test/resources/parameters/RestServerParameters.json"),
                 RestServerParameters.class);
-        restServer = new RestServer(restServerParameters, AafDistributionFilter.class,
-                LifecycycleApiSimulatorEndpoint.class);
+        restServer = new RestServer(restServerParameters, List.of(),
+                List.of(LifecycycleApiSimulatorEndpoint.class));
         if (!restServer.start()) {
             throw new PolicyForwardingException("Failed to start rest simulator. Check log for more details...");
         }
@@ -58,7 +58,7 @@ public class LifecycleApiSimulatorMain {
     /**
      * Shut down Execution.
      */
-    public void stopLifecycycleApiSimulator() {
+    public void stopLifecycleApiSimulator() {
         if (restServer != null) {
             restServer.stop();
         }

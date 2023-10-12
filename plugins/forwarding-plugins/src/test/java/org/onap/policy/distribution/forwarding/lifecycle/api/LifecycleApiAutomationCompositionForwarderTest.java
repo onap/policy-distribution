@@ -65,7 +65,7 @@ class LifecycleApiAutomationCompositionForwarderTest {
                 "src/test/resources/parameters/LifecycleApiAutomationCompositionForwarderParameters.json",
                 LifecycleApiAutomationCompositionForwarderParameters.class);
         ParameterService.register(parameterGroup);
-        simulator.startLifecycycleApiSimulator();
+        simulator.startLifecycleApiSimulator();
         if (!NetworkUtil.isTcpPortOpen("localhost", 6969, 50, 200L)) {
             throw new IllegalStateException("cannot connect to port 6969");
         }
