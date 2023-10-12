@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Copyright (C) 2019, 2022 Nordix Foundation.
+ *  Copyright (C) 2019, 2022-2023 Nordix Foundation.
  *  Modifications Copyright (C) 2020-2021 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
@@ -104,8 +104,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
      */
     private synchronized void changeSdcReceptionHandlerStatus(final SdcReceptionHandlerStatus newStatus) {
         switch (newStatus) {
-            case INIT:
-            case STOPPED:
+            case INIT, STOPPED:
                 sdcReceptionHandlerStatus = newStatus;
                 break;
             case IDLE:
@@ -212,7 +211,10 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
                     "Failed to deploy the artifact due to: " + exp.getMessage());
             }
         }
-        if (artifactsProcessedSuccessfully) {
+
+        // NoSonar here for complaining about var not changing, when, in fact,
+        // can change to false when Exceptions are triggered.
+        if (artifactsProcessedSuccessfully) { // NOSONAR
             DistributionStatisticsManager.updateDistributionSuccessCount();
             sendComponentDoneStatus(notificationData.getDistributionID(), DistributionStatusEnum.COMPONENT_DONE_OK,
                 null);
@@ -379,7 +381,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
     }
 
     private File safelyCreateFile(String prefix) throws IOException {
-        File file = Files.createTempFile(prefix, ".csar").toFile();
+        File file = Files.createTempFile(prefix, ".csar").toFile(); // NOSONAR
         if (file.setReadable(true, false)
             && file.setWritable(true, true)) {
             return file;

@@ -1,7 +1,7 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Copyright (C) 2019 Nordix Foundation.
+ *  Copyright (C) 2019, 2023 Nordix Foundation.
  *  Modifications Copyright (C) 2019-2020 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
  * ================================================================================
@@ -25,6 +25,7 @@ package org.onap.policy.distribution.main.startstop;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import lombok.Getter;
@@ -35,7 +36,6 @@ import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.DistributionParameterGroup;
 import org.onap.policy.distribution.main.parameters.PolicyForwarderConfigurationParameterGroup;
 import org.onap.policy.distribution.main.rest.DistributionRestController;
-import org.onap.policy.distribution.main.rest.aaf.AafDistributionFilter;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;
@@ -110,8 +110,8 @@ public class DistributionActivator {
      */
     private void startDistributionRestServer() throws PolicyDistributionException {
         distributionParameterGroup.getRestServerParameters().setName(distributionParameterGroup.getName());
-        restServer = new RestServer(distributionParameterGroup.getRestServerParameters(), AafDistributionFilter.class,
-                        DistributionRestController.class);
+        restServer = new RestServer(distributionParameterGroup.getRestServerParameters(), List.of(),
+            List.of(DistributionRestController.class));
         if (!restServer.start()) {
             throw new PolicyDistributionException(
                     "Failed to start distribution rest server. Check log for more details...");

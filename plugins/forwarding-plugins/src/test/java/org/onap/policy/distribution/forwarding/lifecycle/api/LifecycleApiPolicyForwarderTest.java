@@ -66,7 +66,7 @@ class LifecycleApiPolicyForwarderTest {
                 "src/test/resources/parameters/LifecycleApiPolicyForwarderParameters.json",
                 LifecycleApiForwarderParameters.class);
         ParameterService.register(parameterGroup);
-        simulator.startLifecycycleApiSimulator();
+        simulator.startLifecycleApiSimulator();
         if (!NetworkUtil.isTcpPortOpen("localhost", 6969, 50, 200L)) {
             throw new IllegalStateException("cannot connect to port 6969");
         }
@@ -78,7 +78,7 @@ class LifecycleApiPolicyForwarderTest {
     @AfterAll
     static void tearDown() {
         ParameterService.deregister(LifecycleApiForwarderParameters.class.getSimpleName());
-        simulator.stopLifecycycleApiSimulator();
+        simulator.stopLifecycleApiSimulator();
     }
 
     @Test
