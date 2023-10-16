@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============LICENSE_START=======================================================
-#  Copyright (c) 2021-2022 Nordix Foundation.
+#  Copyright (c) 2021-2023 Nordix Foundation.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,14 +17,21 @@
 # SPDX-License-Identifier: Apache-2.0
 # ============LICENSE_END=========================================================
 
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <duration>"
+    exit 1
+fi
+
+duration="$1"
+
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-JMETER_HOME=~/jmeter/apache-jmeter-5.4.1
+JMETER_HOME=~/jmeter/apache-jmeter-5.5
 
 POLICY_API_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' policy-api)
 POLICY_PAP_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' policy-pap)
 POLICY_DISTRIBUTION_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' policy-distribution)
 
-${JMETER_HOME}/bin/jmeter -n -t "${DIR}"/performance.jmx -Jduration=14400 \
+${JMETER_HOME}/bin/jmeter -n -t "${DIR}"/performance.jmx -Jduration="${duration}" \
     -Japihost="${POLICY_API_IP}" \
     -Jpaphost="${POLICY_PAP_IP}" \
     -Jdisthost="${POLICY_DISTRIBUTION_IP}" -l distribution_performance.jtl &

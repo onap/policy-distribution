@@ -23,12 +23,18 @@ spring:
 
 server:
   port: 6969
+  servlet:
+    context-path: /policy/pap/v1
   ssl:
     enabled: false
 
 pap:
   name: PapGroup
   aaf: false
+  topic:
+    pdp-pap.name: POLICY-PDP-PAP
+    notification.name: POLICY-NOTIFICATION
+    heartbeat.name: POLICY-HEARTBEAT
   pdpParameters:
     heartBeatMs: 120000
     updateParameters:
@@ -37,41 +43,42 @@ pap:
     stateChangeParameters:
       maxRetryCount: 1
       maxWaitMs: 30000
+  savePdpStatisticsInDb: true
   topicParameterGroup:
     topicSources:
-    - topic: POLICY-PDP-PAP
-      servers:
-      - message-router
-      topicCommInfrastructure: dmaap
-      useHttps: false
-      fetchTimeout: 15000
-    - topic: POLICY-HEARTBEAT
-      effectiveTopic: POLICY-PDP-PAP
-      consumerGroup: policy-pap
-      servers:
-      - message-router
-      topicCommInfrastructure: dmaap
-      useHttps: false
-      fetchTimeout: 15000
+      - topic: POLICY-PDP-PAP
+        servers:
+          - message-router
+        topicCommInfrastructure: dmaap
+        useHttps: false
+        fetchTimeout: 15000
+      - topic: POLICY-HEARTBEAT
+        effectiveTopic: POLICY-PDP-PAP
+        consumerGroup: policy-pap
+        servers:
+          - message-router
+        topicCommInfrastructure: dmaap
+        useHttps: false
+        fetchTimeout: 15000
     topicSinks:
-    - topic: POLICY-PDP-PAP
-      servers:
-      - message-router
-      topicCommInfrastructure: dmaap
-      useHttps: false
-    - topic: POLICY-NOTIFICATION
-      servers:
-      - message-router
-      topicCommInfrastructure: dmaap
-      useHttps: false
+      - topic: POLICY-PDP-PAP
+        servers:
+          - message-router
+        topicCommInfrastructure: dmaap
+        useHttps: false
+      - topic: POLICY-NOTIFICATION
+        servers:
+          - message-router
+        topicCommInfrastructure: dmaap
+        useHttps: false
   healthCheckRestClientParameters:
-  - clientName: api
-    hostname: policy-api
-    port: 6969
-    userName: policyadmin
-    password: zb!XztG34
-    useHttps: false
-    basePath: policy/api/v1/healthcheck
+    - clientName: api
+      hostname: policy-api
+      port: 6969
+      userName: policyadmin
+      password: zb!XztG34
+      useHttps: false
+      basePath: policy/api/v1/healthcheck
 
 management:
   endpoints:
@@ -79,4 +86,6 @@ management:
       base-path: /
       exposure:
         include: health, metrics, prometheus
-      path-mapping.prometheus: metrics
+      path-mapping:
+        -metrics: plain-metrics
+        -prometheus: metrics

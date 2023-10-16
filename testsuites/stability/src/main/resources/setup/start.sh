@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============LICENSE_START=======================================================
-#  Copyright (c) 2021-2022 Nordix Foundation.
+#  Copyright (c) 2021-2023 Nordix Foundation.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 # ============LICENSE_END=========================================================
 
 # load up all the image version
-source "$(pwd)"/versions.sh
+source "$(pwd)"/stability/src/main/resources/setup/versions.sh
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORK_DIR=$(mktemp -d -p "$DIR")
@@ -33,7 +33,7 @@ if [[ ! "$WORK_DIR" || ! -d "$WORK_DIR" ]]; then
 fi
 
 # bring down maven
-curl -s -S https://dlcdn.apache.org/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz > apache-maven.tar.gz
+curl -s -S https://dlcdn.apache.org/maven/maven-3/3.9.5/binaries/apache-maven-3.9.5-bin.tar.gz > apache-maven.tar.gz
 mkdir -p apache-maven && tar -xzvf apache-maven.tar.gz -C apache-maven --strip-components 1
 
 MAVEN="${WORK_DIR}"/apache-maven/bin/mvn
@@ -42,10 +42,14 @@ echo ""
 
 # clone oparent for maven settings and models for building pdp/simulator
 git clone http://gerrit.onap.org/r/oparent
-git clone --depth 1 https://gerrit.onap.org/r/policy/models -b master
 
+docker pull nexus3.onap.org:10001/onap/policy-jre-alpine:${POLICY_DB_MIGRATOR}
+docker tag nexus3.onap.org:10001/onap/policy-jre-alpine:${POLICY_DB_MIGRATOR} onap/policy-jre-alpine:${POLICY_DB_MIGRATOR}
+
+git clone --depth 1 https://gerrit.onap.org/r/policy/models -b master
 cd models/models-sim/policy-models-sim-pdp || exit
 $MAVEN clean install -DskipTests --settings "${WORK_DIR}"/oparent/settings.xml
+
 bash ./src/main/package/docker/docker_build.sh
 
 cd "$DIR" || exit
