@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.onap.policy.distribution</groupId>
         <artifactId>policy-distribution</artifactId>
-        <version>3.0.2-SNAPSHOT</version>
+        <version>3.0.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>distribution-packages</artifactId>
