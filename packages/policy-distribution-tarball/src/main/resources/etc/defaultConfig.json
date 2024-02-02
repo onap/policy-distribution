@@ -63,8 +63,7 @@
                 "keyStorePath": "null",
                 "keyStorePassword": "null",
                 "activeserverTlsAuth": false,
-                "isFilterinEmptyResources": true,
-                "isUseHttpsWithDmaap": false
+                "isFilterinEmptyResources": true
             }
         }
     },

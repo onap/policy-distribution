@@ -1,9 +1,8 @@
 /*-
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Copyright (C) 2019 Nordix Foundation.
  *  Modifications Copyright (C) 2019-2021 AT&T Intellectual Property. All rights reserved.
- *  Modifications Copyright (C) 2019-2020 Nordix Foundation.
+ *  Modifications Copyright (C) 2019-2020, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,7 +67,7 @@ class TestDistributionRestServer {
                         "HealthCheckReport(name=Policy SSD, url=" + SELF + ", healthy=true, code=200, message=alive)";
         final var main = startDistributionService();
         final var report = performHealthCheck();
-        validateReport(NAME, SELF, true, 200, ALIVE, reportString, report);
+        validateReport(true, 200, ALIVE, reportString, report);
         assertThatCode(() -> stopDistributionService(main)).doesNotThrowAnyException();
     }
 
@@ -79,10 +78,10 @@ class TestDistributionRestServer {
                 "HealthCheckReport(name=Policy SSD, url=" + SELF + ", healthy=false, code=500, message=not alive)";
         final var restServerParams = new CommonTestData().getRestServerParameters(port);
         restServerParams.setName(CommonTestData.DISTRIBUTION_GROUP_NAME);
-        final var restServer = new RestServer(restServerParams, null, DistributionRestController.class);
+        final var restServer = new RestServer(restServerParams, DistributionRestController.class);
         restServer.start();
         final var report = performHealthCheck();
-        validateReport(NAME, SELF, false, 500, NOT_ALIVE, reportString, report);
+        validateReport(false, 500, NOT_ALIVE, reportString, report);
         assertTrue(restServer.isAlive());
         assertThat(restServer.toString()).startsWith("RestServer(servers=");
         assertThatCode(restServer::shutdown).doesNotThrowAnyException();
@@ -113,10 +112,10 @@ class TestDistributionRestServer {
         return invocationBuilder.get(HealthCheckReport.class);
     }
 
-    private void validateReport(final String name, final String url, final boolean healthy, final int code,
-            final String message, final String reportString, final HealthCheckReport report) {
-        assertEquals(name, report.getName());
-        assertEquals(url, report.getUrl());
+    private void validateReport(final boolean healthy, final int code,
+                                final String message, final String reportString, final HealthCheckReport report) {
+        assertEquals(TestDistributionRestServer.NAME, report.getName());
+        assertEquals(TestDistributionRestServer.SELF, report.getUrl());
         assertEquals(healthy, report.isHealthy());
         assertEquals(code, report.getCode());
         assertEquals(message, report.getMessage());
