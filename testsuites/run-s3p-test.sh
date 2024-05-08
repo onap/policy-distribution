@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============LICENSE_START=======================================================
-#  Copyright (c) 2023 Nordix Foundation.
+#  Copyright (c) 2023-2024 Nordix Foundation.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -87,7 +87,7 @@ sudo apt install -y wget unzip
 
 # Install JMeter
 mkdir -p ~/jmeter
-wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.5.zip # check if valid version
+wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.5.zip # check if valid version
 unzip -q -d ~/jmeter apache-jmeter-5.5.zip
 rm apache-jmeter-5.5.zip
 
