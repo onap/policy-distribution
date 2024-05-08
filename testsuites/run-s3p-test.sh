@@ -87,7 +87,7 @@ sudo apt install -y wget unzip
 
 # Install JMeter
 mkdir -p ~/jmeter
-wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.5.zip # check if valid version
+wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.5.zip # check if valid version
 unzip -q -d ~/jmeter apache-jmeter-5.5.zip
 rm apache-jmeter-5.5.zip
 
