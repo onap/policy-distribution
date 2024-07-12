@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.onap.policy.distribution</groupId>
         <artifactId>policy-distribution</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>distribution-testsuites</artifactId>
     <packaging>pom</packaging>
