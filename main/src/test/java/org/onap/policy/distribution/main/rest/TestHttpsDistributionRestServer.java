@@ -24,6 +24,7 @@ package org.onap.policy.distribution.main.rest;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.MediaType;
@@ -33,9 +34,9 @@ import javax.net.ssl.SSLContext;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.onap.policy.common.endpoints.report.HealthCheckReport;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.common.utils.network.NetworkUtil;
+import org.onap.policy.common.utils.report.HealthCheckReport;
 import org.onap.policy.common.utils.security.SelfSignedKeyStore;
 import org.onap.policy.distribution.main.PolicyDistributionException;
 import org.onap.policy.distribution.main.parameters.CommonTestData;
@@ -65,7 +66,7 @@ class TestHttpsDistributionRestServer {
                         "HealthCheckReport(name=Policy SSD, url=" + SELF + ", healthy=true, code=200, message=alive)";
         final var main = startDistributionService();
         final var report = performHealthCheck();
-        validateReport(NAME, SELF, true, 200, ALIVE, reportString, report);
+        validateReport(reportString, report);
         assertThatCode(() -> stopDistributionService(main)).doesNotThrowAnyException();
     }
 
@@ -104,13 +105,12 @@ class TestHttpsDistributionRestServer {
         return invocationBuilder.get(HealthCheckReport.class);
     }
 
-    private void validateReport(final String name, final String url, final boolean healthy, final int code,
-            final String message, final String reportString, final HealthCheckReport report) {
-        assertEquals(name, report.getName());
-        assertEquals(url, report.getUrl());
-        assertEquals(healthy, report.isHealthy());
-        assertEquals(code, report.getCode());
-        assertEquals(message, report.getMessage());
+    private void validateReport(final String reportString, final HealthCheckReport report) {
+        assertEquals(TestHttpsDistributionRestServer.NAME, report.getName());
+        assertEquals(TestHttpsDistributionRestServer.SELF, report.getUrl());
+        assertTrue(report.isHealthy());
+        assertEquals(200, report.getCode());
+        assertEquals(TestHttpsDistributionRestServer.ALIVE, report.getMessage());
         assertEquals(reportString, report.toString());
     }
 }

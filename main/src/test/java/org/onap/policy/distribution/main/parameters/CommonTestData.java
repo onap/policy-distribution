@@ -2,7 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2019-2020 AT&T Intellectual Property. All rights reserved.
- *  Modifications Copyright (C) 2019 Nordix Foundation.
+ *  Modifications Copyright (C) 2019, 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
-import org.onap.policy.common.endpoints.parameters.RestServerParameters;
+import org.onap.policy.common.parameters.rest.RestServerParameters;
 import org.onap.policy.common.utils.coder.Coder;
 import org.onap.policy.common.utils.coder.CoderException;
 import org.onap.policy.common.utils.coder.StandardCoder;
@@ -77,7 +77,7 @@ public class CommonTestData {
 
     public static final String CONFIG_FILE = "src/test/resources/parameters/TestConfigParams.json";
 
-    private Coder coder = new StandardCoder();
+    private final Coder coder = new StandardCoder();
 
     /**
      * Makes a parameter configuration file by substituting an available port number within a
@@ -153,11 +153,10 @@ public class CommonTestData {
      * @return the receptionHandlerParameters object
      */
     public Map<String, ReceptionHandlerParameters> getReceptionHandlerParameters(final boolean isEmpty) {
-        final Map<String, ReceptionHandlerParameters> receptionHandlerParameters =
-                new HashMap<String, ReceptionHandlerParameters>();
+        final Map<String, ReceptionHandlerParameters> receptionHandlerParameters = new HashMap<>();
         if (!isEmpty) {
-            final Map<String, PolicyDecoderParameters> policyDecoders = getPolicyDecoders(isEmpty);
-            final Map<String, PolicyForwarderParameters> policyForwarders = getPolicyForwarders(isEmpty);
+            final Map<String, PolicyDecoderParameters> policyDecoders = getPolicyDecoders(false);
+            final Map<String, PolicyForwarderParameters> policyForwarders = getPolicyForwarders(false);
             final PluginHandlerParameters pHParameters = new PluginHandlerParameters(policyDecoders, policyForwarders);
             final ReceptionHandlerParameters rhParameters = new ReceptionHandlerParameters(RECEPTION_HANDLER_TYPE,
                     RECEPTION_HANDLER_CLASS_NAME, RECEPTION_CONFIGURATION_PARAMETERS, pHParameters);
@@ -175,7 +174,7 @@ public class CommonTestData {
     public Map<String, ReceptionHandlerConfigurationParameterGroup> getReceptionHandlerConfigurationParameters(
             final boolean isEmpty) {
         final Map<String, ReceptionHandlerConfigurationParameterGroup> receptionHandlerConfigurationParameters =
-                new HashMap<String, ReceptionHandlerConfigurationParameterGroup>();
+            new HashMap<>();
         if (!isEmpty) {
             final DummyReceptionHandlerParameterGroup dummyReceptionHandlerParameterGroup =
                     new DummyReceptionHandlerParameterGroup();
@@ -197,9 +196,7 @@ public class CommonTestData {
     public PluginHandlerParameters getPluginHandlerParameters(final boolean isEmpty) {
         final Map<String, PolicyDecoderParameters> policyDecoders = getPolicyDecoders(isEmpty);
         final Map<String, PolicyForwarderParameters> policyForwarders = getPolicyForwarders(isEmpty);
-        final PluginHandlerParameters pluginHandlerParameters =
-                new PluginHandlerParameters(policyDecoders, policyForwarders);
-        return pluginHandlerParameters;
+        return new PluginHandlerParameters(policyDecoders, policyForwarders);
     }
 
     /**
@@ -210,7 +207,7 @@ public class CommonTestData {
      */
     public Map<String, PolicyForwarderParameters> getPolicyForwarders(final boolean isEmpty) {
         final Map<String, PolicyForwarderParameters> policyForwarders =
-                new HashMap<String, PolicyForwarderParameters>();
+            new HashMap<>();
         if (!isEmpty) {
             final PolicyForwarderParameters pFParameters = new PolicyForwarderParameters(FORWARDER_TYPE,
                     FORWARDER_CLASS_NAME, FORWARDER_CONFIGURATION_PARAMETERS);
@@ -226,7 +223,7 @@ public class CommonTestData {
      * @return the policyDecoders object
      */
     public Map<String, PolicyDecoderParameters> getPolicyDecoders(final boolean isEmpty) {
-        final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<String, PolicyDecoderParameters>();
+        final Map<String, PolicyDecoderParameters> policyDecoders = new HashMap<>();
         if (!isEmpty) {
             final PolicyDecoderParameters pDParameters =
                     new PolicyDecoderParameters(DECODER_TYPE, DECODER_CLASS_NAME, DECODER_CONFIGURATION_PARAMETERS);
@@ -244,7 +241,7 @@ public class CommonTestData {
     public Map<String, PolicyForwarderConfigurationParameterGroup> getPolicyForwarderConfigurationParameters(
             final boolean isEmpty) {
         final Map<String, PolicyForwarderConfigurationParameterGroup> policyForwarderConfigurationParameters =
-                new HashMap<String, PolicyForwarderConfigurationParameterGroup>();
+            new HashMap<>();
         if (!isEmpty) {
             final DummyPolicyForwarderParameterGroup parameters = new DummyPolicyForwarderParameterGroup();
             parameters.setHostname(FORWARDER_HOST);
@@ -267,7 +264,7 @@ public class CommonTestData {
     public Map<String, PolicyDecoderConfigurationParameterGroup> getPolicyDecoderConfigurationParameters(
             final boolean isEmpty) {
         final Map<String, PolicyDecoderConfigurationParameterGroup> policyDecoderConfigurationParameters =
-                new HashMap<String, PolicyDecoderConfigurationParameterGroup>();
+            new HashMap<>();
         if (!isEmpty) {
             final DummyPolicyDecoderParameterGroup dummyPolicyForwarderParameterGroup =
                     new DummyPolicyDecoderParameterGroup();

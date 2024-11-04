@@ -1,7 +1,8 @@
 /*-
  * ============LICENSE_START=======================================================
- *  Copyright (C) 2018 Ericsson. All rights reserved.
- *  Modifications Copyright (C) 2019, 2021 AT&T Intellectual Property. All rights reserved.
+ * Copyright (C) 2018 Ericsson. All rights reserved.
+ * Modifications Copyright (C) 2019, 2021 AT&T Intellectual Property. All rights reserved.
+ * Modifications Copyright (C) 2024 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,16 +22,15 @@
 
 package org.onap.policy.distribution.main.parameters;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
-import org.onap.policy.common.endpoints.parameters.RestServerParameters;
 import org.onap.policy.common.parameters.ParameterGroupImpl;
 import org.onap.policy.common.parameters.annotations.NotBlank;
 import org.onap.policy.common.parameters.annotations.NotNull;
 import org.onap.policy.common.parameters.annotations.Size;
 import org.onap.policy.common.parameters.annotations.Valid;
+import org.onap.policy.common.parameters.rest.RestServerParameters;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerConfigurationParameterGroup;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
@@ -53,13 +53,13 @@ public class DistributionParameterGroup extends ParameterGroupImpl {
     private Map<String, @NotNull @Valid ReceptionHandlerParameters> receptionHandlerParameters;
 
     private Map<String, @NotNull @Valid ReceptionHandlerConfigurationParameterGroup>
-                receptionHandlerConfigurationParameters = new LinkedHashMap<>();
+                receptionHandlerConfigurationParameters;
 
     private Map<String, @NotNull @Valid PolicyForwarderConfigurationParameterGroup>
-                policyForwarderConfigurationParameters = new LinkedHashMap<>();
+                policyForwarderConfigurationParameters;
 
     private Map<String, @NotNull @Valid PolicyDecoderConfigurationParameterGroup>
-                policyDecoderConfigurationParameters = new LinkedHashMap<>();
+                policyDecoderConfigurationParameters;
     // @formatter:on
 
     /**
