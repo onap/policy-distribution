@@ -28,7 +28,7 @@
     <parent>
         <groupId>org.onap.policy.parent</groupId>
         <artifactId>integration</artifactId>
-        <version>5.0.1-SNAPSHOT</version>
+        <version>5.0.1</version>
         <relativePath />
     </parent>
 
@@ -45,8 +45,8 @@
         <!-- Default Sonar configuration -->
         <jacoco.dataFile>${project.basedir}/../target/code-coverage/jacoco-ut.exec</jacoco.dataFile>
 
-        <policy.common.version>3.0.1-SNAPSHOT</policy.common.version>
-        <policy.models.version>4.0.1-SNAPSHOT</policy.models.version>
+        <policy.common.version>3.0.1</policy.common.version>
+        <policy.models.version>4.0.1</policy.models.version>
         <surefireArgLine>
             --add-opens java.base/java.lang=ALL-UNNAMED
         </surefireArgLine>
