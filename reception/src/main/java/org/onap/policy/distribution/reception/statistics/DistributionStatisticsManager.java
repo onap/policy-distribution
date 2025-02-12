@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2022 Bell Canada. All rights reserved.
+ *  Modifications Copyright (C) 2025 Nordix Foundation.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +22,7 @@
 
 package org.onap.policy.distribution.reception.statistics;
 
-import io.prometheus.client.Counter;
+import io.prometheus.metrics.core.metrics.Counter;
 
 /**
  * Class to hold statistical data for distribution component.
@@ -30,26 +31,26 @@ import io.prometheus.client.Counter;
  */
 public class DistributionStatisticsManager {
 
-    private static final Counter TOTAL_DISTRIBUTION_RECEIVED_COUNT = Counter.build()
+    private static final Counter TOTAL_DISTRIBUTION_RECEIVED_COUNT = Counter.builder()
                     .name("total_distribution_received_count")
                     .help("Total number of distribution received.").register();
-    private static final Counter DISTRIBUTION_SUCCESS_COUNT = Counter.build()
+    private static final Counter DISTRIBUTION_SUCCESS_COUNT = Counter.builder()
                     .name("distribution_success_count")
                     .help("Total number of distribution successfully processed.").register();
 
-    private static final Counter DISTRIBUTION_FAILURE_COUNT = Counter.build()
+    private static final Counter DISTRIBUTION_FAILURE_COUNT = Counter.builder()
                     .name("distribution_failure_count")
                     .help("Total number of distribution failures.").register();
 
-    private static final Counter TOTAL_DOWNLOAD_RECEIVED_COUNT = Counter.build()
+    private static final Counter TOTAL_DOWNLOAD_RECEIVED_COUNT = Counter.builder()
                     .name("total_download_received_count")
                     .help("Total number of download received.").register();
 
-    private static final Counter DOWNLOAD_SUCCESS_COUNT = Counter.build()
+    private static final Counter DOWNLOAD_SUCCESS_COUNT = Counter.builder()
                     .name("download_success_count")
                     .help("Total number of download successfully processed.").register();
 
-    private static final Counter DOWNLOAD_FAILURE_COUNT = Counter.build()
+    private static final Counter DOWNLOAD_FAILURE_COUNT = Counter.builder()
                     .name("download_failure_count")
                     .help("Total number of download failures.").register();
 
