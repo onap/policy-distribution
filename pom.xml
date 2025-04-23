@@ -3,7 +3,7 @@
   ONAP Policy SDC Service Distribution
   ================================================================================
   Copyright (C) 2018, 2020-2021 AT&T Intellectual Property. All rights reserved.
-  Copyright (C) 2019, 2025 Nordix Foundation.
+  Copyright (C) 2019, 2025 OpenInfra Foundation Europe. All rights reserved.
   Modifications Copyright (C) 2020 AT&T Inc.
   Modifications Copyright (C) 2021 Bell Canada.
   ================================================================================
@@ -30,7 +30,7 @@
     <parent>
         <groupId>org.onap.policy.parent</groupId>
         <artifactId>integration</artifactId>
-        <version>5.1.2-SNAPSHOT</version>
+        <version>5.1.2</version>
         <relativePath />
     </parent>
 
@@ -47,8 +47,8 @@
         <!-- Default Sonar configuration -->
         <jacoco.dataFile>${project.basedir}/../target/code-coverage/jacoco-ut.exec</jacoco.dataFile>
 
-        <policy.common.version>3.1.2-SNAPSHOT</policy.common.version>
-        <policy.models.version>4.1.2-SNAPSHOT</policy.models.version>
+        <policy.common.version>3.1.2</policy.common.version>
+        <policy.models.version>4.1.2</policy.models.version>
         <surefireArgLine>
             --add-opens java.base/java.lang=ALL-UNNAMED
         </surefireArgLine>
