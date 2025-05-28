@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "535be9a0_01113000",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7625
+      },
+      "writtenOn": "2025-05-28T15:55:53Z",
+      "side": 1,
+      "message": "missed these",
+      "range": {
+        "startLine": 50,
+        "startChar": 31,
+        "endLine": 51,
+        "endChar": 44
+      },
+      "revId": "e195467e79ede942973eb5f7fe4af8e0f0cbf5fe",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
