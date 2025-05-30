@@ -1,0 +1,8 @@
+distribution_type: 'container'
+container_release_tag: '4.2.0'
+project: 'policy-distribution'
+log_dir: 'policy-distribution-maven-docker-stage-master/1413'
+ref: 47f064c65cae01920e221390cb25b939e2e51e15
+containers:
+    - name: 'policy-distribution'
+      version: '4.2.0-20250529T1511'
