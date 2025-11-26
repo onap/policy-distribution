@@ -1,0 +1,5 @@
+distribution_type: 'maven'
+version: '4.2.2'
+project: 'policy-distribution'
+tag_release: false
+log_dir: 'policy-distribution-maven-stage-master/1416/'
