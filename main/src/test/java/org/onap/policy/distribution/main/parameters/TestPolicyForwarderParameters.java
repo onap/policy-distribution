@@ -2,6 +2,7 @@
  * ============LICENSE_START=======================================================
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
+ *  Modifications Copyright (C) 2025 OpenInfra Foundation Europe.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +31,6 @@ import static org.onap.policy.distribution.main.parameters.CommonTestData.FORWAR
 import static org.onap.policy.distribution.main.parameters.CommonTestData.FORWARDER_TYPE;
 
 import org.junit.jupiter.api.Test;
-import org.onap.policy.common.parameters.ValidationResult;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 
 /**

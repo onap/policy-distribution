@@ -3,7 +3,7 @@
  *  Copyright (C) 2018 Ericsson. All rights reserved.
  *  Modifications Copyright (C) 2020 AT&T Intellectual Property. All rights reserved.
  *  Modifications Copyright (C) 2021 Bell Canada. All rights reserved.
- *  Modifications Copyright (C) 2022 Nordix Foundation.
+ *  Modifications Copyright (C) 2022, 2025 OpenInfra Foundation Europe.
  * ================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ package org.onap.policy.distribution.reception.handling.sdc;
 
 import java.util.Collection;
 import java.util.List;
+import lombok.Getter;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
@@ -34,6 +35,7 @@ import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
  *
  * @author Ram Krishna Verma (ram.krishna.verma@ericsson.com)
  */
+@Getter
 public class DummyDecoder implements PolicyDecoder<Csar, DummyPolicy> {
 
     private DummyPolicy decodedPolicy;
@@ -56,16 +58,8 @@ public class DummyDecoder implements PolicyDecoder<Csar, DummyPolicy> {
         return List.of(dummyPolicy);
     }
 
-    /**
-     * Returns the policy decoded by this decoder.
-     *
-     * @return the policy
-     */
-    public DummyPolicy getDecodedPolicy() {
-        return decodedPolicy;
-    }
-
     @Override
     public void configure(final String parameterGroupName) {
+        // dummy implementation
     }
 }
