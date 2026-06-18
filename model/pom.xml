@@ -34,11 +34,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.openpojo</groupId>
-            <artifactId>openpojo</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.onap.policy.models</groupId>
             <artifactId>policy-models-tosca</artifactId>
             <version>${policy.models.version}</version>
