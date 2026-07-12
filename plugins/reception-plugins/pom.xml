@@ -47,5 +47,16 @@
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
         </dependency>
+        <!--
+            sdc-distribution-client uses Apache HttpClient 4.x (org.apache.http) at
+            runtime, but the policy parent only manages httpclient5. Declare it
+            explicitly so it is on the runtime/image classpath; otherwise the SDC
+            client fails with NoClassDefFoundError: org/apache/http/client/methods/HttpUriRequest.
+        -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.14</version>
+        </dependency>
     </dependencies>
 </project>
