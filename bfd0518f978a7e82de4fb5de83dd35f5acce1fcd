@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "778d2136_bdbbb46e",
+        "filename": "packages/policy-distribution-docker/pom.xml.versionsBackup",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6070
+      },
+      "writtenOn": "2026-07-13T11:07:21Z",
+      "side": 1,
+      "message": "Needs deletion",
+      "range": {
+        "startLine": 24,
+        "startChar": 1,
+        "endLine": 24,
+        "endChar": 9
+      },
+      "revId": "bfd0518f978a7e82de4fb5de83dd35f5acce1fcd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    }
+  ]
+}
