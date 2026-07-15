@@ -22,6 +22,30 @@
       },
       "revId": "6e33b300820d91b6a77e5bb921f87d9cefd11388",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d90bfe0a_d962fff8",
+        "filename": "plugins/reception-plugins/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6742
+      },
+      "writtenOn": "2026-07-15T13:13:45Z",
+      "side": 1,
+      "message": "Team discussed and agreed to keep here to avoid need of full project re-release.",
+      "parentUuid": "dd782c99_89ff817a",
+      "range": {
+        "startLine": 59,
+        "startChar": 47,
+        "endLine": 60,
+        "endChar": 37
+      },
+      "revId": "6e33b300820d91b6a77e5bb921f87d9cefd11388",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a"
     }
   ]
 }
