@@ -4,6 +4,7 @@
    Modifications copyright (C) 2020 Bell Canada. All rights reserved.
    Modifications Copyright (C) 2021 AT&T Intellectual Property. All rights reserved.
    Modifications Copyright (C) 2025 OpenInfra Foundation Europe. All rights reserved.
+   Modifications Copyright (C) 2026 Deutsche Telekom. All rights reserved.
   ================================================================================
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -46,6 +47,17 @@
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
+        </dependency>
+        <!--
+            sdc-distribution-client uses Apache HttpClient 4.x (org.apache.http) at
+            runtime, but the policy parent only manages httpclient5. Declare it
+            explicitly so it is on the runtime/image classpath; otherwise the SDC
+            client fails with NoClassDefFoundError: org/apache/http/client/methods/HttpUriRequest.
+        -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.14</version>
         </dependency>
     </dependencies>
 </project>
