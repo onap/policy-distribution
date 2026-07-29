@@ -49,15 +49,38 @@
             <artifactId>kafka-clients</artifactId>
         </dependency>
         <!--
+            The policy parent declares sdc-distribution-client with a blanket
+            <exclusion>*:*</exclusion>, so NONE of its transitive dependencies reach the
+            runtime/image classpath. Every third-party package the client touches must
+            therefore be declared here explicitly, or the SDC client dies with
+            NoClassDefFoundError on a background timer thread while the pod stays "Running".
+
             sdc-distribution-client uses Apache HttpClient 4.x (org.apache.http) at
-            runtime, but the policy parent only manages httpclient5. Declare it
-            explicitly so it is on the runtime/image classpath; otherwise the SDC
-            client fails with NoClassDefFoundError: org/apache/http/client/methods/HttpUriRequest.
+            runtime, but the policy parent only manages httpclient5.
+            Missing -> NoClassDefFoundError: org/apache/http/client/methods/HttpUriRequest.
         -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.14</version>
+        </dependency>
+        <!--
+            SdcConnectorClient reads every SDC response body with commons-io IOUtils.
+            Missing -> NoClassDefFoundError: org/apache/commons/io/IOUtils.
+        -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <!--
+            fj.data.Either is the declared return type of
+            SdcConnectorClient.getValidArtifactTypesList(), called from
+            DistributionClientImpl.init(). Missing -> NoClassDefFoundError: fj/data/Either.
+        -->
+        <dependency>
+            <groupId>org.functionaljava</groupId>
+            <artifactId>functionaljava</artifactId>
+            <version>4.8</version>
         </dependency>
     </dependencies>
 </project>
