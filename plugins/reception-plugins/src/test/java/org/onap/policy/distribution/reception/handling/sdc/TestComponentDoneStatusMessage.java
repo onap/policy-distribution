@@ -24,7 +24,7 @@ package org.onap.policy.distribution.reception.handling.sdc;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import org.onap.sdc.utils.DistributionStatusEnum;
+import org.onap.sdc.api.notification.DistributionStatusEnum;
 
 class TestComponentDoneStatusMessage {
 

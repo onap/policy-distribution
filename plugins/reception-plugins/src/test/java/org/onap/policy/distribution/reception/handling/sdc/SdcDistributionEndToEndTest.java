@@ -205,6 +205,7 @@ class SdcDistributionEndToEndTest {
 
         await().atMost(TIMEOUT).untilAsserted(() -> assertThat(stopResult.get()).isNotNull());
         assertThat(stopResult.get().getDistributionActionResult()).hasToString("SUCCESS");
+        await().atMost(TIMEOUT).until(this::notificationConsumerHasLeftGroup);
     }
 
     /**
@@ -215,6 +216,13 @@ class SdcDistributionEndToEndTest {
         try (var admin = Admin.create(Map.of(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBrokersAsString()))) {
             return admin.listConsumerGroupOffsets(sdcParameters.getConsumerGroup()).partitionsToOffsetAndMetadata()
                 .get().get(new TopicPartition(NOTIFICATION_TOPIC, 0)) != null;
+        }
+    }
+
+    private boolean notificationConsumerHasLeftGroup() throws ExecutionException, InterruptedException {
+        try (var admin = Admin.create(Map.of(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBrokersAsString()))) {
+            return admin.describeConsumerGroups(List.of(sdcParameters.getConsumerGroup())).all().get()
+                .get(sdcParameters.getConsumerGroup()).members().isEmpty();
         }
     }
 

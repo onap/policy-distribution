@@ -23,7 +23,7 @@ package org.onap.policy.distribution.reception.handling.sdc;
 
 import lombok.Builder;
 import org.onap.sdc.api.consumer.IComponentDoneStatusMessage;
-import org.onap.sdc.utils.DistributionStatusEnum;
+import org.onap.sdc.api.notification.DistributionStatusEnum;
 
 /**
  * This class represents the component done status of the distribution service.

@@ -56,9 +56,9 @@ import org.onap.policy.distribution.reception.statistics.DistributionStatisticsM
 import org.onap.sdc.api.IDistributionClient;
 import org.onap.sdc.api.notification.IArtifactInfo;
 import org.onap.sdc.api.notification.INotificationData;
+import org.onap.sdc.api.results.DistributionActionResultEnum;
 import org.onap.sdc.api.results.IDistributionClientDownloadResult;
 import org.onap.sdc.api.results.IDistributionClientResult;
-import org.onap.sdc.utils.DistributionActionResultEnum;
 
 /**
  * Class to perform unit test of {@link SdcReceptionHandler}.
