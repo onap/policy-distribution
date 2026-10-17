@@ -72,32 +72,35 @@ public abstract class AbstractReceptionHandler implements ReceptionHandler {
      * handler.
      *
      * @param policyInput the input that has been received
-     * @throws PolicyDecodingException if an error occurs when no decoders are available
+     * @throws PolicyDecodingException if no decoder is available or a decoder fails
+     * @throws PolicyForwardingException if any forwarder fails; every forwarder is still invoked
      */
-    protected void inputReceived(final PolicyInput policyInput) throws PolicyDecodingException {
+    protected void inputReceived(final PolicyInput policyInput)
+            throws PolicyDecodingException, PolicyForwardingException {
 
         final Collection<ToscaEntity> policies = new ArrayList<>();
 
-        try {
-            for (final PolicyDecoder<PolicyInput, ToscaEntity> policyDecoder : getRelevantPolicyDecoders(policyInput)) {
-                LOGGER.debug("Policy decoder: {}", policyDecoder.getClass());
-                policies.addAll(policyDecoder.decode(policyInput));
-            }
-        } catch (PolicyDecodingException decodingException) {
-            if (decodingException.getMessage().contains("No decoder")) {
-                throw decodingException;
-            } else {
-                LOGGER.error("Couldn't decode the policy", decodingException);
-            }
+        for (final PolicyDecoder<PolicyInput, ToscaEntity> policyDecoder : getRelevantPolicyDecoders(policyInput)) {
+            LOGGER.debug("Policy decoder: {}", policyDecoder.getClass());
+            policies.addAll(policyDecoder.decode(policyInput));
         }
 
+        PolicyForwardingException forwardingFailure = null;
         for (final PolicyForwarder policyForwarder : pluginHandler.getPolicyForwarders()) {
             try {
                 LOGGER.debug("Trying to forward policy to {}", policyForwarder.getClass());
                 policyForwarder.forward(policies);
             } catch (final PolicyForwardingException policyForwardingException) {
                 LOGGER.error("Error when forwarding policies to {}", policyForwarder, policyForwardingException);
+                if (forwardingFailure == null) {
+                    forwardingFailure = policyForwardingException;
+                } else {
+                    forwardingFailure.addSuppressed(policyForwardingException);
+                }
             }
+        }
+        if (forwardingFailure != null) {
+            throw forwardingFailure;
         }
     }
 

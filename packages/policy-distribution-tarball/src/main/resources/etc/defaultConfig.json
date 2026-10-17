@@ -55,8 +55,7 @@
                 "pollingTimeout": 30,
                 "consumerId": "policy-id",
                 "artifactTypes": [
-                    "TOSCA_CSAR",
-                    "HEAT"
+                    "TOSCA_CSAR"
                 ],
                 "consumerGroup": "policy-group",
                 "environmentName": "AUTO",

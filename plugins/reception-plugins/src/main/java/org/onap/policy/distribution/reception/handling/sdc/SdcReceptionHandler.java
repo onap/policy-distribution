@@ -31,6 +31,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
@@ -203,7 +204,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
                 sendDistributionStatus(DistributionStatusType.DEPLOY, artifact.getArtifactURL(),
                     notificationData.getDistributionID(), DistributionStatusEnum.DEPLOY_OK, null);
                 deleteArtifactFile(filePath);
-            } catch (final ArtifactDownloadException | PolicyDecodingException exp) {
+            } catch (final ArtifactDownloadException | PolicyDecodingException | PolicyForwardingException exp) {
                 LOGGER.error("Failed to process csar service artifacts ", exp);
                 artifactsProcessedSuccessfully = false;
                 sendDistributionStatus(DistributionStatusType.DEPLOY, artifact.getArtifactURL(),

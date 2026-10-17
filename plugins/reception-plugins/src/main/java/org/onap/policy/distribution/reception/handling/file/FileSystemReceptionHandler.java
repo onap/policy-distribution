@@ -37,6 +37,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipFile;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
@@ -166,7 +167,7 @@ public class FileSystemReceptionHandler extends AbstractReceptionHandler {
             inputReceived(csarObject);
             DistributionStatisticsManager.updateDownloadSuccessCount();
             DistributionStatisticsManager.updateDistributionSuccessCount();
-        } catch (final PolicyDecodingException ex) {
+        } catch (final PolicyDecodingException | PolicyForwardingException ex) {
             DistributionStatisticsManager.updateDownloadFailureCount();
             DistributionStatisticsManager.updateDistributionFailureCount();
             LOGGER.error("Policy creation failed", ex);
