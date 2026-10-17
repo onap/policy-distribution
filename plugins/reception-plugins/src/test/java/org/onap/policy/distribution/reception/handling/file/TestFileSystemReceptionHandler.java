@@ -22,6 +22,7 @@
 package org.onap.policy.distribution.reception.handling.file;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
@@ -39,6 +40,8 @@ import org.junit.jupiter.api.io.TempDir;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 import org.onap.policy.common.parameters.ParameterService;
+import org.onap.policy.distribution.forwarding.PolicyForwardingException;
+import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -155,5 +158,23 @@ class TestFileSystemReceptionHandler {
         }
         verify(sypHandler, Mockito.times(1)).createPolicyInputAndCallHandler(Mockito.isA(String.class));
 
+    }
+
+    @Test
+    void testForwardingFailureCountsAsFailedDistribution() {
+        final var failingHandler = new FileSystemReceptionHandler() {
+            @Override
+            protected void inputReceived(final PolicyInput policyInput) throws PolicyForwardingException {
+                throw new PolicyForwardingException("forwarding failed");
+            }
+        };
+
+        failingHandler.createPolicyInputAndCallHandler("dummy.csar");
+
+        assertEquals(1, DistributionStatisticsManager.getTotalDownloadCount());
+        assertEquals(1, DistributionStatisticsManager.getDownloadFailureCount());
+        assertEquals(1, DistributionStatisticsManager.getDistributionFailureCount());
+        assertEquals(0, DistributionStatisticsManager.getDownloadSuccessCount());
+        assertEquals(0, DistributionStatisticsManager.getDistributionSuccessCount());
     }
 }

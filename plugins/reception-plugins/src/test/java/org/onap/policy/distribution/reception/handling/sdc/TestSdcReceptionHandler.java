@@ -27,8 +27,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static  org.mockito.Mockito.any;
+import static  org.mockito.Mockito.argThat;
+import static  org.mockito.Mockito.doThrow;
 import static  org.mockito.Mockito.mock;
+import static  org.mockito.Mockito.never;
 import static  org.mockito.Mockito.spy;
+import static  org.mockito.Mockito.verify;
 import static  org.mockito.Mockito.when;
 
 import com.google.gson.GsonBuilder;
@@ -44,16 +48,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
+import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
+import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
 import org.onap.policy.distribution.reception.handling.PluginHandler;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
 import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
 import org.onap.sdc.api.IDistributionClient;
+import org.onap.sdc.api.notification.DistributionStatusEnum;
 import org.onap.sdc.api.notification.IArtifactInfo;
 import org.onap.sdc.api.notification.INotificationData;
 import org.onap.sdc.api.results.DistributionActionResultEnum;
@@ -251,6 +258,46 @@ class TestSdcReceptionHandler {
 
         assertNull(policyDecoder.getDecodedPolicy());
         assertEquals(0, policyForwarder.getNumberOfPoliciesReceived());
+    }
+
+    @Test
+    void testForwardingFailureIsReportedToSdc() throws Exception {
+        final var policyDecoder = new DummyDecoder();
+        final var policyForwarder = mock(PolicyForwarder.class);
+        doThrow(new PolicyForwardingException("policy-api rejected the policy")).when(policyForwarder)
+            .forward(any());
+
+        setUpPlugins(sypHandler, List.of(policyDecoder), List.of(policyForwarder));
+        sypHandler.initializeReception(pssdConfigParameters.getName());
+        sypHandler.activateCallback(notificationData);
+
+        verifyDeployAndComponentErrors("policy-api rejected the policy");
+    }
+
+    @Test
+    void testDecodingFailureIsReportedToSdc() throws Exception {
+        @SuppressWarnings("unchecked")
+        final PolicyDecoder<Csar, DummyPolicy> policyDecoder = mock(PolicyDecoder.class);
+        when(policyDecoder.canHandle(any())).thenReturn(true);
+        when(policyDecoder.decode(any())).thenThrow(new PolicyDecodingException("Failed decoding the policy"));
+        final var policyForwarder = new DummyPolicyForwarder();
+
+        setUpPlugins(sypHandler, List.of(policyDecoder), List.of(policyForwarder));
+        sypHandler.initializeReception(pssdConfigParameters.getName());
+        sypHandler.activateCallback(notificationData);
+
+        assertEquals(0, policyForwarder.getNumberOfPoliciesReceived());
+        verifyDeployAndComponentErrors("Failed decoding the policy");
+    }
+
+    private void verifyDeployAndComponentErrors(final String reason) {
+        verify(distributionClient).sendDeploymentStatus(
+            argThat(message -> message.getStatus() == DistributionStatusEnum.DEPLOY_ERROR),
+            argThat((String errorReason) -> errorReason.contains(reason)));
+        verify(distributionClient, never()).sendDeploymentStatus(any());
+        verify(distributionClient).sendComponentDoneStatus(
+            argThat(message -> message.getStatus() == DistributionStatusEnum.COMPONENT_DONE_ERROR), any());
+        assertEquals(1, DistributionStatisticsManager.getDistributionFailureCount());
     }
 
     private void setUpPlugins(final AbstractReceptionHandler receptionHandler,

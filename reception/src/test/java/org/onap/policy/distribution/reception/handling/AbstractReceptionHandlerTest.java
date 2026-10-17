@@ -21,7 +21,9 @@
 
 package org.onap.policy.distribution.reception.handling;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -29,10 +31,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
+import org.onap.policy.distribution.forwarding.PolicyForwardingException;
 import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParameters;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PluginInitializationException;
@@ -61,8 +65,8 @@ class AbstractReceptionHandlerTest {
     private static final String DECODER_CONFIGURATION_PARAMETERS = "DummyDecoderConfiguration";
 
     @Test
-    void testInputReceived() throws PolicyDecodingException, NoSuchFieldException, SecurityException,
-            IllegalArgumentException, IllegalAccessException, PluginInitializationException {
+    void testInputReceived() throws PolicyDecodingException, PolicyForwardingException, NoSuchFieldException,
+            SecurityException, IllegalArgumentException, IllegalAccessException, PluginInitializationException {
         final var handler = new DummyReceptionHandler();
 
         final var generatedPolicy1 = new DummyPolicy1();
@@ -118,6 +122,74 @@ class AbstractReceptionHandlerTest {
 
         var policyInput = new DummyPolicyInput();
         assertThrows(PolicyDecodingException.class, () -> handler.inputReceived(policyInput));
+    }
+
+    @Test
+    void testInputReceivedForwardingFailure() throws NoSuchFieldException, SecurityException,
+            IllegalArgumentException, IllegalAccessException, PluginInitializationException {
+        final var handler = new DummyReceptionHandler();
+
+        final var policyDecoder = new DummyDecoder(true, Collections.singletonList(new DummyPolicy1()));
+        final var failure = new PolicyForwardingException("forwarding failed");
+        final var policyForwarder = new DummyPolicyForwarder();
+        setUpPlugins(handler, Collections.singleton(policyDecoder),
+                List.of(failingForwarder(failure), policyForwarder));
+
+        var policyInput = new DummyPolicyInput();
+        assertSame(failure, assertThrows(PolicyForwardingException.class, () -> handler.inputReceived(policyInput)));
+        assertEquals(1, policyForwarder.getNumberOfPoliciesReceived());
+    }
+
+    @Test
+    void testInputReceivedSeveralForwardingFailures() throws NoSuchFieldException, SecurityException,
+            IllegalArgumentException, IllegalAccessException, PluginInitializationException {
+        final var handler = new DummyReceptionHandler();
+
+        final var policyDecoder = new DummyDecoder(true, Collections.singletonList(new DummyPolicy1()));
+        final var firstFailure = new PolicyForwardingException("first forwarding failed");
+        final var secondFailure = new PolicyForwardingException("second forwarding failed");
+        final var policyForwarder = new DummyPolicyForwarder();
+        setUpPlugins(handler, Collections.singleton(policyDecoder),
+                List.of(failingForwarder(firstFailure), policyForwarder, failingForwarder(secondFailure)));
+
+        var policyInput = new DummyPolicyInput();
+        final var thrown = assertThrows(PolicyForwardingException.class, () -> handler.inputReceived(policyInput));
+        assertSame(firstFailure, thrown);
+        assertArrayEquals(new Throwable[] {secondFailure}, thrown.getSuppressed());
+        assertEquals(1, policyForwarder.getNumberOfPoliciesReceived());
+    }
+
+    private static PolicyForwarder failingForwarder(final PolicyForwardingException failure) {
+        return new PolicyForwarder() {
+            @Override
+            public void forward(final Collection<ToscaEntity> policies) throws PolicyForwardingException {
+                throw failure;
+            }
+
+            @Override
+            public void configure(final String parameterGroupName) {
+                // nothing to configure
+            }
+        };
+    }
+
+    @Test
+    void testInputReceivedDecodingFailure() throws NoSuchFieldException, SecurityException,
+            IllegalArgumentException, IllegalAccessException, PluginInitializationException {
+        final var handler = new DummyReceptionHandler();
+
+        final PolicyDecoder<PolicyInput, ToscaEntity> failingDecoder = new DummyDecoder(true, List.of()) {
+            @Override
+            public Collection<ToscaEntity> decode(final PolicyInput input) throws PolicyDecodingException {
+                throw new PolicyDecodingException("Failed decoding the policy");
+            }
+        };
+        final var policyForwarder = new DummyPolicyForwarder();
+        setUpPlugins(handler, Collections.singleton(failingDecoder), Collections.singleton(policyForwarder));
+
+        var policyInput = new DummyPolicyInput();
+        assertThrows(PolicyDecodingException.class, () -> handler.inputReceived(policyInput));
+        assertEquals(0, policyForwarder.getNumberOfPoliciesReceived());
     }
 
     static class DummyPolicyInput implements PolicyInput {
