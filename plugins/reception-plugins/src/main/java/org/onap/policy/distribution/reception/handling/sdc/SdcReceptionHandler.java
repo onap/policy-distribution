@@ -37,6 +37,7 @@ import org.onap.policy.distribution.reception.handling.AbstractReceptionHandler;
 import org.onap.policy.distribution.reception.handling.sdc.SdcClientHandler.SdcClientOperationType;
 import org.onap.policy.distribution.reception.handling.sdc.exceptions.ArtifactDownloadException;
 import org.onap.policy.distribution.reception.statistics.DistributionStatisticsManager;
+import org.onap.policy.distribution.tracing.DistributionTracing;
 import org.onap.sdc.api.IDistributionClient;
 import org.onap.sdc.api.consumer.IComponentDoneStatusMessage;
 import org.onap.sdc.api.consumer.IDistributionStatusMessage;
@@ -44,6 +45,7 @@ import org.onap.sdc.api.consumer.INotificationCallback;
 import org.onap.sdc.api.notification.DistributionStatusEnum;
 import org.onap.sdc.api.notification.IArtifactInfo;
 import org.onap.sdc.api.notification.INotificationData;
+import org.onap.sdc.api.notification.NotificationMessageContext;
 import org.onap.sdc.api.results.DistributionActionResultEnum;
 import org.onap.sdc.api.results.IDistributionClientDownloadResult;
 import org.onap.sdc.api.results.IDistributionClientResult;
@@ -90,11 +92,22 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
 
     @Override
     public void activateCallback(final INotificationData notificationData) {
-        LOGGER.debug("Receieved the notification from SDC with ID: {}", notificationData.getDistributionID());
-        changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.BUSY);
-        processCsarServiceArtifacts(notificationData);
-        changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.IDLE);
-        LOGGER.debug("Processed the notification from SDC with ID: {}", notificationData.getDistributionID());
+        var context = Optional.ofNullable(notificationData.getMessageContext())
+            .orElse(NotificationMessageContext.EMPTY);
+        try (var trace = DistributionTracing.consumer(context.getHeaders(), context.getTopic(),
+            context.getPartition(), context.getOffset())) {
+            LOGGER.debug("Received the notification from SDC with ID: {}", notificationData.getDistributionID());
+            changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.BUSY);
+            try {
+                processCsarServiceArtifacts(notificationData);
+            } catch (RuntimeException exp) {
+                DistributionTracing.error(exp);
+                throw exp;
+            } finally {
+                changeSdcReceptionHandlerStatus(SdcReceptionHandlerStatus.IDLE);
+            }
+            LOGGER.debug("Processed the notification from SDC with ID: {}", notificationData.getDistributionID());
+        }
     }
 
     /**
@@ -206,6 +219,7 @@ public class SdcReceptionHandler extends AbstractReceptionHandler implements INo
             } catch (final ArtifactDownloadException | PolicyDecodingException exp) {
                 LOGGER.error("Failed to process csar service artifacts ", exp);
                 artifactsProcessedSuccessfully = false;
+                DistributionTracing.error(exp);
                 sendDistributionStatus(DistributionStatusType.DEPLOY, artifact.getArtifactURL(),
                     notificationData.getDistributionID(), DistributionStatusEnum.DEPLOY_ERROR,
                     "Failed to deploy the artifact due to: " + exp.getMessage());

@@ -32,6 +32,7 @@ import org.onap.policy.distribution.reception.decoding.PluginInitializationExcep
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
 import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
+import org.onap.policy.distribution.tracing.DistributionTracing;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,6 +85,7 @@ public abstract class AbstractReceptionHandler implements ReceptionHandler {
                 policies.addAll(policyDecoder.decode(policyInput));
             }
         } catch (PolicyDecodingException decodingException) {
+            DistributionTracing.error(decodingException);
             if (decodingException.getMessage().contains("No decoder")) {
                 throw decodingException;
             } else {
@@ -96,6 +98,7 @@ public abstract class AbstractReceptionHandler implements ReceptionHandler {
                 LOGGER.debug("Trying to forward policy to {}", policyForwarder.getClass());
                 policyForwarder.forward(policies);
             } catch (final PolicyForwardingException policyForwardingException) {
+                DistributionTracing.error(policyForwardingException);
                 LOGGER.error("Error when forwarding policies to {}", policyForwarder, policyForwardingException);
             }
         }

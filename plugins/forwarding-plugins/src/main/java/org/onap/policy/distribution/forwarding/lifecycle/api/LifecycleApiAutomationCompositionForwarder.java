@@ -34,6 +34,7 @@ import org.onap.policy.common.endpoints.http.client.HttpClientFactoryInstance;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
+import org.onap.policy.distribution.tracing.DistributionTracing;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaServiceTemplate;
 import org.slf4j.Logger;
@@ -105,8 +106,8 @@ public class LifecycleApiAutomationCompositionForwarder implements PolicyForward
     private void invokeHttpClient(final Entity<?> entity) throws PolicyForwardingException {
         var response = automationCompositionClient.post(
             LifecycleApiAutomationCompositionForwarder.COMMISSION_AUTOMATION_COMPOSITION_URI, entity,
-            Map.of(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON, HttpHeaders.CONTENT_TYPE,
-                MediaType.APPLICATION_JSON));
+            DistributionTracing.headers(Map.of(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON,
+                HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)));
         if (response.getStatus() / 100 != 2) {
             LOGGER.error("Invocation of path {} failed for entity {}. Response status: {}, Response status info: {}",
                 LifecycleApiAutomationCompositionForwarder.COMMISSION_AUTOMATION_COMPOSITION_URI,

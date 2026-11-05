@@ -29,6 +29,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
+import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.SpanKind;
+import io.opentelemetry.api.trace.StatusCode;
+import io.opentelemetry.sdk.OpenTelemetrySdk;
+import io.opentelemetry.sdk.testing.exporter.InMemorySpanExporter;
+import io.opentelemetry.sdk.trace.SdkTracerProvider;
+import io.opentelemetry.sdk.trace.export.SimpleSpanProcessor;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -47,6 +55,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import org.apache.kafka.clients.admin.Admin;
 import org.apache.kafka.clients.admin.AdminClientConfig;
@@ -68,6 +77,7 @@ import org.onap.policy.distribution.forwarding.parameters.PolicyForwarderParamet
 import org.onap.policy.distribution.model.Csar;
 import org.onap.policy.distribution.model.PolicyInput;
 import org.onap.policy.distribution.reception.decoding.PolicyDecoder;
+import org.onap.policy.distribution.reception.decoding.PolicyDecodingException;
 import org.onap.policy.distribution.reception.parameters.PluginHandlerParameters;
 import org.onap.policy.distribution.reception.parameters.PolicyDecoderParameters;
 import org.onap.policy.distribution.reception.parameters.ReceptionHandlerParameters;
@@ -101,6 +111,8 @@ class SdcDistributionEndToEndTest {
     private final AtomicReference<IDistributionClientResult> stopResult = new AtomicReference<>();
     private final String distributionId = UUID.randomUUID().toString();
 
+    private final InMemorySpanExporter exporter = InMemorySpanExporter.create();
+    private SdkTracerProvider tracerProvider;
     private byte[] csar;
     private HttpServer sdcStub;
     private SdcReceptionHandlerConfigurationParameterGroup sdcParameters;
@@ -126,8 +138,12 @@ class SdcDistributionEndToEndTest {
      */
     @BeforeEach
     void setUp() throws IOException {
+        GlobalOpenTelemetry.resetForTest();
+        tracerProvider = SdkTracerProvider.builder().addSpanProcessor(SimpleSpanProcessor.create(exporter)).build();
+        GlobalOpenTelemetry.set(OpenTelemetrySdk.builder().setTracerProvider(tracerProvider).build());
         DistributionStatisticsManager.resetAllStatistics();
         RecordingDecoder.DECODED_CSARS.clear();
+        RecordingDecoder.FAIL_NEXT.set(false);
         csar = Files.readAllBytes(Path.of("src/test/resources", ARTIFACT_NAME));
 
         sdcStub = HttpServer.create(new InetSocketAddress("localhost", 0), 0);
@@ -170,6 +186,8 @@ class SdcDistributionEndToEndTest {
 
     @AfterEach
     void tearDown() {
+        tracerProvider.close();
+        GlobalOpenTelemetry.resetForTest();
         statusConsumer.close();
         ParameterService.deregister(receptionParameters);
         ParameterService.deregister(pluginParameters);
@@ -183,7 +201,8 @@ class SdcDistributionEndToEndTest {
         handler.initialize(receptionParameters.getName());
 
         await().atMost(TIMEOUT).until(this::notificationConsumerHasCommittedPosition);
-        publishNotification();
+        publishNotification(distributionId, Map.of("traceparent",
+            "00-11111111111111111111111111111111-2222222222222222-01"));
 
         await().atMost(TIMEOUT).pollInSameThread().untilAsserted(() -> {
             statusConsumer.poll(Duration.ofMillis(200))
@@ -191,6 +210,12 @@ class SdcDistributionEndToEndTest {
             assertThat(statusesOfThisDistribution()).contains("COMPONENT_DONE_OK");
         });
 
+        await().atMost(TIMEOUT).untilAsserted(() -> assertThat(exporter.getFinishedSpanItems().stream()
+            .filter(span -> span.getKind() == SpanKind.CONSUMER).toList()).singleElement().satisfies(span -> {
+                assertThat(span.getKind()).isEqualTo(SpanKind.CONSUMER);
+                assertThat(span.getTraceId()).isEqualTo("11111111111111111111111111111111");
+                assertThat(span.getParentSpanId()).isEqualTo("2222222222222222");
+            }));
         assertThat(statusesOfThisDistribution())
             .containsSubsequence("NOTIFIED", "DOWNLOAD_OK", "DEPLOY_OK", "COMPONENT_DONE_OK");
         assertThat(statusMessages).allSatisfy(
@@ -206,6 +231,40 @@ class SdcDistributionEndToEndTest {
         await().atMost(TIMEOUT).untilAsserted(() -> assertThat(stopResult.get()).isNotNull());
         assertThat(stopResult.get().getDistributionActionResult()).hasToString("SUCCESS");
         await().atMost(TIMEOUT).until(this::notificationConsumerHasLeftGroup);
+    }
+
+    @Test
+    void isolatesEachRecordContextThroughRealClientDispatch() throws Exception {
+        final var handler = new EmbeddedKafkaSdcReceptionHandler();
+        handler.initialize(receptionParameters.getName());
+        try {
+            await().atMost(TIMEOUT).until(this::notificationConsumerHasCommittedPosition);
+            RecordingDecoder.FAIL_NEXT.set(true);
+            publishNotification("first", Map.of("traceparent",
+                "00-11111111111111111111111111111111-2222222222222222-01"));
+            publishNotification("second", Map.of("traceparent",
+                "00-33333333333333333333333333333333-4444444444444444-01"));
+            publishNotification("headerless", Map.of());
+            publishNotification("invalid", Map.of("traceparent", "invalid"));
+            await().atMost(TIMEOUT).untilAsserted(() -> assertThat(exporter.getFinishedSpanItems().stream()
+                .filter(span -> span.getKind() == SpanKind.CONSUMER).toList()).hasSize(4));
+            var consumers = exporter.getFinishedSpanItems().stream()
+                .filter(span -> span.getKind() == SpanKind.CONSUMER).toList();
+            assertThat(consumers.get(0).getTraceId()).isEqualTo("11111111111111111111111111111111");
+            assertThat(consumers.get(1).getTraceId()).isEqualTo("33333333333333333333333333333333");
+            assertThat(consumers.subList(2, 4)).allSatisfy(span ->
+                assertThat(span.getParentSpanContext().isValid()).isFalse());
+            assertThat(consumers).extracting(span -> span.getTraceId()).doesNotHaveDuplicates();
+            assertThat(consumers.getFirst().getStatus().getStatusCode()).isEqualTo(StatusCode.ERROR);
+            assertThat(consumers.subList(1, 4)).allSatisfy(span ->
+                assertThat(span.getStatus().getStatusCode()).isNotEqualTo(StatusCode.ERROR));
+            assertThat(RecordingDecoder.DECODED_CSARS).hasSize(3);
+            assertThat(DistributionStatisticsManager.getDistributionSuccessCount()).isEqualTo(3);
+            assertThat(DistributionStatisticsManager.getDistributionFailureCount()).isEqualTo(1);
+        } finally {
+            handler.destroy();
+            await().atMost(TIMEOUT).until(this::notificationConsumerHasLeftGroup);
+        }
     }
 
     /**
@@ -226,7 +285,8 @@ class SdcDistributionEndToEndTest {
         }
     }
 
-    private void publishNotification() throws ExecutionException, InterruptedException, NoSuchAlgorithmException {
+    private void publishNotification(String id, Map<String, String> headers)
+        throws ExecutionException, InterruptedException, NoSuchAlgorithmException {
         final var artifact = new JsonObject();
         artifact.addProperty("artifactName", ARTIFACT_NAME);
         artifact.addProperty("artifactType", "TOSCA_CSAR");
@@ -241,7 +301,7 @@ class SdcDistributionEndToEndTest {
         serviceArtifacts.add(artifact);
 
         final var notification = new JsonObject();
-        notification.addProperty("distributionID", distributionId);
+        notification.addProperty("distributionID", id);
         notification.addProperty("serviceName", "Sampleservice");
         notification.addProperty("serviceVersion", "1.0");
         notification.addProperty("serviceUUID", UUID.randomUUID().toString());
@@ -254,7 +314,9 @@ class SdcDistributionEndToEndTest {
         try (var producer = new KafkaProducer<>(
             Map.<String, Object>of(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka.getBrokersAsString()),
             new StringSerializer(), new StringSerializer())) {
-            producer.send(new ProducerRecord<>(NOTIFICATION_TOPIC, notification.toString())).get();
+            var record = new ProducerRecord<String, String>(NOTIFICATION_TOPIC, notification.toString());
+            headers.forEach((key, value) -> record.headers().add(key, value.getBytes(StandardCharsets.UTF_8)));
+            producer.send(record).get();
         }
     }
 
@@ -287,7 +349,15 @@ class SdcDistributionEndToEndTest {
                 public synchronized IDistributionClientResult init(final IConfiguration conf,
                     final INotificationCallback callback) {
                     return super.init(new EmbeddedKafkaSdcConfiguration(sdcParameters,
-                        "localhost:" + sdcStub.getAddress().getPort()), callback);
+                        "localhost:" + sdcStub.getAddress().getPort()), notification -> {
+                            var ambient = GlobalOpenTelemetry.get().getTracer("test").spanBuilder("poller").startSpan();
+                            try (var scope = ambient.makeCurrent()) {
+                                callback.activateCallback(notification);
+                                assertThat(Span.current()).isEqualTo(ambient);
+                            } finally {
+                                ambient.end();
+                            }
+                        });
                 }
 
                 @Override
@@ -336,6 +406,7 @@ class SdcDistributionEndToEndTest {
      */
     public static class RecordingDecoder implements PolicyDecoder<Csar, DummyPolicy> {
 
+        static final AtomicBoolean FAIL_NEXT = new AtomicBoolean();
         static final List<byte[]> DECODED_CSARS = new CopyOnWriteArrayList<>();
 
         @Override
@@ -344,7 +415,10 @@ class SdcDistributionEndToEndTest {
         }
 
         @Override
-        public Collection<DummyPolicy> decode(final Csar input) {
+        public Collection<DummyPolicy> decode(final Csar input) throws PolicyDecodingException {
+            if (FAIL_NEXT.getAndSet(false)) {
+                throw new PolicyDecodingException("No decoder for this artifact");
+            }
             try {
                 DECODED_CSARS.add(Files.readAllBytes(Path.of(input.getCsarFilePath())));
             } catch (final IOException exp) {

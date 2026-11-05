@@ -37,6 +37,7 @@ import org.onap.policy.common.endpoints.http.client.HttpClientFactoryInstance;
 import org.onap.policy.common.parameters.ParameterService;
 import org.onap.policy.distribution.forwarding.PolicyForwarder;
 import org.onap.policy.distribution.forwarding.PolicyForwardingException;
+import org.onap.policy.distribution.tracing.DistributionTracing;
 import org.onap.policy.models.pap.concepts.PdpDeployPolicies;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaConceptIdentifierOptVersion;
 import org.onap.policy.models.tosca.authorative.concepts.ToscaEntity;
@@ -144,8 +145,8 @@ public class LifecycleApiPolicyForwarder implements PolicyForwarder {
 
     private Response invokeHttpClient(final Entity<?> entity, final String path, final boolean wantApi)
             throws PolicyForwardingException {
-        var response = getHttpClient(wantApi).post(path, entity, Map.of(HttpHeaders.ACCEPT,
-                        MediaType.APPLICATION_JSON, HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON));
+        var response = getHttpClient(wantApi).post(path, entity, DistributionTracing.headers(Map.of(
+            HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON, HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)));
         if (response.getStatus() / 100 != 2) {
             LOGGER.error(
                     "Invocation of path {} failed for entity {}. Response status: {}, Response status info: {}",

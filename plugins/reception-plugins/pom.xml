@@ -36,6 +36,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-sdk-testing</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.onap.policy.distribution</groupId>
             <artifactId>reception</artifactId>
             <version>${project.version}</version>

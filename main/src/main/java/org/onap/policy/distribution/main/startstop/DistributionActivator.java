@@ -64,6 +64,7 @@ public class DistributionActivator {
     private static boolean alive = false;
 
     private RestServer restServer;
+    private final DistributionTelemetry telemetry = new DistributionTelemetry();
 
     /**
      * Instantiate the activator for policy distribution as a complete service.
@@ -79,8 +80,18 @@ public class DistributionActivator {
      *
      * @throws PolicyDistributionException on errors in initializing the service
      */
-    @SuppressWarnings("unchecked")
     public void initialize() throws PolicyDistributionException {
+        telemetry.start();
+        try {
+            initializeService();
+        } catch (PolicyDistributionException | RuntimeException exp) {
+            telemetry.close();
+            throw exp;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void initializeService() throws PolicyDistributionException {
         LOGGER.debug("Policy distribution starting as a service . . .");
         startDistributionRestServer();
         registerToParameterService(distributionParameterGroup);
@@ -136,6 +147,8 @@ public class DistributionActivator {
             restServer.stop();
         } catch (final Exception exp) {
             throw new PolicyDistributionException(exp.getMessage(), exp);
+        } finally {
+            telemetry.close();
         }
     }
 

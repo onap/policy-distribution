@@ -47,6 +47,8 @@
         <!-- Default Sonar configuration -->
         <jacoco.dataFile>${project.basedir}/../target/code-coverage/jacoco-ut.exec</jacoco.dataFile>
 
+        <version.onap.sdc-distribution-client>2.4.0</version.onap.sdc-distribution-client>
+        <opentelemetry.version>1.62.0</opentelemetry.version>
         <policy.common.version>4.1.0-SNAPSHOT</policy.common.version>
         <policy.models.version>5.1.0-SNAPSHOT</policy.models.version>
         <surefireArgLine>
@@ -63,6 +65,18 @@
         <module>packages</module>
         <module>testsuites</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.opentelemetry</groupId>
+                <artifactId>opentelemetry-bom</artifactId>
+                <version>${opentelemetry.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
